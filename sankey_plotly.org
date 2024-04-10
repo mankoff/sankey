@@ -1,0 +1,85 @@
+
+#+BEGIN_SRC jupyter-python :exports both
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+
+df = pd.DataFrame(columns=['value','source','target'])
+df.index.name = 'label'
+
+
+df.loc['SMB:in'] = [400, 'SMB in', 'SMB gain']
+
+df.loc['rain:freeze'] = [40, 'rain', 'SMB in']  # Alexander 2019
+df.loc['snow:fall'] = [750, 'snow fall', 'SMB in'] # fudge from A2019
+df.loc['condensation'] = [10, 'condensation', 'SMB in']
+# df.loc['drifting_out'] = [100, 'SMB in', 'drift']
+# df.loc['drifting_in'] = [100, 'drift', 'SMB in']
+
+df.loc['refreeze1'] = [250, 'refreeze','SMB in']
+df.loc['Melt'] = [650, 'SMB in', 'Melt']
+df.loc['refreeze'] = [250, 'Melt','refreeze']
+df.loc['SMB:out'] = [400, 'Melt', 'runoff']
+
+df.loc['MB:in'] = [400, 'SMB gain', 'MB']
+df.loc['MB:D'] = [500, 'MB', 'dynamics']
+df.loc['MB:BMB'] = [25, 'MB', 'basal melt']
+
+df.loc['liquid_1'] = [25, 'basal melt', 'liquid']
+df.loc['liquid_2'] = [25, 'rain', 'runoff']
+df.loc['liquid_3'] = [425, 'runoff', 'liquid']
+df.loc['liquid_4'] = [250, 'dynamics', 'liquid']
+df.loc['iceberg'] = [250, 'dynamics', 'iceberg']
+
+
+df.loc['DEFICIT'] = [125, 'DEFICIT', 'MB']
+    
+# QC Check
+for s in df['source'].unique():
+    if s in df['target'].unique():
+        sv = df[df['source'] == s]['value'].sum()
+        tv = df[df['target'] == s]['value'].sum()
+        if( sv != tv ):
+            print(f"Error: {s} inputs != outputs [{sv} != {tv}]")
+
+            
+# # Add numeric values in parentheses
+for t in np.unique(df['source'].values.astype(str)):
+    v = (df[df["source"] == t]["value"].sum()).round().astype(int).astype(str)
+    df = df.replace(to_replace=t, value=f'{t} ({v})')
+
+for t in np.unique(df['target'].values.astype(str)):
+    if t[-1] == ')': continue
+    v = (df[df["target"] == t]["value"].sum()).round().astype(int).astype(str)
+    df = df.replace(to_replace=t, value=f'{t} ({v})')
+
+# print(df)
+
+## Plotly
+# uniqify columns: Convert strings to numbers. Sequential. Across columns
+keys = np.unique(df[['source','target']].values.flatten().astype(str))
+df = df.replace(to_replace=keys, value=np.arange(len(keys)))
+
+fig = go.Figure(go.Sankey(
+    arrangement = "snap",
+    node = {
+        "label": keys,
+        'color': "#666666",
+        'pad':10},  # 10 Pixels
+    link = {
+        "source": df['source'].values,
+        "target": df['target'].values,
+        # "color": "#DDDDDD",
+        "value": df['value'].values}))
+
+# fig.show()
+fig.write_image("plotly.png")
+# interactive HTML: drag to re-arrange and clean up, then screenshot.
+fig.write_html("plotly.html")
+#+END_SRC
+
+#+RESULTS:
+
+
+[[./plotly.png]]
