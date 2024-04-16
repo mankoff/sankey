@@ -91,7 +91,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
         font=\ttfamily,
         text=debug color,text opacity=1,
         inner sep=.1em,
-        fill=white,fill opacity=1,
+        fill=white,fill opacity=0.5,
         rounded corners=.1em,
         node contents={\name (\qty)},
       },
@@ -154,25 +154,40 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
       \Q{MELT}/GROSS-to-MELT}
 
     
+    %% BM
     \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
     \sankeynode{name=DYN, quantity=\Q{DYN-FRET}, at={[xshift=-6mm, yshift=-1.5cm]BM.right}, anchor=left}
-    \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=1.5cm]DYN.right}, anchor=left}
+    \sankeynode{name=MELT-with-RF, quantity=\Q{MELT}+\Q{RF-LIQ}+\Q{RF},
+      at={[xshift=-3mm, yshift=1.5cm]DYN.right}, anchor=left,
+      forked={\Q{MELT}/MELT-wo-RF, \Q{RF}+\Q{RF-LIQ}/RF-in}}
 
-    %% BM
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
     \sankeyadvance[water]{BM}{3cm}
     \sankeyadvance[water]{BM}{3cm}
     \sankeyend[water]{BM}
 
-    %% %% MELT
-    \sankeydubins[ice-to-water]{GROSS-to-MELT}{MELT}
-    \sankeyfork{MELT}{\Q{RU}/RU-from-MELT, \Q{RFZ}/RFZ-from-MELT}
-    \sankeyadvance[water]{RU-from-MELT}{2cm}
-    \sankeynode{name=RU-GROSS, quantity=\Q{RU}+\Q{RF-LIQ}, at={RU-from-MELT.left}, anchor=left,
-      forked={\Q{RU}/other, \Q{RF-LIQ}/RF-LIQ-to-RF-NET}}
-    \sankeyadvance[water]{RU-GROSS}{2cm}
-    \sankeyfork{RU-GROSS}{\Q{RU}+\Q{RF-LIQ}-\Q{EV}/RU-NET, \Q{EV}/EVAP}
-    \sankeyadvance[water]{RU-NET}{2cm}
+    %% DYN
+    \sankeydubins{GROSS-to-DYN-FRET}{DYN}
+    \sankeyfork{DYN}{\Q{ICE}/ICE-from-DYN, \Q{SUB}/SUB}
+    \sankeyadvance[ice-to-water]{SUB}{4.5cm}
+    \sankeyend[water]{SUB}
+    \sankeynode{name=ICE, quantity=\Q{ICE}, at={[xshift=3mm]SUB.left}, anchor=right}
+    \sankeydubins{ICE-from-DYN}{ICE}
+    \sankeyend{ICE}
+
+    %% SU
+    \sankeynode{name=SU-out, quantity=\Q{SU},
+      at={[xshift=10mm, yshift=-10mm]GROSS-to-SU.center}, anchor=center, angle=0}
+    \sankeydubins[ice-to-air]{GROSS-to-SU}{SU-out}
+    \sankeyend[air]{SU-out}
+
+    %% MELT
+    \sankeydubins[ice-to-water]{GROSS-to-MELT}{MELT-wo-RF}
+    \sankeyadvance[water]{MELT-with-RF}{2cm}
+    \sankeyfork{MELT-with-RF}{\Q{RU}+\Q{RF-LIQ}+\Q{RF}/RU-GROSS, \Q{RFZ}/RFZ-from-MELT}
+    \sankeyadvance[water]{RU-GROSS}{1.5cm}
+    \sankeyfork{RU-GROSS}{\Q{RU}+\Q{RF-LIQ}+\Q{RF}-\Q{EV}/RU-NET, \Q{EV}/EVAP}
+    \sankeyadvance[water]{RU-NET}{2.5cm}
     \sankeyend[water]{RU-NET}
     
     %% RFZ
@@ -184,25 +199,10 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeydubins[ice-to-water]{RFZ-waypoint0}{RFZ-waypoint1}
     \sankeydubins[ice]{RFZ-waypoint1}{GROSS-from-RFZ}
 
-    %% DYN
-    \sankeydubins{GROSS-to-DYN-FRET}{DYN}
-    \sankeyfork{DYN}{\Q{ICE}/ICE-from-DYN, \Q{SUB}/SUB}
-    \sankeyadvance[ice-to-water]{SUB}{4.5cm}
-    \sankeyend[water]{SUB}
-    \sankeynode{name=ICE, quantity=\Q{ICE}, at={[xshift=3mm]SUB.left}, anchor=right}
-    \sankeydubins{ICE-from-DYN}{ICE}
-    \sankeyend{ICE}
-
     %% EV
     \sankeynode{name=EV-out, quantity=\Q{EV}, at={[xshift=-10mm, yshift=-10mm]EVAP.center}, anchor=center, angle=180}
     \sankeydubins[water-to-air]{EVAP}{EV-out}
     \sankeyend[air]{EV-out}
-
-    %% SU
-    \sankeynode{name=SU-out, quantity=\Q{SU},
-      at={[xshift=10mm, yshift=-10mm]GROSS-to-SU.center}, anchor=center, angle=0}
-    \sankeydubins[ice-to-air]{GROSS-to-SU}{SU-out}
-    \sankeyend[air]{SU-out}
     
     %%% INPUTS
 
@@ -217,12 +217,9 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeydubins[air-to-ice]{DP}{GROSS-from-DP}
     \sankeydubins{CD}{GROSS-from-CD}
     \sankeyfork{RF-NET}{\Q{RF}/RFZ-from-RF-NET, \Q{RF-LIQ}/RF-LIQ-from-RF-NET}
-    \sankeydubins[water-to-ice]{RFZ-from-RF-NET}{GROSS-from-RF}
-    \sankeynode{name=RF-wpt1, quantity=\Q{RF-LIQ}, at={[xshift=-10mm]GROSS-to-MELT.right}, align=right}
-    \sankeynode{name=RF-wpt2, quantity=\Q{RF-LIQ}, at={[xshift=-10mm]RFZ-from-MELT.right}, align=right}
-    \sankeydubins[water]{RF-LIQ-from-RF-NET}{RF-wpt1}
-    \sankeydubins[water]{RF-wpt1}{RF-wpt2}
-    \sankeydubins[water]{RF-wpt2}{RF-LIQ-to-RF-NET}
+    \sankeynode{name=RF-wpt1, quantity=\Q{RF}+\Q{RF-LIQ}, at={[xshift=-10mm]GROSS-to-MELT.right}, align=right}
+    \sankeydubins[water]{RF-NET}{RF-wpt1}
+    \sankeydubins[water]{RF-wpt1}{RF-in}
     
     \sankeystart[air]{DP}
     \sankeystart{SF}
@@ -246,7 +243,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeyend{DRIFT-IN}
     \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (\Q{DR})};
     
-    \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
+    \node[anchor=south east, align=center, shift=({2mm,-15mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
 
@@ -258,11 +255,11 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=center, align=center, shift=({0mm,1cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
 
-    \node[anchor=center, align=center, shift=({0mm,1cm})] at (RU-from-MELT.center) {Melt runoff\\(\sankeygetnodeqty{RU-from-MELT})};
+    \node[anchor=center, align=center, shift=({0mm,0.5cm})] at (RU-GROSS.center) {Surface\\water\\(\sankeygetnodeqty{RU-GROSS})};
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
 
-    \node[anchor=center, align=center, shift=({-2.5cm,-1.5cm})] at (RFZ-from-MELT.center) {Refreezing\\(\sankeygetnodeqty{RFZ-from-MELT})};
+    \node[anchor=center, align=center, shift=({-2cm,-1.25cm})] at (RFZ-from-MELT.center) {Refreezing (\sankeygetnodeqty{RFZ-from-MELT})};
 
     \node[anchor=center, align=center, shift=({0.25cm,-1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
 
@@ -274,7 +271,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
 
-    \node[anchor=center, align=center, rotate=-90, shift=({0cm,-1cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
+    \node[anchor=center, align=center, rotate=-90, shift=({-15mm,0cm})] at (RF-NET-old.center) {Rainfall (\sankeygetnodeqty{RF-NET})};
     
   \end{sankeydiagram}
 \end{tikzpicture}
