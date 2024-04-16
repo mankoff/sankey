@@ -149,14 +149,14 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     %% GROSS outputs
     \sankeyfork{GROSS}{
       \Q{SU}/GROSS-to-SU,
-      \Q{DYN-FRET}/GROSS-to-DYN-FRET,
       \Q{BM}/GROSS-to-BM,
+      \Q{DYN-FRET}/GROSS-to-DYN-FRET,
       \Q{MELT}/GROSS-to-MELT}
 
     
-    \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=-3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
-    \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=0mm]BM.center}, anchor=left}
-    \sankeynode{name=DYN, quantity=\Q{DYN-FRET}, at={[xshift=4mm, yshift=-1.5cm]BM.center}, anchor=right}
+    \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
+    \sankeynode{name=DYN, quantity=\Q{DYN-FRET}, at={[xshift=-6mm, yshift=-1.5cm]BM.right}, anchor=left}
+    \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=1.5cm]DYN.right}, anchor=left}
 
     %% BM
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
@@ -254,7 +254,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (ICE.center) {Calving\\(\sankeygetnodeqty{ICE})};
 
-    \node[anchor=center, align=left, rotate=-90, shift=({1.5cm, -2mm})] at (BM.center) {Basal\\melting (\sankeygetnodeqty{BM})};
+    \node[anchor=center, align=left, shift=({0.75cm, -1cm})] at (BM.right) {Basal\\melting (\sankeygetnodeqty{BM})};
 
     \node[anchor=center, align=center, shift=({0mm,1cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
 
