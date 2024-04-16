@@ -239,6 +239,21 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeydubins[minimum radius=5mm]{DRIFT-OUT}{DRIFT-IN}
     \sankeystart{DRIFT-OUT}
     \sankeyend{DRIFT-IN}
+
+
+    %% LEGEND
+    \sankeynode[air]{name=LEG-AIR, quantity=30, at={[yshift=35mm]SF.top}}
+    \sankeyadvance[air]{LEG-AIR}{4mm}
+    \node[align=right, shift=({5mm,2mm})] at (LEG-AIR) {Air};
+    \sankeynode[ice]{name=LEG-ICE, quantity=30, at={[yshift=-1mm]LEG-AIR.bottom}}
+    \sankeyadvance[ice]{LEG-ICE}{4mm}
+    \node[align=right, shift=({5mm,2mm})] at (LEG-ICE) {Ice};
+    \sankeynode[water]{name=LEG-H2O, quantity=30, at={[yshift=-1mm]LEG-ICE.bottom}}
+    \sankeyadvance[water]{LEG-H2O}{4mm}
+    \node[align=left, shift=({7mm,2mm})] at (LEG-H2O) {Water};
+
+
+    
     \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (\Q{DR})};
     
     \node[anchor=south east, align=center, shift=({2mm,-15mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
