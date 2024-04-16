@@ -13,23 +13,23 @@ Sankey diagram for Greenland and Antarctica. Uses Emacs Org-Mode, Org Babel, tan
 ** Greenland
 
 #+NAME: greenland_mass
-| Label  | Description           | Value | Reference         |
-|--------+-----------------------+-------+-------------------|
-| DR     | Drift                 |   200 |                   |
-| RFZ    | Refreeze (after melt) |   100 | [[citet:reijmer_2012][Reijmer (2012)]]    |
-| SF     | Snowfall              |   800 |                   |
-| RF     | Rainfall              |    30 |                   |
-| RF-LIQ | Rainfall runoff       |    50 |                   |
-| CD     | Condensation          |    30 |                   |
-| DP     | Deposition            |    20 |                   |
-| FRET   | Frontal retreat       |    50 | [[citet:kochtitzky_2023][Kochtitzky (2023)]] |
-| SU     | Sublimation           | 24+16 | [[citet:lenaerts_2012][Lenaerts (2012)]]   |
-| RU     | Runoff                |   500 |                   |
-| DYN    | Dynamics              |   500 | [[citet:mankoff_2020_solid][Mankoff (2020)]]    |
-| ICE    | Icebergs              |   250 | [[citet:enderlin_2013][Enderlin (2013)]]   |
-| SUB    | Submarine\\melt       |   250 | [[citet:enderlin_2013][Enderlin (2013)]]   |
-| EV     | Evaporation           |    35 |                   |
-| BM     | Basal melt            |    25 | [[citet:karlsson_2021][Karlsson (2021)]]   |
+| Label  | Description           |    Value | Reference                  |
+|--------+-----------------------+----------+----------------------------|
+| DR     | Drift                 |      200 |                            |
+| RFZ    | Refreeze (after melt) |      100 | [[citet:reijmer_2012][Reijmer (2012)]]             |
+| SF     | Snowfall              |      800 |                            |
+| RF     | Rainfall              |       30 |                            |
+| RF-LIQ | Rainfall runoff       |       50 |                            |
+| CD     | Condensation          |       30 |                            |
+| DP     | Deposition            |       20 |                            |
+| FRET   | Frontal retreat       |       50 | [[citet:kochtitzky_2023][Kochtitzky (2023)]]          |
+| SU     | Sublimation           |    24+16 | [[citet:lenaerts_2012][Lenaerts (2012)]]            |
+| RU     | Runoff                |      500 |                            |
+| DYN    | Dynamics              |      500 | [[citet:mankoff_2020_solid][Mankoff (2020)]]             |
+| ICE    | Icebergs              | 250+50/2 | [[citet:enderlin_2013][Enderlin (2013)]] + 1/2 FRET |
+| SUB    | Submarine\\melt       | 250+50/2 | [[citet:enderlin_2013][Enderlin (2013)]] + 1/2 FRET |
+| EV     | Evaporation           |       35 |                            |
+| BM     | Basal melt            |       25 | [[citet:karlsson_2021][Karlsson (2021)]]            |
 
 #+NAME: sankey_values
 #+BEGIN_SRC python :exports none :results output :var tbl=greenland_mass :export t :eval t
@@ -119,11 +119,10 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
       def data/.list={
         <<sankey_values()>>
         {MELT/Surface melt/\Q{RU}+\Q{RFZ}},
-        {ICE-FRET2/ICE and some FRET/\Q{ICE}+0.5*\Q{FRET}},
-        {SUB-FRET2/SUB and some FRET/\Q{SUB}+0.5*\Q{FRET}},
         {GROSS/Gross\\accumulation/\Q{DP}+\Q{RFZ}+\Q{SF}+\Q{RF}+\Q{CD}},
+        {DYN-FRET/Dynamics plus frontal retreat/\Q{DYN}+\Q{FRET}},
         {IL/Ice Loss/
-          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN}-(\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP}))},
+          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN})-(\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP}))},
         {ML/Net mass Loss/\Q{FRET}+\Q{IL}}
       },
     }
@@ -133,31 +132,31 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     %% GROSS inputs
     \sankeynode{
       name=GROSS,
-      quantity=\Q{GROSS}+\Q{IL},
+      quantity=\Q{GROSS}+\Q{IL}+\Q{FRET},
       at={0,0},
       % inputs
       forked={
-        \Q{IL}/GROSS-from-IL,  % Ice loss
-        \Q{SF}/GROSS-from-SF,   % snowfall
-        \Q{DP}/GROSS-from-DP,   % deposition
-        \Q{CD}/GROSS-from-CD,   % condensation
-        \Q{RF}/GROSS-from-RF,   % rainfall
-        \Q{RFZ}/GROSS-from-RFZ  % refrozen melt
+        \Q{FRET}/GROSS-from-FRET,	% frontal retreat
+        \Q{IL}/GROSS-from-IL,		% ice loss
+        \Q{SF}/GROSS-from-SF,		% snowfall
+        \Q{DP}/GROSS-from-DP,		% deposition
+        \Q{CD}/GROSS-from-CD,		% condensation
+        \Q{RF}/GROSS-from-RF,		% rainfall
+        \Q{RFZ}/GROSS-from-RFZ		% refrozen melt
       },
     }
     \sankeyadvance{GROSS}{2cm}
     %% GROSS outputs
     \sankeyfork{GROSS}{
       \Q{SU}/GROSS-to-SU,
-      \Q{DYN}/GROSS-to-DYN,
+      \Q{DYN-FRET}/GROSS-to-DYN-FRET,
       \Q{BM}/GROSS-to-BM,
       \Q{MELT}/GROSS-to-MELT}
 
     
     \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=-3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
     \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=0mm]BM.center}, anchor=left}
-    \sankeynode{name=DYN, quantity=\Q{DYN}, at={[xshift=3mm, yshift=0mm]BM.center}, anchor=right}
-    \sankeynode{name=DYN-FRET, quantity=\Q{DYN}+\Q{FRET}, at={[xshift=3mm, yshift=-3cm]DYN.center}, anchor=center}
+    \sankeynode{name=DYN, quantity=\Q{DYN-FRET}, at={[xshift=4mm, yshift=-1.5cm]BM.center}, anchor=right}
 
     %% BM
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
@@ -186,13 +185,11 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeydubins[ice]{RFZ-waypoint1}{GROSS-from-RFZ}
 
     %% DYN
-    \sankeydubins{GROSS-to-DYN}{DYN}
-    \sankeyoutin{DYN}{DYN-FRET}
-    \sankeynode{name=FRET-DYN, quantity=\Q{FRET}, at={DYN-FRET.center}, anchor=center}
-    \sankeyfork{DYN-FRET}{\Q{ICE-FRET2}/ICE-from-DYN, \Q{SUB-FRET2}/SUB}
-    \sankeyadvance[ice-to-water]{SUB}{3cm}
+    \sankeydubins{GROSS-to-DYN-FRET}{DYN}
+    \sankeyfork{DYN}{\Q{ICE}/ICE-from-DYN, \Q{SUB}/SUB}
+    \sankeyadvance[ice-to-water]{SUB}{4.5cm}
     \sankeyend[water]{SUB}
-    \sankeynode{name=ICE, quantity=\Q{ICE-FRET2}, at={[xshift=3mm, yshift=0mm]SUB.left}, anchor=right}
+    \sankeynode{name=ICE, quantity=\Q{ICE}, at={[xshift=3mm, yshift=mm]SUB.left}, anchor=right}
     \sankeydubins{ICE-from-DYN}{ICE}
     \sankeyend{ICE}
 
@@ -237,12 +234,8 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeyadvance[red-to-ice]{ML}{1cm}
     \sankeyfork{ML}{\Q{FRET}/FRET, \Q{IL}/IL}
     \sankeydubins[minimum radius=2mm]{IL}{GROSS-from-IL}
-    \sankeyadvance{FRET}{2cm}
-    \sankeyturnleft{FRET}{30}
-    \sankeyadvance{FRET}{2cm}
-    \sankeyturnleft{FRET}{-30}
-    \sankeyadvance{FRET}{3cm}
-    \sankeydubins{FRET}{FRET-DYN}
+    \sankeyadvance{FRET}{1cm}
+    \sankeydubins{FRET}{GROSS-from-FRET}
 
 
     %% DRIFT
@@ -263,7 +256,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=center, align=left, rotate=-90, shift=({1.5cm, -2mm})] at (BM.center) {Basal\\melting (\sankeygetnodeqty{BM})};
 
-    \node[anchor=center, align=center, shift=({0mm,0cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
+    \node[anchor=center, align=center, shift=({0mm,1cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
 
     \node[anchor=center, align=center, shift=({0mm,1cm})] at (RU-from-MELT.center) {Melt runoff\\(\sankeygetnodeqty{RU-from-MELT})};
 
@@ -271,7 +264,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=center, align=center, shift=({-2.5cm,-1.5cm})] at (RFZ-from-MELT.center) {Refreezing\\loop (\sankeygetnodeqty{RFZ-from-MELT})};
 
-    \node[anchor=center, align=center, shift=({0cm,-1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
+    \node[anchor=center, align=center, shift=({0.25cm,-1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
 
     \node[anchor=center, align=center, shift=({0cm,2.25cm})] at (ML.center) {Mass loss (\sankeygetnodeqty{ML}) = \\SMB \& Dynamics (\sankeygetnodeqty{IL})\\+ Frontal retreat (\sankeygetnodeqty{FRET})};
 
