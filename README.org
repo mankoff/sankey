@@ -167,12 +167,12 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     %% %% MELT
     \sankeydubins[ice-to-water]{GROSS-to-MELT}{MELT}
     \sankeyfork{MELT}{\Q{RU}/RU-from-MELT, \Q{RFZ}/RFZ-from-MELT}
-    \sankeyadvance[water]{RU-from-MELT}{3cm}
+    \sankeyadvance[water]{RU-from-MELT}{2cm}
     \sankeynode{name=RU-GROSS, quantity=\Q{RU}+\Q{RF-LIQ}, at={RU-from-MELT.left}, anchor=left,
       forked={\Q{RU}/other, \Q{RF-LIQ}/RF-LIQ-to-RF-NET}}
-    \sankeyadvance[water]{RU-GROSS}{1.5cm}
+    \sankeyadvance[water]{RU-GROSS}{2cm}
     \sankeyfork{RU-GROSS}{\Q{RU}+\Q{RF-LIQ}-\Q{EV}/RU-NET, \Q{EV}/EVAP}
-    \sankeyadvance[water]{RU-NET}{1.5cm}
+    \sankeyadvance[water]{RU-NET}{2cm}
     \sankeyend[water]{RU-NET}
     
     %% RFZ
