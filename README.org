@@ -149,15 +149,16 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     %% GROSS outputs
     \sankeyfork{GROSS}{
       \Q{SU}/GROSS-to-SU,
-      \Q{DYN}/GROSS-to-DYN,
       \Q{BM}/GROSS-to-BM,
+      \Q{DYN}/GROSS-to-DYN,
       \Q{MELT}/GROSS-to-MELT}
 
     
-    \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=-3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
-    \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=0mm]BM.center}, anchor=left}
-    \sankeynode{name=DYN, quantity=\Q{DYN}, at={[xshift=3mm, yshift=0mm]BM.center}, anchor=right}
-    \sankeynode{name=DYN-FRET, quantity=\Q{DYN}+\Q{FRET}, at={[xshift=3mm, yshift=-3cm]DYN.center}, anchor=center}
+    \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=8mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
+    \sankeynode{name=DYN, quantity=\Q{DYN}, at={[xshift=-8mm, yshift=0mm]BM.right}, anchor=left}
+    \sankeynode{name=DYN-FRET, quantity=\Q{DYN}+\Q{FRET}, at={[xshift=0mm, yshift=-3cm]DYN.center}, anchor=center}
+    \sankeynode{DYN-FRET-attach-x, quantity=\Q{FRET}, at={[yshift=0.5cm]DYN-FRET}, anchor=center, forked={\Q{FRET}/DYN-FRET-attach}}
+    \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=0mm]DYN.right}, anchor=left}
 
     %% BM
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
@@ -242,7 +243,8 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeyadvance{FRET}{2cm}
     \sankeyturnleft{FRET}{-30}
     \sankeyadvance{FRET}{3cm}
-    \sankeydubins{FRET}{FRET-DYN}
+    %% \sankeydubins{FRET}{FRET-DYN}
+    \sankeydubins{FRET}{DYN-FRET-attach}
 
 
     %% DRIFT
