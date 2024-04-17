@@ -253,7 +253,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
     \sankeydubins[minimum radius=5mm]{DRIFT-OUT}{DRIFT-IN}
     \sankeystart{DRIFT-OUT}
     \sankeyend{DRIFT-IN}
-    \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
+    \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (\Q{DR})};
     
     \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
 
@@ -267,7 +267,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=center, align=center, shift=({0mm,0cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
 
-    \node[anchor=center, align=center, shift=({0mm,1cm})] at (RU-from-MELT.center) {Melt runoff\\(\sankeygetnodeqty{RU-from-MELT})};
+    %% \node[anchor=center, align=center, shift=({0mm,1cm})] at (RU-from-MELT.center) {Melt runoff\\(\sankeygetnodeqty{RU-from-MELT})};
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
 
@@ -283,7 +283,7 @@ convert -density 120 -background white -alpha remove -trim greenland.pdf greenla
 
     \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
 
-    \node[anchor=center, align=center, rotate=-90, shift=({0cm,-1cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
+    \node[anchor=east, align=center, rotate=-90, shift=({-8mm,0mm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
     
   \end{sankeydiagram}
 \end{tikzpicture}
