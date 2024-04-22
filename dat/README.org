@@ -1,0 +1,65 @@
+
+* Table of contents                               :toc_2:noexport:
+- [[#readme][README]]
+  - [[#greenland][Greenland]]
+  - [[#antarctic][Antarctic]]
+
+* README
+
+CSV files must be named either
++ gl_<str>.csv
++ aq_<str>.csv
+
+So that the scripts know if these are Greenlandic or Antarctic values.
+
+** Greenland
+
+Greenlandic CSV files must contain the following:
+
+#+BEGIN_SRC bash :exports results
+cat gl_baseline.csv | cut -d"," -f1,2
+#+END_SRC
+
+#+RESULTS:
+| Label  | Description           |
+| DR     | Drift                 |
+| RFZ    | Refreeze (after melt) |
+| SF     | Snowfall              |
+| RF     | Rainfall              |
+| RF-LIQ | Rainfall runoff       |
+| CD     | Condensation          |
+| DP     | Deposition            |
+| FRET   | Frontal retreat       |
+| SU     | Sublimation           |
+| RU     | Runoff                |
+| DYN    | Dynamics              |
+| ICE    | Icebergs              |
+| SUB    | Submarine melt        |
+| EV     | Evaporation           |
+| BM     | Basal melt            |
+
+** Antarctic
+
+Antarctic CSV files must contain the following:
+
+#+BEGIN_SRC bash :exports results
+cat aq_baseline.csv | cut -d"," -f1,2
+#+END_SRC
+
+#+RESULTS:
+| Label  | Description           |
+| DR     | Drift                 |
+| RFZ    | Refreeze (after melt) |
+| SF     | Snowfall              |
+| RF     | Rainfall              |
+| RF-LIQ | Rainfall runoff       |
+| CD     | Condensation          |
+| DP     | Deposition            |
+| FRET   | Frontal retreat       |
+| SU     | Sublimation           |
+| RU     | Runoff                |
+| DYN    | Dynamics              |
+| ICE    | Icebergs              |
+| SUB    | Submarine melt        |
+| EV     | Evaporation           |
+| BM     | Basal melt            |

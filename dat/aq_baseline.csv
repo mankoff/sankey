@@ -1,0 +1,16 @@
+Label,Description,Value,Reference
+DR,Drift,0,
+RFZ,Refreeze (after melt),44,agosta_2019
+SF,Snowfall,2590,agosta_2019
+RF,Rainfall,11,agosta_2019
+RF-LIQ,Rainfall runoff,0,
+CD,Condensation,10,
+DP,Deposition,10,
+FRET,Frontal retreat,100,
+SU,Sublimation,124,agosta_2019
+RU,Runoff,45,agosta_2019
+DYN,Dynamics,2300,rignot_2019
+ICE,Icebergs,1150,Half of 2300
+SUB,Submarine melt,1150,Half of 2300
+EV,Evaporation,10,
+BM,Basal melt,250,10 x Greenland b/c Antarctica is 10 area
