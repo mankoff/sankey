@@ -4,12 +4,14 @@
 \usepackage{pgf}
 \pagestyle{empty}
 
+\renewcommand{\familydefault}{\sfdefault}
+
 \begin{document}
 \begin{tikzpicture}[remember picture, overlay, shift={(5.5,-5.5)}]
 
   \begin{sankeydiagram}
-    %% \sankeyset{debug=true}
-    
+    % \sankeyset{debug=true}
+
     \colorlet{water}[rgb]{cyan!75!blue!50!white}
     \colorlet{ice}[rgb]{gray!20!gray!20!gray!20}
     \colorlet{air}[rgb]{gray!1!gray!1!gray!1}
@@ -55,7 +57,7 @@
       \csname#1@Q\endcsname}
     % all nodes with their name, label and quantity
     %% \newcommand\Q[1]{\sankeygetnodeqty{#1}}
-    
+
     \sankeyset{
       def data/.code args={#1/#2/#3}{% node name/label/values
         \LabSet{#1}{#2}
@@ -75,7 +77,7 @@
     }
 
     \sankeyset{ice} % color
-        
+
     %% GROSS inputs
     \sankeynode{
       name=GROSS,
@@ -99,13 +101,13 @@
       \Q{BM}/GROSS-to-BM,
       \Q{MELT}/GROSS-to-MELT}
 
-    
+
     \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=-3mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
     \sankeynode{name=MELT, quantity=\Q{MELT}, at={[xshift=-4mm, yshift=0mm]BM.center}, anchor=left}
     \sankeynode{name=DYN, quantity=\Q{DYN}, at={[xshift=3mm, yshift=0mm]BM.center}, anchor=right}
     \sankeynode{name=DYN-FRET, quantity=\Q{DYN}+\Q{FRET}, at={[xshift=3mm, yshift=-3cm]DYN.center}, anchor=center}
 
-    %% BM
+    %% BM Basal Melting
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
     \sankeyadvance[water]{BM}{3cm}
     \sankeyadvance[water]{BM}{3cm}
@@ -119,9 +121,9 @@
       forked={\Q{RU}/other, \Q{RF-LIQ}/RF-LIQ-to-RF-NET}}
     \sankeyadvance[water]{RU-GROSS}{1.5cm}
     \sankeyfork{RU-GROSS}{\Q{RU}+\Q{RF-LIQ}-\Q{EV}/RU-NET, \Q{EV}/EVAP}
-    \sankeyadvance[water]{RU-NET}{1.5cm}
+    \sankeyadvance[water]{RU-NET}{1cm}
     \sankeyend[water]{RU-NET}
-    
+
     %% RFZ
     \sankeynode{ name=RFZ-waypoint0, quantity=\Q{RFZ}, angle=90,
       at={[xshift=-20mm, yshift=0cm]RFZ-from-MELT.right}, anchor=right}
@@ -135,9 +137,9 @@
     \sankeydubins{GROSS-to-DYN}{DYN}
     \sankeyoutin{DYN}{DYN-FRET}
     \sankeynode{name=FRET-DYN, quantity=\Q{FRET}, at={DYN-FRET.center}, anchor=center}
-    \sankeyadvance{DYN-FRET}{5mm}
+    \sankeyadvance{DYN-FRET}{1cm}
     \sankeyfork{DYN-FRET}{\Q{ICE-FRET2}/ICE-from-DYN, \Q{SUB-FRET2}/SUB}
-    \sankeyadvance[ice-to-water]{SUB}{2.5cm}
+    \sankeyadvance[ice-to-water]{SUB}{1.5cm}
     \sankeyend[water]{SUB}
     \sankeynode{name=ICE, quantity=\Q{ICE-FRET2}, at={[xshift=3mm, yshift=0mm]SUB.left}, anchor=right}
     \sankeydubins{ICE-from-DYN}{ICE}
@@ -153,13 +155,20 @@
       at={[xshift=10mm, yshift=-10mm]GROSS-to-SU.center}, anchor=center, angle=0}
     \sankeydubins[ice-to-air]{GROSS-to-SU}{SU-out}
     \sankeyend[air]{SU-out}
-    
+
     %%% INPUTS
 
+    %% Snowfall SF
     \sankeynode{name=SF, quantity=\Q{SF}, at={[xshift=0, yshift=3cm]GROSS-from-SF.center}, align=center}
-    \sankeynode{name=DP, quantity=\Q{DP}, at={[xshift=-3mm, yshift=0]SF.right}, align=left}
-    \sankeynode{name=CD, quantity=\Q{CD}, at={[xshift=-3mm, yshift=0]DP.right}, align=left}
-    \sankeynode{name=RF-NET, quantity=\Q{RF}+\Q{RF-LIQ}, at={[xshift=-6mm, yshift=0]CD.right}, align=left}
+
+    %% Deposition DP
+    \sankeynode{name=DP, quantity=\Q{DP}, at={[xshift=-2mm, yshift=10mm]SF.right}, align=left}
+
+    %% Condensation CD
+    \sankeynode{name=CD, quantity=\Q{CD}, at={[xshift=-3mm, yshift=4mm]SF.right}, align=left}
+
+    %% Net Rainfall RF-NET
+    \sankeynode{name=RF-NET, quantity=\Q{RF}+\Q{RF-LIQ}, at={[xshift=-6mm, yshift=0mm]SF.right}, align=left}
     \sankeystart[water]{RF-NET}
     \sankeyadvance[water]{RF-NET}{0.5cm}
 
@@ -168,12 +177,14 @@
     \sankeydubins{CD}{GROSS-from-CD}
     \sankeyfork{RF-NET}{\Q{RF}/RFZ-from-RF-NET, \Q{RF-LIQ}/RF-LIQ-from-RF-NET}
     \sankeydubins[water-to-ice]{RFZ-from-RF-NET}{GROSS-from-RF}
-    \sankeynode{name=RF-wpt1, quantity=\Q{RF-LIQ}, at={[xshift=-10mm]GROSS-to-MELT.right}, align=right}
-    \sankeynode{name=RF-wpt2, quantity=\Q{RF-LIQ}, at={[xshift=-10mm]RFZ-from-MELT.right}, align=right}
-    \sankeydubins[water]{RF-LIQ-from-RF-NET}{RF-wpt1}
+    \sankeynode{name=RF-wpt0, quantity=\Q{RF-LIQ}, at={[xshift=-16mm,yshift=-10mm]GROSS-from-RFZ.right}, align=right}
+    \sankeynode{name=RF-wpt1, quantity=\Q{RF-LIQ}, at={[xshift=-18mm]GROSS-to-MELT.right}, align=right}
+    \sankeynode{name=RF-wpt2, quantity=\Q{RF-LIQ}, at={[xshift=-18mm,yshift=-10mm]RFZ-from-MELT.right}, align=right}
+    \sankeydubins[water]{RF-LIQ-from-RF-NET}{RF-wpt0}
+    \sankeydubins[water]{RF-wpt0}{RF-wpt1}
     \sankeydubins[water]{RF-wpt1}{RF-wpt2}
     \sankeydubins[water]{RF-wpt2}{RF-LIQ-to-RF-NET}
-    
+
     \sankeystart[air]{DP}
     \sankeystart{SF}
     \sankeystart{CD}
@@ -199,37 +210,37 @@
     \sankeystart{DRIFT-OUT}
     \sankeyend{DRIFT-IN}
     \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
-    
+
     \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
 
-    \node[anchor=center, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
+    \node[anchor=east, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
 
-    \node[anchor=center, align=center, shift=({0mm,-1cm})] at (SUB.center) {Submarine\\melt (\sankeygetnodeqty{SUB})};
+    \node[anchor=center, align=center, shift=({0mm,-1cm})] at (SUB.center) {Submarine\\melt \\(\sankeygetnodeqty{SUB})};
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (ICE.center) {Calving\\(\sankeygetnodeqty{ICE})};
 
-    \node[anchor=center, align=left, rotate=-90, shift=({1.5cm, -2mm})] at (BM.center) {Basal\\melting (\sankeygetnodeqty{BM})};
+    \node[anchor=north, align=center, rotate=0, shift=({0cm, -0.5cm})] at (BM.center) {Basal\\melting \\(\sankeygetnodeqty{BM})};
 
     \node[anchor=center, align=center, shift=({0mm,0cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
 
-    \node[anchor=center, align=center, shift=({0mm,1cm})] at (RU-from-MELT.center) {Melt runoff\\(\sankeygetnodeqty{RU-from-MELT})};
+    \node[anchor=center, align=center, shift=({-0.6cm,2cm})] at (RU-from-MELT.center) {Melt\\ runoff\\(\sankeygetnodeqty{RU-from-MELT})};
 
-    \node[anchor=center, align=center, shift=({0mm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
+    \node[anchor=center, align=right, shift=({-1cm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
 
-    \node[anchor=center, align=center, shift=({-2.5cm,-1.5cm})] at (RFZ-from-MELT.center) {Refreezing\\loop (\sankeygetnodeqty{RFZ-from-MELT})};
+    \node[anchor=right, align=right, shift=({-2cm,1cm})] at (RFZ-from-MELT.center) {Refreezing\\loop \\(\sankeygetnodeqty{RFZ-from-MELT})};
 
-    \node[anchor=center, align=center, shift=({0cm,-1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
+    \node[anchor=center, align=center, shift=({-0.2cm,-1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
 
     \node[anchor=center, align=center, shift=({0cm,2.25cm})] at (ML.center) {Mass loss (\sankeygetnodeqty{ML}) = \\SMB \& Dynamics (\sankeygetnodeqty{IL})\\+ Frontal retreat (\sankeygetnodeqty{FRET})};
 
-    \node[anchor=center, align=center, shift=({0cm,0.75cm})] at (SF.center) {Snowfall  (\sankeygetnodeqty{SF})};
+    \node[anchor=center, align=center, shift=({0cm,0.75cm})] at (SF.center) {Snowfall (\sankeygetnodeqty{SF})};
 
-    \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0cm})] at (DP.center) {Deposition (\sankeygetnodeqty{DP})};
+    \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (DP.center) {Deposition (\sankeygetnodeqty{DP})};
 
-    \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
+    \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
 
-    \node[anchor=center, align=center, rotate=-90, shift=({0cm,-1cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
-    
+    \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.3cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
+
   \end{sankeydiagram}
 \end{tikzpicture}
 \end{document}

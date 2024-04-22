@@ -3,10 +3,10 @@
 SHELL = bash
 .DEFAULT_GOAL := help
 
-CSVDIR=./dat/
-PDFDIR=./fig/
-TMPDIR=./tmp/
-TEXDIR=./tex/
+CSVDIR=./dat
+PDFDIR=./fig
+TMPDIR=./tmp
+TEXDIR=./tex
 
 CSVS = $(shell find $(CSVDIR) -name "*.csv")
 PDFS=$(CSVS:.csv=.pdf)
@@ -22,15 +22,17 @@ LATEXOPTS=-interaction nonstopmode -file-line-error --output-directory=$(PDFDIR)
 
 help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@echo 'Found CSV files:', $(CSVS)
+	@echo 'Possible pdf files', $(PDFS)
 
 all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 	@echo "all: $(PDFS)"
 
-./fig/%.pdf: tmp/%.tex
+fig/%.pdf: $(TMPDIR)/%.tex
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex || true # continue on error
 
-tmp/gl_%.tex: dat/gl_%.csv
-	@sed '/INSERT_CSV_HERE/Q' tex/gl_sankey.tex > tmp/gl_$*.tex
+tmp/gl_%.tex: ${CSVDIR}/gl_%.csv
+	@sed  '/INSERT_CSV_HERE/q' tex/gl_sankey.tex > tmp/gl_$*.tex
 	@cat dat/gl_$*.csv \
 		| tail -n +2 \
 		| cut -d, -f1-3 \
@@ -40,8 +42,8 @@ tmp/gl_%.tex: dat/gl_%.csv
 		>> tmp/gl_$*.tex
 	@sed -e '1,/INSERT_CSV_HERE/d' tex/gl_sankey.tex >> tmp/gl_$*.tex
 
-tmp/aq_%.tex: dat/aq_%.csv
-	@sed '/INSERT_CSV_HERE/Q' tex/aq_sankey.tex > tmp/aq_$*.tex
+tmp/aq_%.tex: $(CSVDIR)/aq_%.csv
+	@sed '/INSERT_CSV_HERE/q' tex/aq_sankey.tex > tmp/aq_$*.tex
 	@cat dat/aq_$*.csv \
 		| tail -n +2 \
 		| cut -d, -f1-3 \

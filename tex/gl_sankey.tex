@@ -4,12 +4,14 @@
 \usepackage{pgf}
 \pagestyle{empty}
 
+\renewcommand{\familydefault}{\sfdefault}
+
 \begin{document}
 \begin{tikzpicture}[remember picture, overlay, shift={(5.5,-5.5)}]
 
   \begin{sankeydiagram}
     %% \sankeyset{debug=true}
-    
+
     \colorlet{water}[rgb]{cyan!75!blue!50!white}
     \colorlet{ice}[rgb]{gray!20!gray!20!gray!20}
     \colorlet{air}[rgb]{gray!1!gray!1!gray!1}
@@ -55,7 +57,7 @@
       \csname#1@Q\endcsname}
     % all nodes with their name, label and quantity
     %% \newcommand\Q[1]{\sankeygetnodeqty{#1}}
-    
+
     \sankeyset{
       def data/.code args={#1/#2/#3}{% node name/label/values
         \LabSet{#1}{#2}
@@ -75,7 +77,7 @@
     }
 
     \sankeyset{ice} % color
-        
+
     %% GROSS inputs
     \sankeynode{
       name=GROSS,
@@ -98,7 +100,7 @@
       \Q{DYN}/GROSS-to-DYN,
       \Q{MELT}/GROSS-to-MELT}
 
-    
+
     \sankeynode{name=BM, quantity=\Q{BM}, at={[xshift=8mm, yshift=-3cm]GROSS-to-BM.center}, anchor=center}
     \sankeynode{name=DYN, quantity=\Q{DYN}, at={[xshift=-8mm, yshift=0mm]BM.right}, anchor=left}
     \sankeynode{name=DYN-FRET, quantity=\Q{DYN}+\Q{FRET}, at={[xshift=0mm, yshift=-3cm]DYN.center}, anchor=center}
@@ -121,7 +123,7 @@
     \sankeyfork{RU-GROSS}{\Q{RU}+\Q{RF-LIQ}-\Q{EV}/RU-NET, \Q{EV}/EVAP}
     \sankeyadvance[water]{RU-NET}{1.5cm}
     \sankeyend[water]{RU-NET}
-    
+
     %% RFZ
     \sankeynode{ name=RFZ-waypoint0, quantity=\Q{RFZ}+\Q{RF}, angle=90,
       at={[xshift=-20mm, yshift=0cm]RFZ-from-MELT.right}, anchor=right,
@@ -153,7 +155,7 @@
       at={[xshift=10mm, yshift=-10mm]GROSS-to-SU.center}, anchor=center, angle=0}
     \sankeydubins[ice-to-air]{GROSS-to-SU}{SU-out}
     \sankeyend[air]{SU-out}
-    
+
     %%% INPUTS
 
     \sankeynode{name=SF, quantity=\Q{SF}, at={[xshift=0, yshift=3cm]GROSS-from-SF.center}, align=center}
@@ -178,7 +180,7 @@
     \sankeydubins[water, minimum radius=6mm]{RF-to-RFZ}{RF-to-RFZ2}
     %% %% \sankeyfork{RF-wpt2}{\Q{RF}/RFZ-from-RF-NET, \Q{RF-LIQ}/RF-LIQ-from-RF-NET}
     %%   \sankeydubins[water]{RF-to-RU}{RF-LIQ-to-RF-NET}
-    
+
     \sankeystart[air]{DP}
     \sankeystart{SF}
     \sankeystart{CD}
@@ -205,7 +207,7 @@
     \sankeystart{DRIFT-OUT}
     \sankeyend{DRIFT-IN}
     \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (\Q{DR})};
-    
+
     \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
 
     \node[anchor=center, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
@@ -235,7 +237,7 @@
     \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
 
     \node[anchor=east, align=center, rotate=-90, shift=({-3mm,0mm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
-    
+
   \end{sankeydiagram}
 \end{tikzpicture}
 \end{document}
