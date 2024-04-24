@@ -31,7 +31,7 @@ all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 fig/%.pdf: $(TMPDIR)/%.tex
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex || true # continue on error
 
-tmp/gl_%.tex: ${CSVDIR}/gl_%.csv
+tmp/gl_%.tex: ${CSVDIR}/gl_%.csv $(TEXDIR)/gl_sankey.tex
 	@sed  '/INSERT_CSV_HERE/q' tex/gl_sankey.tex > tmp/gl_$*.tex
 	@cat dat/gl_$*.csv \
 		| tail -n +2 \
@@ -42,7 +42,7 @@ tmp/gl_%.tex: ${CSVDIR}/gl_%.csv
 		>> tmp/gl_$*.tex
 	@sed -e '1,/INSERT_CSV_HERE/d' tex/gl_sankey.tex >> tmp/gl_$*.tex
 
-tmp/aq_%.tex: $(CSVDIR)/aq_%.csv
+tmp/aq_%.tex: $(CSVDIR)/aq_%.csv $(TEXDIR)/aq_sankey.tex
 	@sed '/INSERT_CSV_HERE/q' tex/aq_sankey.tex > tmp/aq_$*.tex
 	@cat dat/aq_$*.csv \
 		| tail -n +2 \
