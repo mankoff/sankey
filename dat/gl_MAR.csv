@@ -1,0 +1,16 @@
+Label,Description,Value,cite_key
+DR,Drift,200,
+RFZ,Refreeze (after melt),190,MAR
+SF,Snowfall,700,MAR
+RF,Rainfall,45,MAR
+RF-LIQ,Rainfall runoff,10,MAR
+CD,Condensation,30,
+DP,Deposition,20,
+FRET,Frontal retreat,50,kochtitzky_2023
+SU,Sublimation,55,MAR
+RU,Runoff,390,MAR
+DYN,Dynamics,500,mankoff_2020_solid
+ICE,Icebergs,250,enderlin_2013
+SUB,Submarine melt,250,enderlin_2013
+EV,Evaporation,35,
+BM,Basal melt,25,karlsson_2021

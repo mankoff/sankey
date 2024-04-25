@@ -1,14 +1,14 @@
 Label,Description,Value,Reference
 DR,Drift,0,
-RFZ,Refreeze (after melt),150,MAR
-SF,Snowfall,2925,MAR
-RF,Rainfall,14,MAR
+RFZ,Refreeze (after melt),50,MAR
+SF,Snowfall,1615,MAR
+RF,Rainfall,2,MAR
 RF-LIQ,Rainfall runoff,0,
 CD,Condensation,10,
 DP,Deposition,10,
 FRET,Frontal retreat,100,
-SU,Sublimation,164,MAR
-RU,Runoff,25,MAR
+SU,Sublimation,140,MAR
+RU,Runoff,4,MAR
 DYN,Dynamics,2300,rignot_2019
 ICE,Icebergs,1150,Half of 2300
 SUB,Submarine melt,1150,Half of 2300
