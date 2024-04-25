@@ -158,7 +158,7 @@
 
     %%% INPUTS
 
-    \sankeynode{name=SF, quantity=\Q{SF}, at={[xshift=0, yshift=3cm]GROSS-from-SF.center}, align=center}
+    \sankeynode{name=SF, quantity=\Q{SF}, at={[xshift=0, yshift=5cm]GROSS-from-SF.center}, align=center}
     \sankeynode{name=DP, quantity=\Q{DP}, at={[xshift=-3mm, yshift=0]SF.right}, align=left}
     \sankeynode{name=CD, quantity=\Q{CD}, at={[xshift=-3mm, yshift=0]DP.right}, align=left}
     \sankeynode{name=RF-NET, quantity=\Q{RF}+\Q{RF-LIQ}, at={[xshift=-6mm, yshift=0]CD.right}, align=left}
@@ -188,6 +188,9 @@
     \sankeyset{ice}
     \sankeynode{ name=ML, quantity=\Q{FRET}+\Q{IL}, at={[xshift=8mm]SF.left}, anchor=right}
     \sankeystart[red]{ML}
+    %% \sankeynode{ name=ML_start, quantity=\Q{FRET}+\Q{IL}, at={[xshift=8mm]SF.left}, 
+      anchor=left, angle=90}
+    %% \sankeyend[red]{ML_start}
     \sankeyadvance[red-to-ice]{ML}{1cm}
     \sankeyfork{ML}{\Q{FRET}/FRET, \Q{IL}/IL}
     \sankeydubins[minimum radius=2mm]{IL}{GROSS-from-IL}
