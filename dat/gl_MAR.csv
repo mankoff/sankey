@@ -12,5 +12,5 @@ RU,Runoff,390,MAR
 DYN,Dynamics,500,mankoff_2020_solid
 ICE,Icebergs,250,enderlin_2013
 SUB,Submarine melt,250,enderlin_2013
-EV,Evaporation,35,
-BM,Basal melt,25,karlsson_2021
+EV,Evaporation,100,
+BM,Basal melt,21,karlsson_2021
