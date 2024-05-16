@@ -190,10 +190,10 @@
     \sankeystart{CD}
 
     \sankeyset{ice}
-    \sankeynode{ name=ML, quantity=\Q{FRET}+\Q{IL}, at={[xshift=8mm]SF.left}, anchor=right}
-    \sankeystart[red]{ML}
-    \sankeyadvance[red-to-ice]{ML}{1cm}
-    \sankeyfork{ML}{\Q{FRET}/FRET, \Q{IL}/IL}
+    \sankeynode{ name=MG, quantity=\Q{FRET}+\Q{IL}, at={[xshift=8mm]SF.left}, anchor=right}
+    \sankeystart[red]{MG}
+    \sankeyadvance[red-to-ice]{MG}{1cm}
+    \sankeyfork{MG}{\Q{FRET}/FRET, \Q{IL}/IL}
     \sankeydubins[minimum radius=2mm]{IL}{GROSS-from-IL}
     \sankeyadvance{FRET}{2cm}
     \sankeyturnleft{FRET}{30}
@@ -231,7 +231,7 @@
 
     \node[anchor=center, align=center, shift=({0.2cm,1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
 
-    \node[anchor=center, align=center, shift=({0cm,2.25cm})] at (ML.center) {Mass loss (\sankeygetnodeqty{ML}) = \\SMB \& Dynamics (\sankeygetnodeqty{IL})\\+ Frontal retreat (\sankeygetnodeqty{FRET})};
+    \node[anchor=center, align=center, shift=({0cm,2.25cm})] at (MG.center) {Mass loss (\sankeygetnodeqty{MG}) = \\SMB \& Dynamics (\sankeygetnodeqty{IL})\\+ Frontal retreat (\sankeygetnodeqty{FRET})};
 
     \node[anchor=center, align=center, shift=({0cm,0.75cm})] at (SF.center) {Snowfall (\sankeygetnodeqty{SF})};
 
