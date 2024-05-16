@@ -12,5 +12,5 @@ RU,Runoff,20,MAR
 DYN,Dynamics,2300,rignot_2019
 ICE,Icebergs,1150,Half of 2300
 SUB,Submarine melt,1150,Half of 2300
-EV,Evaporation,10,
-BM,Basal melt,250,10 x Greenland b/c Antarctica is 10 area
+EV,Evaporation,3,
+BM,Basal melt,50,10 x Greenland b/c Antarctica is 10 area
