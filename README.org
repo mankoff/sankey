@@ -22,21 +22,21 @@ cat ./dat/gl_baseline.csv
 
 #+RESULTS:
 | Label  | Description           | Value | cite_key           |
-| DR     | Drift                 |   200 |                    |
-| RFZ    | Refreeze (after melt) |   100 | reijmer_2012       |
-| SF     | Snowfall              |   800 |                    |
-| RF     | Rainfall              |    30 |                    |
-| RF-LIQ | Rainfall runoff       |    50 |                    |
-| CD     | Condensation          |    30 |                    |
-| DP     | Deposition            |    20 |                    |
+| DR     | Drift                 |   200 | TODO               |
+| RFZ    | Refreeze (after melt) |   190 | fettweis_2020      |
+| SF     | Snowfall              |   700 | fettweis_2020      |
+| RF     | Rainfall              |    45 | fettweis_2020      |
+| RF-LIQ | Rainfall runoff       |    10 | fettweis_2020      |
+| CD     | Condensation          |    30 | TODO               |
+| DP     | Deposition            |    20 | TODO               |
 | FRET   | Frontal retreat       |    50 | kochtitzky_2023    |
-| SU     | Sublimation           | 24+16 | lenaerts_2012      |
-| RU     | Runoff                |   500 |                    |
+| SU     | Sublimation           |    55 | fettweis_2020      |
+| RU     | Runoff                |   390 | fettweis_2002      |
 | DYN    | Dynamics              |   500 | mankoff_2020_solid |
 | ICE    | Icebergs              |   250 | enderlin_2013      |
 | SUB    | Submarine melt        |   250 | enderlin_2013      |
-| EV     | Evaporation           |    35 |                    |
-| BM     | Basal melt            |    25 | karlsson_2021      |
+| EV     | Evaporation           |   100 | TODO               |
+| BM     | Basal melt            |    20 | karlsson_2021      |
 
 ** Antarctica baseline
 
@@ -45,22 +45,23 @@ cat ./dat/aq_baseline.csv
 #+END_SRC
 
 #+RESULTS:
-| Label  | Description           | Value | Reference                                |
-| DR     | Drift                 |     0 |                                          |
-| RFZ    | Refreeze (after melt) |   150 | MAR                                      |
-| SF     | Snowfall              |  2925 | MAR                                      |
-| RF     | Rainfall              |    14 | MAR                                      |
-| RF-LIQ | Rainfall runoff       |     0 |                                          |
-| CD     | Condensation          |    10 |                                          |
-| DP     | Deposition            |    10 |                                          |
-| FRET   | Frontal retreat       |   100 |                                          |
-| SU     | Sublimation           |   164 | MAR                                      |
-| RU     | Runoff                |    25 | MAR                                      |
-| DYN    | Dynamics              |  2300 | rignot_2019                              |
-| ICE    | Icebergs              |  1150 | Half of 2300                             |
-| SUB    | Submarine melt        |  1150 | Half of 2300                             |
-| EV     | Evaporation           |    10 |                                          |
-| BM     | Basal melt            |   250 | 10 x Greenland b/c Antarctica is 10 area |
+| Label  | Description            | Value | Reference                                     |
+| DR     | Drift                  |     0 | TODO                                          |
+| RFZ    | Refreeze (after melt)  |   150 | fettweis_2020                                 |
+| SF     | Snowfall               |  2925 | fettweis_2020                                 |
+| RF     | Rainfall               |    14 | fettweis_2020                                 |
+| RF-LIQ | Rainfall runoff        |     0 | TODO                                          |
+| CD     | Condensation           |    10 | TODO                                          |
+| DP     | Deposition             |    10 | TODO                                          |
+| FRET   | Frontal retreat        |   100 | TODO                                          |
+| GZRET  | Grounding line retreat |   100 | TODO                                          |
+| SU     | Sublimation            |   164 | fettweis_2020                                 |
+| RU     | Runoff                 |    25 | fettweis_2020                                 |
+| DYN    | Dynamics               |  2300 | rignot_2019                                   |
+| ICE    | Icebergs               |  1150 | TODO Half of 2300 DYN                         |
+| SUB    | Submarine melt         |  1150 | TODO Half of 2300 DYN                         |
+| EV     | Evaporation            |    10 | TODO                                          |
+| BM     | Basal melt             |   210 | TODO 10 x Greenland b/c Antarctica is 10 area |
 
 * Methods
 
