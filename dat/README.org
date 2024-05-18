@@ -23,52 +23,53 @@ So that the scripts know if these are Greenlandic or Antarctic values.
 Greenlandic CSV files must contain the following:
 
 #+BEGIN_SRC bash :exports results
-cat gl_baseline.csv | cut -d"," -f1,2
+cat gl_baseline.csv
 #+END_SRC
 
 #+RESULTS:
-| Label  | Description           |
-| DR     | Drift                 |
-| RFZ    | Refreeze (after melt) |
-| SF     | Snowfall              |
-| RF     | Rainfall              |
-| RF-LIQ | Rainfall runoff       |
-| CD     | Condensation          |
-| DP     | Deposition            |
-| FRET   | Frontal retreat       |
-| SU     | Sublimation           |
-| RU     | Runoff                |
-| DYN    | Dynamics              |
-| ICE    | Icebergs              |
-| SUB    | Submarine melt        |
-| EV     | Evaporation           |
-| BM     | Basal melt            |
+| Label  | Description           | Value | cite_key           |
+| DR     | Drift                 |   200 | TODO               |
+| RFZ    | Refreeze (after melt) |   190 | fettweis_2020      |
+| SF     | Snowfall              |   700 | fettweis_2020      |
+| RF     | Rainfall              |    45 | fettweis_2020      |
+| RF-LIQ | Rainfall runoff       |    10 | fettweis_2020      |
+| CD     | Condensation          |    30 | TODO               |
+| DP     | Deposition            |    20 | TODO               |
+| FRET   | Frontal retreat       |    50 | kochtitzky_2023    |
+| SU     | Sublimation           |    55 | fettweis_2020      |
+| RU     | Runoff                |   390 | fettweis_2002      |
+| DYN    | Dynamics              |   500 | mankoff_2020_solid |
+| ICE    | Icebergs              |   250 | enderlin_2013      |
+| SUB    | Submarine melt        |   250 | enderlin_2013      |
+| EV     | Evaporation           |   100 | TODO               |
+| BM     | Basal melt            |    20 | karlsson_2021      |
 
 ** Antarctic
 
 Antarctic CSV files must contain the following:
 
 #+BEGIN_SRC bash :exports results
-cat aq_baseline.csv | cut -d"," -f1,2
+cat aq_baseline.csv
 #+END_SRC
 
 #+RESULTS:
-| Label  | Description           |
-| DR     | Drift                 |
-| RFZ    | Refreeze (after melt) |
-| SF     | Snowfall              |
-| RF     | Rainfall              |
-| RF-LIQ | Rainfall runoff       |
-| CD     | Condensation          |
-| DP     | Deposition            |
-| FRET   | Frontal retreat       |
-| SU     | Sublimation           |
-| RU     | Runoff                |
-| DYN    | Dynamics              |
-| ICE    | Icebergs              |
-| SUB    | Submarine melt        |
-| EV     | Evaporation           |
-| BM     | Basal melt            |
+| Label  | Description            | Value | Reference                                     |
+| DR     | Drift                  |     0 | TODO                                          |
+| RFZ    | Refreeze (after melt)  |   150 | fettweis_2020                                 |
+| SF     | Snowfall               |  2925 | fettweis_2020                                 |
+| RF     | Rainfall               |    14 | fettweis_2020                                 |
+| RF-LIQ | Rainfall runoff        |     0 | TODO                                          |
+| CD     | Condensation           |    10 | TODO                                          |
+| DP     | Deposition             |    10 | TODO                                          |
+| FRET   | Frontal retreat        |   100 | TODO                                          |
+| GZRET  | Grounding line retreat |   100 | TODO                                          |
+| SU     | Sublimation            |   164 | fettweis_2020                                 |
+| RU     | Runoff                 |    25 | fettweis_2020                                 |
+| DYN    | Dynamics               |  2300 | rignot_2019                                   |
+| ICE    | Icebergs               |  1150 | TODO Half of 2300 DYN                         |
+| SUB    | Submarine melt         |  1150 | TODO Half of 2300 DYN                         |
+| EV     | Evaporation            |    10 | TODO                                          |
+| BM     | Basal melt             |   210 | TODO 10 x Greenland b/c Antarctica is 10 area |
 
 * MAR data
 
