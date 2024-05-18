@@ -7,6 +7,7 @@ RF-LIQ,Rainfall runoff,0,
 CD,Condensation,10,
 DP,Deposition,10,
 FRET,Frontal retreat,100,
+GZRET,Grounding line retreat,100,
 SU,Sublimation,164,MAR
 RU,Runoff,25,MAR
 DYN,Dynamics,2300,rignot_2019
