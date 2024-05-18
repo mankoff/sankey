@@ -72,7 +72,10 @@ cat ./dat/aq_baseline.csv
 
 #+BEGIN_SRC bash :exports results :results verbatim :results none
 convert -density 120 -background white -alpha remove -trim fig/gl_baseline.pdf greenland.png
+convert -density 120 -background white -alpha remove -trim fig/aq_baseline.pdf antarctica.png
 #+END_SRC
 
 [[./greenland.png]]
+
+[[./antarctica.png]]
 
