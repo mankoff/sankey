@@ -14,4 +14,4 @@ DYN,Dynamics,2300,rignot_2019
 ICE,Icebergs,1150,TODO Half of 2300 DYN
 SUB,Submarine melt,1150,TODO Half of 2300 DYN
 EV,Evaporation,10,TODO
-BM,Basal melt,210,TODO 10 x Greenland b/c Antarctica is 10 area
+BM,Basal melt,65,pattyn_2010
