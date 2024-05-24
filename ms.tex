@@ -1,0 +1,262 @@
+%% Use the "review" option when submitting for review.
+%% Removing the "review" option will switch the
+%% manuscript to a two-column layout.
+%%
+%% Use option "jog" for submissions to the Journal of
+%% Glaciology; use "aog" for submission to the Annals
+%% of Glaciology.
+\documentclass[review,jog]{igs}
+% \documentclass[review,aog]{igs}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{mathabx}
+\usepackage{graphicx}
+\usepackage{siunitx}
+
+% the default is for unnumbered section heads
+% if you really must have numbered sections, remove
+% the % from the beginning of the following command
+% and insert the level of sections you wish to be
+% numbered (up to 4):
+
+% \setcounter{secnumdepth}{2}
+
+\jourvolume{V}
+\jourissue{N}
+\jourpubyear{YYYY}
+
+\begin{document}
+
+\title[Sankey mass flows]{Ice sheet mass flows}
+
+\author[Mankoff and others]
+       {Kenneth D. MANKOFF,$^{1,2}$
+         William COLGAN,$^3$
+         Xavier FETTWEIS,$^4$
+         Someone, ELSE,$^n$}
+
+\affiliation{%
+  $^1$NASA Goddard Institute for Space Studies, New York, NY, 10025 USA\\
+  $^2$Autonomic Integra LLC, New York, NY, 10025 USA\\
+  $^3$GEUS affiliation\\
+  $^4$Xavier affiliation\\
+  $^n$Somewhere Else\\
+  Correspondence: Ken Mankoff
+  \email{ken.mankoff@nasa.gov}}
+
+\begin{frontmatter}
+\maketitle
+\begin{abstract}
+  Mass flows, contributing to mass loss or gain of the ice sheets, is an of-studied topic in the domain of glaciology. However, few studies consider all processes - this is usually the domain of review papers.  Here we...
+\end{abstract}
+\end{frontmatter}
+
+\section{Overview of mass flows}
+
+\section{Interpretation}
+
+Red indicates drawdown of the ice sheet mass, which here is an input to the mass flow in Greenland, because the outputs are larger than the external inputs (e.g., snowfall).
+
+Black indicates increase of ice sheet mass, which is an output to the mass flow in Antarctica, because the outputs are smaller than the external inputs.
+
+We mark grounding line in Antarctica and frontal retreat in Greenland in red, even if Antarctica has net mass gain, because not all mass is equal when considering ice sheet health. Antarctica is mass positive because of increased snowfalls. Grounding line retreat is a localized mass imbalance term.
+
+\subsection{Missing terms}
+
+Basal accumulation (not ice), avalanche on/off, Subaerial frontal melt/sublimation (rolled into other terms), drifting on/off, gz retreat in Greenland (few ice shelves).
+
+Graphics may not be complete. For example, an earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in \citet{cogley_2011}, but their respective values were highly uncertain, and still are, although recent work by \citet{kochtitzky_2023,greene_2024} have constrained these values in Greenland
+
+\section{Uncertainty}
+
+Note that some uncertainty (e.g. snowfall) is larger than many other terms combined.
+
+Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
+
+\subsection{Drifting snow}
+
+% I think if you were to go into a discussion of snowdrift it should go further than, for example, the works of Lenaerts et al. Perhaps it is beter to plainly list the uncertainties / poor definitions but in terms of process just refer to the existing papers. However, I am in two minds about this.
+
+\section{Mass flow values}
+
+%% \begin{table} % table1, one column
+%%   \caption{One-column table captions will extend beyond the rules in two-column format. Do not try to adjust! Table captions do not have full points at the end}
+%%   \label{period}
+%%   \begin{minipage}{86mm} % you only need this line if you have a table footnote
+%%     \begin{tabular}{@{}lcc}\hline
+      
+%%       Period\footnote{Please do not use more than one `\&' between columns, and note that if a table includes table footnotes, it must be inside a \texttt{minipage} environment.}%
+%%       & Surface elevation change
+%%       & Emergence velocity\\ \hline
+      
+%%       1975--85   & $-0.50$ & 0.43\\
+%%       1986--2002 & $-1.03$ & 0.32\\
+%%       Difference & $-0.53$ & \llap{$-$}0.11
+%%     \end{tabular}
+%%   \end{minipage} % you only need this line if you have a table footnote
+%% \end{table}
+
+%% Tables may be typeset in either one- or two-column format. To typeset two-column format, add asterisks\\ (\verb"\begin{table*}...\end{table*}") as shown in Table~\ref{seasonal}. We may change the format in-house if necessary. Please avoid the use of colour or shading. Note that if you choose to refer to tables using labels, \verb"\caption" must precede \verb"\label", as in standard \LaTeX. Vertical rules are not house-style and will be removed. Note the use of the minipage environment in Table~\ref{period} which enables table footnotes to be output. If the table is two-column, use \texttt{\{178mm\}} instead of \texttt{\{86mm\}} on line~6. The source code for Tables~\ref{period} and~\ref{seasonal} is shown immediately below the tables.
+
+%% \begin{table*}% table2, two column
+%% \caption{Two-column table. Seasonal and annual SAT trends ($^\circ$C\,decade$^{-1}$) in the Arctic}
+%% \label{seasonal}
+%% % the following illustrates how to align columns on decimal points using the S column identifier from siunitx
+%% \setlength\tabcolsep{2.5pt}% column separation reduced from the default 6pt so the table fits the measure
+%% \begin{tabular}{@{}l@{\hspace{20pt}}SSSSS@{\hspace{20pt}}SSSSS}\hline
+%% Area                 & \multicolumn{5}{c}{1951--2005} & \multicolumn{5}{c}{1976--2005}\\[5pt]
+%%                      & {Dec--Feb}       & {Mar--May}    & {Jun--Aug}  & {Sep--Nov}         & {Annual}
+%%                      & {Dec--Feb}       & {Mar--May}    & {Jun--Aug}  & {Sep--Nov}         & {Annual}\\ \hline
+%% Atlantic region      & 0.09           & 0.29 & 0.10 & 0.09 & 0.15 & 0.470 & 0.60 & 0.45 & 0.53 & 0.59\\
+%% Siberian region      & 0.12           & 0.29 & 0.04 & 0.17 & 0.16 & 0.08 & 0.69 & 0.29 & 0.59 & 0.48\\
+%% Pacific region       & 0.45           & 0.46 & 0.25 & 0.26 & 0.35 & 0.712 & 1.08 & 0.27 & 0.66 & 0.52\\
+%% Canadian region      & 0.16           & 0.12 & 0.14 & 0.30 & 0.18 & 0.20 & 0.52 & 0.48 & 0.94 & 0.53\\
+%% Baffin Bay region    & -0.02 & 0.10 & 0.00 & 0.15 & 0.02 & 0.33 & 0.62 & 0.51 & 0.80 & 0.57\\
+%% Arctic 1             & 0.16           & 0.21 & 0.12 & 0.20 & 0.18 & 0.36 & 200.65 & 0.42 & 0.74 & 0.54\\
+%% Arctic 2             & 0.22           & 0.29 & 0.14 & 0.14 & 0.19 & 0.38 & 0.60 & 0.40 & 0.51 & 0.45\\
+%% Arctic 3             & 0.28           & 0.31 & 0.14 & 0.13 & 0.21 & 0.42 & 40.53 & 0.41 & 0.42 & 0.43\\
+%% NH ($\mathrm{land}
+%%   + \mathrm{ocean}$) & 0.13           & 0.13 & 0.10 & 0.10 & 0.12 & 0.27 & 0.24 & 0.25 & 0.25 & 0.25\\
+%% \hline
+%% \end{tabular}
+%% \end{table*}
+
+%% \subsection{Figures}
+
+%% Figures may be typeset in either one- or two-column format. One-column format allows up to 86$\,$mm (e.g. Fig.~\ref{tracks}); two-column format up to 178$\,$mm (e.g. Fig.~\ref{filters}). Please do not provide original graphics files in which the figure is a great deal larger or smaller than what you envisage will be the final printed size. To typeset two-column format, add asterisks (\verb"\begin{figure*}...\end{figure*}") as shown in Fig.~\ref{filters}. We may change the format in-house if necessary. Please note that if you choose to refer to figures using labels, \verb"\caption" must precede \verb"\label", as in standard \LaTeX. 
+
+%% Please send one file for each figure (in other words do not use subfigures) and use a name that clearly identifies it (e.g. `72A712Fig03.eps').
+
+%% In addition, figures should be eps, ai (illustrator), ps, tif, psd or pdf. Use strong black lines with a width of at least 0.75pt at final printed size (avoid tinting if possible) and SI units in labels. Lettering should ideally be Optima to match the final typeface; Arial or a similar sans serif font for a second choice. Aim to have the final-size lettering at 9pt, if possible. Figures should not be in boxes. The source code for Figs~\ref{tracks} and~\ref{filters} is shown immediately below the figures.
+
+%% \subsection{Equations}
+
+%% We are including some complex equations as examples. Equations should be checked for width by removing the \verb"[review]" option. Note the use of \verb|cases*| in the following equation:
+%% \begin{equation}
+%% \label{arrayexample}
+%% \alpha_{t_2}= %
+%%   \begin{cases}
+%%     \alpha_{t_1} - a_1 [\ln (T+1)]
+%%       \mathrm{e}^{(a_2\sqrt{n})}
+%%       & \mbox{$n_\mathrm{d} > 0\enskip$ and
+%%       $\enskip T > 0$}\\
+%%     \alpha_{t_1} - a_3 \mathrm{e}^{(a_2\sqrt{n})}
+%%       & \mbox{$n_\mathrm{d} > 0\enskip$ and
+%%       $\enskip T < 0$}\\
+%%     \alpha_{t_1} + a_4 P_\mathrm{s}
+%%       & \mbox{$n_\mathrm{d} = 0$}
+%%   \end{cases}
+%% \end{equation}
+
+%% Equations should be aligned on the equals signs where possible. Equations that extend beyond the one-column measure should be turned over before an operator. 
+
+%% \begin{equation}
+%% \label{eqnarrayexample}
+%% \begin{aligned}
+%% l_c & =  l_0 \left(\frac{\widebar{R}_m}{R} \right)^2
+%%   \psi^{\frac{P}{P_0\cos Z}}\\
+%%     & \phantom{=} \quad  \times [\cos\beta\, \cos Z
+%%     + \sin\beta\,\sin Z\,\cos(\psi_\mathrm{sun}
+%%     - \psi_\mathrm{slope})]
+%% \end{aligned}
+%% \end{equation}
+
+%% \citep{mankoff_2020_solid}
+%% \citet{mankoff_2021}
+
+%% \begin{figure}%fig1, one column
+%% \centering{\includegraphics{72A712Fig01.eps}}
+%% \caption{One-column figures should be $\leq$86$\,$mm. Good artwork can
+%%   make or break a paper. Capitalize the first word of a label and use
+%%   round not square brackets for units.}
+%% \label{tracks}
+%% \end{figure}
+
+
+%% \paragraph{Citations using natbib commands}
+%% Note that the standard natbib style file has been modified to fall into line with IGS style. The modified style file is called igsnatbib.sty (included in this distribution), and works exactly the same as natbib.sty. The default IGS house style is \citep{Yan13}. The following combinations are also available -- refer to the natbib documentation if you require any further explanation:\\*[0.5\baselineskip]
+%% \begin{tabular}{@{}l@{\hskip -94pt}l}
+%% \citep{Yan13}
+%%     & \verb"\citep{Yan13}"\\
+%% \citep[see][p.$\,$34]{Yan13}\\
+%%     & \verb"\citep[see][p.$\,$34]{Yan13}"\\
+%% \citep[e.g.][]{Yan13}
+%%     & \verb"\citep[e.g.][]{Yan13}"\\
+%% \citep[Section~2.3]{Yan13}\\
+%%     & \verb"\citep[Section~2.3]{Yan13}"\\
+%% \citep{Yan13, Edwards14}\\
+%%     &  \verb"\citep{Yan13, Edwards14}"\\
+%% \cite{Yan13, Edwards14}\\
+%%     &  \verb"\cite{Yan13, Edwards14}"\\
+%% \citealt{Yan13}
+%%     & \verb"\citealt{Yan13}"\\
+%% \cite{Yan13}
+%%     & \verb"\cite{Yan13}"\\
+%% \citealp{Yan13}
+%%     & \verb"\citealp{Yan13}"\\
+%% \citeauthor{Yan13}
+%%     & \verb"\citeauthor{Yan13}"\\
+%% \citeyearpar{Yan13}
+%%     & \verb"\citeyearpar{Yan13}"\\
+%% \citeyear{Yan13}
+%%     & \verb"\citeyear{Yan13}"
+%% \end{tabular}
+
+%% \begin{figure*}%fig2, two column
+%% \centering{\includegraphics{72A712Fig02.eps}}
+%% \caption{Two-column figures should be $\leq$178$\,$mm. SSA reconstructed components found by 
+%%   projecting the SSA filters found using the whole 2000 traces in Fig.~4, on trace number 1, 
+%%   ordered by magnitude of variance accounted for in the radar trace.}
+%% \label{filters}
+%% \vspace\baselineskip\hrule % to separate figure from verbatim
+%% \vspace\baselineskip
+%% \begin{verbatim}
+%% \begin{figure*}%fig2, two column
+%% \centering{\includegraphics{72A712Fig02.eps}}
+%% \caption{Two-column figures should be $\leq$178$\,$mm. SSA reconstructed components found by 
+%%   projecting the SSA filters found using the whole 2000 traces in Fig.~4, on trace number 1, 
+%%   ordered by magnitude of variance accounted for in the radar trace.}
+%% \label{filters}
+%% \end{figure*}
+%% \end{verbatim}
+%% \vspace\baselineskip\hrule % to separate verbatim from text
+%% \end{figure*}
+
+
+\section{Acknowledgements}
+
+LaTeX software community, Cogley for a reference graphic.
+
+% authors generating their own bbl file would uncomment the following two lines, and comment out/delete the references below:
+
+\bibliography{library}   % reads igsrefs.bib
+\bibliographystyle{igs}  % imposes IGS bibliography style on output
+
+%% \appendix
+%% \section{Appendix}
+
+%% Start an appendix by \hbox{typing \verb"\appendix\section{Appendix}".} Appendices appear after the references. Equation numbers automatically start again with (\ref{appeqn}).
+%% \begin{equation}
+%% \label{appeqn}
+%%  2\eta\kappa \frac{\partial \skew1\bar u}{\partial t} + \rho_{\mathrm r} g \skew1\bar u + D\kappa^4 \skew1\bar u = \skew3\bar\sigma_{zz}.
+%% \end{equation}
+
+%% \section{Handling more than one appendix}
+%% Use the following code to achieve heading APPENDIX~A followed by APPENDIX~B and APPENDIX~C, with appropriate equation numbers:
+
+%% \begin{verbatim}
+
+%% \appendix
+%% \section{Appendix A}
+
+%% \setcounter{equation}{0}
+%% \renewcommand\theequation{B\arabic{equation}}
+%% \section{Appendix B}
+
+%% \setcounter{equation}{0}
+%% \renewcommand\theequation{C\arabic{equation}}
+%% \section{Appendix C}
+%% \end{verbatim}
+
+\end{document}
