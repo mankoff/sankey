@@ -1,0 +1,93 @@
+* Table of contents                               :toc_3:noexport:
+- [[#introduction][Introduction]]
+- [[#shelf-discharge-and-basal-melt][Shelf discharge and basal melt]]
+
+* Introduction
+
+Estimates of ice shelf mass flow in Antarctica
+
+* Shelf discharge and basal melt
+
++ See Davison (2023) http://doi.org/10.1126/sciadv.adi0186 particularly Supplemental Table S2.
+
+#+BEGIN_SRC jupyter-python :exports both
+import pandas as pd
+
+fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
+loc = pd.read_excel(fname, sheet_name=0, index_col = 0, usecols = 'B,C,D', skiprows = 4)
+loc = loc.drop('Antarctic Ice Shelves')
+
+mass = pd.read_excel(fname, sheet_name=1, index_col = 0, usecols = 'B:F', skiprows = 5)
+mass.columns = ['D', 'BMB', 'Calving', 'SMB']
+
+mass = loc.join(mass)
+mass.head()
+#+END_SRC
+
+#+RESULTS:
+| Ice shelf   |   latitude |   longitude |         D |        BMB |   Calving |        SMB |
+|-------------+------------+-------------+-----------+------------+-----------+------------|
+| Abbot       |   -72.7958 |    -96.5689 | 31.2693   | 19.9454    | 51.7937   | 20.6485    |
+| Ainsworth   |   -67.9145 |    146.54   |  0.135919 |  0.0215779 | -0.207593 |  0.0719961 |
+| Alison      |   -73.8526 |    -82.0595 |  2.78115  |  0.124033  |  0        |  0         |
+| Amery       |   -70.4394 |     70.43   | 76.7148   |  2.60281   | 44.3328   |  6.41896   |
+| Andreyev    |   -69.011  |    155.464  |  1.67205  |  0.113444  |  0        |  0         |
+
+#+BEGIN_SRC jupyter-python :exports both
+mass[['D','BMB']].sum()
+#+END_SRC
+
+#+RESULTS:
+: D      1838.804842
+: BMB     428.520452
+: dtype: float64
+
+#+BEGIN_SRC jupyter-python :exports both
+import geopandas as gpd
+fname = '~/data/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp'
+ew = gpd.read_file(fname)
+ew.drop(columns=['geometry']).head()
+#+END_SRC
+
+#+RESULTS:
+|    | NAME           | Regions   | Subregions   | TYPE   | Asso_Shelf     |
+|----+----------------+-----------+--------------+--------+----------------|
+|  0 | LarsenE        | Peninsula | Ipp-J        | GR     | LarsenE        |
+|  1 | Dawson_Lambton | East      | nan          | FL     | nan            |
+|  2 | Academy        | East      | Jpp-K        | GR     | Filchner       |
+|  3 | Brunt_Stancomb | East      | K-A          | GR     | Brunt_Stancomb |
+|  4 | Riiser-Larsen  | East      | K-A          | GR     | Riiser-Larsen  |
+
+#+BEGIN_SRC jupyter-python :exports both
+m = gpd.GeoDataFrame(mass, geometry=gpd.points_from_xy(mass['longitude'],mass['latitude']), crs="EPSG:4326")
+
+m = m.to_crs('epsg:3031')
+e = ew.to_crs('epsg:3031')
+
+# idx = m.sindex.nearest(ew['geometry'], return_all=False)
+idx = ew.sindex.nearest(m['geometry'], return_all=False)
+m['Region'] = ''
+for midx,ewidx in idx.T:
+    arr = m.iloc[midx].copy(deep=True)
+    arr['Region'] = ew.iloc[ewidx]['Regions']
+    m.iloc[midx] = arr
+
+m.loc['Total'] = m.sum(axis='rows', numeric_only=True)
+m.loc['Total', 'Region'] = 'All'
+
+m[['Region','D','BMB']].groupby('Region').sum(numeric_only=True)
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
+:   warnings.warn(
+| Region    |          D |       BMB |
+|-----------+------------+-----------|
+| All       | 1838.8     | 428.52    |
+| East      |  910.573   |  86.8479  |
+| Islands   |    1.21144 |   2.95945 |
+| Peninsula |  159.697   |  77.5149  |
+| West      |  767.324   | 261.198   |
+:END:
+
