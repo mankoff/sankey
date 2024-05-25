@@ -1,0 +1,42 @@
+
+* Table of contents                               :toc_3:noexport:
+- [[#introduction][Introduction]]
+- [[#greenland][Greenland]]
+- [[#antarctica][Antarctica]]
+  - [[#improve-ew-split][Improve E/W split]]
+  - [[#is-vhd-included][Is VHD included?]]
+
+* Introduction
+
+Estimates of ice sheet basal melt
+
+* Greenland
+
++ 21 Gt/yr from Karlsson (2021) http://doi.org/10.1038/s41467-021-23739-z
++ Assume steady state (roughly)
+  
+* Antarctica
+
++ 65 Gt/yr from Pattyn (2010) http://doi.org/10.1016/j.epsl.2010.04.025 
+
+Split by area for E v W Antarctica
+
+#+BEGIN_SRC bash :exports both :results verbatim
+grass ./G_AQ/PERMANENT
+
+r.univar -g eastwest|grep ^n= # 10992; 65 Gt/yr
+r.univar -g west|grep ^n= # 2602; 2602/10992 %  = 23.6717612809; 65 * 0.24 = 15.6 or 15
+r.univar -g east|grep ^n= # 8390; 8390/10992 % = 76.3282387191; 65 * 0.76 = 49.4 or 50
+#+END_SRC
+
+** TODO Improve E/W split
+
++ See #44
+
+Can estimate E/W by dividing by area, but this is a poor approximation. W has higher velocities and >> higher geothermal.
+
+** TODO Is VHD included?
+
+Also, may be missing VHD term which, in Greenland, adds ~50 %.
+
+See both Karlsson (2021) and Mankoff (2017) http://doi.org/10.5194/tc-11-303-2017 
