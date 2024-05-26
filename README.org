@@ -1,4 +1,8 @@
 
+#+PROPERTY: header-args:bash+ :session *sankey-shell*
+#+PROPERTY: header-args:jupyter-python+ :dir (file-name-directory buffer-file-name) :session foo
+
+
 * Table of contents                               :toc_2:noexport:
 - [[#introduction][Introduction]]
 - [[#mass-flow-values][Mass flow values]]
@@ -6,6 +10,11 @@
   - [[#antarctica-baseline][Antarctica baseline]]
 - [[#methods][Methods]]
 - [[#results][Results]]
+- [[#implementation][Implementation]]
+  - [[#reset][Reset]]
+  - [[#east-v-west-antarctica][East v. West Antarctica]]
+  - [[#basal-melt][Basal melt]]
+  - [[#ice-shelves][Ice shelves]]
 
 * Introduction
 
@@ -78,4 +87,198 @@ convert -density 120 -background white -alpha remove -trim fig/aq_baseline.pdf a
 [[./greenland.png]]
 
 [[./antarctica.png]]
+
+
+* Implementation
+
+** Reset
+
+#+BEGIN_SRC bash :exports both :results verbatim
+trash G_AQ
+[[ -e ./G_AQ ]] || grass -e -c EPSG:3031 ./G_AQ
+
+trash G_GL
+[[ -e ./G_GL ]] || grass -e -c EPSG:3413 ./G_GL
+#+END_SRC
+
+** East v. West Antarctica
+
+#+BEGIN_SRC bash :exports both :results verbatim
+grass ./G_AQ/PERMANENT
+v.in.ogr input=${DATADIR}/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp output=basins
+
+g.region vector=basins res=10000 -pa 
+
+v.db.select map=basins|head
+v.db.select -c map=basins columns=Regions | sort | uniq # East West Peninsula Islands
+
+v.to.rast input=basins output=east use=val val=1 where='Regions == "East"'
+v.to.rast input=basins output=west use=val val=2 where='(Regions == "West")'
+v.to.rast input=basins output=peninsula use=val val=3 where='(Regions == "Peninsula")'
+# v.to.rast input=basins output=islands use=val val=3 where='(Regions == "Islands")'
+r.patch input=east,west,peninsula output=basins
+
+r.grow input=basins output=basins_grow radius=5
+r.mapcalc "basins_grow = int(basins_grow)" --o
+#+END_SRC
+
+** Basal melt
+*** Greenland
+
++ 21 Gt/yr from Karlsson (2021) http://doi.org/10.1038/s41467-021-23739-z
++ Assume steady state
+
+*** Antarctica
+
++ 65 Gt/yr from Pattyn (2010) http://doi.org/10.1016/j.epsl.2010.04.025
++ If split by area, its 25 % vs 75 %
++ Better: Split by weighted geothermal heat for E v W Antarctica
+  + This is still (somewhat) weighted by area. Neglects 0 basal melt in areas when ice sheet is frozen to the bed. Neglects frictional heating differences between E & W.
+
+
+**** TODO Is VHD included?
+
+VHD term in Greenland, adds ~50 % (or ~1/3 of total, when total = geothermal + frictional + VHD)
+
+See both Karlsson (2021) and Mankoff (2017) http://doi.org/10.5194/tc-11-303-2017 
+
+**** Geothermal heat
+
+Load 
+#+BEGIN_SRC bash :exports both :results verbatim
+grass -c ./G_AQ/Shapiro_2004
+
+fname=Shapiro_2004/Antarctica_heat_flux_5km.nc
+r.in.gdal -o input=NetCDF:${DATADIR}/${fname}:bheatflx output=bheatflux
+g.region raster=bheatflux -pa
+#+END_SRC
+
+Sum by ROI. Units doesn't matter here, we just want relative %
+#+BEGIN_SRC bash :exports both :results verbatim
+r.mask raster=basins@PERMANENT --o --q
+r.univar -g bheatflux | grep ^sum=
+eval $(!!)
+gf_all=${sum}
+
+r.mask raster=basins@PERMANENT maskcats=1 --o --q
+eval $(r.univar -g bheatflux | grep ^sum=)
+gf_e=${sum}
+
+r.mask raster=basins@PERMANENT maskcats=2 --o --q
+eval $(r.univar -g bheatflux | grep ^sum=)
+gf_w=${sum}
+
+r.mask raster=basins@PERMANENT maskcats=3 --o --q
+eval $(r.univar -g bheatflux | grep ^sum=)
+gf_p=${sum}
+
+r.mask -r
+#+END_SRC
+
+#+BEGIN_SRC bash :exports both :results verbatim
+echo East
+echo "${gf_e}/${gf_all}"|bc -l
+echo West
+echo "${gf_w}/${gf_all}"|bc -l
+echo Peninsula
+echo "${gf_p}/${gf_all}"|bc -l
+#+END_SRC
+
+#+RESULTS:
+: [?2004lEast
+: [?2004l.70880323929018432555
+: [?2004lWest
+: [?2004l.25048300096071189826
+: [?2004lPeninsula
+: [?2004l.04071375974910620730
+
+Results:
+
++ All: 65 Gt/yr Pattyn (2010) http://doi.org/10.1016/j.epsl.2010.04.025
++ East: 65 * 0.71 = 46.15
++ West: 65 * 0.25 = 16.25
++ Peninsula: 65 * 0.04 = 2.6
+
+
+
+** Ice shelves
+
++ See Davison (2023) http://doi.org/10.1126/sciadv.adi0186 particularly Supplemental Table S2.
+
+#+BEGIN_SRC jupyter-python :exports both
+import pandas as pd
+
+fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
+loc = pd.read_excel(fname, sheet_name=0, index_col = 0, usecols = 'B,C,D', skiprows = 4)
+loc = loc.drop('Antarctic Ice Shelves')
+
+mass = pd.read_excel(fname, sheet_name=1, index_col = 0, usecols = 'B:F', skiprows = 5)
+mass.columns = ['D', 'BMB', 'Calving', 'SMB']
+
+mass = loc.join(mass)
+mass.head()
+#+END_SRC
+
+#+RESULTS:
+| Ice shelf   |   latitude |   longitude |         D |        BMB |   Calving |        SMB |
+|-------------+------------+-------------+-----------+------------+-----------+------------|
+| Abbot       |   -72.7958 |    -96.5689 | 31.2693   | 19.9454    | 51.7937   | 20.6485    |
+| Ainsworth   |   -67.9145 |    146.54   |  0.135919 |  0.0215779 | -0.207593 |  0.0719961 |
+| Alison      |   -73.8526 |    -82.0595 |  2.78115  |  0.124033  |  0        |  0         |
+| Amery       |   -70.4394 |     70.43   | 76.7148   |  2.60281   | 44.3328   |  6.41896   |
+| Andreyev    |   -69.011  |    155.464  |  1.67205  |  0.113444  |  0        |  0         |
+
+#+BEGIN_SRC jupyter-python :exports both
+mass[['D','BMB']].sum()
+#+END_SRC
+
+#+RESULTS:
+: D      1838.804842
+: BMB     428.520452
+: dtype: float64
+
+#+BEGIN_SRC jupyter-python :exports both
+import geopandas as gpd
+fname = '~/data/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp'
+ew = gpd.read_file(fname)
+ew.drop(columns=['geometry']).head()
+#+END_SRC
+
+#+RESULTS:
+|    | NAME           | Regions   | Subregions   | TYPE   | Asso_Shelf     |
+|----+----------------+-----------+--------------+--------+----------------|
+|  0 | LarsenE        | Peninsula | Ipp-J        | GR     | LarsenE        |
+|  1 | Dawson_Lambton | East      | nan          | FL     | nan            |
+|  2 | Academy        | East      | Jpp-K        | GR     | Filchner       |
+|  3 | Brunt_Stancomb | East      | K-A          | GR     | Brunt_Stancomb |
+|  4 | Riiser-Larsen  | East      | K-A          | GR     | Riiser-Larsen  |
+
+#+BEGIN_SRC jupyter-python :exports both
+m = gpd.GeoDataFrame(mass, geometry=gpd.points_from_xy(mass['longitude'],mass['latitude']), crs="EPSG:4326")
+
+m = m.to_crs('epsg:3031')
+e = ew.to_crs('epsg:3031')
+
+idx = ew.sindex.nearest(m['geometry'], return_all=False)
+m['Region'] = ''
+for midx,ewidx in idx.T:
+    arr = m.iloc[midx].copy(deep=True)
+    arr['Region'] = ew.iloc[ewidx]['Regions']
+    m.iloc[midx] = arr
+
+m.loc['Total'] = m.sum(axis='rows', numeric_only=True)
+m.loc['Total', 'Region'] = 'All'
+
+m[['Region','D','BMB']].groupby('Region').sum(numeric_only=True).drop('Islands').round()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+| Region    |    D |   BMB |
+|-----------+------+-------|
+| All       | 1839 |   429 |
+| East      |  911 |    87 |
+| Peninsula |  160 |    78 |
+| West      |  767 |   261 |
+:END:
 
