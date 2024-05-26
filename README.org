@@ -19,7 +19,7 @@
 
 * Introduction
 
-Sankey diagram for Greenland and Antarctica.
+Sankey diagrams for mass flow in Greenland and Antarctica.
 
 Uses scripts and CSVs to automate generation to support graphics for different years, models, etc.
 
