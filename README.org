@@ -14,7 +14,8 @@
   - [[#reset][Reset]]
   - [[#east-v-west-antarctica][East v. West Antarctica]]
   - [[#basal-melt][Basal melt]]
-  - [[#ice-shelves][Ice shelves]]
+  - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
+  - [[#smb-mar][SMB (MAR)]]
 
 * Introduction
 
@@ -107,7 +108,7 @@ trash G_GL
 grass ./G_AQ/PERMANENT
 v.in.ogr input=${DATADIR}/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp output=basins
 
-g.region vector=basins res=10000 -pa 
+g.region vector=basins res=10000 -pas
 
 v.db.select map=basins|head
 v.db.select -c map=basins columns=Regions | sort | uniq # East West Peninsula Islands
@@ -120,6 +121,8 @@ r.patch input=east,west,peninsula output=basins
 
 r.grow input=basins output=basins_grow radius=5
 r.mapcalc "basins_grow = int(basins_grow)" --o
+
+r.colors map=basins,basins_grow color=viridis
 #+END_SRC
 
 ** Basal melt
@@ -201,7 +204,7 @@ Results:
 
 
 
-** Ice shelves
+** Antarctic Ice shelves
 
 + See Davison (2023) http://doi.org/10.1126/sciadv.adi0186 particularly Supplemental Table S2.
 
@@ -281,4 +284,210 @@ m[['Region','D','BMB']].groupby('Region').sum(numeric_only=True).drop('Islands')
 | Peninsula |  160 |    78 |
 | West      |  767 |   261 |
 :END:
+
+** SMB (MAR)
+*** Provenance
+
+#+BEGIN_SRC bash :exports both :results verbatim
+mkdir -p dat
+pushd dat
+wget http://phypc15.geo.ulg.ac.be/fettweis/tmp/ken/MARv3.12-ANT.nc4
+wget http://phypc15.geo.ulg.ac.be/fettweis/tmp/ken/MARv3.12-GRD.nc4
+popd
+#+END_SRC
+
++ MB ~ SF+RF-RU-SU.
++ Refreezing ~ ME+RF-RU
++ For the uncertainty, you can use 15%.
+
+*** Greenland
+
+#+BEGIN_SRC jupyter-python :exports both
+import xarray as xr
+
+ds = xr.open_dataset('dat/MARv3.12-GRD.nc4')\
+    .rename({'X10_85':'X',
+             'Y20_155':'Y',
+             'TIME2':'time'})
+
+# Remove Canada
+ds['newmask'] = (ds['X'] - ds['Y']).T
+ds = ds.where(ds['newmask'] > 500)
+
+# Mask to ice
+ds = ds.where(ds['MSK'] > 50)
+
+# Add new terms and limit to terms of interest
+ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
+ds = ds[['SF','RF','RU','SU','ME','RFZ','AREA']]
+
+# scale
+## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
+## + mm.w.eq. -> m w.eq.: /1E3
+## + m w.eq -> kg: *1E3
+## + area in km^2 -> m^2: *1E3*1E3
+## + kg -> Gt: /1E12
+ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+
+ds = ds.sum(dim=['X','Y'])
+
+print("baseline:")
+print(ds.mean(dim='time'))
+
+print("\n\n2019:")
+print(ds.where(ds['time'] == 2019).sum())
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+baseline:
+<xarray.Dataset>
+Dimensions:  ()
+Data variables:
+    SF       float64 700.3
+    RF       float64 42.78
+    RU       float64 390.3
+    SU       float64 53.15
+    ME       float64 540.2
+    RFZ      float64 192.7
+    AREA     float32 720.6
+
+
+2019:
+<xarray.Dataset>
+Dimensions:  ()
+Data variables:
+    SF       float64 632.5
+    RF       float64 35.74
+    RU       float64 640.3
+    SU       float64 60.92
+    ME       float64 880.0
+    RFZ      float64 275.4
+    AREA     float32 720.6
+#+end_example
+
+
+*** Antarctica
+
+**** Export E/W/P mask on the MAR grid
+
+#+BEGIN_SRC bash :exports both :results verbatim
+grass -c ./G_AQ/MAR
+
+fname=dat/MARv3.12-ANT.nc4
+r.in.gdal -o input="NetCDF:${fname}:MSK" output=MSK
+ncdump -v X ${fname}
+ncdump -v Y ${fname}
+g.region rows=148 cols=176 w=-3010000 e=3115000 s=-2555000 n=2590000 -p
+g.region e=e+17500 w=w-17500 s=s-17500 n=n+17500 rows=148 cols=176 -p
+r.region -c map=MSK
+
+r.out.gdal -c -m input=basins_grow output=./tmp/basins.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
+#+END_SRC
+
+**** Report RCM values
+
+#+BEGIN_SRC jupyter-python :exports both
+import xarray as xr
+import rioxarray as rxr
+import rasterio as rio
+import rasterio.plot
+import geopandas as gpd
+import shapely
+import matplotlib.pyplot as plt
+
+ds = xr.open_dataset('./dat/MARv3.12-ANT.nc4')\
+    .rename({'TIME2':'time'})\
+    .mean(dim='time')
+
+ds = ds.rio.write_crs('EPSG:3031')
+
+# east vs west (see GRASS code above)
+basins = rio.open('tmp/basins.tif').read().squeeze()
+ds['basins'] = (('Y','X'), basins[::-1,:])
+# dsE = ds.where(ds['basins'] == 1)
+# dsW = ds.where(ds['basins'] == 2)
+
+# Mask to ice
+ds = ds.where(ds['MSK'] > 50)
+
+# Add new terms and limit to terms of interest
+ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
+vars = ['SF','RF','RU','SU','ME','RFZ']
+
+# scale
+## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
+## + mm.w.eq. -> m w.eq.: /1E3
+## + m w.eq -> kg: *1E3
+## + area in km^2 -> m^2: *1E3*1E3
+## + kg -> Gt: /1E12
+ds[vars] = ds[vars]/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+
+print("All:")
+print(ds[vars].sum().round().astype(int))
+
+print("\nEast:")
+print(ds[vars].where(ds['basins'] == 1).sum().round().astype(int))
+
+print("\nWest:")
+print(ds[vars].where(ds['basins'] == 2).sum().round().astype(int))
+
+print("\nPeninsula:")
+print(ds[vars].where(ds['basins'] == 3).sum().round().astype(int))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+All:
+<xarray.Dataset>
+Dimensions:      ()
+Coordinates:
+    spatial_ref  int64 0
+Data variables:
+    SF           int64 2924
+    RF           int64 13
+    RU           int64 26
+    SU           int64 165
+    ME           int64 164
+    RFZ          int64 151
+
+East:
+<xarray.Dataset>
+Dimensions:      ()
+Coordinates:
+    spatial_ref  int64 0
+Data variables:
+    SF           int64 1612
+    RF           int64 2
+    RU           int64 4
+    SU           int64 140
+    ME           int64 52
+    RFZ          int64 50
+
+West:
+<xarray.Dataset>
+Dimensions:      ()
+Coordinates:
+    spatial_ref  int64 0
+Data variables:
+    SF           int64 918
+    RF           int64 1
+    RU           int64 0
+    SU           int64 12
+    ME           int64 16
+    RFZ          int64 17
+
+Peninsula:
+<xarray.Dataset>
+Dimensions:      ()
+Coordinates:
+    spatial_ref  int64 0
+Data variables:
+    SF           int64 378
+    RF           int64 9
+    RU           int64 16
+    SU           int64 13
+    ME           int64 84
+    RFZ          int64 77
+#+end_example
 
