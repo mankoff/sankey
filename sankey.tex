@@ -1,0 +1,279 @@
+\documentclass[11pt]{article}
+\usepackage{sankey}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{ifthen}
+\pagestyle{empty}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\begin{tikzpicture}[remember picture, overlay, shift={(5.5,-1.5)}]
+
+  \begin{sankeydiagram}
+    \sankeyset{debug=true}
+
+    \colorlet{water}[rgb]{cyan!75!blue!50!white}
+    \colorlet{ice}[rgb]{gray!20!gray!20!gray!20}
+    %% \colorlet{air}[rgb]{gray!1!gray!1!gray!1}
+    \colorlet{air}{yellow!50}
+    \colorlet{red}[rgb]{red!50!orange!75!white}
+    \colorlet{black}[rgb]{black!100!black!100!black!100}
+
+    \sankeyset{
+      every node/.style={angle=-90},
+      start style=arrow,end style=arrow,
+      %% fill/.style={fill=yellow!10,line width=0pt,draw=yellow!10},
+      ratio=1mm/33,
+      minimum radius=0mm,
+      water/.style={fill/.style={draw=water,line width=0pt,fill=water,},},
+      ice/.style={fill/.style={draw=ice,line width=0pt,fill=ice,},},
+      air/.style={fill/.style={draw=air,line width=0pt,fill=air,},},
+      black/.style={fill/.style={draw=black,line width=0pt,fill=black,},},
+      ice-to-water/.style={fill/.style={fill=none, top color=ice, bottom color=water},},
+      ice-to-water-horiz/.style={fill/.style={fill=none, right color=ice, left color=water},},
+      ice-to-air/.style={fill/.style={fill=none, top color=ice, bottom color=air},},
+      ice-to-air-horiz/.style={fill/.style={fill=none, left color=ice, right color=air},},
+      water-to-air-horiz/.style={fill/.style={fill=none, right color=water, left color=air},},
+      water-to-air/.style={fill/.style={fill=none, top color=water, bottom color=air},},
+      air-to-ice/.style={fill/.style={fill=none, top color=air, bottom color=ice},},
+      red/.style={fill/.style={fill=none, top color=red, bottom color=red},},
+      red-to-ice/.style={fill/.style={fill=none, top color=red, bottom color=ice},},
+      water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
+      ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
+      debug label/.style={
+        overlay,
+        draw,
+        font=\ttfamily,
+        text=debug color,text opacity=1,
+        inner sep=.1em,
+        fill=white,fill opacity=0.5,
+        rounded corners=.1em,
+        %% node contents={\name (\qty)},
+        node contents={\name},
+      },
+    }
+
+    % storage of labels
+    \newcommand\LabSet[2]{% node name, label
+      \expandafter\edef\csname#1@Lab\endcsname{#2}}
+    \newcommand\Lab[1]{% node name
+      \csname#1@Lab\endcsname}
+    % storage of quantities
+    \newcommand\QSet[2]{% node name, quantity
+      \expandafter\edef\csname#1@Q\endcsname{\fpeval{#2}}}
+    \newcommand\Q[1]{% node name
+      \csname#1@Q\endcsname}
+    % all nodes with their name, label and quantity
+    \newcommand\qq[1]{\sankeygetnodeqty{#1}}
+
+    \sankeyset{
+      def data/.code args={#1/#2/#3}{% node name/label/values
+        \LabSet{#1}{#2}
+        \QSet{#1}{#3}
+        \typeout{#1: \Q{#1} Gt (\Lab{#1})}
+      },
+      def data/.list={
+        %% INSERT_CSV_HERE
+        %% COMPUTED 
+        {ML/Mass loss/
+          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN}+\Q{FRET}+\Q{GZRET}+\Q{EV})-
+          (\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP})},
+        {MLfd/Mass Loss fixed domain/\Q{ML}-(\Q{FRET}+\Q{GZRET})},
+        {MG/Mass gain/
+          (\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP})-
+          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN}+\Q{FRET}+\Q{GZRET}+\Q{EV})}
+      },
+    }
+
+    \sankeyset{ice} % default color until otherwise specified
+    \newcommand\xoff{2mm}
+
+    \sankeynode{name=SF, quantity=\Q{SF}}
+    \sankeynode{name=DP, quantity=\Q{DP}, at={[xshift=-\xoff]SF.right}, anchor=left}
+    \sankeynode{name=CD, quantity=\Q{CD}, at={[xshift=-\xoff]DP.right}, anchor=left}
+    \sankeynode{name=RF, quantity=\Q{RF}, at={[xshift=-\xoff]CD.right}, anchor=left}
+
+    \sankeystart{SF}
+    \sankeystart[air]{DP}
+    \sankeystart{CD}
+    \sankeystart[water]{RF}
+
+    \sankeynode{name=f0, quantity=\Q{SF}+\Q{DP}+\Q{CD}+\Q{RF},
+      at={[yshift=-15mm]SF.left}, anchor=left,
+      forked={\Q{SF}/SF-in, \Q{DP}/DP-in, \Q{CD}/CD-in, \Q{RF}/RF-in}}
+
+    \sankeyoutin{SF}{SF-in}
+    \sankeydubins[minimum radius=3mm,air-to-ice]{DP}{DP-in}
+    \sankeydubins[minimum radius=3mm]{CD}{CD-in}
+    \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RF-in}
+
+    \ifthenelse{\Q{MG} > \Q{ML}}
+    {
+      \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0},
+        at={[yshift=-15mm,xshift=-3mm]f0.right}, anchor=right,
+        forked={\qq{f0}/f0-in, \Q{RFZ}/RFZ-in}}
+    }
+    {
+      \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0}+\Q{ML},
+        at={[yshift=-15mm]f0.center}, anchor=center,
+        forked={\Q{ML}/ML-in, \qq{f0}/f0-in, \Q{RFZ}/RFZ-in}}
+    }
+    
+    \sankeyoutin{f0}{f0-in}
+    \sankeyadvance{f1}{15mm}
+    
+    \ifthenelse{\Q{MG} > \Q{ML}}
+    {
+      \sankeyfork{f1}{
+        \Q{MG}/fMG,
+        \Q{SU}/fSU, \Q{FRET}/fFR, \Q{GZRET}/fGZ,
+        \Q{DYN}/f6, \Q{BM}/fBM, \Q{RU}+\Q{EV}/f8, \Q{RFZ}/RFZ-out}
+    }
+    {
+      \sankeyfork{f1}{
+        %% \Q{MG}/fMG,
+        \Q{SU}/fSU, \Q{FRET}/fFR, \Q{GZRET}/fGZ,
+        \Q{DYN}/f6, \Q{BM}/fBM, \Q{RU}+\Q{EV}/f8, \Q{RFZ}/RFZ-out}
+    }
+
+    \sankeydubins[minimum radius=5mm,ice-to-water-horiz]{RFZ-out}{RFZ-in}
+
+    \sankeyadvance{f6}{10mm}
+    \sankeyfork{f6}{\Q{ICE}/fD, \Q{SUB}/fSUB}
+    \sankeyadvance{fD}{10mm}
+
+    \sankeynode{name=fSUBa, quantity=\qq{fSUB},
+      at={[xshift=-\xoff]fD.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{fSUB}{fSUBa}
+
+    \sankeynode{name=fBMa, quantity=\qq{fBM},
+      at={[xshift=-\xoff]fSUBa.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{fBM}{fBMa}
+
+    \sankeynode{name=f8a, quantity=\qq{f8},
+      at={[xshift=-\xoff]fBMa.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{f8}{f8a}
+    
+    \sankeynode{name=fGZa, quantity=\qq{fGZ},
+      at={[xshift=\xoff]fD.left}, anchor=right}
+    \sankeyoutin{fGZ}{fGZa}
+
+    \sankeynode{name=fFRa, quantity=\qq{fFR},
+      at={[xshift=\xoff]fGZa.left}, anchor=right}
+    \sankeyoutin{fFR}{fFRa}
+
+    \sankeynode{name=fSUa, quantity=\qq{fSU},
+      at={[xshift=\xoff]fFRa.left}, anchor=right}
+    \sankeyoutin{fSU}{fSUa}
+
+    \ifnum \numexpr\Q{MG} > \Q{ML}
+      \sankeynode{name=fMGa, quantity=\qq{fMG},
+        at={[xshift=\xoff,yshift=8mm]fSUa.left}, anchor=right, angle=0}
+      \sankeyoutin{fMG}{fMGa}
+    \fi
+    
+    \sankeyfork{f8a}{\Q{RU}/fRU, \Q{EV}/fEV}
+    \sankeynode{name=fEVa, quantity=\qq{fEV},
+      at={[xshift=-3mm,yshift=-5mm]f8a.right}, anchor=right, angle=180}
+    \sankeyoutin[water]{fEV}{fEVa}
+    \sankeyadvance[water-to-air-horiz]{fEVa}{5mm}
+    \sankeyend[air]{fEVa}
+
+    \ifthenelse{\Q{MG} < \Q{ML}}
+      {
+        %% mass loss
+        \sankeynode{name=fML, quantity=\Q{ML}, at={[xshift=\xoff]SF.left}, anchor=right}
+        \sankeystart[red]{fML}
+        \sankeyadvance[red-to-ice]{fML}{5mm}
+        \sankeyfork{fML}{\Q{FRET}/f18, \Q{GZRET}/f17, \Q{MLfd}/f16}
+        \sankeyadvance{f16}{10mm}
+
+        \sankeynode{name=f17a, quantity=\qq{f17},
+          at={[xshift=\xoff]f16.left}, anchor=right}
+        \sankeyoutin{f17}{f17a}
+
+        \sankeynode{name=f18a, quantity=\qq{f18},
+          at={[xshift=\xoff]f17a.left}, anchor=right}
+        \sankeyoutin{f18}{f18a}
+
+        \sankeynode{name=f19, quantity=\qq{ML-in},
+          at={ML-in.center}, anchor=center,
+          forked={\qq{f18}/f18b, \qq{f17}/f17b, \qq{f16}/f16b}}
+        \sankeyoutin{f16}{f16b}
+        \sankeyoutin{f17a}{f17b}
+        \sankeyoutin{f18a}{f18b}
+      }
+      {
+        %% mass gain
+        \sankeyadvance[ice-to-black]{fMGa}{3mm}
+        \sankeyend[black]{fMGa}
+      }
+      
+      %% \sankeynode{name=fMGa, quantity=\qq{fMG},
+      %%   at={[xshift=\xoff,yshift=8mm]fSUa.left}, anchor=right, angle=0}
+      %% \sankeyoutin{fMG}{fMGa}
+      %% \sankeyadvance[ice-to-air]{fSUa}{10mm}; \sankeyend[air]{fSUa}
+
+      \sankeynode{name=fSUa2, quantity=\qq{fSU},
+        at={[xshift=2mm,yshift=-5mm]fSUa.left}, anchor=left, angle=0}
+      \sankeyoutin[ice]{fSUa}{fSUa2}
+      \sankeyadvance[ice-to-air-horiz]{fSUa2}{2mm}
+      \sankeyend[air]{fSUa2}
+      
+      %% \sankeyoutin{fMG}{fMGa}
+      
+      \sankeyadvance{fFRa}{10mm}; \sankeyend{fFRa}
+      \sankeyadvance[ice-to-water]{fGZa}{10mm}; \sankeyend[water]{fGZa}
+      \sankeyadvance{fD}{10mm}; \sankeyend{fD}
+
+      \sankeyset{water}
+      \sankeyadvance{fBMa}{10mm}; \sankeyend{fBMa}
+      \sankeyadvance{fSUBa}{10mm}; \sankeyend{fSUBa}
+      \sankeyadvance{fRU}{10mm}; \sankeyend{fRU}
+          
+  %%   %% DRIFT
+  %%   \sankeynode{name=DRIFT-OUT, quantity=33, at={(3mm, -8mm)}, angle=150}
+  %%   \sankeynode{name=DRIFT-IN, quantity=33, at={(-3mm, -8mm)}, angle=210}
+  %%   \sankeydubins[minimum radius=5mm]{DRIFT-OUT}{DRIFT-IN}
+  %%   \sankeystart{DRIFT-OUT}
+  %%   \sankeyend{DRIFT-IN}
+  %%   \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
+
+  %%   \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
+
+  %%   \node[anchor=east, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
+
+  %%   \node[anchor=center, align=center, shift=({0mm,-1cm})] at (SUB.center) {Submarine\\melt \\(\sankeygetnodeqty{SUB})};
+
+  %%   \node[anchor=center, align=center, shift=({0mm,-1cm})] at (ICE.center) {Calving\\(\sankeygetnodeqty{ICE})};
+
+  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, -0.5cm})] at (BM.center) {Basal\\melting \\(\sankeygetnodeqty{BM})};
+
+  %%   \node[anchor=center, align=center, shift=({0mm,0cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
+
+  %%   \node[anchor=center, align=center, shift=({-0.6cm,2cm})] at (RU-from-MELT.center) {Melt\\ runoff\\(\sankeygetnodeqty{RU-from-MELT})};
+
+  %%   \node[anchor=center, align=right, shift=({-1cm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
+
+  %%   \node[anchor=right, align=right, shift=({-2cm,1cm})] at (RFZ-from-MELT.center) {Refreezing\\loop \\(\sankeygetnodeqty{RFZ-from-MELT})};
+
+  %%   \node[anchor=center, align=center, shift=({0.2cm,1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
+
+  %%   \node[anchor=center, align=center, shift=({1cm,0.1cm})] at (MGNet-out.center) {Net mass gain\\(\sankeygetnodeqty{MGNet-out})};
+
+  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, 0.0cm})] at (FRET.center) {Frontal retreat \\(\sankeygetnodeqty{FRET})};
+
+  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, 0.0cm})] at (GZRET-DYN.center) {Grounding line retreat \\(\sankeygetnodeqty{GZRET-DYN})};
+
+  %% \node[anchor=center, align=center, shift=({0cm,0.75cm})] at (SF.center) {Snowfall (\sankeygetnodeqty{SF})};
+
+  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (DP.center) {Deposition (\sankeygetnodeqty{DP})};
+
+  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
+
+  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.3cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
+
+  \end{sankeydiagram}
+\end{tikzpicture}
+\end{document}

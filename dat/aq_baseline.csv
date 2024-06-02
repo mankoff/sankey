@@ -2,16 +2,16 @@ Label,Description,Value,Reference
 DR,Drift,0,TODO
 RFZ,Refreeze (after melt),150,fettweis_2020
 SF,Snowfall,2925,fettweis_2020
-RF,Rainfall,14,fettweis_2020
+RF,Rainfall,15,fettweis_2020
 RF-LIQ,Rainfall runoff,0,TODO
 CD,Condensation,10,TODO
 DP,Deposition,10,TODO
 FRET,Frontal retreat,100,TODO
 GZRET,Grounding line retreat,100,TODO
-SU,Sublimation,164,fettweis_2020
+SU,Sublimation,165,fettweis_2020
 RU,Runoff,25,fettweis_2020
-DYN,Dynamics,2300,rignot_2019
-ICE,Icebergs,1150,TODO Half of 2300 DYN
-SUB,Submarine melt,1150,TODO Half of 2300 DYN
+DYN,Dynamics,1840+430,davison_2023
+ICE,Icebergs,1840,davison_2023
+SUB,Submarine melt,430,davison_2023
 EV,Evaporation,10,TODO
 BM,Basal melt,65,pattyn_2010

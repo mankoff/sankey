@@ -1,16 +1,17 @@
 Label,Description,Value,Reference
 DR,Drift,0,
-RFZ,Refreeze (after melt),100,MAR
-SF,Snowfall,1311,MAR
-RF,Rainfall,11,MAR
+RFZ,Refreeze (after melt),15,MAR
+SF,Snowfall,920,MAR
+RF,Rainfall,1,MAR
 RF-LIQ,Rainfall runoff,0,
 CD,Condensation,10,
 DP,Deposition,10,
 FRET,Frontal retreat,100,
-SU,Sublimation,24,MAR
-RU,Runoff,20,MAR
-DYN,Dynamics,2300,rignot_2019
-ICE,Icebergs,1150,Half of 2300
-SUB,Submarine melt,1150,Half of 2300
+GZRET,Grounding line retreat,100,TODO
+SU,Sublimation,10,MAR
+RU,Runoff,1,MAR
+DYN,Dynamics,770+260,davison_2023
+ICE,Icebergs,770,davison_2023
+SUB,Submarine melt,260,davison_2023
 EV,Evaporation,3,
-BM,Basal melt,15,pattyn_2010 scaled by area
+BM,Basal melt,16,pattyn_2010 weighted by shapiro_2004 geothermal
