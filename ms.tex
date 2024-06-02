@@ -45,31 +45,66 @@
 \begin{frontmatter}
 \maketitle
 \begin{abstract}
-  Mass flows, contributing to mass loss or gain of the ice sheets, is an of-studied topic in the domain of glaciology. However, few studies consider all processes - this is usually the domain of review papers.  Here we...
+  Mass flows of ice sheets, and subsequent mass gains and losses, is an of-studied topic in the domain of glaciology. However, few studies consider all processes and their relative magnitudes and uncertainties - this is usually the domain of review papers. Here we present a Sankey diagram that provides an overview of all mass flow terms and processes for both the Greenlandic and Antarctic ice sheets. We use this display to highlight a) relative magnitudes among processes within ice sheets and among ice sheets and sectors, and b) the uncertainty associated with each property. We also... TBD.
+
+  There is no new science here, but presenting existing data in new or clearer ways may still lead to new insights.
 \end{abstract}
 \end{frontmatter}
 
+\section{Introduction to Sankey diagrams}
+
+Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., \citet{kraak_2021}) that combines the magnitude of active soldiers overlaid on a geographical map to show attrition during war. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
+
 \section{Overview of mass flows}
 
-\section{Interpretation}
+See \url{https://github.com/mankoff/sankey/issues/16} for discussion of graphical plan. Comment there or here. 
 
-Red indicates drawdown of the ice sheet mass, which here is an input to the mass flow in Greenland, because the outputs are larger than the external inputs (e.g., snowfall).
+\begin{figure}
+  \centering
+  \includegraphics[height=.65\linewidth]{fig/gl_baseline.pdf}
+  \includegraphics[height=.65\linewidth]{fig/gl_2019.pdf}
+  \caption{Sankey flow for Greenland, baseline and 2019. Widths are proportional. Colors represent both phases (gray solid, blue liquid, white gaseous) and net mass change (red loss, black gain). TODO: Improved labeling.}
+    \label{fig:gl}
+\end{figure}
 
-Black indicates increase of ice sheet mass, which is an output to the mass flow in Antarctica, because the outputs are smaller than the external inputs.
+\begin{figure}
+  \centering
+  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
+  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
+  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
+  \caption{Antarctica, east, west. NOTE east and west are TBD, this is just all AQ shown 3x.}
+  \label{fig:aq}
+\end{figure}
 
-We mark grounding line in Antarctica and frontal retreat in Greenland in red, even if Antarctica has net mass gain, because not all mass is equal when considering ice sheet health. Antarctica is mass positive because of increased snowfalls. Grounding line retreat is a localized mass imbalance term.
+\subsection{Interpretation of graphics}
 
-\subsection{Missing terms}
+Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagrams. The widths of any section within any figure is proportional to all other widths. Widths are/are-not (TODO, see https://github.com/mankoff/sankey/issues/16) proportional between images. The flows can be somewhat tied to physical space or geography, but are not. An alternate display by \citet[Fig. 2]{cogley_2011} shows a similar diagram overlaid an a glacier schematic, but without flow magnitude nor proportionality.
 
-Basal accumulation (not ice), avalanche on/off, Subaerial frontal melt/sublimation (rolled into other terms), drifting on/off, gz retreat in Greenland (few ice shelves).
+Color here represents both phase and net mass change. Colors gray, blue, and white represent solid, liquid, and gaseous phases respectively, while red and black highlight net mass loss or gain. The latter may be counter-intuitive - for example to see mass loss as an input at the top (red in Fig. \ref{fig:gl}) even though most mass loss terms (runoff, calving, etc.) are at the bottom. This is because Sankey diagrams are balanced, outputs are larger than inputs (hence net mass loss), so the mass loss term is an input - drawdown of the historical 'stable' ice mass. Conversely, in East Antarctica mass gain is an output at the bottom (black in Fig. \ref{fig:aq}b} that balances the diagram, because without it, there are more flows into the system than out of it.
 
-Graphics may not be complete. For example, an earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in \citet{cogley_2011}, but their respective values were highly uncertain, and still are, although recent work by \citet{kochtitzky_2023,greene_2024} have constrained these values in Greenland
+%% We mark grounding line in Antarctica and frontal retreat in Greenland in red, even if Antarctica has net mass gain, because not all mass is equal when considering ice sheet health. Antarctica is mass positive because of increased snowfalls. Grounding line retreat is a localized mass imbalance term.
+
+\subsection{Missing terms and limitations}
+
+See \citet[Fig. 2]{cogley_2011}
+
+Basal freeze-on (e.g., \citet{bell_2014}) is not shown. It is currently unknown by Ken if this is refreezing of the basal melting term (e.g.,\citet{karlsson_2021}) and therefore that terms source remains unchanged, but some diverts back to the dynamics flow and the basal melting output is reduced, or if the basal melting term is final basal runoff, in which case the source should be increased by the refreezing amount. Nonetheless, we do not know the refreezing value.
+
+Also:
+\begin{itemize}
+\item Avalanche on/off. Maybe matters more for glaciers than ice sheets?
+\item Subaerial frontal melt/sublimation. That is, the vertical face in Greenland above the water line. This is included in other terms.
+\item Snow drifting on/off. Not sure how much snow drifts onto an ice sheet, but snow drift off could be good to include.
+\item Grounding line retreat in Greenland. Different than frontal retreat. Ignored, as there are few ice shelves.
+\end{itemize}
+
+There may be other missing terms. For example, an earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in \citet{cogley_2011}, but their respective values were highly uncertain, and still are, although recent work by \citet{kochtitzky_2023,greene_2024} have constrained these values in Greenland. 
 
 \section{Uncertainty}
 
 Note that some uncertainty (e.g. snowfall) is larger than many other terms combined.
 
-Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
+Advice from Hester: Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
 
 \subsection{Drifting snow}
 
@@ -77,13 +112,15 @@ Synthesize what each of the uncertainties is a function of (lack of measurements
 
 \section{Methods}
 
-Use published values
+Use published values. See CSV tables in \texttt{dat/} folder or README.org
 
 Approximate where values are not easily accessed.
 
-We do not have access to the basal mass balance for Antarctica in spatial map form, only a total Antarctic-wide value from \citet{pattyn_2010}. To estimate basal melt for East and West Antarctica, we scale by the approximate areas of East and West Antarctica, or 75 \% and 25 \% respectively.
+We do not have access to the basal mass balance for Antarctica in spatial map form, only a total Antarctic-wide value from \citet{pattyn_2010} reported at 65 Gt yr^{-1}. To estimate basal melt for East and West Antarctica, we scale by the magnitude of geothermal heat flux scaled by area for East, West, and Peninsula which is 70 \%, 25 \%, and 5 \% respectively, compared to scaling by area alone which has 75 \% of the area in East Antarctica.
 
 \section{Mass flow values}
+
+See CSV tables in \texttt{dat/} folder or README.org
 
 %% \begin{table} % table1, one column
 %%   \caption{One-column table captions will extend beyond the rules in two-column format. Do not try to adjust! Table captions do not have full points at the end}

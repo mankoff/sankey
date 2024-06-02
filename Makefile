@@ -3,55 +3,45 @@
 SHELL = bash
 .DEFAULT_GOAL := help
 
-CSVDIR=./dat
-PDFDIR=./fig
-TMPDIR=./tmp
-TEXDIR=./tex
+CSVDIR=./dat/
+TMPDIR=./tmp/
+TEXDIR=./tex/
 
 CSVS = $(shell find $(CSVDIR) -name "*.csv")
 PDFS=$(CSVS:.csv=.pdf)
-PDFS:=${subst $(CSVDIR),$(PDFDIR),$(PDFS)}
+PDFS:=${subst $(CSVDIR),,$(PDFS)}
 SRC_TEX=$(CSVS:.csv=.tex)
 SRC_TEX:=${subst $(CSVDIR),$(TMPDIR),$(SRC_TEX)}
 
 LATEXCMD=pdflatex
-LATEXOPTS=-interaction nonstopmode -file-line-error --output-directory=$(PDFDIR)
+LATEXOPTS=-interaction nonstopmode -file-line-error --output-directory=$(TMPDIR)
 
 .PHONY: help
-.PRECIOUS: tmp/gl_%.tex tmp/aq_%.tex
+.PRECIOUS: tmp/%.tex
 
 help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo 'Found CSV files:', $(CSVS)
 	@echo 'Possible pdf files', $(PDFS)
+	@echo 'TEX: ', $(SRC_TEX)
 
 all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 	@echo "all: $(PDFS)"
 
-fig/%.pdf: $(TMPDIR)/%.tex
-	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex || true # continue on error
+%.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile
+	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex
+	mv ./tmp/$*.pdf $*.pdf
 
-tmp/gl_%.tex: ${CSVDIR}/gl_%.csv $(TEXDIR)/gl_sankey.tex
-	@sed  '/INSERT_CSV_HERE/q' tex/gl_sankey.tex > tmp/gl_$*.tex
-	@cat dat/gl_$*.csv \
+%.tex: ${CSVDIR}/%.csv
+	@sed  '/INSERT_CSV_HERE/q' sankey.tex > tmp/$*.tex
+	@cat dat/$*.csv \
 		| tail -n +2 \
 		| cut -d, -f1-3 \
 		| sed 's/^/{/' \
 		| sed 's/,/\//g' \
 		| sed "s/$$/},/g" \
-		>> tmp/gl_$*.tex
-	@sed -e '1,/INSERT_CSV_HERE/d' tex/gl_sankey.tex >> tmp/gl_$*.tex
-
-tmp/aq_%.tex: $(CSVDIR)/aq_%.csv $(TEXDIR)/aq_sankey.tex
-	@sed '/INSERT_CSV_HERE/q' tex/aq_sankey.tex > tmp/aq_$*.tex
-	@cat dat/aq_$*.csv \
-		| tail -n +2 \
-		| cut -d, -f1-3 \
-		| sed 's/^/{/' \
-		| sed 's/,/\//g' \
-		| sed "s/$$/},/g" \
-		>> tmp/aq_$*.tex
-	@sed -e '1,/INSERT_CSV_HERE/d' tex/aq_sankey.tex >> tmp/aq_$*.tex
+		>> tmp/$*.tex
+	@sed -e '1,/INSERT_CSV_HERE/d' sankey.tex >> tmp/$*.tex
 
 clean:
 	rm -fR tmp/* fig/*

@@ -16,16 +16,18 @@
     \colorlet{ice}[rgb]{gray!20!gray!20!gray!20}
     \colorlet{air}[rgb]{gray!1!gray!1!gray!1}
     \colorlet{red}[rgb]{red!50!orange!75!white}
+    \colorlet{black}[rgb]{black!100!black!100!black!100}
 
     \sankeyset{
       every node/.style={angle=-90},
       start style=arrow,end style=arrow,
       %% fill/.style={fill=yellow!10,line width=0pt,draw=yellow!10},
       ratio=1mm/50,
-      minimum radius=1mm,
+      minimum radius=0mm,
       water/.style={fill/.style={draw=water,line width=0pt,fill=water,},},
       ice/.style={fill/.style={draw=ice,line width=0pt,fill=ice,},},
       air/.style={fill/.style={draw=air,line width=0pt,fill=air,},},
+      black/.style={fill/.style={draw=black,line width=0pt,fill=black,},},
       ice-to-water/.style={fill/.style={fill=none, top color=ice, bottom color=water},},
       ice-to-air/.style={fill/.style={fill=none, top color=ice, bottom color=air},},
       water-to-air/.style={fill/.style={fill=none, top color=water, bottom color=air},},
@@ -33,6 +35,7 @@
       red/.style={fill/.style={fill=none, top color=red, bottom color=red},},
       red-to-ice/.style={fill/.style={fill=none, top color=red, bottom color=ice},},
       water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
+      ice-to-black/.style={fill/.style={fill=none, top color=ice, bottom color=black},},
       debug label/.style={
         overlay,
         draw,
@@ -112,7 +115,7 @@
     %% BM Basal Melting
     \sankeydubins[ice-to-water]{GROSS-to-BM}{BM}
     \sankeyadvance[water]{BM}{3cm}
-    \sankeyadvance[water]{BM}{3cm}
+    \sankeyadvance[water]{BM}{2.5cm}
     \sankeyend[water]{BM}
 
     %% %% MELT
@@ -168,12 +171,12 @@
     \sankeyend[air]{SU-out}
 
     \sankeynode{name=MGNet-out-tmp, quantity=\Q{MGNet},
-      at={[xshift=5mm, yshift=-15mm]GROSS-to-SU.center}, anchor=center}
+      at={[xshift=7mm, yshift=-15mm]GROSS-to-SU.center}, anchor=center}
     \sankeynode{name=MGNet-out, quantity=\Q{MGNet},
       at={[xshift=5mm, yshift=-5mm]MGNet-out-tmp.center}, anchor=center, angle=0}
-    \sankeydubins[ice]{MGNet-from-GROSS}{MGNet-out-tmp}
-    \sankeydubins[ice,minimum radius=2mm]{MGNet-out-tmp}{MGNet-out}
-    \sankeyend[ice]{MGNet-out}
+    \sankeydubins[ice-to-black]{MGNet-from-GROSS}{MGNet-out-tmp}
+    \sankeydubins[black,minimum radius=2mm]{MGNet-out-tmp}{MGNet-out}
+    \sankeyend[black]{MGNet-out}
 
 
     %%% INPUTS
@@ -251,7 +254,7 @@
 
     \node[anchor=center, align=center, shift=({0.2cm,1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
 
-    \node[anchor=center, align=center, shift=({0.2cm,1cm})] at (MGNet-out.center) {Net mass gain\\(\sankeygetnodeqty{MGNet-out})};
+    \node[anchor=center, align=center, shift=({1cm,0.1cm})] at (MGNet-out.center) {Net mass gain\\(\sankeygetnodeqty{MGNet-out})};
 
     \node[anchor=north, align=center, rotate=0, shift=({0cm, 0.0cm})] at (FRET.center) {Frontal retreat \\(\sankeygetnodeqty{FRET})};
 

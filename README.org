@@ -138,13 +138,6 @@ r.colors map=basins,basins_grow color=viridis
 + Better: Split by weighted geothermal heat for E v W Antarctica
   + This is still (somewhat) weighted by area. Neglects 0 basal melt in areas when ice sheet is frozen to the bed. Neglects frictional heating differences between E & W.
 
-
-**** TODO Is VHD included?
-
-VHD term in Greenland, adds ~50 % (or ~1/3 of total, when total = geothermal + frictional + VHD)
-
-See both Karlsson (2021) and Mankoff (2017) http://doi.org/10.5194/tc-11-303-2017 
-
 **** Geothermal heat
 
 Load 
