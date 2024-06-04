@@ -21,16 +21,14 @@ LATEXOPTS=-interaction nonstopmode -file-line-error --output-directory=$(TMPDIR)
 
 help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
-	@echo 'Found CSV files:', $(CSVS)
-	@echo 'Possible pdf files', $(PDFS)
-	@echo 'TEX: ', $(SRC_TEX)
 
 all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 	@echo "all: $(PDFS)"
 
-%.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile
+%.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile ## Make a PDF
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex
-	mv ./tmp/$*.pdf $*.pdf
+	pdfcrop -bbox "100 325 480 650" tmp/$*.pdf
+	mv ./tmp/$*-crop.pdf $*.pdf
 
 %.tex: ${CSVDIR}/%.csv
 	@sed  '/INSERT_CSV_HERE/q' sankey.tex > tmp/$*.tex
@@ -43,5 +41,5 @@ all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 		>> tmp/$*.tex
 	@sed -e '1,/INSERT_CSV_HERE/d' sankey.tex >> tmp/$*.tex
 
-clean:
-	rm -fR tmp/* fig/*
+clean: ## Delete PDFs and tmp folder contents
+	rm -fR tmp/* $(PDFS)
