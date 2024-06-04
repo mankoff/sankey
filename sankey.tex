@@ -183,26 +183,10 @@
     \ifthenelse{\Q{MG} < \Q{ML}}
       {
         %% mass loss
-        \sankeynode{name=fML, quantity=\Q{ML}, at={[xshift=\xoff]SF.left}, anchor=right}
+        \sankeynode{name=fML, quantity=\Q{ML}, at={[xshift=\xoff,yshift=0mm]SF.left}, anchor=right}%, angle=-145}
         \sankeystart[red]{fML}
         \sankeyadvance[red-to-ice]{fML}{5mm}
-        \sankeyfork{fML}{\Q{FRET}/f18, \Q{GZRET}/f17, \Q{MLfd}/f16}
-        \sankeyadvance{f16}{10mm}
-
-        \sankeynode{name=f17a, quantity=\qq{f17},
-          at={[xshift=\xoff]f16.left}, anchor=right}
-        \sankeyoutin{f17}{f17a}
-
-        \sankeynode{name=f18a, quantity=\qq{f18},
-          at={[xshift=\xoff]f17a.left}, anchor=right}
-        \sankeyoutin{f18}{f18a}
-
-        \sankeynode{name=f19, quantity=\qq{ML-in},
-          at={ML-in.center}, anchor=center,
-          forked={\qq{f18}/f18b, \qq{f17}/f17b, \qq{f16}/f16b}}
-        \sankeyoutin{f16}{f16b}
-        \sankeyoutin{f17a}{f17b}
-        \sankeyoutin{f18a}{f18b}
+        \sankeyoutin{fML}{ML-in}
       }
       {
         %% mass gain
