@@ -6,8 +6,6 @@
 * Table of contents                               :toc_2:noexport:
 - [[#introduction][Introduction]]
 - [[#mass-flow-values][Mass flow values]]
-  - [[#greenland-baseline][Greenland baseline]]
-  - [[#antarctica-baseline][Antarctica baseline]]
 - [[#methods][Methods]]
 - [[#results][Results]]
 - [[#implementation][Implementation]]
@@ -24,65 +22,43 @@ Sankey diagrams for mass flow in Greenland and Antarctica.
 Uses scripts and CSVs to automate generation to support graphics for different years, models, etc.
 
 * Mass flow values
-** Greenland baseline
 
-#+BEGIN_SRC bash :exports results
+Here we should example data for Greenland baseline. See [[file:./dat]] folder for remaining data. 
+
+#+BEGIN_SRC bash :exports both
 cat ./dat/gl_baseline.csv
 #+END_SRC
 
 #+RESULTS:
-| Label  | Description           | Value | cite_key           |
-| DR     | Drift                 |   200 | TODO               |
-| RFZ    | Refreeze (after melt) |   190 | fettweis_2020      |
-| SF     | Snowfall              |   700 | fettweis_2020      |
-| RF     | Rainfall              |    45 | fettweis_2020      |
-| RF-LIQ | Rainfall runoff       |    10 | fettweis_2020      |
-| CD     | Condensation          |    30 | TODO               |
-| DP     | Deposition            |    20 | TODO               |
-| FRET   | Frontal retreat       |    50 | kochtitzky_2023    |
-| SU     | Sublimation           |    55 | fettweis_2020      |
-| RU     | Runoff                |   390 | fettweis_2002      |
-| DYN    | Dynamics              |   500 | mankoff_2020_solid |
-| ICE    | Icebergs              |   250 | enderlin_2013      |
-| SUB    | Submarine melt        |   250 | enderlin_2013      |
-| EV     | Evaporation           |   100 | TODO               |
-| BM     | Basal melt            |    20 | karlsson_2021      |
-
-** Antarctica baseline
-
-#+BEGIN_SRC bash :exports both
-cat ./dat/aq_baseline.csv
-#+END_SRC
-
-#+RESULTS:
-| Label  | Description            | Value | Reference                                     |
-| DR     | Drift                  |     0 | TODO                                          |
-| RFZ    | Refreeze (after melt)  |   150 | fettweis_2020                                 |
-| SF     | Snowfall               |  2925 | fettweis_2020                                 |
-| RF     | Rainfall               |    14 | fettweis_2020                                 |
-| RF-LIQ | Rainfall runoff        |     0 | TODO                                          |
-| CD     | Condensation           |    10 | TODO                                          |
-| DP     | Deposition             |    10 | TODO                                          |
-| FRET   | Frontal retreat        |   100 | TODO                                          |
-| GZRET  | Grounding line retreat |   100 | TODO                                          |
-| SU     | Sublimation            |   164 | fettweis_2020                                 |
-| RU     | Runoff                 |    25 | fettweis_2020                                 |
-| DYN    | Dynamics               |  2300 | rignot_2019                                   |
-| ICE    | Icebergs               |  1150 | TODO Half of 2300 DYN                         |
-| SUB    | Submarine melt         |  1150 | TODO Half of 2300 DYN                         |
-| EV     | Evaporation            |    10 | TODO                                          |
-| BM     | Basal melt             |   210 | TODO 10 x Greenland b/c Antarctica is 10 area |
+| Label  | Description            | Value | cite_key           |
+| DR     | Drift                  |   200 | TODO               |
+| RFZ    | Refreeze (after melt)  |   190 | fettweis_2020      |
+| SF     | Snowfall               |   700 | fettweis_2020      |
+| RF     | Rainfall               |    45 | fettweis_2020      |
+| RF-LIQ | Rainfall runoff        |    10 | fettweis_2020      |
+| CD     | Condensation           |    30 | TODO               |
+| DP     | Deposition             |    20 | TODO               |
+| FRET   | Frontal retreat        |    50 | kochtitzky_2023    |
+| GZRET  | Grounding line retreat |    10 | TODO               |
+| SU     | Sublimation            |    55 | fettweis_2020      |
+| RU     | Runoff                 |   390 | fettweis_2002      |
+| DYN    | Dynamics               |   500 | mankoff_2020_solid |
+| ICE    | Icebergs               |   250 | enderlin_2013      |
+| SUB    | Submarine melt         |   250 | enderlin_2013      |
+| EV     | Evaporation            |   100 | TODO               |
+| BM     | Basal melt             |    20 | karlsson_2021      |
 
 * Methods
 
-+ Any number of CSV files containing the variables (and other values) shown above can be placed in the dat folder. See [[./dat/README.org]] for details
-+ Running =make= will then generate a Sankey diagram for each CSV file by injecting the variables into a template
++ Any CSV file can be placed in the =./dat/= that has the required rows.
++ Running =make= will then generate a Sankey diagram for each CSV file.
++ All figures are proportional within and between each other.
 
 * Results
 
 #+BEGIN_SRC bash :exports results :results verbatim :results none
-convert -density 120 -background white -alpha remove -trim fig/gl_baseline.pdf greenland.png
-convert -density 120 -background white -alpha remove -trim fig/aq_baseline.pdf antarctica.png
+convert -density 120 -background white -alpha remove -trim gl_baseline.pdf greenland.png
+convert -density 120 -background white -alpha remove -trim aq_baseline.pdf antarctica.png
 #+END_SRC
 
 [[./greenland.png]]
