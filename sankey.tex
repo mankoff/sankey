@@ -240,40 +240,16 @@
   %%   \sankeyend{DRIFT-IN}
   %%   \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
 
-  %%   \node[anchor=south east, align=center, shift=({2mm,-3mm})] at (EV-out.right) {Evaporation\\(\Q{EV})};
-
-  %%   \node[anchor=east, align=center, shift=({0mm,-1cm})] at (RU-NET.center) {Net Runoff\\(\sankeygetnodeqty{RU-NET})};
-
-  %%   \node[anchor=center, align=center, shift=({0mm,-1cm})] at (SUB.center) {Submarine\\melt \\(\sankeygetnodeqty{SUB})};
-
-  %%   \node[anchor=center, align=center, shift=({0mm,-1cm})] at (ICE.center) {Calving\\(\sankeygetnodeqty{ICE})};
-
-  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, -0.5cm})] at (BM.center) {Basal\\melting \\(\sankeygetnodeqty{BM})};
-
-  %%   \node[anchor=center, align=center, shift=({0mm,0cm})] at (DYN.center) {Dynamics\\(\sankeygetnodeqty{DYN})};
-
-  %%   \node[anchor=center, align=center, shift=({-0.6cm,2cm})] at (RU-from-MELT.center) {Melt\\ runoff\\(\sankeygetnodeqty{RU-from-MELT})};
-
-  %%   \node[anchor=center, align=right, shift=({-1cm,-1cm})] at (GROSS-to-MELT.center) {Melting \\(\sankeygetnodeqty{GROSS-to-MELT})};
-
-  %%   \node[anchor=right, align=right, shift=({-2cm,1cm})] at (RFZ-from-MELT.center) {Refreezing\\loop \\(\sankeygetnodeqty{RFZ-from-MELT})};
-
-  %%   \node[anchor=center, align=center, shift=({0.2cm,1cm})] at (SU-out.center) {Sublimation\\(\sankeygetnodeqty{SU-out})};
-
-  %%   \node[anchor=center, align=center, shift=({1cm,0.1cm})] at (MGNet-out.center) {Net mass gain\\(\sankeygetnodeqty{MGNet-out})};
-
-  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, 0.0cm})] at (FRET.center) {Frontal retreat \\(\sankeygetnodeqty{FRET})};
-
-  %%   \node[anchor=north, align=center, rotate=0, shift=({0cm, 0.0cm})] at (GZRET-DYN.center) {Grounding line retreat \\(\sankeygetnodeqty{GZRET-DYN})};
-
-  %% \node[anchor=center, align=center, shift=({0cm,0.75cm})] at (SF.center) {Snowfall (\sankeygetnodeqty{SF})};
-
-  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (DP.center) {Deposition (\sankeygetnodeqty{DP})};
-
-  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.2cm})] at (CD.center) {Condensation (\sankeygetnodeqty{CD})};
-
-  %%   \node[anchor=east, align=center, rotate=0, shift=({-0mm,0.3cm})] at (RF-NET.center) {Net rainfall (\sankeygetnodeqty{RF-NET})};
-
+      %% \foreach \mag in {SF,f0,RFZ-in,f6} {
+      %%   \node at (\mag.center) {\qq{\mag}};
+      %% }
+               
+      %% \ifthenelse{\Q{MG} < \Q{ML}} {
+      %%   \node at (fML.center) {\qq{fML}};
+      %% } {
+      %%   \node at (fMGa.center) {\qq{fMGa}};
+      %% }
+               
   \end{sankeydiagram}
 \end{tikzpicture}
 \end{document}
