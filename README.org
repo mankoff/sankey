@@ -52,7 +52,6 @@ cat ./dat/gl_baseline.csv
 
 + Any CSV file can be placed in the =./dat/= that has the required rows.
 + Running =make= will then generate a Sankey diagram for each CSV file.
-+ All figures are proportional within and between each other.
 
 * Results
 
@@ -60,6 +59,12 @@ cat ./dat/gl_baseline.csv
 convert -density 120 -background white -alpha remove -trim gl_baseline.pdf greenland.png
 convert -density 120 -background white -alpha remove -trim aq_baseline.pdf antarctica.png
 #+END_SRC
+
+#+BEGIN_QUOTE
+[!NOTE]  
+All figures are width-proportional within and between each other.
+#+END_QUOTE
+
 
 Greenland:
 
