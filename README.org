@@ -23,7 +23,7 @@ Uses scripts and CSVs to automate generation to support graphics for different y
 
 * Mass flow values
 
-Here we should example data for Greenland baseline. See [[file:./dat]] folder for remaining data. 
+Here we show example data for Greenland baseline. See [[file:./dat]] folder for other data. 
 
 #+BEGIN_SRC bash :exports both
 cat ./dat/gl_baseline.csv
