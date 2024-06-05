@@ -77,149 +77,149 @@
       def data/.list={
         %% INSERT_CSV_HERE
         %% COMPUTED 
-        {ML/Mass loss/
-          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN}+\Q{FRET}+\Q{GZRET}+\Q{EV})-
-          (\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP})},
-        {MLfd/Mass Loss fixed domain/\Q{ML}-(\Q{FRET}+\Q{GZRET})},
-        {MG/Mass gain/
-          (\Q{SF}+\Q{RF}+\Q{CD}+\Q{DP})-
-          (\Q{SU}+\Q{RU}+\Q{BM}+\Q{DYN}+\Q{FRET}+\Q{GZRET}+\Q{EV})}
+        {vML/Mass loss/
+          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRET}+\Q{vGZRET}+\Q{vEV})-
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP})},
+        {vMLfd/Mass Loss fixed domain/\Q{vML}-(\Q{vFRET}+\Q{vGZRET})},
+        {vMG/Mass gain/
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP})-
+          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRET}+\Q{vGZRET}+\Q{vEV})}
       },
     }
 
     \sankeyset{ice} % default color until otherwise specified
     \newcommand\xoff{2mm}
 
-    \sankeynode{name=SF, quantity=\Q{SF}}
-    \sankeynode{name=DP, quantity=\Q{DP}, at={[xshift=-\xoff]SF.right}, anchor=left}
-    \sankeynode{name=CD, quantity=\Q{CD}, at={[xshift=-\xoff]DP.right}, anchor=left}
-    \sankeynode{name=RF, quantity=\Q{RF}, at={[xshift=-\xoff]CD.right}, anchor=left}
+    \sankeynode{name=SF, quantity=\Q{vSF}}
+    \sankeynode{name=DP, quantity=\Q{vDP}, at={[xshift=-\xoff]SF.right}, anchor=left}
+    \sankeynode{name=CD, quantity=\Q{vCD}, at={[xshift=-\xoff]DP.right}, anchor=left}
+    \sankeynode{name=RF, quantity=\Q{vRF}, at={[xshift=-\xoff]CD.right}, anchor=left}
 
     \sankeystart{SF}
     \sankeystart[air]{DP}
     \sankeystart{CD}
     \sankeystart[water]{RF}
 
-    \sankeynode{name=f0, quantity=\Q{SF}+\Q{DP}+\Q{CD}+\Q{RF},
+    \sankeynode{name=f0, quantity=\Q{vSF}+\Q{vDP}+\Q{vCD}+\Q{vRF},
       at={[yshift=-15mm]SF.left}, anchor=left,
-      forked={\Q{SF}/SF-in, \Q{DP}/DP-in, \Q{CD}/CD-in, \Q{RF}/RF-in}}
+      forked={\Q{vSF}/SFi, \Q{vDP}/DPi, \Q{vCD}/CDi, \Q{vRF}/RFi}}
 
-    \sankeyoutin{SF}{SF-in}
-    \sankeydubins[minimum radius=3mm,air-to-ice]{DP}{DP-in}
-    \sankeydubins[minimum radius=3mm]{CD}{CD-in}
-    \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RF-in}
+    \sankeyoutin{SF}{SFi}
+    \sankeydubins[minimum radius=3mm,air-to-ice]{DP}{DPi}
+    \sankeydubins[minimum radius=3mm]{CD}{CDi}
+    \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RFi}
 
-    \ifthenelse{\Q{MG} > \Q{ML}}
+    \ifthenelse{\Q{vMG} > \Q{vML}}
     { % mass gain
-      \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0},
+      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0},
         at={[yshift=-15mm]f0.left}, anchor=left,
-        forked={\qq{f0}/f0-in, \Q{RFZ}/RFZ-in}}
+        forked={\qq{f0}/f0i, \Q{vRFZ}/RFZi}}
     }
     { % mass loss
-      \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0}+\Q{ML},
+      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML},
         at={[yshift=-15mm]f0.left}, anchor=left,
-        forked={\qq{f0}/f0-in, \Q{ML}/ML-in, \Q{RFZ}/RFZ-in}}
+        forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
     }
     
-    \sankeyoutin{f0}{f0-in}
+    \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
     
-    \ifthenelse{\Q{MG} > \Q{ML}}
+    \ifthenelse{\Q{vMG} > \Q{vML}}
     {
       \sankeyfork{f1}{
-        \Q{MG}/fMG,
-        \Q{SU}/fSU, \Q{FRET}/fFR, \Q{GZRET}/fGZ,
-        \Q{DYN}/f6, \Q{BM}/fBM, \Q{RU}+\Q{EV}/f8, \Q{RFZ}/RFZ-out}
+        \Q{vMG}/MG,
+        \Q{vSU}/SU, \Q{vFRET}/FR, \Q{vGZRET}/GZ,
+        \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
     }
     {
       \sankeyfork{f1}{
-        %% \Q{MG}/fMG,
-        \Q{SU}/fSU, \Q{FRET}/fFR, \Q{GZRET}/fGZ,
-        \Q{DYN}/f6, \Q{BM}/fBM, \Q{RU}+\Q{EV}/f8, \Q{RFZ}/RFZ-out}
+        %% \Q{vMG}/MG,
+        \Q{vSU}/SU, \Q{vFRET}/FR, \Q{vGZRET}/GZ,
+        \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
     }
 
-    \sankeydubins[minimum radius=5mm,ice-to-water-horiz]{RFZ-out}{RFZ-in}
+    \sankeydubins[minimum radius=5mm,ice-to-water-horiz]{RFZo}{RFZi}
 
     \sankeyadvance{f6}{10mm}
-    \sankeyfork{f6}{\Q{ICE}/fD, \Q{SUB}/fSUB}
-    \sankeyadvance{fD}{10mm}
+    \sankeyfork{f6}{\Q{vICE}/D, \Q{vSUB}/SUB}
+    \sankeyadvance{D}{10mm}
 
-    \sankeynode{name=fSUBa, quantity=\qq{fSUB},
-      at={[xshift=-\xoff]fD.right}, anchor=left}
-    \sankeyoutin[ice-to-water]{fSUB}{fSUBa}
+    \sankeynode{name=SUBa, quantity=\qq{SUB},
+      at={[xshift=-\xoff]D.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{SUB}{SUBa}
 
-    \sankeynode{name=fBMa, quantity=\qq{fBM},
-      at={[xshift=-\xoff]fSUBa.right}, anchor=left}
-    \sankeyoutin[ice-to-water]{fBM}{fBMa}
+    \sankeynode{name=BMa, quantity=\qq{BM},
+      at={[xshift=-\xoff]SUBa.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{BM}{BMa}
 
     \sankeynode{name=f8a, quantity=\qq{f8},
-      at={[xshift=-\xoff]fBMa.right}, anchor=left}
+      at={[xshift=-\xoff]BMa.right}, anchor=left}
     \sankeyoutin[ice-to-water]{f8}{f8a}
     
-    \sankeynode{name=fGZa, quantity=\qq{fGZ},
-      at={[xshift=\xoff]fD.left}, anchor=right}
-    \sankeyoutin{fGZ}{fGZa}
+    \sankeynode{name=GZa, quantity=\qq{GZ},
+      at={[xshift=\xoff]D.left}, anchor=right}
+    \sankeyoutin{GZ}{GZa}
 
-    \sankeynode{name=fFRa, quantity=\qq{fFR},
-      at={[xshift=\xoff]fGZa.left}, anchor=right}
-    \sankeyoutin{fFR}{fFRa}
+    \sankeynode{name=FRa, quantity=\qq{FR},
+      at={[xshift=\xoff]GZa.left}, anchor=right}
+    \sankeyoutin{FR}{FRa}
 
-    \sankeynode{name=fSUa, quantity=\qq{fSU},
-      at={[xshift=\xoff]fFRa.left}, anchor=right}
-    \sankeyoutin{fSU}{fSUa}
+    \sankeynode{name=SUa, quantity=\qq{SU},
+      at={[xshift=\xoff]FRa.left}, anchor=right}
+    \sankeyoutin{SU}{SUa}
 
-    \ifnum \numexpr\Q{MG} > \Q{ML}
-      \sankeynode{name=fMGa, quantity=\qq{fMG},
-        at={[xshift=\xoff,yshift=8mm]fSUa.left}, anchor=right, angle=0}
-      \sankeyoutin{fMG}{fMGa}
+    \ifnum \numexpr\Q{vMG} > \Q{vML}
+      \sankeynode{name=MGa, quantity=\qq{MG},
+        at={[xshift=\xoff,yshift=8mm]SUa.left}, anchor=right, angle=0}
+      \sankeyoutin{MG}{MGa}
     \fi
     
-    \sankeyfork{f8a}{\Q{RU}/fRU, \Q{EV}/fEV}
-    \sankeynode{name=fEVa, quantity=\qq{fEV},
+    \sankeyfork{f8a}{\Q{vRU}/RU, \Q{vEV}/EV}
+    \sankeynode{name=EVa, quantity=\qq{EV},
       at={[xshift=-3mm,yshift=-5mm]f8a.right}, anchor=right, angle=180}
-    \sankeyoutin[water]{fEV}{fEVa}
-    \sankeyadvance[water-to-air-horiz]{fEVa}{5mm}
-    \sankeyend[air]{fEVa}
+    \sankeyoutin[water]{EV}{EVa}
+    \sankeyadvance[water-to-air-horiz]{EVa}{5mm}
+    \sankeyend[air]{EVa}
 
-    \ifthenelse{\Q{MG} < \Q{ML}}
+    \ifthenelse{\Q{vMG} < \Q{vML}}
       {
         %% mass loss
-        \sankeynode{name=fML, quantity=\Q{ML},
+        \sankeynode{name=ML, quantity=\Q{vML},
           at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
-        \sankeystart[red]{fML}
-        \sankeyadvance[red-to-ice]{fML}{5mm}
-        \sankeyoutin{fML}{ML-in}
+        \sankeystart[red]{ML}
+        \sankeyadvance[red-to-ice]{ML}{5mm}
+        \sankeyoutin{ML}{MLi}
       }
       {
         %% mass gain
-        \sankeyadvance[ice-to-black]{fMGa}{3mm}
-        \sankeyend[black]{fMGa}
+        \sankeyadvance[ice-to-black]{MGa}{3mm}
+        \sankeyend[black]{MGa}
       }
 
-      \sankeynode{name=fSUa2, quantity=\qq{fSU},
-        at={[xshift=2mm,yshift=-5mm]fSUa.left}, anchor=left, angle=0}
-      \sankeyoutin[ice]{fSUa}{fSUa2}
-      \sankeyadvance[ice-to-air-horiz]{fSUa2}{2mm}
-      \sankeyend[air]{fSUa2}
+      \sankeynode{name=SUaa, quantity=\qq{SU},
+        at={[xshift=2mm,yshift=-5mm]SUa.left}, anchor=left, angle=0}
+      \sankeyoutin[ice]{SUa}{SUaa}
+      \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
+      \sankeyend[air]{SUaa}
       
-      \sankeyadvance[out-red]{fFRa}{10mm}
-      \sankeyend[out-red]{fFRa}
-      \sankeyadvance[ice-to-water,out-red]{fGZa}{10mm}
-      \sankeyend[water,out-red]{fGZa}
-      \sankeyadvance{fD}{10mm}
-      \sankeyend{fD}
+      \sankeyadvance[out-red]{FRa}{10mm}
+      \sankeyend[out-red]{FRa}
+      \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
+      \sankeyend[water,out-red]{GZa}
+      \sankeyadvance{D}{10mm}
+      \sankeyend{D}
 
       \sankeyset{water}
-      \sankeyadvance{fBMa}{10mm}; \sankeyend{fBMa}
-      \sankeyadvance{fSUBa}{10mm}; \sankeyend{fSUBa}
-      \sankeyadvance{fRU}{10mm}; \sankeyend{fRU}
+      \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
+      \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
+      \sankeyadvance{RU}{10mm}; \sankeyend{RU}
           
   %%   %% DRIFT
-  %%   \sankeynode{name=DRIFT-OUT, quantity=33, at={(3mm, -8mm)}, angle=150}
-  %%   \sankeynode{name=DRIFT-IN, quantity=33, at={(-3mm, -8mm)}, angle=210}
-  %%   \sankeydubins[minimum radius=5mm]{DRIFT-OUT}{DRIFT-IN}
-  %%   \sankeystart{DRIFT-OUT}
-  %%   \sankeyend{DRIFT-IN}
+  %%   \sankeynode{name=DRIFTo, quantity=33, at={(3mm, -8mm)}, angle=150}
+  %%   \sankeynode{name=DRIFTi, quantity=33, at={(-3mm, -8mm)}, angle=210}
+  %%   \sankeydubins[minimum radius=5mm]{DRIFTo}{DRIFTi}
+  %%   \sankeystart{DRIFTo}
+  %%   \sankeyend{DRIFTI}
   %%   \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
 
   \end{sankeydiagram}
