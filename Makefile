@@ -35,7 +35,7 @@ all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 	@cat dat/$*.csv \
 		| tail -n +2 \
 		| cut -d, -f1-3 \
-		| sed 's/^/{/' \
+		| sed 's/^/{v/' \
 		| sed 's/,/\//g' \
 		| sed "s/$$/},/g" \
 		>> tmp/$*.tex
