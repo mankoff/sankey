@@ -41,6 +41,7 @@
       red-to-ice/.style={fill/.style={fill=none, top color=red, bottom color=ice},},
       water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
       ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
+      out-red/.style={draw/.style={draw=red,thick=3},},
       debug label/.style={
         overlay,
         draw,
@@ -200,9 +201,12 @@
       \sankeyadvance[ice-to-air-horiz]{fSUa2}{2mm}
       \sankeyend[air]{fSUa2}
       
-      \sankeyadvance{fFRa}{10mm}; \sankeyend{fFRa}
-      \sankeyadvance[ice-to-water]{fGZa}{10mm}; \sankeyend[water]{fGZa}
-      \sankeyadvance{fD}{10mm}; \sankeyend{fD}
+      \sankeyadvance[out-red]{fFRa}{10mm}
+      \sankeyend[out-red]{fFRa}
+      \sankeyadvance[ice-to-water,out-red]{fGZa}{10mm}
+      \sankeyend[water,out-red]{fGZa}
+      \sankeyadvance{fD}{10mm}
+      \sankeyend{fD}
 
       \sankeyset{water}
       \sankeyadvance{fBMa}{10mm}; \sankeyend{fBMa}
@@ -217,16 +221,6 @@
   %%   \sankeyend{DRIFT-IN}
   %%   \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
 
-      %% \foreach \mag in {SF,f0,RFZ-in,f6,fRU,fSUBa,fD,fGZa,fFRa,fSUa2,fEVa} {
-      %%   \node at (\mag.center) {\qq{\mag}};
-      %% }
-               
-      %% \ifthenelse{\Q{MG} < \Q{ML}} {
-      %%   \node at (fML.center) {\qq{fML}};
-      %% } {
-      %%   \node at (fMGa.center) {\qq{fMGa}};
-      %% }
-               
   \end{sankeydiagram}
 \end{tikzpicture}
 \end{document}
