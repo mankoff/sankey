@@ -110,15 +110,15 @@
     \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RF-in}
 
     \ifthenelse{\Q{MG} > \Q{ML}}
-    {
+    { % mass gain
       \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0},
-        at={[yshift=-15mm,xshift=-3mm]f0.right}, anchor=right,
+        at={[yshift=-15mm]f0.left}, anchor=left,
         forked={\qq{f0}/f0-in, \Q{RFZ}/RFZ-in}}
     }
-    {
+    { % mass loss
       \sankeynode{name=f1, quantity=\Q{RFZ}+\qq{f0}+\Q{ML},
-        at={[yshift=-15mm]f0.center}, anchor=center,
-        forked={\Q{ML}/ML-in, \qq{f0}/f0-in, \Q{RFZ}/RFZ-in}}
+        at={[yshift=-15mm]f0.left}, anchor=left,
+        forked={\qq{f0}/f0-in, \Q{ML}/ML-in, \Q{RFZ}/RFZ-in}}
     }
     
     \sankeyoutin{f0}{f0-in}
@@ -184,7 +184,8 @@
     \ifthenelse{\Q{MG} < \Q{ML}}
       {
         %% mass loss
-        \sankeynode{name=fML, quantity=\Q{ML}, at={[xshift=\xoff,yshift=0mm]SF.left}, anchor=right}%, angle=-145}
+        \sankeynode{name=fML, quantity=\Q{ML},
+          at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
         \sankeystart[red]{fML}
         \sankeyadvance[red-to-ice]{fML}{5mm}
         \sankeyoutin{fML}{ML-in}
