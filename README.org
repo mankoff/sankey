@@ -197,24 +197,34 @@ Results:
 import pandas as pd
 
 fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
-loc = pd.read_excel(fname, sheet_name=0, index_col = 0, usecols = 'B,C,D', skiprows = 4)
+loc = pd.read_excel(fname, sheet_name='Total mass changes',
+                    index_col = 0, usecols = 'B,C,D', skiprows = 4)
 loc = loc.drop('Antarctic Ice Shelves')
 
-mass = pd.read_excel(fname, sheet_name=1, index_col = 0, usecols = 'B:F', skiprows = 5)
-mass.columns = ['D', 'BMB', 'Calving', 'SMB']
+steady = pd.read_excel(fname, sheet_name='Steady-state',
+                     index_col = 0, usecols = 'B:F', skiprows = 5)
+steady.columns = ['D', 'BMB', 'Calving', 'SMB']
 
-mass = loc.join(mass)
-mass.head()
+fret = pd.read_excel(fname, sheet_name='Calving',
+                     index_col = 0, skiprows = 4).set_index('Ice shelf')
+fret = fret.drop('Antarctic Ice Shelves')
+c = fret.columns
+c = c[[_[0] == 'o' for _ in fret.columns]]
+fret = fret[c]
+fret = fret.mean(axis='columns')
+fret.name = 'Calving2'
+
+flow = loc.join(steady)
+flow = flow.join(fret)
+flow.sum()
 #+END_SRC
 
 #+RESULTS:
-| Ice shelf   |   latitude |   longitude |         D |        BMB |   Calving |        SMB |
-|-------------+------------+-------------+-----------+------------+-----------+------------|
-| Abbot       |   -72.7958 |    -96.5689 | 31.2693   | 19.9454    | 51.7937   | 20.6485    |
-| Ainsworth   |   -67.9145 |    146.54   |  0.135919 |  0.0215779 | -0.207593 |  0.0719961 |
-| Alison      |   -73.8526 |    -82.0595 |  2.78115  |  0.124033  |  0        |  0         |
-| Amery       |   -70.4394 |     70.43   | 76.7148   |  2.60281   | 44.3328   |  6.41896   |
-| Andreyev    |   -69.011  |    155.464  |  1.67205  |  0.113444  |  0        |  0         |
+: D             1838.804842
+: BMB            428.520452
+: Calving        902.775112
+: SMB            488.207716
+: Calving2      1596.151121
 
 #+BEGIN_SRC jupyter-python :exports both
 mass[['D','BMB']].sum()
