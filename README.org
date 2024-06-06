@@ -2,9 +2,12 @@
 #+PROPERTY: header-args:bash+ :session *sankey-shell*
 #+PROPERTY: header-args:jupyter-python+ :dir (file-name-directory buffer-file-name) :session foo
 
+*  On Ice Sheet Mass Flow
 
 * Table of contents                               :toc_2:noexport:
+-  [[#on-ice-sheet-mass-flow][On Ice Sheet Mass Flow]]
 - [[#introduction][Introduction]]
+- [[#abstract][Abstract]]
 - [[#mass-flow-values][Mass flow values]]
 - [[#methods][Methods]]
 - [[#results][Results]]
@@ -21,6 +24,10 @@ Sankey diagrams for mass flow in Greenland and Antarctica.
 
 Uses scripts and CSVs to automate generation to support graphics for different years, models, etc.
 
+* Abstract
+
+Observing, quantifying, and understanding mass loss takes field observations, computer models, and also knowledge production and sharing. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting mass flow of ice in Greenland and Antarctica, and discuss some properties of the graphics and the cryospheric processes represented by the graphics. We focus on insight available through this choice of display, methods for estimating the various cryospheric processes, and uncertainty...
+  
 * Mass flow values
 
 Here we show example data for Greenland baseline. See [[file:./dat]] folder for other data. 
