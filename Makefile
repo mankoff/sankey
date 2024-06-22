@@ -27,7 +27,7 @@ all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 
 %.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile ## Make a PDF
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex
-	pdfcrop -bbox "100 325 480 650" tmp/$*.pdf
+	pdfcrop -bbox "100 325 480 660" tmp/$*.pdf # L B W H
 	mv ./tmp/$*-crop.pdf $*.pdf
 
 %.tex: ${CSVDIR}/%.csv

@@ -11,7 +11,7 @@
 \begin{tikzpicture}[remember picture, overlay, shift={(5.5,-1.5)}]
 
   \begin{sankeydiagram}
-    \sankeyset{debug=true}
+    %% \sankeyset{debug=true}
 
     \colorlet{water}[rgb]{cyan!75!blue!50!white}
     \colorlet{ice}[rgb]{gray!20!gray!20!gray!20}
@@ -21,6 +21,11 @@
     \colorlet{black}[rgb]{black!100!black!100!black!100}
 
     \sankeyset{
+      %% comment for gray outline
+      draw/.style={
+        draw=white,
+        line width=0pt,line cap=round,line join=round,
+      },
       every node/.style={angle=-90},
       start style=arrow,end style=arrow,
       %% fill/.style={fill=yellow!10,line width=0pt,draw=yellow!10},
@@ -68,6 +73,15 @@
     % all nodes with their name, label and quantity
     \newcommand\qq[1]{\sankeygetnodeqty{#1}}
 
+    \newcommand\abovelabel[2]{ % valname, label
+      \node[font=\tiny, rotate=45, anchor=north west]
+      at ([yshift=5mm,xshift=-3mm]#1.center) {\qq{#1}: #2};
+    }
+    \newcommand\belowlabel[2]{ % valname, label
+      \node[font=\tiny, rotate=-45, anchor=south west]
+      at ([yshift=-6mm,xshift=-3mm]#1.center) {\qq{#1}: #2};
+    }
+
     \sankeyset{
       def data/.code args={#1/#2/#3}{% node name/label/values
         \LabSet{#1}{#2}
@@ -93,6 +107,11 @@
     \sankeynode{name=DP, quantity=\Q{vDP}, at={[xshift=-\xoff]SF.right}, anchor=left}
     \sankeynode{name=CD, quantity=\Q{vCD}, at={[xshift=-\xoff]DP.right}, anchor=left}
     \sankeynode{name=RF, quantity=\Q{vRF}, at={[xshift=-\xoff]CD.right}, anchor=left}
+
+    \abovelabel{SF}{Snowfall}
+    \abovelabel{DP}{Deposition}
+    \abovelabel{CD}{Condensation}
+    \abovelabel{RF}{Rainfall}
 
     \sankeystart{SF}
     \sankeystart[air]{DP}
@@ -170,6 +189,10 @@
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
         at={[xshift=\xoff,yshift=8mm]SUa.left}, anchor=right, angle=0}
+
+      \node[font=\tiny, anchor=north]
+      at ([yshift=-5mm,xshift=9mm]MGa.bottom) {\qq{MGa}: Accumulation};
+
       \sankeyoutin{MG}{MGa}
     \fi
     
@@ -185,6 +208,7 @@
         %% mass loss
         \sankeynode{name=ML, quantity=\Q{vML},
           at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
+        \abovelabel{ML}{Drawdown}
         \sankeystart[red]{ML}
         \sankeyadvance[red-to-ice]{ML}{5mm}
         \sankeyoutin{ML}{MLi}
@@ -213,6 +237,22 @@
       \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
       \sankeyadvance{RU}{10mm}; \sankeyend{RU}
           
+      \belowlabel{RU}{Runoff}
+      \belowlabel{BMa}{Basal melting}
+      \belowlabel{SUBa}{Submarine melting}
+      \belowlabel{D}{Discharge}
+      \belowlabel{GZa}{Grounding line retreat}
+      \belowlabel{FRa}{Frontal retreat}
+
+      \node[font=\tiny, anchor=north]
+      at ([yshift=-2mm,xshift=3mm]SUaa.bottom) {\qq{SUa}: Sublimation};
+
+      \node[font=\tiny, anchor=north]
+      at ([yshift=-2mm,xshift=0mm]EVa.bottom) {\qq{EVa}: Evaporation};
+
+      \node[font=\tiny, anchor=west, rotate=-90]
+      at ([yshift=0.5mm,xshift=1mm]RFZi.center) {\qq{RFZi}: Refreezing};
+      
   %%   %% DRIFT
   %%   \sankeynode{name=DRIFTo, quantity=33, at={(3mm, -8mm)}, angle=150}
   %%   \sankeynode{name=DRIFTi, quantity=33, at={(-3mm, -8mm)}, angle=210}
