@@ -1,12 +1,8 @@
 %% Use the "review" option when submitting for review.
 %% Removing the "review" option will switch the
 %% manuscript to a two-column layout.
-%%
-%% Use option "jog" for submissions to the Journal of
-%% Glaciology; use "aog" for submission to the Annals
-%% of Glaciology.
-\documentclass[review,jog]{igs}
-% \documentclass[review,aog]{igs}
+
+\documentclass[jog]{igs}
 
 \usepackage[utf8]{inputenc}
 
@@ -32,6 +28,8 @@
 
 \author[Mankoff and others]
        {Kenneth D. MANKOFF,$^{1,2}$
+         Xavier FETTWEIS,
+         Chad GREENE,
          Someone, ELSE,$^n$,
        add your name to CREDIT.CSV in repository}
 
@@ -46,65 +44,75 @@
 \maketitle
 \begin{abstract}
 
-  Observing, quantifying, and understanding mass loss takes field observations, computer models, and insight through knowledge generation and sharing. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting mass flow of ice in Greenland and Antarctica, and discuss some properties of the graphics and the cryospheric processes represented by the graphics. We focus on insight available through this choice of display, methods for estimating the various cryospheric processes, and uncertainty,
+  Abstract 1:
+  
+  We combine recent estimates of ice mass change that include ice at or near flotation (i.e., terminus change in Greenland) with grounded ice mass balance to produce the first total mass balance product for the Greenlandic and Antarctic ice sheets. Greenland mass loss is 30 \% higher than previous estimates due to terminus retreat. This additional mass loss does not contribute significantly to sea level rise as it is already at or near flotation.
+
+  Abstract 2:
+
+  Understanding the processes involved in ice sheet mass loss requires knowledge production and sharing, in addition to field observations and computer modeling. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting all mass flow of water (in various phases) in Greenland and Antarctica. These diagrams show mass loss in Greenland is 330 Gt yr$^{-1}$  which is 30 \% higher previous estimates that neglect terminus retreat of ice at or near flotation.
+
 \end{abstract}
 \end{frontmatter}
 
 \section{Introduction and Background}
 
-Mass flows of ice sheets, and subsequent mass gains and losses, is an of-studied topic in the domain of glaciology. However, few studies consider all processes and their relative magnitudes and uncertainties - this is usually the domain of review papers. Here we present a Sankey diagram that provides an overview of all mass flow terms and processes for both the Greenlandic and Antarctic ice sheets. We use this display to highlight a) relative magnitudes among processes within ice sheets and among ice sheets and sectors, and b) the uncertainty associated with each property. We also... TBD.
+Mass flows of ice sheets, and subsequent mass gains and losses, is an of-studied topic in the domain of glaciology. However, few studies consider all processes and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process.
+
+Net mass flow (mass balance) is typically analyzed using one or a combination of three methods. Of these, the gravimetric method cannot observe mass change of floating ice, the volumetric method cannot distinguish between surface and basal processes, and only the input-output method can estimate both mass flow, all processes participating in mass flow, and the subsequent mass change.
+
+Here we present Sankey diagrams that provide an overview of all mass flow terms and processes for both the Greenlandic and Antarctic ice sheets.
+
+% We use this display to highlight a) relative magnitudes among processes within ice sheets and among ice sheets and sectors, and b) the uncertainty associated with each property. We also... TBD.
+
+\begin{figure*}
+\centering{\includegraphics[width=0.85\textwidth]{fig.png}}
+\caption{Sankey mass flow diagrams for Antarctica and Greenland, and Antarctica split into East, West, and Peninsula. All widths are proportional within and between images. Because Sankey diagrams balance all inputs and outputs, mass losses require a `drawdown' input (red) to balance the larger outputs, and mass gains requires an `accumulation' output (black) to balance the larger inputs.}
+\label{fig}
+\end{figure*}
 
 \subsection{Introduction to Sankey diagrams}
 
-Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., \citet{kraak_2021}) that combines the magnitude of active soldiers overlaid on a geographical map to show attrition during war. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
+Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., \citet{kraak_2021}) that combines the magnitude of active soldiers overlaid on a geographical map to show attrition during one battle in a war. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
 
-\section{Overview of mass flows}
+  The flows can be somewhat tied to physical space as in the Minard map mentioned above, but are not done so explicitly here. An similar display to the diagrams presented here, of glacier mass flow by \citet[Fig. 2]{cogley_2011}, shows flow overlaid an a glacier schematic, but with neither flow magnitude nor proportionality.
 
-See \url{https://github.com/mankoff/sankey/issues/16} for discussion of graphical plan. Comment there or here. 
+\section{Methods}
 
-\begin{figure}
-  \centering
-  \includegraphics[height=.65\linewidth]{fig/gl_baseline.pdf}
-  \includegraphics[height=.65\linewidth]{fig/gl_2019.pdf}
-  \caption{Sankey flow for Greenland, baseline and 2019. Widths are proportional. Colors represent both phases (gray solid, blue liquid, white gaseous) and net mass change (red loss, black gain). TODO: Improved labeling.}
-    \label{fig:gl}
-\end{figure}
+We use existing published values, some new estimates, and some derived values (See Tables \ref{tab:gl} and \ref{tab:aq} in Appendix A).
 
-\begin{figure}
-  \centering
-  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
-  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
-  \includegraphics[width=.30\linewidth]{fig/aq_baseline.pdf}
-  \caption{Antarctica, east, west. NOTE east and west are TBD, this is just all AQ shown 3x.}
-  \label{fig:aq}
-\end{figure}
+The derived value is only the net mass change - here shown as `drawdown' in Greenland and West Antarctica, or `accumulation' in Antarctica, East Antarctica, or the Peninsula (Fig \ref{fig}). This term balances all the other terms, so that the Sankey diagram has outputs balancing inputs.
 
-\subsection{Interpretation of graphics}
+Here we describe our new estimates.
 
-Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagrams. The widths of any section within any figure is proportional to all other widths. Widths are/are-not (TODO, see https://github.com/mankoff/sankey/issues/16) proportional between images. The flows can be somewhat tied to physical space or geography, but are not. An alternate display by \citet[Fig. 2]{cogley_2011} shows a similar diagram overlaid an a glacier schematic, but without flow magnitude nor proportionality.
+In Greenland, there is no known assessment of grounding line retreat separate from ice front retreat. These two terms are the same in most places in Greenland, because there are few ice shelves. In these locations, we used published values from \citet{kochtitzky_2023} and assign this to frontal retreat. There are published values of grounding line retreat at some glaciers, but units are typically m and not Gt yr$^{-1}$. Here we use published values of Petermann glacier grounding line retreat (units m) from \citet{millan_2022}, ice velocity from \citet{millan_2022}, ice thickness from \citet{ciraci_2023}, and an estimate of ice density of 917 kg m$^{3}$ to calculate grounding line retreat in units of Gt yr$^{-1}$. We estimate \sim 1.5 Gt yr$^{-1}$, and round this up to 5 Gt yr$^{-1}$ to account for all other ice shelf grounding line retreat in Greenland.
 
-Color here represents both phase and net mass change. Colors gray, blue, and white represent solid, liquid, and gaseous phases respectively, while red and black highlight net mass loss or gain. The latter may be counter-intuitive - for example to see mass loss as an input at the top (red in Fig. \ref{fig:gl}) even though most mass loss terms (runoff, calving, etc.) are at the bottom. This is because Sankey diagrams are balanced, outputs are larger than inputs (hence net mass loss), so the mass loss term is an input - drawdown of the historical 'stable' ice mass. Conversely, in East Antarctica mass gain is an output at the bottom (black in Fig. \ref{fig:aq}b} that balances the diagram, because without it, there are more flows into the system than out of it.
+Condensation: TODO
 
-%% We mark grounding line in Antarctica and frontal retreat in Greenland in red, even if Antarctica has net mass gain, because not all mass is equal when considering ice sheet health. Antarctica is mass positive because of increased snowfalls. Grounding line retreat is a localized mass imbalance term.
+Deposition: TODO
 
+In Antarctica, we use the MEaSUREs Antarctic Boundaries for IPY 2007-2009 from Satellite Radar, Version 2 (NSIDC product 0709; \citet{mouginot_2017,rignot_2013}) to separate Antarctica into East, West, and Peninsula. We drop all unattached islands, so the sum of the regional terms may not equal the total Antarctic values in Fig. \ref{fig}.
 
-See thick red outlines on frontal retreat and grounding line retreat. Can't be in steady state if these processes are active. Steady state may not be a natural occurrance. Could have these and be quasi-steady (cyclical).
+Most existing estimates are provided with enough geospatial metadata that we simply assign flow estimates to the appropriate region. However, we do not have access to the basal mass balance for Antarctica in spatial map form, only a total Antarctic-wide value from \citet{pattyn_2010} reported at 65 Gt yr$^{-1}$. To estimate basal melt for East and West Antarctica, we scale by the magnitude of geothermal heat flux (from \citet{shapiro_2004}) scaled by area for East, West, and Peninsula which is 70 \%, 25 \%, and 5 \% respectively. This is slightly better than scaling by area alone which has 75 \% of the area in East Antarctica. This method neglects the contribution of shear heating (ice velocity) when partitioning basal melt.
 
-\subsection{Missing terms and limitations}
+\section{Missing terms and limitations}
+\label{sec:limits}
 
-See \citet[Fig. 2]{cogley_2011}
+These figures neglect some mass flow processes (some of which are included in \citet[Fig. 2]{cogley_2011}), and simplify others.
 
-Basal freeze-on (e.g., \citet{bell_2014}) is not shown. It is currently unknown by Ken if this is refreezing of the basal melting term (e.g.,\citet{karlsson_2021}) and therefore that terms source remains unchanged, but some diverts back to the dynamics flow and the basal melting output is reduced, or if the basal melting term is final basal runoff, in which case the source should be increased by the refreezing amount. Nonetheless, we do not know the refreezing value.
+Neglected processes include basal freeze-on (e.g., \citet{bell_2014}). It is currently unknown by Ken (TODO: Nanna,  Brice?) if this is refreezing of the basal melting term (i.e., \citet{karlsson_2021} Greenland and \citet{pattyn_2010} Antarctica) and therefore that source remains unchanged, but some diverts back to the dynamics flow and the basal melting output is reduced, or if the basal melting term is final basal runoff, in which case the source should be increased by the refreezing amount. Nonetheless, we do not yet know nor estimate the refreezing magnitude.
 
-Also:
-\begin{itemize}
-\item Avalanche on/off. Maybe matters more for glaciers than ice sheets?
-\item Subaerial frontal melt/sublimation. That is, the vertical face in Greenland above the water line. This is included in other terms.
-\item Snow drifting on/off. Not sure how much snow drifts onto an ice sheet, but snow drift off could be good to include.
-\item Grounding line retreat in Greenland. Different than frontal retreat. Ignored, as there are few ice shelves.
-\end{itemize}
+We also neglect avalanche on and off - these likely matter more for mountain glaciers than ice sheets.
 
-There may be other missing terms. For example, an earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in \citet{cogley_2011}, but their respective values were highly uncertain, and still are, although recent work by \citet{kochtitzky_2023,greene_2024} have constrained these values in Greenland. 
+Snow drift on and off is also excluded. There is likely little snow drift onto either ice sheets, but drifting off may be of similar magnitude to other terms. Some drift off may be implicitly included in the sublimation term (TODO: Xavier?)
+
+There may be other missing terms. For example, the earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in \citet{cogley_2011}, but their respective values were highly uncertain, and still are, although recent work by \citet{kochtitzky_2023,greene_2024} have constrained these values in Greenland. 
+
+We make the following simplifications.
+
+Subaerial frontal melt and sublimation (the vertical face in above the water line, \citet[Fig. 2]{cogley_2011}) is not explicitly treated but is included in other terms.
+
+There are a variety of other simplifications. For example, rainfall input does not all turn to ice. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still correct - at least as well as we are able to estimate them.
 
 \section{Uncertainty}
 
@@ -112,217 +120,94 @@ Note that some uncertainty (e.g. snowfall) is larger than many other terms combi
 
 Advice from Hester: Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
 
-\subsection{Shelves}
+This could be the largest section of text.
 
-Mass change of shelves is a bulk aggregate property, and should not the default reporting metric because it obscures information. For example, in theory ice shelf mass can grow even as they collapse, as long as the grounding line retreats (adds mass to the shelf from the upstream ice sheet) faster than the mass loss at the frontal or submarine boundaries. A mass flow diagram dedicated to ice shelves (this one is not) would clearly convey each of these processes. 
+\section{Comparison with existing estimates}
 
-\subsection{Drifting snow}
+As previously stated, few existing studies outside of review papers address all terms, and the review papers usually do not focus of quantitative assessment of magnitude. Therefore, we compare parts of this graphic to other existing estimates.
 
-% I think if you were to go into a discussion of snowdrift it should go further than, for example, the works of Lenaerts et al. Perhaps it is beter to plainly list the uncertainties / poor definitions but in terms of process just refer to the existing papers. However, I am in two minds about this.
+The ice sheet mass balance intercomparison experiment (IMBIE; \citet{otosaka_2023}) reports recent Greenlandic ice sheet mass loss as -257 \pm42 Gt yr$^{-1}$. Elsewhere the gravimetric method reports recent Greenlandic mass loss of ~277 Gt yr$^{-1}$ (GRACE site, need CITATION). These are both significantly less than our estimate of 325 drawdown in order to balance the inputs with outputs. This can be directly attributable to the gravimetric method not observing frontal retreat (50 Gt yr$^{-1}$) nor grounding line retreat (5 Gt yr$^{-1}$). When these loss terms are removed from our estimate, it becomes 270 Gt yr$^{-1}$ which is well within the uncertainty.
 
-\section{Methods}
-
-Use published values. See CSV tables in \texttt{dat/} folder or README.org
-
-Approximate where values are not easily accessed.
-
-We do not have access to the basal mass balance for Antarctica in spatial map form, only a total Antarctic-wide value from \citet{pattyn_2010} reported at 65 Gt yr^{-1}. To estimate basal melt for East and West Antarctica, we scale by the magnitude of geothermal heat flux scaled by area for East, West, and Peninsula which is 70 \%, 25 \%, and 5 \% respectively, compared to scaling by area alone which has 75 \% of the area in East Antarctica.
-
-\section{Mass flow values}
-
-See CSV tables in \texttt{dat/} folder or README.org
-
-%% \begin{table} % table1, one column
-%%   \caption{One-column table captions will extend beyond the rules in two-column format. Do not try to adjust! Table captions do not have full points at the end}
-%%   \label{period}
-%%   \begin{minipage}{86mm} % you only need this line if you have a table footnote
-%%     \begin{tabular}{@{}lcc}\hline
-      
-%%       Period\footnote{Please do not use more than one `\&' between columns, and note that if a table includes table footnotes, it must be inside a \texttt{minipage} environment.}%
-%%       & Surface elevation change
-%%       & Emergence velocity\\ \hline
-      
-%%       1975--85   & $-0.50$ & 0.43\\
-%%       1986--2002 & $-1.03$ & 0.32\\
-%%       Difference & $-0.53$ & \llap{$-$}0.11
-%%     \end{tabular}
-%%   \end{minipage} % you only need this line if you have a table footnote
-%% \end{table}
-
-%% Tables may be typeset in either one- or two-column format. To typeset two-column format, add asterisks\\ (\verb"\begin{table*}...\end{table*}") as shown in Table~\ref{seasonal}. We may change the format in-house if necessary. Please avoid the use of colour or shading. Note that if you choose to refer to tables using labels, \verb"\caption" must precede \verb"\label", as in standard \LaTeX. Vertical rules are not house-style and will be removed. Note the use of the minipage environment in Table~\ref{period} which enables table footnotes to be output. If the table is two-column, use \texttt{\{178mm\}} instead of \texttt{\{86mm\}} on line~6. The source code for Tables~\ref{period} and~\ref{seasonal} is shown immediately below the tables.
-
-%% \begin{table*}% table2, two column
-%% \caption{Two-column table. Seasonal and annual SAT trends ($^\circ$C\,decade$^{-1}$) in the Arctic}
-%% \label{seasonal}
-%% % the following illustrates how to align columns on decimal points using the S column identifier from siunitx
-%% \setlength\tabcolsep{2.5pt}% column separation reduced from the default 6pt so the table fits the measure
-%% \begin{tabular}{@{}l@{\hspace{20pt}}SSSSS@{\hspace{20pt}}SSSSS}\hline
-%% Area                 & \multicolumn{5}{c}{1951--2005} & \multicolumn{5}{c}{1976--2005}\\[5pt]
-%%                      & {Dec--Feb}       & {Mar--May}    & {Jun--Aug}  & {Sep--Nov}         & {Annual}
-%%                      & {Dec--Feb}       & {Mar--May}    & {Jun--Aug}  & {Sep--Nov}         & {Annual}\\ \hline
-%% Atlantic region      & 0.09           & 0.29 & 0.10 & 0.09 & 0.15 & 0.470 & 0.60 & 0.45 & 0.53 & 0.59\\
-%% Siberian region      & 0.12           & 0.29 & 0.04 & 0.17 & 0.16 & 0.08 & 0.69 & 0.29 & 0.59 & 0.48\\
-%% Pacific region       & 0.45           & 0.46 & 0.25 & 0.26 & 0.35 & 0.712 & 1.08 & 0.27 & 0.66 & 0.52\\
-%% Canadian region      & 0.16           & 0.12 & 0.14 & 0.30 & 0.18 & 0.20 & 0.52 & 0.48 & 0.94 & 0.53\\
-%% Baffin Bay region    & -0.02 & 0.10 & 0.00 & 0.15 & 0.02 & 0.33 & 0.62 & 0.51 & 0.80 & 0.57\\
-%% Arctic 1             & 0.16           & 0.21 & 0.12 & 0.20 & 0.18 & 0.36 & 200.65 & 0.42 & 0.74 & 0.54\\
-%% Arctic 2             & 0.22           & 0.29 & 0.14 & 0.14 & 0.19 & 0.38 & 0.60 & 0.40 & 0.51 & 0.45\\
-%% Arctic 3             & 0.28           & 0.31 & 0.14 & 0.13 & 0.21 & 0.42 & 40.53 & 0.41 & 0.42 & 0.43\\
-%% NH ($\mathrm{land}
-%%   + \mathrm{ocean}$) & 0.13           & 0.13 & 0.10 & 0.10 & 0.12 & 0.27 & 0.24 & 0.25 & 0.25 & 0.25\\
-%% \hline
-%% \end{tabular}
-%% \end{table*}
-
-%% \subsection{Figures}
-
-%% Figures may be typeset in either one- or two-column format. One-column format allows up to 86$\,$mm (e.g. Fig.~\ref{tracks}); two-column format up to 178$\,$mm (e.g. Fig.~\ref{filters}). Please do not provide original graphics files in which the figure is a great deal larger or smaller than what you envisage will be the final printed size. To typeset two-column format, add asterisks (\verb"\begin{figure*}...\end{figure*}") as shown in Fig.~\ref{filters}. We may change the format in-house if necessary. Please note that if you choose to refer to figures using labels, \verb"\caption" must precede \verb"\label", as in standard \LaTeX. 
-
-%% Please send one file for each figure (in other words do not use subfigures) and use a name that clearly identifies it (e.g. `72A712Fig03.eps').
-
-%% In addition, figures should be eps, ai (illustrator), ps, tif, psd or pdf. Use strong black lines with a width of at least 0.75pt at final printed size (avoid tinting if possible) and SI units in labels. Lettering should ideally be Optima to match the final typeface; Arial or a similar sans serif font for a second choice. Aim to have the final-size lettering at 9pt, if possible. Figures should not be in boxes. The source code for Figs~\ref{tracks} and~\ref{filters} is shown immediately below the figures.
-
-%% \subsection{Equations}
-
-%% We are including some complex equations as examples. Equations should be checked for width by removing the \verb"[review]" option. Note the use of \verb|cases*| in the following equation:
-%% \begin{equation}
-%% \label{arrayexample}
-%% \alpha_{t_2}= %
-%%   \begin{cases}
-%%     \alpha_{t_1} - a_1 [\ln (T+1)]
-%%       \mathrm{e}^{(a_2\sqrt{n})}
-%%       & \mbox{$n_\mathrm{d} > 0\enskip$ and
-%%       $\enskip T > 0$}\\
-%%     \alpha_{t_1} - a_3 \mathrm{e}^{(a_2\sqrt{n})}
-%%       & \mbox{$n_\mathrm{d} > 0\enskip$ and
-%%       $\enskip T < 0$}\\
-%%     \alpha_{t_1} + a_4 P_\mathrm{s}
-%%       & \mbox{$n_\mathrm{d} = 0$}
-%%   \end{cases}
-%% \end{equation}
-
-%% Equations should be aligned on the equals signs where possible. Equations that extend beyond the one-column measure should be turned over before an operator. 
-
-%% \begin{equation}
-%% \label{eqnarrayexample}
-%% \begin{aligned}
-%% l_c & =  l_0 \left(\frac{\widebar{R}_m}{R} \right)^2
-%%   \psi^{\frac{P}{P_0\cos Z}}\\
-%%     & \phantom{=} \quad  \times [\cos\beta\, \cos Z
-%%     + \sin\beta\,\sin Z\,\cos(\psi_\mathrm{sun}
-%%     - \psi_\mathrm{slope})]
-%% \end{aligned}
-%% \end{equation}
-
-%% \citep{mankoff_2020_solid}
-%% \citet{mankoff_2021}
-
-%% \begin{figure}%fig1, one column
-%% \centering{\includegraphics{72A712Fig01.eps}}
-%% \caption{One-column figures should be $\leq$86$\,$mm. Good artwork can
-%%   make or break a paper. Capitalize the first word of a label and use
-%%   round not square brackets for units.}
-%% \label{tracks}
-%% \end{figure}
+In Antarctica...
 
 
-%% \paragraph{Citations using natbib commands}
-%% Note that the standard natbib style file has been modified to fall into line with IGS style. The modified style file is called igsnatbib.sty (included in this distribution), and works exactly the same as natbib.sty. The default IGS house style is \citep{Yan13}. The following combinations are also available -- refer to the natbib documentation if you require any further explanation:\\*[0.5\baselineskip]
-%% \begin{tabular}{@{}l@{\hskip -94pt}l}
-%% \citep{Yan13}
-%%     & \verb"\citep{Yan13}"\\
-%% \citep[see][p.$\,$34]{Yan13}\\
-%%     & \verb"\citep[see][p.$\,$34]{Yan13}"\\
-%% \citep[e.g.][]{Yan13}
-%%     & \verb"\citep[e.g.][]{Yan13}"\\
-%% \citep[Section~2.3]{Yan13}\\
-%%     & \verb"\citep[Section~2.3]{Yan13}"\\
-%% \citep{Yan13, Edwards14}\\
-%%     &  \verb"\citep{Yan13, Edwards14}"\\
-%% \cite{Yan13, Edwards14}\\
-%%     &  \verb"\cite{Yan13, Edwards14}"\\
-%% \citealt{Yan13}
-%%     & \verb"\citealt{Yan13}"\\
-%% \cite{Yan13}
-%%     & \verb"\cite{Yan13}"\\
-%% \citealp{Yan13}
-%%     & \verb"\citealp{Yan13}"\\
-%% \citeauthor{Yan13}
-%%     & \verb"\citeauthor{Yan13}"\\
-%% \citeyearpar{Yan13}
-%%     & \verb"\citeyearpar{Yan13}"\\
-%% \citeyear{Yan13}
-%%     & \verb"\citeyear{Yan13}"
-%% \end{tabular}
+%% \subsection{Shelves} %% Suggest remove:
 
-%% \begin{figure*}%fig2, two column
-%% \centering{\includegraphics{72A712Fig02.eps}}
-%% \caption{Two-column figures should be $\leq$178$\,$mm. SSA reconstructed components found by 
-%%   projecting the SSA filters found using the whole 2000 traces in Fig.~4, on trace number 1, 
-%%   ordered by magnitude of variance accounted for in the radar trace.}
-%% \label{filters}
-%% \vspace\baselineskip\hrule % to separate figure from verbatim
-%% \vspace\baselineskip
-%% \begin{verbatim}
-%% \begin{figure*}%fig2, two column
-%% \centering{\includegraphics{72A712Fig02.eps}}
-%% \caption{Two-column figures should be $\leq$178$\,$mm. SSA reconstructed components found by 
-%%   projecting the SSA filters found using the whole 2000 traces in Fig.~4, on trace number 1, 
-%%   ordered by magnitude of variance accounted for in the radar trace.}
-%% \label{filters}
-%% \end{figure*}
-%% \end{verbatim}
-%% \vspace\baselineskip\hrule % to separate verbatim from text
-%% \end{figure*}
+%% Mass change of shelves is a bulk aggregate property, and should not the default reporting metric because it obscures information. For example, in theory ice shelf mass can grow even as they collapse, as long as the grounding line retreats (adds mass to the shelf from the upstream ice sheet) faster than the mass loss at the frontal or submarine boundaries. A mass flow diagram dedicated to ice shelves (this one is not) would clearly convey each of these processes. 
 
+%% \subsection{Drifting snow}
 
+%% %% From Hester: I think if you were to go into a discussion of snowdrift it should go further than, for example, the works of Lenaerts et al. Perhaps it is beter to plainly list the uncertainties / poor definitions but in terms of process just refer to the existing papers. However, I am in two minds about this.
+
+\subsection{Interpretation of graphics}
+
+Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagram(s) shown here. The widths of all lines are proportional to all other widths, both within and among figures. Color here represents both phase and net mass change. Colors gray, blue, and yellow represent solid, liquid, and gaseous phases respectively, while red and black highlight net mass loss or gain. The latter may be counter-intuitive - for example to see mass loss as an input at the top (red in Fig. \ref{fig}) even though most mass loss terms (runoff, calving, etc.) are at the bottom. This is because Sankey diagrams are balanced, outputs are larger than inputs (hence net mass loss), so the mass loss term is an input - drawdown of the historical 'stable' ice mass. Conversely, in East Antarctica mass gain is an output at the bottom (black in Fig. \ref{fig}} that balances the diagram, because without it, there are more flows into the system than out of it.
+
+  These diagrams also do not represent every process perfectly. For example, frontal retreat is a combination of discharge and submarine melting (and should therefore divide between ice and liquid, with the same uncertainty \citep{enderlin_2013}, but frontal retreat is shown separately here because it is usually treated separately in the literature.
+
+  We highlight frontal retreat and grounding line retreat both with a red outline, and by not including frontal retreat in the larger (in Greenland) discharge and submarine melting flow. We do this for two reasons.
+
+  First these two terms imply an imbalance. Regardless of if a system is gaining mass (Antarctica), losing mass (Greenland) or appears to be in steady state (Peninsula), if there is grounding line and frontal retreat, it implies a system imbalance in the long term, even if not a numerical imbalance as represented here.
+
+  Secondly, these two terms are rarely included in mass change estimates. The gravimetric method does not see these processes, the volumetric method is usually cropped at the some fixed grounding line upstream of these processes, and the IO method has typically ignored these two terms as downstream of the flux gates.
+  
 \section{Acknowledgements}
 
-LaTeX software community, Cogley for a reference graphic.
-Pandas, xarray, and the software stack
+We thank \citep{sankey} for the \LaTeX\ TikZ Sankey package, and \citet{cogley_2011} for a reference graphic. Analysis was aided by the software packages Pandas (\citet{pandas_team}), Xarray (\citet{xarray}), and GRASS GIS (\citet{GRASS}), among other tools.
 
-Xavier Fettweis
-Benjamin Davison
-Anna Hogg
-Chad Greene
-Katie Leonard
-Jan Lenaerts
-Damien Ringeisen
-Liam Colgan
-Robert Fausto
-Dominik Fahrner
-Nanna Karlsson
-Andreas Ahlstrøm
+We thank Jakob Steiner, Xavier Fettweis, Benjamin Davison, Anna Hogg, Chad Greene, Katie Leonard, Jan Lenaerts, Damien Ringeisen, Liam Colgan, Robert Fausto, Dominik Fahrner, Nanna Karlsson, Brice Van Liefferinge, and Andreas Ahlstrøm for conversations in the development of this work.
 
-% authors generating their own bbl file would uncomment the following two lines, and comment out/delete the references below:
+\bibliography{library}
+\bibliographystyle{igs}
 
-\bibliography{library}   % reads igsrefs.bib
-\bibliographystyle{igs}  % imposes IGS bibliography style on output
+\appendix
+\section{Appendix A}
+\label{sec:appendix:A}
 
-%% \appendix
-%% \section{Appendix}
 
-%% Start an appendix by \hbox{typing \verb"\appendix\section{Appendix}".} Appendices appear after the references. Equation numbers automatically start again with (\ref{appeqn}).
-%% \begin{equation}
-%% \label{appeqn}
-%%  2\eta\kappa \frac{\partial \skew1\bar u}{\partial t} + \rho_{\mathrm r} g \skew1\bar u + D\kappa^4 \skew1\bar u = \skew3\bar\sigma_{zz}.
-%% \end{equation}
+\begin{table*}
+\caption{Mass flow values used for Greenland in Fig. \ref{fig}}
+\label{tab:gl}
+\begin{tabular}{@{}lcc}\hline
+  Term & Source\\
+  Snowfall & \citet{fettweis_2020}\\
+  Rainfall & \citet{fettweis_2020}\\
+  Condensation & TODO\\
+  Deposition & TODO\\
+  Sublimation & \citet{fettweis_2020}\\
+  Evaporation & \citet{fettweis_2020}\\
+  Runoff & \citet{fettweis_2020}\\
+  Refreezing & \citet{fettweis_2020}\\
+  Frontal retreat & \citet{kochtitzky_2023,greene_2024}\\
+  Grounding line retreat & Estimated here\\
+  Discharge + submarine melting & \citet{mankoff_2020_solid}\\
+  Split of discharge \& submarine melting & \citet{enderlin_2013}\\
+  Basal melting & \citet{karlsson_2021}\\
+  Drawdown & Derived from above terms
+\end{tabular}
+\end{table*}
 
-%% \section{Handling more than one appendix}
-%% Use the following code to achieve heading APPENDIX~A followed by APPENDIX~B and APPENDIX~C, with appropriate equation numbers:
-
-%% \begin{verbatim}
-
-%% \appendix
-%% \section{Appendix A}
-
-%% \setcounter{equation}{0}
-%% \renewcommand\theequation{B\arabic{equation}}
-%% \section{Appendix B}
-
-%% \setcounter{equation}{0}
-%% \renewcommand\theequation{C\arabic{equation}}
-%% \section{Appendix C}
-%% \end{verbatim}
+\begin{table*}
+\caption{Mass flow values used for Antarctica and Antarctica regions in Fig. \ref{fig}}
+\label{tab:aq}
+\begin{tabular}{@{}lcc}\hline
+  Term & Source\\
+  Snowfall & \citet{fettweis_2020}\\
+  Rainfall & \citet{fettweis_2020}\\
+  Condensation & TODO\\
+  Deposition & TODO\\
+  Sublimation & \citet{fettweis_2020}\\
+  Evaporation & \citet{fettweis_2020}\\
+  Runoff & \citet{fettweis_2020}\\
+  Refreezing & \citet{fettweis_2020}\\
+  Frontal retreat & TODO\\
+  Grounding line retreat & TODO\\
+  Discharge + submarine melting & \citet{davison_2023}\\
+  Split of discharge \& submarine melting & \citet{davison_2023}\\
+  Basal melting & \citet{pattyn_2010}\\
+  Regional distribution terms & See Sect. \ref{sec:methods:split}\\
+  Drawdown or accumulation & Derived from above
+\end{tabular}
+\end{table*}
 
 \end{document}
