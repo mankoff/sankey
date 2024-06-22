@@ -495,23 +495,21 @@ Data variables:
 
 ** GZ retreat in Greenland
 
-#+BEGIN_SRC jupyter-python :exports both
-import xarray as xr
-fname = '~/data/Mankoff_2020/ice/latest/gate.nc'
-ds = xr.open_dataset(fname)
+From Millan (2022) http://doi.org/10.5194/tc-16-3021-2022
++ Gz retreat is ~0.13 km/yr (Fig. 3a)
++ Ice velocity is ~1200 m/yr (Fig. 3b) (not needed)
++ 20 km wide
 
-ds = ds.where(ds['name_Bjørk'] == 'Petermann Gletsjer', drop=True)
-print(ds['discharge'].to_dataframe().max())
-print(ds['discharge'].to_dataframe().mean())
+Rates are higher per Ciraci (2023) http://doi.org/10.1073/pnas.2220924120, but
++ Ice surface close to flotation near GZ, and shelf is ~500 m thick, so estimate 600 m ice.
+
+Therefore, gz retreat in Gt/year is width * thick * retreat rate * density
+
+#+BEGIN_SRC bash :exports both :results verbatim
+frink "0.13 km/yr * 20 km * 600 m * 917 kg/m^3 -> Gt/yr"
 #+END_SRC
 
 #+RESULTS:
-: discharge    18.015471
-: dtype: float32
-: discharge    12.114111
-: dtype: float32
+: 1.43052
 
-See Issue #10
-
-What glaciers to include?
-
+Assume similar from other ice shelves too, for a total of ~5 Gt/yr GZ retreat in Greenland.
