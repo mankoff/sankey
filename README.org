@@ -77,9 +77,9 @@ convert -density 300 -background white -alpha remove -trim -gravity center -draw
 convert -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
 composite -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
 
-convert -colorspace rgb +append tmp/{aq_legend,gl}.png aq_gl.png
+convert -colorspace rgb +append tmp/{gl,aq_legend}.png gl_aq.png
 convert -colorspace rgb +append tmp/{aqe,aqw,aqp}.png aq_sub.png
-convert -colorspace rgb -gravity center -append {aq_gl,aq_sub}.png ./fig.png
+convert -colorspace rgb -gravity center -append {gl_aq,aq_sub}.png ./fig.png
 #+END_SRC
 
 #+BEGIN_QUOTE
