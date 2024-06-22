@@ -17,6 +17,7 @@
   - [[#basal-melt][Basal melt]]
   - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
   - [[#smb-mar][SMB (MAR)]]
+  - [[#gz-retreat-in-greenland][GZ retreat in Greenland]]
 
 * Introduction
 
@@ -63,8 +64,22 @@ cat ./dat/gl_baseline.csv
 * Results
 
 #+BEGIN_SRC bash :exports results :results verbatim :results none
-convert -density 120 -background white -alpha remove -trim gl_baseline.pdf greenland.png
-convert -density 120 -background white -alpha remove -trim aq_baseline.pdf antarctica.png
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -25-30 'Greenland' gl_baseline.pdf tmp/gl.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'Antarctica' aq_baseline.pdf tmp/aq.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate +25-60 'East' aq_east.pdf ./tmp/aqe.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'West' aq_west.pdf ./tmp/aqw.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -draw "translate 50,-150 rotate 90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
+
+convert -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
+composite -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
+
+convert -colorspace rgb +append tmp/{aq_legend,gl}.png aq_gl.png
+convert -colorspace rgb +append tmp/{aqe,aqw,aqp}.png aq_sub.png
+convert -colorspace rgb -gravity center -append {aq_gl,aq_sub}.png ./fig.png
 #+END_SRC
 
 #+BEGIN_QUOTE
@@ -72,15 +87,7 @@ convert -density 120 -background white -alpha remove -trim aq_baseline.pdf antar
 All figures are width-proportional within and between each other.
 #+END_QUOTE
 
-
-Greenland:
-
-[[./greenland.png]]
-
-Antarctica:
-
-[[./antarctica.png]]
-
+[[./fig.png]]
 
 * Implementation
 
@@ -485,4 +492,26 @@ Data variables:
     ME           int64 84
     RFZ          int64 77
 #+end_example
+
+** GZ retreat in Greenland
+
+#+BEGIN_SRC jupyter-python :exports both
+import xarray as xr
+fname = '~/data/Mankoff_2020/ice/latest/gate.nc'
+ds = xr.open_dataset(fname)
+
+ds = ds.where(ds['name_Bjørk'] == 'Petermann Gletsjer', drop=True)
+print(ds['discharge'].to_dataframe().max())
+print(ds['discharge'].to_dataframe().mean())
+#+END_SRC
+
+#+RESULTS:
+: discharge    18.015471
+: dtype: float32
+: discharge    12.114111
+: dtype: float32
+
+See Issue #10
+
+What glaciers to include?
 
