@@ -8,7 +8,7 @@ CD,Condensation,10,TODO
 DP,Deposition,10,TODO
 FRLOSS,Frontal retreat,60,greene_2022
 FRGAIN,Frontal advance,0,green_2022
-GZRET,Grounding line retreat,100,TODO
+GZRET,Grounding line retreat,145,TODO
 SU,Sublimation,165,fettweis_2020
 RU,Runoff,25,fettweis_2020
 DYN,Dynamics,1545+1090,davison_2023
