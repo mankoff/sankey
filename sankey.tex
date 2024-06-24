@@ -46,6 +46,7 @@
       red-to-ice/.style={fill/.style={fill=none, top color=red, bottom color=ice},},
       water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
       ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
+      black-to-ice/.style={fill/.style={fill=none, bottom color=ice, top color=black},},
       out-red/.style={draw/.style={draw=red,thick=3},},
       debug label/.style={
         overlay,
@@ -135,7 +136,7 @@
       }{
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN},
           at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\Q{vFRGAIN}/FG, \qq{f0}/f0i, \Q{vRFZ}/RFZi}}
+          forked={\qq{f0}/f0i, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
       }
     } {
       \ifthenelse{\Q{vFRLOSS} > 0}{
@@ -145,17 +146,18 @@
       }{
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN},
           at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\Q{vFRGAIN}/FG, \qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
+          forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
       }
     }
     
     \ifthenelse{\Q{vFRGAIN} > 0}{
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
-        at={[yshift=15mm,xshift=\xoff]FG.left}, anchor=right}
-      \sankeystart{FGi}
-      \abovelabel{FGi}{Frontal advance}
-      \sankeyoutin{FGi}{FG}
-    }{}
+        at={[yshift=15mm,xshift=-\xoff]FG.right}, anchor=left}
+      \sankeystart[black]{FGi}
+      \sankeyoutin[black-to-ice]{FGi}{FG}
+      \node[font=\tiny, rotate=45, anchor=north east]
+      at ([yshift=12mm,xshift=3mm]FGi.right) {Frontal advance: \qq{FGi}}; 
+   }{}
     
     \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
