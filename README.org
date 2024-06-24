@@ -152,94 +152,72 @@ sum=3.18704264192471
 
 *** Mass loss from Davison 2023
 
-+ See Davison (2023) http://doi.org/10.1126/sciadv.adi0186 particularly Supplemental Table S2.
+**** Submarine melt
 
 #+BEGIN_SRC jupyter-python :exports both
 import pandas as pd
 
 fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
-loc = pd.read_excel(fname, sheet_name='Total mass changes',
-                    index_col = 0, usecols = 'B,C,D', skiprows = 4)
+
+loc = pd.read_excel(fname, sheet_name='Total mass changes', index_col = 0, usecols = 'B,C,D', skiprows = 4)
 loc = loc.drop('Antarctic Ice Shelves')
 
-steady = pd.read_excel(fname, sheet_name='Steady-state',
-                     index_col = 0, usecols = 'B:F', skiprows = 5)
-steady.columns = ['D', 'BMB', 'Calving', 'SMB']
 
-fret = pd.read_excel(fname, sheet_name='Calving',
-                     index_col = 0, skiprows = 4).set_index('Ice shelf')
-fret = fret.drop('Antarctic Ice Shelves')
-c = fret.columns
-c = c[[_[0] == 'o' for _ in fret.columns]]
-fret = fret[c]
-fret = fret.mean(axis='columns')
-fret.name = 'Calving2'
+df = pd.read_excel(fname, sheet_name='Melt',
+                   index_col = 1, skiprows = 3)
 
-flow = loc.join(steady)
-flow = flow.join(fret)
-flow.sum()
-#+END_SRC
+# drop uncertainty columns
+unc = []
+for c in df.columns:
+     if type(c) == str:
+          if c[0:8] == 'Unnamed:':
+               unc.append(c)
+df = df.drop(columns = unc)
+df = df[df.columns[3:]]
+df = df.iloc[1:]
 
-#+RESULTS:
-: D             1838.804842
-: BMB            428.520452
-: Calving        902.775112
-: SMB            488.207716
-: Calving2      1596.151121
+df = pd.DataFrame(df.mean(axis='columns'))
+df.columns = ['Mass']
 
-#+BEGIN_SRC jupyter-python :exports both
-mass[['D','BMB']].sum()
-#+END_SRC
+df = loc.join(df)
 
-#+RESULTS:
-: D      1838.804842
-: BMB     428.520452
-: dtype: float64
-
-#+BEGIN_SRC jupyter-python :exports both
 import geopandas as gpd
 fname = '~/data/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp'
 ew = gpd.read_file(fname)
-ew.drop(columns=['geometry']).head()
-#+END_SRC
 
-#+RESULTS:
-|    | NAME           | Regions   | Subregions   | TYPE   | Asso_Shelf     |
-|----+----------------+-----------+--------------+--------+----------------|
-|  0 | LarsenE        | Peninsula | Ipp-J        | GR     | LarsenE        |
-|  1 | Dawson_Lambton | East      | nan          | FL     | nan            |
-|  2 | Academy        | East      | Jpp-K        | GR     | Filchner       |
-|  3 | Brunt_Stancomb | East      | K-A          | GR     | Brunt_Stancomb |
-|  4 | Riiser-Larsen  | East      | K-A          | GR     | Riiser-Larsen  |
-
-#+BEGIN_SRC jupyter-python :exports both
-m = gpd.GeoDataFrame(mass, geometry=gpd.points_from_xy(mass['longitude'],mass['latitude']), crs="EPSG:4326")
-
-m = m.to_crs('epsg:3031')
+df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df['longitude'],df['latitude']), crs="EPSG:4326")
+df = df.to_crs('epsg:3031')
 e = ew.to_crs('epsg:3031')
 
-idx = ew.sindex.nearest(m['geometry'], return_all=False)
-m['Region'] = ''
-for midx,ewidx in idx.T:
-    arr = m.iloc[midx].copy(deep=True)
+idx = ew.sindex.nearest(df['geometry'], return_all=False)
+df['Region'] = ''
+for dfidx,ewidx in idx.T:
+    arr = df.iloc[dfidx].copy(deep=True)
     arr['Region'] = ew.iloc[ewidx]['Regions']
-    m.iloc[midx] = arr
+    df.iloc[dfidx] = arr
+df = df.drop(columns=['latitude','longitude'])
+    
+df.loc['Total'] = df.sum(axis='rows', numeric_only=True)
+df.loc['Total', 'Region'] = 'All'
 
-m.loc['Total'] = m.sum(axis='rows', numeric_only=True)
-m.loc['Total', 'Region'] = 'All'
+df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
 
-m[['Region','D','BMB']].groupby('Region').sum(numeric_only=True).drop('Islands').round()
 #+END_SRC
 
 #+RESULTS:
 :RESULTS:
-| Region    |    D |   BMB |
-|-----------+------+-------|
-| All       | 1839 |   429 |
-| East      |  911 |    87 |
-| Peninsula |  160 |    78 |
-| West      |  767 |   261 |
+: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
+:   warnings.warn(
+| Region    |   Mass |
+|-----------+--------|
+| All       |   1087 |
+| East      |    321 |
+| Peninsula |    173 |
+| West      |    593 |
 :END:
+
+
+
 
 *** Frontal Retreat from Greene 2022
 
