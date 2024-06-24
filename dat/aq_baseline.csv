@@ -11,8 +11,8 @@ FRGAIN,Frontal advance,0,green_2022
 GZRET,Grounding line retreat,100,TODO
 SU,Sublimation,165,fettweis_2020
 RU,Runoff,25,fettweis_2020
-DYN,Dynamics,1840+430,davison_2023
-ICE,Icebergs,1840,davison_2023
-SUB,Submarine melt,430,davison_2023
+DYN,Dynamics,1350+1090,davison_2023
+ICE,Icebergs,1350,davison_2023
+SUB,Submarine melt,1090,davison_2023
 EV,Evaporation,10,TODO
 BM,Basal melt,70,van-liefferinge_2013
