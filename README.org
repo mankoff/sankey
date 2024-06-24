@@ -105,69 +105,47 @@ r.colors map=basins,basins_grow color=viridis
 
 *** Antarctica
 
-+ 65 Gt/yr from Pattyn (2010) http://doi.org/10.1016/j.epsl.2010.04.025
-+ If split by area, its 25 % vs 75 %
-+ Better: Split by weighted geothermal heat for E v W Antarctica
-  + This is still (somewhat) weighted by area. Neglects 0 basal melt in areas when ice sheet is frozen to the bed. Neglects frictional heating differences between E & W.
+Van Liefferinge (2013) http://doi.org/10.5194/cp-9-2335-2013 
 
-**** Geothermal heat
+Convert MAT file to XYZ for importing into GRASS
 
-Load 
-#+BEGIN_SRC bash :exports both :results verbatim
-grass -c ./G_AQ/Shapiro_2004
+#+BEGIN_SRC jupyter-python :exports both
+import scipy as sp
+import numpy as np
+import pandas as pd
 
-fname=Shapiro_2004/Antarctica_heat_flux_5km.nc
-r.in.gdal -o input=NetCDF:${DATADIR}/${fname}:bheatflx output=bheatflux
-g.region raster=bheatflux -pa
-#+END_SRC
+mat = sp.io.loadmat('/home/kdm/data/Van_Liefferinge_2023/Melt_Mean_Std_15exp.mat')
+X = mat['X'].flatten() * 1E3 # convert from km to m
+Y = mat['Y'].flatten() * 1E3
+m = mat['MeanMelt'].flatten() / 10 # cm to mm
 
-Sum by ROI. Units doesn't matter here, we just want relative %
-#+BEGIN_SRC bash :exports both :results verbatim
-r.mask raster=basins@PERMANENT --o --q
-r.univar -g bheatflux | grep ^sum=
-eval $(!!)
-gf_all=${sum}
-
-r.mask raster=basins@PERMANENT maskcats=1 --o --q
-eval $(r.univar -g bheatflux | grep ^sum=)
-gf_e=${sum}
-
-r.mask raster=basins@PERMANENT maskcats=2 --o --q
-eval $(r.univar -g bheatflux | grep ^sum=)
-gf_w=${sum}
-
-r.mask raster=basins@PERMANENT maskcats=3 --o --q
-eval $(r.univar -g bheatflux | grep ^sum=)
-gf_p=${sum}
-
-r.mask -r
-#+END_SRC
-
-#+BEGIN_SRC bash :exports both :results verbatim
-echo East
-echo "${gf_e}/${gf_all}"|bc -l
-echo West
-echo "${gf_w}/${gf_all}"|bc -l
-echo Peninsula
-echo "${gf_p}/${gf_all}"|bc -l
+melt = pd.DataFrame(np.array([X,Y,m]).T, columns=['x','y','melt'])\
+         .dropna()
+melt.to_csv('./tmp/melt.csv', header=False, index=False)
+melt.head()
 #+END_SRC
 
 #+RESULTS:
-: East
-: .70880323929018432555
-: West
-: .25048300096071189826
-: Peninsula
-: .04071375974910620730
+|        |         x |          y |        melt |
+|--------+-----------+------------+-------------|
+| 148741 | 1.045e+06 | -2.14e+06  | 1e-09       |
+| 149859 | 1.03e+06  | -2.135e+06 | 0.00146608  |
+| 149860 | 1.035e+06 | -2.135e+06 | 0.000266042 |
+| 149861 | 1.04e+06  | -2.135e+06 | 1e-09       |
+| 149862 | 1.045e+06 | -2.135e+06 | 0.00045698  |
 
-Results:
+#+BEGIN_SRC bash :exports both :results verbatim
+grass ./G_AQ/PERMANENT
+g.mapset -c liefferinge_2023
+r.in.xyz input=./tmp/melt.csv output=melt sep=, --o
+r.univar -g map=melt | grep sum
+r.univar -g map=melt zones=basins |grep sum
+#+END_SRC
 
-+ All: 65 Gt/yr Pattyn (2010) http://doi.org/10.1016/j.epsl.2010.04.025
-+ East: 65 * 0.71 = 46.15
-+ West: 65 * 0.25 = 16.25
-+ Peninsula: 65 * 0.04 = 2.6
-
-
+sum=69.3982306335468
+sum=46.7540492694752
+sum=18.8528624157926
+sum=3.18704264192471
 
 ** Antarctic Ice shelves
 

@@ -15,4 +15,4 @@ DYN,Dynamics,160+80,davison_2023
 ICE,Icebergs,160,davison_2023
 SUB,Submarine melt,80,davison_2023
 EV,Evaporation,3,TODO
-BM,Basal melt,3,pattyn_2010 weighted by shapiro_2004 geothermal
+BM,Basal melt,3,van-liefferinge_2013
