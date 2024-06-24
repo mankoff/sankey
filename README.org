@@ -276,6 +276,19 @@ df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
 
 
 
+**** GZ retreat
+
+Email from Davison
+
+| Ice Shelf   | Mass change due to grounding line migration from 1997 to 2021 (Gt) | Error (Gt) |
+| Pine Island |                                                                220 |         40 |
+| Thwaites    |                                                                230 |         25 |
+| Crosson     |                                                                200 |         25 |
+| Dotson      |                                                                420 |         80 |
+
+(220+230+200+420)/(2021-1997) = 44.5833333333
+
+
 *** Frontal Retreat from Greene 2022
 
 #+BEGIN_QUOTE
