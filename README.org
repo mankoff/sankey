@@ -219,6 +219,63 @@ df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
 
 
 
+**** Calving
+
+Same as above, different sheet. Reuses variables from above, run that first.
+
+#+BEGIN_SRC jupyter-python :exports both
+fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
+df = pd.read_excel(fname, sheet_name='Calving',
+                   index_col = 1, skiprows = 3)
+
+# drop uncertainty columns
+unc = []
+for c in df.columns:
+     if type(c) == str:
+          if c[0:8] == 'Unnamed:':
+               unc.append(c)
+df = df.drop(columns = unc)
+df = df[df.columns[3:]]
+df = df.iloc[1:]
+
+df = pd.DataFrame(df.mean(axis='columns'))
+df.columns = ['Mass']
+
+df = loc.join(df)
+
+df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df['longitude'],df['latitude']), crs="EPSG:4326")
+df = df.to_crs('epsg:3031')
+e = ew.to_crs('epsg:3031')
+
+idx = ew.sindex.nearest(df['geometry'], return_all=False)
+df['Region'] = ''
+for dfidx,ewidx in idx.T:
+    arr = df.iloc[dfidx].copy(deep=True)
+    arr['Region'] = ew.iloc[ewidx]['Regions']
+    df.iloc[dfidx] = arr
+df = df.drop(columns=['latitude','longitude'])
+    
+df.loc['Total'] = df.sum(axis='rows', numeric_only=True)
+df.loc['Total', 'Region'] = 'All'
+
+df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
+:   warnings.warn(
+| Region    |   Mass |
+|-----------+--------|
+| All       |   1544 |
+| East      |    560 |
+| Peninsula |    236 |
+| West      |    746 |
+:END:
+
+
+
+
 *** Frontal Retreat from Greene 2022
 
 #+BEGIN_QUOTE
