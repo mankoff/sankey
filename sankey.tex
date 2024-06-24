@@ -19,6 +19,7 @@
     \colorlet{air}{yellow!50}
     \colorlet{red}[rgb]{red!50!orange!75!white}
     \colorlet{black}[rgb]{black!100!black!100!black!100}
+    \colorlet{gray}[rgb]{black!30!black!30!black!30}
 
     \sankeyset{
       %% comment for gray outline
@@ -47,6 +48,7 @@
       water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
       ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
       black-to-ice/.style={fill/.style={fill=none, bottom color=ice, top color=black},},
+      in-black/.style={draw/.style={draw=gray,thick=3},},
       out-red/.style={draw/.style={draw=red,thick=3},},
       debug label/.style={
         overlay,
@@ -129,35 +131,14 @@
     \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RFi}
 
     \ifthenelse{\Q{vMG} > \Q{vML}} {
-      \ifthenelse{\Q{vFRLOSS} > 0}{
-        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0},
-          at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\qq{f0}/f0i, \Q{vRFZ}/RFZi}}
-      }{
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN},
           at={[yshift=-15mm]f0.left}, anchor=left,
           forked={\qq{f0}/f0i, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
-      }
     } {
-      \ifthenelse{\Q{vFRLOSS} > 0}{
-        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML},
-          at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
-      }{
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN},
           at={[yshift=-15mm]f0.left}, anchor=left,
           forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
-      }
     }
-    
-    \ifthenelse{\Q{vFRGAIN} > 0}{
-      \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
-        at={[yshift=15mm,xshift=-\xoff]FG.right}, anchor=left}
-      \sankeystart[black]{FGi}
-      \sankeyoutin[black-to-ice]{FGi}{FG}
-      \node[font=\tiny, rotate=45, anchor=north east]
-      at ([yshift=12mm,xshift=3mm]FGi.right) {Frontal advance: \qq{FGi}}; 
-   }{}
     
     \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
@@ -202,25 +183,17 @@
       at={[xshift=\xoff]D.left}, anchor=right}
     \sankeyoutin{GZ}{GZa}
 
-    % FLa must exist for placement, but only draw lines if > 0
-    \ifthenelse{\Q{vFRLOSS} > 0} {
-        \sankeynode{name=FLa, quantity=\qq{FL},
-          at={[xshift=\xoff]GZa.left}, anchor=right}
-        \sankeyoutin{FL}{FLa}
-      }{
-        \sankeynode{name=FLa, quantity=\qq{FL},
-          at={[yshift=0mm]GZa.left}, anchor=right}
-      }
+    \sankeynode{name=FLa, quantity=\qq{FL},
+      at={[xshift=\xoff]GZa.left}, anchor=right}
+    \sankeyoutin{FL}{FLa}
 
     \sankeynode{name=SUa, quantity=\qq{SU},
       at={[xshift=\xoff]FLa.left}, anchor=right}
     \sankeyoutin{SU}{SUa}
 
-    \ifthenelse{\Q{vFRLOSS} > 0} {
-      \sankeyadvance[out-red]{FLa}{10mm}
-      \sankeyend[out-red]{FLa}
-      \belowlabel{FLa}{Frontal retreat}
-    }{}
+    \sankeyadvance[out-red]{FLa}{10mm}
+    \sankeyend[out-red]{FLa}
+    \belowlabel{FLa}{Frontal retreat}
     
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
@@ -239,52 +212,67 @@
     \sankeyadvance[water-to-air-horiz]{EVa}{5mm}
     \sankeyend[air]{EVa}
 
-    \ifthenelse{\Q{vMG} < \Q{vML}}
-      {
-        %% mass loss
-        \sankeynode{name=ML, quantity=\Q{vML},
-          at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
-        \abovelabel{ML}{Drawdown}
-        \sankeystart[red]{ML}
-        \sankeyadvance[red-to-ice]{ML}{5mm}
-        \sankeyoutin{ML}{MLi}
-      }
-      {
-        %% mass gain
-        \sankeyadvance[ice-to-black]{MGa}{3mm}
-        \sankeyend[black]{MGa}
-      }
+    \ifthenelse{\Q{vMG} < \Q{vML}} {
+      %% mass loss
+      \sankeynode{name=ML, quantity=\Q{vML},
+        at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
+      \abovelabel{ML}{Drawdown}
 
-      \sankeynode{name=SUaa, quantity=\qq{SU},
-        at={[xshift=2mm,yshift=-5mm]SUa.left}, anchor=left, angle=0}
-      \sankeyoutin[ice]{SUa}{SUaa}
-      \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
-      \sankeyend[air]{SUaa}
+      % frontal advance next to drawdown (mass loss)
+      \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
+        at={[yshift=-5mm,xshift=-\xoff]ML.right}, anchor=left}
       
-      \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
-      \sankeyend[water,out-red]{GZa}
-      \sankeyadvance{D}{10mm}
-      \sankeyend{D}
+      \sankeystart[red]{ML}
+      \sankeyadvance[red-to-ice]{ML}{5mm}
+      \sankeyoutin{ML}{MLi}
+    }{
+      %% mass gain
+      \sankeyadvance[ice-to-black]{MGa}{3mm}
+      \sankeyend[black]{MGa}
 
-      \sankeyset{water}
-      \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
-      \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
-      \sankeyadvance{RU}{10mm}; \sankeyend{RU}
-          
-      \belowlabel{RU}{Runoff}
-      \belowlabel{BMa}{Basal melting}
-      \belowlabel{SUBa}{Submarine melting}
-      \belowlabel{D}{Calving}
-      \belowlabel{GZa}{Grounding line retreat}
-      
-      \node[font=\tiny, rotate=45, anchor=north east]
-      at ([yshift=1mm,xshift=3mm]SUaa.south) {Sublimation: \qq{SUaa}};
-      
-      \node[font=\tiny, rotate=45, anchor=north east]
-      at ([yshift=0mm,xshift=5mm]EVa.north) {Evaporation: \qq{EVa}};
-      
-      \node[font=\tiny, anchor=west, rotate=90]
-      at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {Refreezing: \qq{RFZi}};
+      % frontal with no drawdown
+      \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
+        at={[yshift=15mm,xshift=3mm]RFZi.right}, anchor=left}
+    }
+    
+    \ifnum \numexpr\qq{FGi} > 0
+    \sankeystart[in-black]{FGi}
+    \sankeyoutin[in-black]{FGi}{FG}
+    \node[font=\tiny, rotate=45, anchor=north east]
+    at ([yshift=12mm,xshift=3mm]FGi.right) {Frontal advance: \qq{FGi}};
+    \fi
+    
+    
+    \sankeynode{name=SUaa, quantity=\qq{SU},
+      at={[xshift=2mm,yshift=-5mm]SUa.left}, anchor=left, angle=0}
+    \sankeyoutin[ice]{SUa}{SUaa}
+    \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
+    \sankeyend[air]{SUaa}
+    
+    \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
+    \sankeyend[water,out-red]{GZa}
+    \sankeyadvance{D}{10mm}
+    \sankeyend{D}
+
+    \sankeyset{water}
+    \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
+    \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
+    \sankeyadvance{RU}{10mm}; \sankeyend{RU}
+    
+    \belowlabel{RU}{Runoff}
+    \belowlabel{BMa}{Basal melting}
+    \belowlabel{SUBa}{Submarine melting}
+    \belowlabel{D}{Calving}
+    \belowlabel{GZa}{Grounding line retreat}
+    
+    \node[font=\tiny, rotate=45, anchor=north east]
+    at ([yshift=1mm,xshift=3mm]SUaa.south) {Sublimation: \qq{SUaa}};
+    
+    \node[font=\tiny, rotate=45, anchor=north east]
+    at ([yshift=0mm,xshift=5mm]EVa.north) {Evaporation: \qq{EVa}};
+    
+    \node[font=\tiny, anchor=west, rotate=90]
+    at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {Refreezing: \qq{RFZi}};
 
   \end{sankeydiagram}
 \end{tikzpicture}

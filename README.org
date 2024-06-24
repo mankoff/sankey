@@ -603,23 +603,39 @@ gdf.loc['Total'] = gdf.sum(axis='rows')
 gdf.loc['Total', 'Region'] = 'All'
 
 gdf['frontal change'] = (gdf[2021.2] - gdf[2000.2]) / (2021.2-2000.2)
+pos = gdf[gdf['frontal change'] > 0]
+neg = gdf[gdf['frontal change'] <= 0]
 # gdf
-gdf[['Region','frontal change']].groupby('Region').sum().drop('Islands').round()
+
+print('neg', neg[['Region','frontal change']].groupby('Region').sum().round().abs())
+print('')
+print('pos', pos[['Region','frontal change']].groupby('Region').sum().round().abs())
+print('')
+print('all', gdf[['Region','frontal change']].groupby('Region').sum().round().abs())
 #+END_SRC
 
 #+RESULTS:
-:RESULTS:
-: /tmp/ipykernel_659962/1118458211.py:15: FutureWarning: The default value of numeric_only in GeoDataFrame.sum is deprecated. In a future version, it will default to False. In addition, specifying 'numeric_only=None' is deprecated. Select only valid columns or specify the value of numeric_only to silence this warning.
-:   gdf.loc['Total'] = gdf.sum(axis='rows')
-: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
-:   warnings.warn(
-| Region    |   frontal change |
-|-----------+------------------|
-| All       |              -61 |
-| East      |              102 |
-| Peninsula |             -121 |
-| West      |              -42 |
-:END:
+#+begin_example
+neg            frontal change
+Region                   
+All                  61.0
+East                 79.0
+Peninsula           122.0
+West                145.0
+
+pos            frontal change
+Region                   
+East                181.0
+Peninsula             1.0
+West                103.0
+
+all            frontal change
+Region                   
+All                  61.0
+East                102.0
+Peninsula           121.0
+West                 42.0
+#+end_example
 
 ** SMB (MAR)
 *** Provenance
