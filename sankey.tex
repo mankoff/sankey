@@ -78,8 +78,8 @@
       at ([yshift=5mm,xshift=-3mm]#1.center) {\qq{#1}: #2};
     }
     \newcommand\belowlabel[2]{ % valname, label
-      \node[font=\tiny, rotate=-45, anchor=south west]
-      at ([yshift=-6mm,xshift=-3mm]#1.center) {\qq{#1}: #2};
+      \node[font=\tiny, rotate=45, anchor=north east]
+      at ([yshift=-2mm,xshift=0mm]#1.center) {#2: \qq{#1}};
     }
 
     \sankeyset{
@@ -274,15 +274,15 @@
       \belowlabel{SUBa}{Submarine melting}
       \belowlabel{D}{Discharge}
       \belowlabel{GZa}{Grounding line retreat}
-
-      \node[font=\tiny, anchor=north]
-      at ([yshift=-2mm,xshift=3mm]SUaa.east) {\qq{SUa}: Sublimation};
-
-      \node[font=\tiny, anchor=north]
-      at ([yshift=-2mm,xshift=0mm]EVa.west) {\qq{EVa}: Evaporation};
-
-      \node[font=\tiny, anchor=west, rotate=-90]
-      at ([yshift=0.5mm,xshift=1mm]RFZi.center) {\qq{RFZi}: Refreezing};
+      
+      \node[font=\tiny, rotate=45, anchor=north east]
+      at ([yshift=1mm,xshift=3mm]SUaa.south) {Sublimation: \qq{SUaa}};
+      
+      \node[font=\tiny, rotate=45, anchor=north east]
+      at ([yshift=0mm,xshift=5mm]EVa.north) {Evaporation: \qq{EVa}};
+      
+      \node[font=\tiny, anchor=west, rotate=90]
+      at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {Refreezing: \qq{RFZi}};
 
   \end{sankeydiagram}
 \end{tikzpicture}
