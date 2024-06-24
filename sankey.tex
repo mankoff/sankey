@@ -92,11 +92,11 @@
         %% INSERT_CSV_HERE
         %% COMPUTED 
         {vML/Mass loss/
-          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRET}+\Q{vGZRET}+\Q{vEV})-
-          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP})},
+          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRLOSS}+\Q{vGZRET}+\Q{vEV})-
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN})},
         {vMG/Mass gain/
-          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP})-
-          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRET}+\Q{vGZRET}+\Q{vEV})}
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN})-
+          (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRLOSS}+\Q{vGZRET}+\Q{vEV})}
       },
     }
 
@@ -127,17 +127,35 @@
     \sankeydubins[minimum radius=3mm]{CD}{CDi}
     \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RFi}
 
-    \ifthenelse{\Q{vMG} > \Q{vML}}
-    { % mass gain
-      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0},
-        at={[yshift=-15mm]f0.left}, anchor=left,
-        forked={\qq{f0}/f0i, \Q{vRFZ}/RFZi}}
+    \ifthenelse{\Q{vMG} > \Q{vML}} {
+      \ifthenelse{\Q{vFRLOSS} > 0}{
+        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0},
+          at={[yshift=-15mm]f0.left}, anchor=left,
+          forked={\qq{f0}/f0i, \Q{vRFZ}/RFZi}}
+      }{
+        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN},
+          at={[yshift=-15mm]f0.left}, anchor=left,
+          forked={\Q{vFRGAIN}/FG, \qq{f0}/f0i, \Q{vRFZ}/RFZi}}
+      }
+    } {
+      \ifthenelse{\Q{vFRLOSS} > 0}{
+        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML},
+          at={[yshift=-15mm]f0.left}, anchor=left,
+          forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
+      }{
+        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN},
+          at={[yshift=-15mm]f0.left}, anchor=left,
+          forked={\Q{vFRGAIN}/FG, \qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
+      }
     }
-    { % mass loss
-      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML},
-        at={[yshift=-15mm]f0.left}, anchor=left,
-        forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vRFZ}/RFZi}}
-    }
+    
+    \ifthenelse{\Q{vFRGAIN} > 0}{
+      \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
+        at={[yshift=15mm,xshift=\xoff]FG.left}, anchor=right}
+      \sankeystart{FGi}
+      \abovelabel{FGi}{Frontal advance}
+      \sankeyoutin{FGi}{FG}
+    }{}
     
     \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
@@ -146,13 +164,17 @@
     {
       \sankeyfork{f1}{
         \Q{vMG}/MG,
-        \Q{vSU}/SU, \Q{vFRET}/FR, \Q{vGZRET}/GZ,
+        \Q{vSU}/SU,
+        \Q{vFRLOSS}/FL,
+        \Q{vGZRET}/GZ,
         \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
     }
     {
       \sankeyfork{f1}{
         %% \Q{vMG}/MG,
-        \Q{vSU}/SU, \Q{vFRET}/FR, \Q{vGZRET}/GZ,
+        \Q{vSU}/SU,
+        \Q{vFRLOSS}/FL,
+        \Q{vGZRET}/GZ,
         \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
     }
 
@@ -178,20 +200,32 @@
       at={[xshift=\xoff]D.left}, anchor=right}
     \sankeyoutin{GZ}{GZa}
 
-    \sankeynode{name=FRa, quantity=\qq{FR},
-      at={[xshift=\xoff]GZa.left}, anchor=right}
-    \sankeyoutin{FR}{FRa}
+    % FLa must exist for placement, but only draw lines if > 0
+    \ifthenelse{\Q{vFRLOSS} > 0} {
+        \sankeynode{name=FLa, quantity=\qq{FL},
+          at={[xshift=\xoff]GZa.left}, anchor=right}
+        \sankeyoutin{FL}{FLa}
+      }{
+        \sankeynode{name=FLa, quantity=\qq{FL},
+          at={[yshift=0mm]GZa.left}, anchor=right}
+      }
 
     \sankeynode{name=SUa, quantity=\qq{SU},
-      at={[xshift=\xoff]FRa.left}, anchor=right}
+      at={[xshift=\xoff]FLa.left}, anchor=right}
     \sankeyoutin{SU}{SUa}
 
+    \ifthenelse{\Q{vFRLOSS} > 0} {
+      \sankeyadvance[out-red]{FLa}{10mm}
+      \sankeyend[out-red]{FLa}
+      \belowlabel{FLa}{Frontal retreat}
+    }{}
+    
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
-        at={[xshift=\xoff,yshift=8mm]SUa.left}, anchor=right, angle=0}
+        at={[xshift=3mm,yshift=-3mm]MG.left}, anchor=left, angle=0}
 
       \node[font=\tiny, anchor=north]
-      at ([yshift=-5mm,xshift=9mm]MGa.bottom) {\qq{MGa}: Accumulation};
+      at ([yshift=0mm,xshift=3mm]MGa.south) {\qq{MGa}: Accumulation};
 
       \sankeyoutin{MG}{MGa}
     \fi
@@ -225,8 +259,6 @@
       \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
       \sankeyend[air]{SUaa}
       
-      \sankeyadvance[out-red]{FRa}{10mm}
-      \sankeyend[out-red]{FRa}
       \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
       \sankeyend[water,out-red]{GZa}
       \sankeyadvance{D}{10mm}
@@ -242,24 +274,15 @@
       \belowlabel{SUBa}{Submarine melting}
       \belowlabel{D}{Discharge}
       \belowlabel{GZa}{Grounding line retreat}
-      \belowlabel{FRa}{Frontal retreat}
 
       \node[font=\tiny, anchor=north]
-      at ([yshift=-2mm,xshift=3mm]SUaa.bottom) {\qq{SUa}: Sublimation};
+      at ([yshift=-2mm,xshift=3mm]SUaa.east) {\qq{SUa}: Sublimation};
 
       \node[font=\tiny, anchor=north]
-      at ([yshift=-2mm,xshift=0mm]EVa.bottom) {\qq{EVa}: Evaporation};
+      at ([yshift=-2mm,xshift=0mm]EVa.west) {\qq{EVa}: Evaporation};
 
       \node[font=\tiny, anchor=west, rotate=-90]
       at ([yshift=0.5mm,xshift=1mm]RFZi.center) {\qq{RFZi}: Refreezing};
-      
-  %%   %% DRIFT
-  %%   \sankeynode{name=DRIFTo, quantity=33, at={(3mm, -8mm)}, angle=150}
-  %%   \sankeynode{name=DRIFTi, quantity=33, at={(-3mm, -8mm)}, angle=210}
-  %%   \sankeydubins[minimum radius=5mm]{DRIFTo}{DRIFTi}
-  %%   \sankeystart{DRIFTo}
-  %%   \sankeyend{DRIFTI}
-  %%   \node[anchor=center, align=center, rotate=0, shift=({0,0})] at (0,-15mm) {Drifting (?)};
 
   \end{sankeydiagram}
 \end{tikzpicture}
