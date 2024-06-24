@@ -6,7 +6,8 @@ RF,Rainfall,45,fettweis_2020
 RF-LIQ,Rainfall runoff,10,fettweis_2020
 CD,Condensation,30,TODO
 DP,Deposition,20,TODO
-FRET,Frontal retreat,50,kochtitzky_2023
+FRLOSS,Frontal retreat,50,kochtitzky_2023
+FRGAIN,Frontal advance,0,
 GZRET,Grounding line retreat,5,this
 SU,Sublimation,55,fettweis_2020
 RU,Runoff,390,fettweis_2002
