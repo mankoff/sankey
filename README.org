@@ -37,7 +37,7 @@ See [[./ms.tex]]
 
 #+BEGIN_SRC bash :exports results :results verbatim :results none
 cs=HSL
-convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -annotate -25-30 'Greenland' gl_baseline.pdf tmp/gl.png
+convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -annotate +15-30 'Greenland' gl_baseline.pdf tmp/gl.png
 
 convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'Antarctica' aq_baseline.pdf tmp/aq.png
 
@@ -45,7 +45,7 @@ convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gr
 
 convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'West' aq_west.pdf ./tmp/aqw.png
 
-convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -draw "translate 30,-150 rotate 90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
+convert -colorspace ${cs} -density 300 -background white -alpha remove -trim -gravity center -draw "translate 60,-150 rotate -90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
 
 convert -colorspace ${cs} -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
 composite -colorspace ${cs} -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
