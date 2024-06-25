@@ -8,6 +8,9 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 \begin{document}
+
+\selectcolormodel{cmyk} % Can be rbg or cmyk, cmyk is better for printing
+
 \begin{tikzpicture}[remember picture, overlay, shift={(5.5,-1.5)}]
 
   \begin{sankeydiagram}
@@ -93,7 +96,7 @@
       },
       def data/.list={
         %% INSERT_CSV_HERE
-        %% COMPUTED 
+        %% COMPUTED
         {vML/Mass loss/
           (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRLOSS}+\Q{vGZRET}+\Q{vEV})-
           (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN})},
@@ -139,10 +142,10 @@
           at={[yshift=-15mm]f0.left}, anchor=left,
           forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
     }
-    
+
     \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
-    
+
     \ifthenelse{\Q{vMG} > \Q{vML}}
     {
       \sankeyfork{f1}{
@@ -178,7 +181,7 @@
     \sankeynode{name=f8a, quantity=\qq{f8},
       at={[xshift=-\xoff]BMa.right}, anchor=left}
     \sankeyoutin[ice-to-water]{f8}{f8a}
-    
+
     \sankeynode{name=GZa, quantity=\qq{GZ},
       at={[xshift=\xoff]D.left}, anchor=right}
     \sankeyoutin{GZ}{GZa}
@@ -194,7 +197,7 @@
     \sankeyadvance[out-red]{FLa}{10mm}
     \sankeyend[out-red]{FLa}
     \belowlabel{FLa}{Frontal retreat}
-    
+
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
         at={[xshift=3mm,yshift=-3mm]MG.left}, anchor=left, angle=0}
@@ -204,7 +207,7 @@
 
       \sankeyoutin{MG}{MGa}
     \fi
-    
+
     \sankeyfork{f8a}{\Q{vRU}/RU, \Q{vEV}/EV}
     \sankeynode{name=EVa, quantity=\qq{EV},
       at={[xshift=-3mm,yshift=-5mm]f8a.right}, anchor=right, angle=180}
@@ -221,7 +224,7 @@
       % frontal advance next to drawdown (mass loss)
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
         at={[yshift=-5mm,xshift=-\xoff]ML.right}, anchor=left}
-      
+
       \sankeystart[red]{ML}
       \sankeyadvance[red-to-ice]{ML}{5mm}
       \sankeyoutin{ML}{MLi}
@@ -234,21 +237,21 @@
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
         at={[yshift=15mm,xshift=3mm]RFZi.right}, anchor=left}
     }
-    
+
     \ifnum \numexpr\qq{FGi} > 0
     \sankeystart[in-black]{FGi}
     \sankeyoutin[in-black]{FGi}{FG}
     \node[font=\tiny, rotate=45, anchor=north east]
     at ([yshift=12mm,xshift=3mm]FGi.right) {Frontal advance: \qq{FGi}};
     \fi
-    
-    
+
+
     \sankeynode{name=SUaa, quantity=\qq{SU},
       at={[xshift=2mm,yshift=-5mm]SUa.left}, anchor=left, angle=0}
     \sankeyoutin[ice]{SUa}{SUaa}
     \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
     \sankeyend[air]{SUaa}
-    
+
     \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
     \sankeyend[water,out-red]{GZa}
     \sankeyadvance{D}{10mm}
@@ -258,19 +261,19 @@
     \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
     \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
     \sankeyadvance{RU}{10mm}; \sankeyend{RU}
-    
+
     \belowlabel{RU}{Runoff}
     \belowlabel{BMa}{Basal melting}
     \belowlabel{SUBa}{Submarine melting}
     \belowlabel{D}{Calving}
     \belowlabel{GZa}{Grounding line retreat}
-    
+
     \node[font=\tiny, rotate=45, anchor=north east]
     at ([yshift=1mm,xshift=3mm]SUaa.south) {Sublimation: \qq{SUaa}};
-    
+
     \node[font=\tiny, rotate=45, anchor=north east]
     at ([yshift=0mm,xshift=5mm]EVa.north) {Evaporation: \qq{EVa}};
-    
+
     \node[font=\tiny, anchor=west, rotate=90]
     at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {Refreezing: \qq{RFZi}};
 

@@ -7,9 +7,12 @@ CSVDIR=./dat/
 TMPDIR=./tmp/
 TEXDIR=./tex/
 
+MKDIR_P := mkdir -p
+
 CSVS = $(shell find $(CSVDIR) -name "*.csv")
 PDFS=$(CSVS:.csv=.pdf)
 PDFS:=${subst $(CSVDIR),,$(PDFS)}
+PDFS:=${subst /,,$(PDFS)}
 SRC_TEX=$(CSVS:.csv=.tex)
 SRC_TEX:=${subst $(CSVDIR),$(TMPDIR),$(SRC_TEX)}
 
@@ -22,8 +25,11 @@ LATEXOPTS=-interaction nonstopmode -file-line-error --output-directory=$(TMPDIR)
 help: ## This help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-all: $(PDFS) ## Build all Sankey graphics for each dat/*.csv
+all: $(TMPDIR) $(PDFS) ## Build all Sankey graphics for each dat/*.csv
 	@echo "all: $(PDFS)"
+
+$(TMPDIR):
+	${MKDIR_P} $(TMPDIR)
 
 %.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile ## Make a PDF
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex
