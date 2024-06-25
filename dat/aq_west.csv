@@ -1,9 +1,7 @@
 Label,Description,Value,Reference
-DR,Drift,0,
 RFZ,Refreeze (after melt),15,MAR
 SF,Snowfall,920,MAR
 RF,Rainfall,1,MAR
-RF-LIQ,Rainfall runoff,0,
 CD,Condensation,10,
 DP,Deposition,10,
 FRLOSS,Frontal retreat,145,greene_2022

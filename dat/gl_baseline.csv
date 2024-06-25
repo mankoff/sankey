@@ -1,9 +1,7 @@
 Label,Description,Value,cite_key
-DR,Drift,200,TODO
 RFZ,Refreeze (after melt),190,fettweis_2020
 SF,Snowfall,700,fettweis_2020
 RF,Rainfall,45,fettweis_2020
-RF-LIQ,Rainfall runoff,10,fettweis_2020
 CD,Condensation,30,TODO
 DP,Deposition,20,TODO
 FRLOSS,Frontal retreat,50,kochtitzky_2023
