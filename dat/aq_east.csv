@@ -1,9 +1,7 @@
 Label,Description,Value,Reference
-DR,Drift,0,
 RFZ,Refreeze (after melt),50,fettweis_2020
 SF,Snowfall,1615,fettweis_2020
 RF,Rainfall,2,fettweis_2020
-RF-LIQ,Rainfall runoff,0,
 CD,Condensation,10,
 DP,Deposition,10,
 FRLOSS,Frontal retreat,80,greene_2022
