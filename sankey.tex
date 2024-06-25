@@ -170,28 +170,22 @@
     \sankeyfork{f6}{\Q{vICE}/D, \Q{vSUB}/SUB}
     \sankeyadvance{D}{10mm}
 
-    \sankeynode{name=SUBa, quantity=\qq{SUB},
-      at={[xshift=-\xoff]D.right}, anchor=left}
+    \sankeynode{name=SUBa, quantity=\qq{SUB}, at={[xshift=-\xoff]D.right}, anchor=left}
     \sankeyoutin[ice-to-water]{SUB}{SUBa}
 
-    \sankeynode{name=BMa, quantity=\qq{BM},
-      at={[xshift=-\xoff]SUBa.right}, anchor=left}
+    \sankeynode{name=BMa, quantity=\qq{BM}, at={[xshift=-\xoff]SUBa.right}, anchor=left}
     \sankeyoutin[ice-to-water]{BM}{BMa}
 
-    \sankeynode{name=f8a, quantity=\qq{f8},
-      at={[xshift=-\xoff]BMa.right}, anchor=left}
+    \sankeynode{name=f8a, quantity=\qq{f8}, at={[xshift=-\xoff]BMa.right}, anchor=left}
     \sankeyoutin[ice-to-water]{f8}{f8a}
 
-    \sankeynode{name=GZa, quantity=\qq{GZ},
-      at={[xshift=\xoff]D.left}, anchor=right}
+    \sankeynode{name=GZa, quantity=\qq{GZ}, at={[xshift=\xoff]D.left}, anchor=right}
     \sankeyoutin{GZ}{GZa}
 
-    \sankeynode{name=FLa, quantity=\qq{FL},
-      at={[xshift=\xoff]GZa.left}, anchor=right}
+    \sankeynode{name=FLa, quantity=\qq{FL}, at={[xshift=\xoff]GZa.left}, anchor=right}
     \sankeyoutin{FL}{FLa}
 
-    \sankeynode{name=SUa, quantity=\qq{SU},
-      at={[xshift=\xoff]FLa.left}, anchor=right}
+    \sankeynode{name=SUa, quantity=\qq{SU}, at={[xshift=\xoff]FLa.left}, anchor=right}
     \sankeyoutin{SU}{SUa}
 
     \sankeyadvance[out-red]{FLa}{10mm}
@@ -201,10 +195,8 @@
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
         at={[xshift=3mm,yshift=-3mm]MG.left}, anchor=left, angle=0}
-
       \node[font=\tiny, anchor=north]
       at ([yshift=0mm,xshift=3mm]MGa.south) {\qq{MGa}: Mass gain};
-
       \sankeyoutin{MG}{MGa}
     \fi
 
@@ -215,10 +207,8 @@
     \sankeyadvance[water-to-air-horiz]{EVa}{5mm}
     \sankeyend[air]{EVa}
 
-    \ifthenelse{\Q{vMG} < \Q{vML}} {
-      %% mass loss
-      \sankeynode{name=ML, quantity=\Q{vML},
-        at={[xshift=-\xoff]RF.right}, anchor=left} %, angle=-45}
+    \ifthenelse{\Q{vMG} < \Q{vML}} { % mass loss
+      \sankeynode{name=ML, quantity=\Q{vML}, at={[xshift=-\xoff]RF.right}, anchor=left}
       \abovelabel{ML}{Drawdown}
 
       % frontal advance next to drawdown (mass loss)
@@ -228,12 +218,9 @@
       \sankeystart[red]{ML}
       \sankeyadvance[red-to-ice]{ML}{5mm}
       \sankeyoutin{ML}{MLi}
-    }{
-      %% mass gain
+    }{ % mass gain
       \sankeyadvance[ice-to-black]{MGa}{3mm}
       \sankeyend[black]{MGa}
-
-      % frontal with no drawdown
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
         at={[yshift=15mm,xshift=3mm]RFZi.right}, anchor=left}
     }
