@@ -5,7 +5,7 @@ RF,Rainfall,10,fettweis_2020
 CD,Condensation,10,TODO
 DP,Deposition,10,TODO
 FRLOSS,Frontal retreat,120,greene_2022
-FRGAIN,Frontal advance,1,green_2022
+FRGAIN,Frontal advance,0,green_2022
 GZRET,Grounding line retreat,50,TODO
 SU,Sublimation,25,fettweis_2020
 RU,Runoff,15,fettweis_2020
