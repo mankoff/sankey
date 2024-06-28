@@ -2,76 +2,188 @@
 #+PROPERTY: header-args:bash+ :session *sankey-shell*
 #+PROPERTY: header-args:jupyter-python+ :dir (file-name-directory buffer-file-name) :session foo
 
-*  On Ice Sheet Mass Flow
+* On Ice Sheet Mass Flow
 
-* Table of contents                               :toc_2:noexport:
--  [[#on-ice-sheet-mass-flow][On Ice Sheet Mass Flow]]
+* Table of contents                               :toc_3:noexport:
+- [[#on-ice-sheet-mass-flow][On Ice Sheet Mass Flow]]
 - [[#introduction][Introduction]]
-- [[#abstract][Abstract]]
-- [[#methods][Methods]]
+- [[#abstract--methods][Abstract & Methods]]
 - [[#results][Results]]
 - [[#implementation][Implementation]]
-  - [[#reset][Reset]]
+  - [[#greenland][Greenland]]
+    - [[#reset][Reset]]
+    - [[#basal-melt][Basal melt]]
+    - [[#gz-retreat][GZ retreat]]
+    - [[#smb][SMB]]
+  - [[#antarctica][Antarctica]]
+    - [[#reset-1][Reset]]
   - [[#east-v-west-antarctica][East v. West Antarctica]]
-  - [[#basal-melt][Basal melt]]
+  - [[#basal-melt-1][Basal melt]]
+    - [[#antarctica-1][Antarctica]]
+  - [[#antarctic-discharge-onto-shelves][Antarctic discharge (onto shelves)]]
   - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
+    - [[#mass-loss-from-davison-2023][Mass loss from Davison 2023]]
+    - [[#frontal-retreat-from-greene-2022][Frontal Retreat from Greene 2022]]
   - [[#smb-mar][SMB (MAR)]]
-  - [[#gz-retreat-in-greenland][GZ retreat in Greenland]]
+    - [[#provenance][Provenance]]
+    - [[#antarctica-2][Antarctica]]
+- [[#misc][Misc]]
+  - [[#export-tables-to-csvs][Export tables to CSVs]]
+  - [[#convert-pdfs-to-png][Convert PDFs to PNG]]
 
 * Introduction
 
 Sankey diagrams for mass flow in Greenland and Antarctica.
 
-Uses scripts and CSVs to automate generation to support graphics for different years, models, etc.
-
-* Abstract
+* Abstract & Methods
 
 See [[./ms.tex]]
-  
-* Methods
-
-+ Any CSV file can be placed in the =./dat/= that has the required rows.
-+ Running =make= will then generate a Sankey diagram for each CSV file.
 
 * Results
-
-#+BEGIN_SRC bash :exports results :results verbatim :results none
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate +15-30 'Greenland' gl_baseline.pdf tmp/gl.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'Antarctica' aq_baseline.pdf tmp/aq.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate +25-60 'East' aq_east.pdf ./tmp/aqe.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'West' aq_west.pdf ./tmp/aqw.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -draw "translate 60,-150 rotate -90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
-
-convert -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
-composite -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
-
-convert +append tmp/{gl,aq_legend}.png gl_aq.png
-convert +append tmp/{aqe,aqw,aqp}.png aq_sub.png
-convert -gravity center -append {gl_aq,aq_sub}.png ./fig.png
-#+END_SRC
 
 #+BEGIN_QUOTE
 [!NOTE]  
 All figures are width-proportional within and between each other.
 #+END_QUOTE
 
+#+CALL: pdfs2png()
+
 #+ATTR_ORG: :width 800px
 [[./fig.png]]
 
 * Implementation
 
-** Reset
+** Greenland
+
+#+NAME: gl_baseline
+| Code   | Term                   | Value | I/O |    Period | Source          | Comment                     |
+|--------+------------------------+-------+-----+-----------+-----------------+-----------------------------|
+| RF     | Rainfall               |    45 | I   | 2000-2019 | fettweis_2020   |                             |
+| CD     | Condensation           |    10 | I   |           |                 | guesstimate                 |
+| DP     | Deposition             |    10 | I   |           |                 | guesstimate                 |
+| SF     | Snowfall               |   705 | I   | 2000-2019 | fettweis_2019   |                             |
+| RFZ    | Refreezing             |   205 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
+| EV     | Evaporation            |    10 | O   |           |                 | guesstimate                 |
+| RU     | Runoff                 |   445 | O   | 2000-2019 | fettweis_2020   |                             |
+| BM     | Basal melting          |    20 | O   |    steady | karlsson_2020   |                             |
+| DYN    | Discharge              |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
+| SUB    | Submarine melting      |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
+| ICE    | Calving                |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
+| GZRET  | Grounding line retreat |     5 | O   |           | See methods     |                             |
+| FRLOSS | Frontal retreat        |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
+| FRGAIN | Frontal advance        |     0 | O   |           |                 | None in GL                  |
+| SU     | Sublimation            |    55 | O   | 2000-2019 | fettweis_2020   |                             |
+| DD     | Drawdown               |       | -   |           | Derived         | .= sum(O) - sum(I)          |
+| MG     | Mass gain              |       | -   |           | Derived         | .= sum(I) - sum(O)          |
+#+CAPTION: Greenland mass flow terms, values, and metadata
+
+#+CALL: orgtbl2csv(tbl="gl_baseline")
+
+#+RESULTS:
+: Exported gl_baseline to ./dat/gl_baseline.csv
+
+
+
+
+
+
+
+
+*** Reset
+#+BEGIN_SRC bash :exports both :results verbatim
+trash G_GL
+[[ -e ./G_GL ]] || grass -e -c EPSG:3413 ./G_GL
+#+END_SRC
+
+*** Basal melt
+
++ 21 Gt/yr from Karlsson (2021) http://doi.org/10.1038/s41467-021-23739-z
++ Assume steady state
+
+*** TODO GZ retreat
+
+From Millan (2022) http://doi.org/10.5194/tc-16-3021-2022
++ Gz retreat is ~0.13 km/yr (Fig. 3a)
++ Ice velocity is ~1200 m/yr (Fig. 3b) (not needed)
++ 20 km wide
+
+Rates are higher per Ciraci (2023) http://doi.org/10.1073/pnas.2220924120, but
++ Ice surface close to flotation near GZ, and shelf is ~500 m thick, so estimate 600 m ice.
+
+Therefore, gz retreat in Gt/year is width * thick * retreat rate * density
+
+#+BEGIN_SRC bash :exports both :results verbatim
+frink "0.13 km/yr * 20 km * 600 m * 917 kg/m^3 -> Gt/yr"
+#+END_SRC
+
+#+RESULTS:
+: 1.43052
+
+Assume similar from other ice shelves too, for a total of ~5 Gt/yr GZ retreat in Greenland.
+  
+*** SMB
+
++ MB ~ SF+RF-RU-SU.
++ Refreezing ~ ME+RF-RU
++ For the uncertainty, you can use 15%.
+
+#+BEGIN_SRC jupyter-python :exports both
+import xarray as xr
+
+ds = xr.open_dataset('dat/MARv3.12-GRD.nc4')\
+    .rename({'X10_85':'X',
+             'Y20_155':'Y',
+             'TIME2':'time'})
+
+# Remove Canada
+ds['newmask'] = (ds['X'] - ds['Y']).T
+ds = ds.where(ds['newmask'] > 500)
+
+# Mask to ice
+ds = ds.where(ds['MSK'] > 50)
+ds = ds.sel({'time':slice(2000,2019)})
+# Add new terms and limit to terms of interest
+ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
+ds = ds[['SF','RF','RU','SU','ME','RFZ','AREA']]
+
+# scale
+## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
+## + mm.w.eq. -> m w.eq.: /1E3
+## + m w.eq -> kg: *1E3
+## + area in km^2 -> m^2: *1E3*1E3
+## + kg -> Gt: /1E12
+ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+
+ds = ds.sum(dim=['X','Y'])
+
+print("baseline:")
+print(ds.mean(dim='time'))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+baseline:
+<xarray.Dataset>
+Dimensions:  ()
+Data variables:
+    SF       float64 704.4
+    RF       float64 44.26
+    RU       float64 446.4
+    SU       float64 53.25
+    ME       float64 605.9
+    RFZ      float64 203.8
+    AREA     float32 720.6
+#+end_example
+
+
+
+** Antarctica
+
+*** Reset
 
 #+BEGIN_SRC bash :exports both :results verbatim
 trash G_AQ
 [[ -e ./G_AQ ]] || grass -e -c EPSG:3031 ./G_AQ
-
-trash G_GL
-[[ -e ./G_GL ]] || grass -e -c EPSG:3413 ./G_GL
 #+END_SRC
 
 ** East v. West Antarctica
@@ -379,195 +491,6 @@ print("Named %: ", 2.19/63.02*100)
 : Named %:  3.4750872738813077
 
 #+BEGIN_SRC jupyter-python :exports both
-df
-#+END_SRC
-
-#+RESULTS:
-|                            |      lat |        lon |        2000.2 |        2021.2 |
-|----------------------------+----------+------------+---------------+---------------|
-| Abbot                      | -72.506  | -101.698   |   6379.75     |   6296.88     |
-| Abbot 1                    | -71.9609 |  -99.7927  |     54.7138   |     46.7612   |
-| Abbot 2                    | -71.9962 |  -99.0554  |     73.8091   |     70.5424   |
-| Abbot 3                    | -72.0048 |  -98.0154  |     86.9174   |     86.9022   |
-| Abbot 4                    | -71.9475 |  -97.2496  |     98.0754   |     97.2019   |
-| Abbot 5                    | -72.1112 |  -96.2395  |    158.664    |    156.323    |
-| Abbot 6                    | -72.2794 |  -95.6637  |     41.1378   |     38.9175   |
-| Ainsworth                  | -67.9064 |  146.499   |     33.6928   |     32.7274   |
-| Alison                     | -73.8592 |  -82.1019  |     28.0169   |     14.374    |
-| Amery                      | -69.6015 |   71.2873  |  36442.5      |  36915        |
-| Andreyev                   | -69.0135 |  155.463   |     64.4221   |     65.1354   |
-| Arneb                      | -72.4203 |  169.983   |      0.800404 |      0.854412 |
-| Astrolabe                  | -66.7133 |  140.003   |     50.0276   |     51.3659   |
-| Atka                       | -70.6497 |   -6.8336  |    463.073    |    439.111    |
-| Aviator                    | -73.9627 |  165.475   |     94.0299   |     92.7219   |
-| Bach                       | -72.0126 |  -72.4183  |   1034.95     |   1006.83     |
-| Barber                     | -70.4179 |  162.829   |      2.31004  |      2.28719  |
-| Baudouin                   | -69.7133 |   31.0839  |   8327.28     |   8294.46     |
-| Borchgrevink               | -70.3187 |   20.3975  |   7364.98     |   7334.63     |
-| Brahms                     | -71.48   |  -73.6616  |     57.8842   |     55.5102   |
-| Britten                    | -72.5742 |  -72.5351  |      8.26342  |      7.3713   |
-| Brunt Stancomb             | -74.9011 |  -21.9027  |   7191.22     |   7489.86     |
-| Campbell                   | -74.6042 |  164.39    |     22.8997   |     21.0722   |
-| Cape Washington            | -74.5486 |  165.147   |      6.09526  |      5.88486  |
-| Cheetham                   | -75.7315 |  162.715   |     20.6397   |     19.4607   |
-| Chugunov                   | -70.6596 |  163.276   |      3.44211  |      4.07638  |
-| Cirque Fjord               | -67.3024 |   58.7529  |     13.7153   |     14.8438   |
-| Clarke Bay                 | -74.4035 |  -60.974   |      3.34603  |      3.28164  |
-| Commandant Charcot         | -66.4377 |  136.604   |     21.8509   |     28.4776   |
-| Conger Glenzer             | -65.8429 |  103.464   |    188.148    |    154.335    |
-| Cook                       | -68.514  |  152.852   |   1244.09     |   1587.76     |
-| Cosgrove                   | -73.5285 | -100.594   |    936.906    |    928.242    |
-| Crosson                    | -75.0615 | -110.195   |   1380.85     |   1400.78     |
-| Dalk                       | -69.4273 |   76.4314  |     26.4086   |     24.5578   |
-| Dawson Lambton             | -76.1178 |  -26.7529  |      9.32248  |     11.6077   |
-| Deakin                     | -68.4352 |  150.615   |     29.0077   |     27.2647   |
-| Dennistoun                 | -71.1669 |  168.026   |      8.24313  |      8.02543  |
-| Dibble                     | -66.2817 |  134.658   |    925.07     |    948.508    |
-| Dotson                     | -74.5313 | -112.573   |   2637.57     |   2611.6      |
-| Drury                      | -69.1481 |  156.884   |     14.9667   |     17.2644   |
-| Drygalski                  | -75.3989 |  163.859   |   1015.79     |    999.299    |
-| Edward VIII                | -66.6652 |   56.2919  |    200.478    |    197.506    |
-| Ekstrom                    | -70.9871 |   -8.61416 |   2411.92     |   2440.68     |
-| Eltanin Bay                | -73.6847 |  -81.1153  |      6.51477  |      6.60191  |
-| Erebus                     | -77.6951 |  166.878   |      2.14509  |      1.98001  |
-| Falkner                    | -73.7551 |  166.194   |      0.543097 |      0.517112 |
-| Ferrigno                   | -73.6274 |  -83.6649  |     83.0382   |     63.1377   |
-| Filchner                   | -79.6593 |  -38.8552  |  81878.1      |  83466.6      |
-| Fimbul                     | -70.6811 |   -0.33769 |  11394.8      |  11527.7      |
-| Fisher                     | -67.5717 |  145.604   |     64.3765   |     67.7192   |
-| Fitzgerald                 | -73.6502 |  166.337   |     15.8076   |     14.8611   |
-| Flatnes                    | -69.3201 |   76.7554  |     41.848    |     39.6634   |
-| Fox Glacier                | -66.2425 |  114.472   |     52.8103   |     43.7521   |
-| Fox Ice Stream             | -73.4467 |  -85.4034  |     46.6877   |     25.8319   |
-| Francais                   | -66.5525 |  138.236   |     50.7295   |     52.2291   |
-| Frost                      | -67.0411 |  128.629   |    164.655    |     99.8554   |
-| Gannutz                    | -70.3485 |  162.151   |      5.1603   |      5.1893   |
-| Garfield                   | -75.0232 | -136.942   |     17.364    |      9.14848  |
-| GeikieInlet                | -75.5868 |  162.513   |     88.3574   |     89.3041   |
-| George VI                  | -72.8137 |  -69.3003  |   5749.67     |   5684.9      |
-| Getz                       | -74.378  | -126.026   |  14426.8      |  14264.5      |
-| Getz 1                     | -73.7293 | -125.107   |    205.136    |    202.297    |
-| Getz 2                     | -73.8615 | -124.293   |     46.9619   |     39.5245   |
-| Gillet                     | -69.5793 |  159.748   |     16.7988   |     16.5417   |
-| Hamilton                   | -77.5054 | -157.963   |     82.5268   |     80.8881   |
-| Hamilton Piedmont          | -74.498  | -110.159   |      3.74329  |      3.67333  |
-| Hannan                     | -67.498  |   47.3958  |     91.0017   |     89.2739   |
-| Harbord Glacier            | -75.917  |  162.677   |     12.0399   |     11.1532   |
-| Harmon Bay                 | -74.2951 | -110.781   |      9.95849  |      7.73467  |
-| Hayes Coats Coast          | -76.2414 |  -27.7727  |     15.8398   |     12.5043   |
-| Helen                      | -66.628  |   93.9122  |    132.701    |    131.692    |
-| Holmes                     | -66.6796 |  127.124   |    814.221    |    797.02     |
-| Holt                       | -74.6706 | -110.345   |     33.997    |     29.2448   |
-| HornBluff                  | -68.3741 |  149.571   |     27.637    |     25.9763   |
-| Hoseason                   | -67.0778 |   58.1787  |     46.7302   |     44.8981   |
-| Hovde                      | -69.2498 |   76.9355  |     23.4834   |     15.2883   |
-| Hull                       | -75.0871 | -137.153   |    230.976    |    218.88     |
-| Hummer Point               | -74.4036 | -110.272   |     10.3142   |      9.70376  |
-| Ironside                   | -72.1556 |  169.851   |      5.12971  |      5.38464  |
-| Jackson                    | -74.7142 | -135.776   |     19.3291   |     18.7074   |
-| Jelbart                    | -70.9138 |   -4.34485 |   4526.54     |   4684.43     |
-| Kirkby                     | -70.6695 |  165.988   |      3.24407  |      3.65572  |
-| Land                       | -75.5812 | -141.51    |    548.647    |    451.117    |
-| Larsen A                   | -65.0208 |  -60.7014  |    298.168    |    102.119    |
-| Larsen B                   | -65.8877 |  -61.8579  |    920.64     |    536.243    |
-| Larsen C                   | -67.632  |  -62.6136  |  13192.4      |  11955.5      |
-| Larsen D                   | -68.8783 |  -62.0318  |   3131.33     |   3106.03     |
-| Larsen D 1                 | -69.5601 |  -61.8041  |     20.7425   |     21.6081   |
-| Larsen E                   | -73.4297 |  -61.1291  |    570.845    |    586.065    |
-| Larsen F                   | -74.1878 |  -60.9556  |    186.682    |    187.354    |
-| Larsen G                   | -74.5655 |  -61.8027  |    129.938    |    130.747    |
-| Lauritzen                  | -69.0374 |  156.31    |    179.766    |    175.905    |
-| Lazarev                    | -69.9201 |   14.5057  |   1988.61     |   2029.25     |
-| Lillie                     | -70.8749 |  163.999   |    185.379    |    179.375    |
-| Liotard                    | -66.6146 |  139.538   |     12.1529   |     12.2548   |
-| Mandible Cirque            | -73.1229 |  169.291   |      2.36071  |      2.38764  |
-| Manhaul                    | -72.3973 |  169.821   |      0.77866  |      0.743507 |
-| Marin                      | -76.1056 |  162.494   |      1.79385  |      1.61435  |
-| Mariner                    | -73.2618 |  168.215   |    309.152    |    311.826    |
-| Marret                     | -66.4171 |  137.771   |     14.9356   |     16.012    |
-| Matusevitch                | -69.2098 |  157.328   |    217.825    |    141.015    |
-| May Glacier                | -66.2014 |  130.419   |     92.5216   |     92.2156   |
-| McLeod                     | -69.3388 |  158.424   |      0.770618 |      0.826373 |
-| Mendelssohn                | -71.2944 |  -72.8645  |    105.354    |     93.1473   |
-| Mertz                      | -67.2457 |  145.375   |   1970.53     |   1574.72     |
-| Morse                      | -66.3224 |  129.999   |     19.8512   |     19.8514   |
-| Moscow University          | -66.8764 |  121.513   |   4411.09     |   4411.25     |
-| Moubray                    | -71.9376 |  170.37    |     26.7732   |     28.0921   |
-| Mulebreen                  | -67.4765 |   59.3825  |    153.056    |    145.595    |
-| Myers                      | -67.1921 |   49.8814  |    117.74     |    119.136    |
-| Nansen                     | -74.8694 |  163.129   |    564.705    |    549.494    |
-| Nickerson                  | -75.75   | -146.394   |   1432.82     |   1427.77     |
-| Ninnis                     | -68.241  |  147.466   |    864.396    |    802.715    |
-| Nivl                       | -70.2099 |   10.5984  |   2179.46     |   2184.29     |
-| Noll                       | -69.3897 |  159.059   |     20.0438   |     18.6452   |
-| Nordenskjold               | -76.1921 |  162.347   |     76.4963   |     81.5254   |
-| Parker                     | -73.8386 |  165.726   |      2.83284  |      1.95211  |
-| Paternostro                | -69.3262 |  158.676   |      0.394023 |      0.501525 |
-| Perkins                    | -74.9217 | -136.726   |      3.45502  |      2.80491  |
-| Philbin Inlet              | -74.0246 | -114.072   |     44.3078   |     42.8205   |
-| Pine Island                | -75.1213 | -100.864   |   2789.45     |   2272.34     |
-| Porter                     | -66.9985 |   49.3319  |     31.4995   |     30.7127   |
-| Pourquoi Pas               | -66.2332 |  135.718   |    120.049    |    183.881    |
-| Prince Harald              | -69.4338 |   35.7383  |   1396.17     |   1285.05     |
-| Publications               | -69.726  |   75.4056  |    678.099    |    607.143    |
-| Quar                       | -71.2145 |  -10.9063  |    710.59     |    710.167    |
-| Quatermain Point           | -72.0378 |  170.105   |      1.4315   |      1.55934  |
-| Rayner Thyer               | -67.6509 |   48.4628  |    395.921    |    397.117    |
-| Rennick                    | -70.5399 |  161.632   |    977.114    |    983.553    |
-| Richter                    | -77.106  | -155.429   |     31.0174   |     31.1122   |
-| Riiser-Larsen              | -73.6034 |  -18.4215  |  12100.4      |  12159.5      |
-| Ronne                      | -77.5931 |  -59.7643  | 204706        | 204944        |
-| Rose Point                 | -74.7635 | -136.632   |      4.00473  |      4.04004  |
-| Ross East                  | -79.9613 |  170.366   |  67045        |  66675.2      |
-| Ross West                  | -80.5732 | -172.964   | 125046        | 126957        |
-| Rund Bay                   | -67.0208 |   57.2055  |     17.2697   |      4.22915  |
-| Rydberg Peninsula 1        | -73.0995 |  -79.5649  |      4.75369  |      4.69706  |
-| Rydberg Peninsula 2        | -73.2774 |  -79.0837  |      2.30644  |      2.16336  |
-| Sandford                   | -66.7282 |  129.538   |     10.2166   |      9.73111  |
-| Shackleton                 | -66.1485 |   97.988   |   7417.08     |   7716.98     |
-| Shirase                    | -69.9195 |   38.5392  |    249.467    |    272.573    |
-| Skallen                    | -69.6701 |   39.5938  |     13.4969   |     11.2228   |
-| Slava                      | -68.673  |  154.726   |    145.837    |    148.434    |
-| SmithInlet                 | -70.9735 |  167.576   |      3.81997  |      3.80848  |
-| Sorsdal                    | -68.6956 |   78.0965  |     76.3892   |     70.6636   |
-| Stange                     | -73.0217 |  -76.6912  |   1584.78     |   1541.67     |
-| Sulzberger                 | -76.8724 | -147.708   |   4152.27     |   4147.89     |
-| Suter                      | -73.581  |  167.259   |      5.58765  |      4.6614   |
-| Suvorov                    | -69.9228 |  160.336   |     45.7814   |     44.0907   |
-| Swinburne                  | -77.3647 | -152.784   |    292.293    |    283.766    |
-| Telen                      | -69.6311 |   39.7058  |      8.73876  |      5.09389  |
-| Thomson                    | -73.3724 |  -80.3919  |     16.0974   |     15.6307   |
-| Thwaites                   | -75.1164 | -106.371   |   3076.01     |   1107.21     |
-| Tinker                     | -74.0602 |  164.961   |      4.45569  |      3.832    |
-| Totten                     | -66.8648 |  116.083   |   5121.19     |   5066.32     |
-| Tracy Tremenchus           | -65.6978 |  101.328   |    299.351    |    286.445    |
-| Tucker                     | -72.6173 |  169.756   |     19.9812   |     19.6993   |
-| Underwood                  | -66.6522 |  107.954   |    143.418    |    135.309    |
-| Utsikkar                   | -67.5409 |   61.271   |     45.417    |     45.8416   |
-| Venable                    | -73.1191 |  -86.6271  |    993.88     |    942.01     |
-| Verdi                      | -71.6217 |  -74.4846  |     51.8985   |     34.9135   |
-| Vigrid                     | -70.2498 |    8.40086 |    899.401    |    842.962    |
-| Vincennes Bay              | -66.5855 |  110.453   |    414.184    |    382.682    |
-| Voyeykov                   | -66.6687 |  124.675   |    162.881    |     98.8429   |
-| Walgreen Coast 1           | -73.9626 | -101.758   |     45.3528   |     42.9884   |
-| Walgreen Coast 2           | -73.6928 | -101.681   |      8.58103  |      7.34493  |
-| Watt Bay                   | -67.0676 |  144.101   |     39.3353   |     39.1331   |
-| West                       | -66.6438 |   87.2032  |   4904.89     |   5122.7      |
-| Whittle                    | -66.3459 |  114.423   |     18.7438   |     19.2012   |
-| Wilkins                    | -70.7543 |  -72.3728  |   1835.36     |   1349.71     |
-| Williamson                 | -66.4251 |  114.811   |     30.41     |     19.295    |
-| Wilma/Robert/Downer        | -67.0414 |   56.5425  |    339.399    |    336.496    |
-| Withrow                    | -77.1565 | -157.191   |    129.477    |    132.222    |
-| Wordie (Airy Rotz Seller)  | -69.1551 |  -66.8747  |     24.4388   |      3.07521  |
-| Wordie (Cape Jeremy)       | -69.3896 |  -68.0044  |     21.0534   |     13.6573   |
-| Wordie (Harriott)          | -68.9939 |  -66.9214  |      7.7538   |      4.54526  |
-| Wordie (Harriott Headland) | -69.0624 |  -66.8461  |      6.89709  |      3.05959  |
-| Wordie (Prospect)          | -69.4077 |  -67.4517  |     30.3909   |      9.34374  |
-| Wylde                      | -73.5794 |  166.728   |      9.24992  |      5.40135  |
-| Zelee                      | -66.8119 |  141.202   |     24.3859   |     24.2227   |
-| Zubchatyy                  | -67.2371 |   49.0142  |     80.4231   |     79.2802   |
-
-#+BEGIN_SRC jupyter-python :exports both
 import geopandas as gpd
 fname = '~/data/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp'
 ew = gpd.read_file(fname)
@@ -650,73 +573,6 @@ popd
 + MB ~ SF+RF-RU-SU.
 + Refreezing ~ ME+RF-RU
 + For the uncertainty, you can use 15%.
-
-*** Greenland
-
-#+BEGIN_SRC jupyter-python :exports both
-import xarray as xr
-
-ds = xr.open_dataset('dat/MARv3.12-GRD.nc4')\
-    .rename({'X10_85':'X',
-             'Y20_155':'Y',
-             'TIME2':'time'})
-
-# Remove Canada
-ds['newmask'] = (ds['X'] - ds['Y']).T
-ds = ds.where(ds['newmask'] > 500)
-
-# Mask to ice
-ds = ds.where(ds['MSK'] > 50)
-
-# Add new terms and limit to terms of interest
-ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
-ds = ds[['SF','RF','RU','SU','ME','RFZ','AREA']]
-
-# scale
-## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
-## + mm.w.eq. -> m w.eq.: /1E3
-## + m w.eq -> kg: *1E3
-## + area in km^2 -> m^2: *1E3*1E3
-## + kg -> Gt: /1E12
-ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
-
-ds = ds.sum(dim=['X','Y'])
-
-print("baseline:")
-print(ds.mean(dim='time'))
-
-print("\n\n2019:")
-print(ds.where(ds['time'] == 2019).sum())
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
-baseline:
-<xarray.Dataset>
-Dimensions:  ()
-Data variables:
-    SF       float64 700.3
-    RF       float64 42.78
-    RU       float64 390.3
-    SU       float64 53.15
-    ME       float64 540.2
-    RFZ      float64 192.7
-    AREA     float32 720.6
-
-
-2019:
-<xarray.Dataset>
-Dimensions:  ()
-Data variables:
-    SF       float64 632.5
-    RF       float64 35.74
-    RU       float64 640.3
-    SU       float64 60.92
-    ME       float64 880.0
-    RFZ      float64 275.4
-    AREA     float32 720.6
-#+end_example
-
 
 *** Antarctica
 
@@ -821,12 +677,12 @@ Dimensions:      ()
 Coordinates:
     spatial_ref  int64 0
 Data variables:
-    SF           int64 918
+    SF           int64 875
     RF           int64 1
     RU           int64 0
-    SU           int64 12
-    ME           int64 16
-    RFZ          int64 17
+    SU           int64 13
+    ME           int64 15
+    RFZ          int64 15
 
 Peninsula:
 <xarray.Dataset>
@@ -834,32 +690,47 @@ Dimensions:      ()
 Coordinates:
     spatial_ref  int64 0
 Data variables:
-    SF           int64 378
-    RF           int64 9
-    RU           int64 16
-    SU           int64 13
-    ME           int64 84
-    RFZ          int64 77
+    SF           int64 330
+    RF           int64 5
+    RU           int64 8
+    SU           int64 11
+    ME           int64 59
+    RFZ          int64 56
 #+end_example
 
-** GZ retreat in Greenland
+* Misc
+** Export tables to CSVs
 
-From Millan (2022) http://doi.org/10.5194/tc-16-3021-2022
-+ Gz retreat is ~0.13 km/yr (Fig. 3a)
-+ Ice velocity is ~1200 m/yr (Fig. 3b) (not needed)
-+ 20 km wide
-
-Rates are higher per Ciraci (2023) http://doi.org/10.1073/pnas.2220924120, but
-+ Ice surface close to flotation near GZ, and shelf is ~500 m thick, so estimate 600 m ice.
-
-Therefore, gz retreat in Gt/year is width * thick * retreat rate * density
-
-#+BEGIN_SRC bash :exports both :results verbatim
-frink "0.13 km/yr * 20 km * 600 m * 917 kg/m^3 -> Gt/yr"
+#+NAME: orgtbl2csv
+#+BEGIN_SRC emacs-lisp :var tbl="" :colnames no
+(save-excursion
+  (goto-char (point-min))
+  (re-search-forward (concat "^#\\+name: " tbl) nil t)
+  (next-line)
+  (org-table-export (concat "./dat/" tbl ".csv") "orgtbl-to-csv")
+  ;;(shell-command-to-string (concat "head " tbl ".csv"))
+  (message (concat "Exported " tbl " to " (concat "./dat/" tbl ".csv")))
+  )
 #+END_SRC
 
-#+RESULTS:
-: 1.43052
+** Convert PDFs to PNG
 
-Assume similar from other ice shelves too, for a total of ~5 Gt/yr GZ retreat in Greenland.
+#+NAME: pdfs2png
+#+BEGIN_SRC bash :exports results :results verbatim :results none
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate +15-30 'Greenland' gl_baseline.pdf tmp/gl.png
 
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'Antarctica' aq_baseline.pdf tmp/aq.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate +25-60 'East' aq_east.pdf ./tmp/aqe.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'West' aq_west.pdf ./tmp/aqw.png
+
+convert -density 300 -background white -alpha remove -trim -gravity center -draw "translate 60,-150 rotate -90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
+
+convert -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
+composite -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
+
+convert +append tmp/{gl,aq_legend}.png gl_aq.png
+convert +append tmp/{aqe,aqw,aqp}.png aq_sub.png
+convert -gravity center -append {gl_aq,aq_sub}.png ./fig.png
+#+END_SRC
