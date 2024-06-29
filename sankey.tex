@@ -79,13 +79,13 @@
     % all nodes with their name, label and quantity
     \newcommand\qq[1]{\sankeygetnodeqty{#1}}
 
-    \newcommand\abovelabel[2]{ % valname, label
+    \newcommand\abovelabel[1]{ % valname
       \node[font=\tiny, rotate=45, anchor=north west]
-      at ([yshift=5mm,xshift=-3mm]#1.center) {\qq{#1}: #2};
+      at ([yshift=5mm,xshift=-3mm]#1.center) {\qq{#1}: \Lab{v#1}};
     }
-    \newcommand\belowlabel[2]{ % valname, label
+    \newcommand\belowlabel[2]{ % valname
       \node[font=\tiny, rotate=45, anchor=north east]
-      at ([yshift=-2mm,xshift=0mm]#1.center) {#2: \qq{#1}};
+      at ([yshift=-2mm,xshift=0mm]#1.center) {\Lab{#2}: \qq{#1}};
     }
 
     \sankeyset{
@@ -114,10 +114,10 @@
     \sankeynode{name=CD, quantity=\Q{vCD}, at={[xshift=-\xoff]DP.right}, anchor=left}
     \sankeynode{name=RF, quantity=\Q{vRF}, at={[xshift=-\xoff]CD.right}, anchor=left}
 
-    \abovelabel{SF}{Snowfall}
-    \abovelabel{DP}{Deposition}
-    \abovelabel{CD}{Condensation}
-    \abovelabel{RF}{Rainfall}
+    \abovelabel{SF}
+    \abovelabel{DP}
+    \abovelabel{CD}
+    \abovelabel{RF}
 
     \sankeystart{SF}
     \sankeystart[air]{DP}
@@ -190,7 +190,7 @@
 
     \sankeyadvance[out-red]{FLa}{10mm}
     \sankeyend[out-red]{FLa}
-    \belowlabel{FLa}{Frontal retreat}
+    \belowlabel{FLa}{vFRLOSS}
 
     \ifnum \numexpr\Q{vMG} > \Q{vML}
       \sankeynode{name=MGa, quantity=\qq{MG},
@@ -209,7 +209,7 @@
 
     \ifthenelse{\Q{vMG} < \Q{vML}} { % mass loss
       \sankeynode{name=ML, quantity=\Q{vML}, at={[xshift=-\xoff]RF.right}, anchor=left}
-      \abovelabel{ML}{Drawdown}
+      \abovelabel{ML}
 
       % frontal advance next to drawdown (mass loss)
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
@@ -249,20 +249,20 @@
     \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
     \sankeyadvance{RU}{10mm}; \sankeyend{RU}
 
-    \belowlabel{RU}{Runoff}
-    \belowlabel{BMa}{Basal melting}
-    \belowlabel{SUBa}{Submarine melting}
-    \belowlabel{D}{Calving}
-    \belowlabel{GZa}{Grounding line retreat}
+    \belowlabel{RU}{vRU}
+    \belowlabel{BMa}{vBM}
+    \belowlabel{SUBa}{vSUB}
+    \belowlabel{D}{vICE}
+    \belowlabel{GZa}{vGZRET}
 
     \node[font=\tiny, rotate=45, anchor=north east]
-    at ([yshift=1mm,xshift=3mm]SUaa.south) {Sublimation: \qq{SUaa}};
+    at ([yshift=1mm,xshift=3mm]SUaa.south) {\Lab{vSU}: \qq{SUaa}};
 
     \node[font=\tiny, rotate=45, anchor=north east]
-    at ([yshift=0mm,xshift=5mm]EVa.north) {Evaporation: \qq{EVa}};
+    at ([yshift=0mm,xshift=5mm]EVa.north) {\Lab{vEV}: \qq{EVa}};
 
     \node[font=\tiny, anchor=west, rotate=90]
-    at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {Refreezing: \qq{RFZi}};
+    at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {\Lab{vRFZ}: \qq{RFZi}};
 
   \end{sankeydiagram}
 \end{tikzpicture}
