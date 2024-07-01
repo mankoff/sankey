@@ -55,13 +55,13 @@ All figures are width-proportional within and between each other.
 #+NAME: gl_baseline
 | Code   | Term                     | Value | I/O |    Period | Source          | Comment                     |
 |--------+--------------------------+-------+-----+-----------+-----------------+-----------------------------|
-| RF     | Rainfall                 |    50 | I   | 2000-2019 | fettweis_2020   |                             |
+| RF     | Rainfall                 |    45 | I   | 2000-2019 | fettweis_2020   |                             |
 | CD     | Condensation             |     5 | I   |           |                 | guesstimate                 |
-| DP     | Deposition               |    15 | I   |           |                 | guesstimate                 |
-| SF     | Snowfall                 |   710 | I   | 2000-2019 | fettweis_2019   |                             |
-| RFZ    | Refreezing               |   205 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
+| DP     | Deposition               |    10 | I   |           |                 | guesstimate                 |
+| SF     | Snowfall                 |   700 | I   | 2000-2019 | fettweis_2019   |                             |
+| RFZ    | Refreezing               |   200 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
 | EV     | Evaporation              |    10 | O   |           |                 | guesstimate                 |
-| RU     | Runoff                   |   475 | O   | 2000-2019 | fettweis_2020   |                             |
+| RU     | Runoff                   |   450 | O   | 2000-2019 | fettweis_2020   |                             |
 | BM     | Basal melting            |    20 | O   |    steady | karlsson_2020   |                             |
 | DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
 | SUB    | Submarine melting        |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
@@ -113,30 +113,29 @@ Assume similar from other ice shelves too, for a total of ~5 Gt/yr GZ retreat in
   
 *** SMB
 
-+ MB ~ SF+RF-RU-SU.
-+ Refreezing ~ ME+RF-RU
-+ For the uncertainty, you can use 15%.
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c MAR
 
-#+BEGIN_SRC jupyter-python :exports both
-import xarray as xr
+ncdump -v TIME dat/MARv3.12-GRD-15km-annual.nc4 # 20-39 = 2000-2019
+ncra --overwrite -d TIME,20,39 dat/MARv3.12-GRD-15km-annual.nc4 tmp/MAR_GL.nc
 
-ds = xr.open_dataset('dat/MARv3.12-GRD-15km-annual.nc4')\
-    .rename({'X10_110':'X',
-             'Y20_200':'Y',
-             'TIME':'time'})
+ncdump -v X10_110 tmp/MAR_GL.nc # 101
+ncdump -v Y20_200 tmp/MAR_GL.nc # 181
+g.region w=$(( -645000 - 7500 )) e=$(( 855000 + 7500 )) s=$(( -3357928 - 7500 )) n=$((-657928 + 7500 )) res=15000 -p
 
-# Remove Canada
-ds['newmask'] = (ds['X'] - ds['Y']).T
-ds = ds.where(ds['newmask'] > 500)
+var=SF # debug
+for var in SF RF RU SU ME SMB EVA CON DEP SUB MSK; do
+  r.in.gdal -o input=NetCDF:tmp/MAR_GL.nc:${var} output=${var}
+  r.region -c map=${var}
+done
+r.mapcalc "AREA = 15*15" # approx cell area b/c not provided with data
 
-# Mask to ice
-ds = ds.where(ds['MSK'] > 50)
-ds = ds.sel({'time':slice(2000,2019)})
-# Add new terms and limit to terms of interest
-ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
-ds['SMB'] = ds['SF'] + ds['RF'] - ds['RU'] - ds['SU']
-ds['AREA'] = 15*15
-ds = ds[['SF','RF','RU','SU','ME','RFZ','SMB','EVA','CON','DEP','SUB','AREA']]
+
+r.mapcalc "GL_ice_all = (MSK > 50) & ((x()-y()) > 520000)"
+r.clump input=GL_ice output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n2 | tail -n1 | cut -d" " -f1)
+r.mapcalc "GL_ice = if(clumps == ${main_clump}, 1, null())"
+r.mask raster=GL_ice --o
 
 # scale
 ## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
@@ -144,35 +143,34 @@ ds = ds[['SF','RF','RU','SU','ME','RFZ','SMB','EVA','CON','DEP','SUB','AREA']]
 ## + m w.eq -> kg: *1E3
 ## + area in km^2 -> m^2: *1E3*1E3
 ## + kg -> Gt: /1E12
-ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+# ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+for var in SF RF RU SU ME SMB EVA CON DEP SUB; do
+  r.mapcalc "${var} = (${var}/1000) * 1000 * (AREA * 1000*1000) / exp(10,12)"
+done
+r.mask -r
 
-ds = ds.sum(dim=['X','Y'])
+r.mapcalc "RFZ = ME + RF - RU"
+#+END_SRC
 
-print("baseline:")
-print(ds.mean(dim='time'))
+#+BEGIN_SRC bash :exports both :results verbatim
+for var in SF RF RU ME SMB EVA CON DEP SUB RFZ; do
+  echo ${var} $(r.univar -g ${var} | grep sum)
+done
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
-baseline:
-<xarray.Dataset> Size: 96B
-Dimensions:  ()
-Data variables:
-    SF       float64 8B 710.7
-    RF       float64 8B 48.48
-    RU       float64 8B 474.7
-    SU       float64 8B 56.51
-    ME       float64 8B 631.4
-    RFZ      float64 8B 205.2
-    SMB      float64 8B 228.0
-    EVA      float64 8B 8.224
-    CON      float64 8B 2.444
-    DEP      float64 8B 12.56
-    SUB      float64 8B 63.29
-    AREA     float64 8B 0.05063
+SF sum=696.615813562499
+RF sum=46.8772385625001
+RU sum=447.0171060375
+ME sum=597.838173187501
+SMB sum=239.736101175
+EVA sum=7.97627103749998
+CON sum=2.21466825
+DEP sum=12.1459762125
+SUB sum=62.38499715
+RFZ sum=197.6983057125
 #+end_example
-
-
 
 ** Antarctica
 

@@ -1,11 +1,11 @@
 Code,Term,Value,I/O,Period,Source,Comment
-RF,Rainfall,50,I,2000-2019,fettweis_2020,
+RF,Rainfall,45,I,2000-2019,fettweis_2020,
 CD,Condensation,5,I,,,guesstimate
-DP,Deposition,15,I,,,guesstimate
-SF,Snowfall,710,I,2000-2019,fettweis_2019,
-RFZ,Refreezing,205,IO,2000-2019,fettweis_2020,RFZ = ME + RF - RU
+DP,Deposition,10,I,,,guesstimate
+SF,Snowfall,700,I,2000-2019,fettweis_2019,
+RFZ,Refreezing,200,IO,2000-2019,fettweis_2020,RFZ = ME + RF - RU
 EV,Evaporation,10,O,,,guesstimate
-RU,Runoff,475,O,2000-2019,fettweis_2020,
+RU,Runoff,450,O,2000-2019,fettweis_2020,
 BM,Basal melting,20,O,steady,karlsson_2020,
 DYN,Discharge,500,-,2000-2019,mankoff_2020,Submarine melting + calving
 SUB,Submarine melting,250,O,,enderlin_2013,50 % of discharge
