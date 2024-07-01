@@ -1,18 +1,18 @@
 Code,Term,Value,I/O,Period,Source,Comment
-RF,Rainfall,45,I,2000-2019,fettweis_2020,
-CD,Condensation ?,1,I,,,guesstimate
-DP,Deposition ?,1,I,,,guesstimate
-SF,Snowfall,705,I,2000-2019,fettweis_2019,
+RF,Rainfall,50,I,2000-2019,fettweis_2020,
+CD,Condensation,5,I,,,guesstimate
+DP,Deposition,15,I,,,guesstimate
+SF,Snowfall,710,I,2000-2019,fettweis_2019,
 RFZ,Refreezing,205,IO,2000-2019,fettweis_2020,RFZ = ME + RF - RU
-EV,Evaporation ?,1,O,,,guesstimate
-RU,Runoff,445,O,2000-2019,fettweis_2020,
+EV,Evaporation,10,O,,,guesstimate
+RU,Runoff,475,O,2000-2019,fettweis_2020,
 BM,Basal melting,20,O,steady,karlsson_2020,
 DYN,Discharge,500,-,2000-2019,mankoff_2020,Submarine melting + calving
 SUB,Submarine melting,250,O,,enderlin_2013,50 % of discharge
 ICE,Calving,250,O,,enderlin_2013,50 % of discharge
-GZRET,Grounding line retreat ?,1,O,,See methods,
+GZRET,Grounding line retreat ?,5,O,,See methods,guesstimate
 FRLOSS,Frontal retreat,50,O,2000-2020,kochtitzky_2023,
 FRGAIN,Frontal advance,0,O,,,None in GL
-SU,Sublimation,55,O,2000-2019,fettweis_2020,
-DD,Drawdown,,-,,Derived,.= sum(O) - sum(I)
-MG,Mass gain,,-,,Derived,.= sum(I) - sum(O)
+SU,Sublimation,65,O,2000-2019,fettweis_2020,
+DD,Drawdown,,-,,Derived,sum(O) - sum(I)
+MG,Mass gain,,-,,Derived,sum(I) - sum(O)

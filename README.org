@@ -55,21 +55,21 @@ All figures are width-proportional within and between each other.
 #+NAME: gl_baseline
 | Code   | Term                     | Value | I/O |    Period | Source          | Comment                     |
 |--------+--------------------------+-------+-----+-----------+-----------------+-----------------------------|
-| RF     | Rainfall                 |    45 | I   | 2000-2019 | fettweis_2020   |                             |
-| CD     | Condensation ?           |     1 | I   |           |                 | guesstimate                 |
-| DP     | Deposition ?             |     1 | I   |           |                 | guesstimate                 |
-| SF     | Snowfall                 |   705 | I   | 2000-2019 | fettweis_2019   |                             |
+| RF     | Rainfall                 |    50 | I   | 2000-2019 | fettweis_2020   |                             |
+| CD     | Condensation             |     5 | I   |           |                 | guesstimate                 |
+| DP     | Deposition               |    15 | I   |           |                 | guesstimate                 |
+| SF     | Snowfall                 |   710 | I   | 2000-2019 | fettweis_2019   |                             |
 | RFZ    | Refreezing               |   205 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
-| EV     | Evaporation ?            |     1 | O   |           |                 | guesstimate                 |
-| RU     | Runoff                   |   445 | O   | 2000-2019 | fettweis_2020   |                             |
+| EV     | Evaporation              |    10 | O   |           |                 | guesstimate                 |
+| RU     | Runoff                   |   475 | O   | 2000-2019 | fettweis_2020   |                             |
 | BM     | Basal melting            |    20 | O   |    steady | karlsson_2020   |                             |
 | DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
 | SUB    | Submarine melting        |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
 | ICE    | Calving                  |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
-| GZRET  | Grounding line retreat ? |     1 | O   |           | See methods     | guesstimate                 |
+| GZRET  | Grounding line retreat ? |     5 | O   |           | See methods     | guesstimate                 |
 | FRLOSS | Frontal retreat          |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
 | FRGAIN | Frontal advance          |     0 | O   |           |                 | None in GL                  |
-| SU     | Sublimation              |    55 | O   | 2000-2019 | fettweis_2020   |                             |
+| SU     | Sublimation              |    65 | O   | 2000-2019 | fettweis_2020   |                             |
 | DD     | Drawdown                 |       | -   |           | Derived         | sum(O) - sum(I)             |
 | MG     | Mass gain                |       | -   |           | Derived         | sum(I) - sum(O)             |
 #+CAPTION: Greenland mass flow terms, values, and metadata
@@ -120,10 +120,10 @@ Assume similar from other ice shelves too, for a total of ~5 Gt/yr GZ retreat in
 #+BEGIN_SRC jupyter-python :exports both
 import xarray as xr
 
-ds = xr.open_dataset('dat/MARv3.12-GRD.nc4')\
-    .rename({'X10_85':'X',
-             'Y20_155':'Y',
-             'TIME2':'time'})
+ds = xr.open_dataset('dat/MARv3.12-GRD-15km-annual.nc4')\
+    .rename({'X10_110':'X',
+             'Y20_200':'Y',
+             'TIME':'time'})
 
 # Remove Canada
 ds['newmask'] = (ds['X'] - ds['Y']).T
@@ -135,7 +135,8 @@ ds = ds.sel({'time':slice(2000,2019)})
 # Add new terms and limit to terms of interest
 ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
 ds['SMB'] = ds['SF'] + ds['RF'] - ds['RU'] - ds['SU']
-ds = ds[['SF','RF','RU','SU','ME','RFZ','SMB','AREA']]
+ds['AREA'] = 15*15
+ds = ds[['SF','RF','RU','SU','ME','RFZ','SMB','EVA','CON','DEP','SUB','AREA']]
 
 # scale
 ## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
@@ -154,17 +155,21 @@ print(ds.mean(dim='time'))
 #+RESULTS:
 #+begin_example
 baseline:
-<xarray.Dataset> Size: 60B
+<xarray.Dataset> Size: 96B
 Dimensions:  ()
 Data variables:
-    SF       float64 8B 704.4
-    RF       float64 8B 44.26
-    RU       float64 8B 446.4
-    SU       float64 8B 53.25
-    ME       float64 8B 605.9
-    RFZ      float64 8B 203.8
-    SMB      float64 8B 249.0
-    AREA     float32 4B 720.6
+    SF       float64 8B 710.7
+    RF       float64 8B 48.48
+    RU       float64 8B 474.7
+    SU       float64 8B 56.51
+    ME       float64 8B 631.4
+    RFZ      float64 8B 205.2
+    SMB      float64 8B 228.0
+    EVA      float64 8B 8.224
+    CON      float64 8B 2.444
+    DEP      float64 8B 12.56
+    SUB      float64 8B 63.29
+    AREA     float64 8B 0.05063
 #+end_example
 
 
