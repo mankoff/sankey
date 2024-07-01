@@ -17,13 +17,10 @@
     - [[#smb][SMB]]
   - [[#antarctica][Antarctica]]
     - [[#reset-1][Reset]]
-  - [[#east-v-west-antarctica][East v. West Antarctica]]
-  - [[#basal-melt-1][Basal melt]]
-  - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
-    - [[#frontal-retreat-from-greene-2022][Frontal Retreat from Greene 2022]]
-  - [[#smb-mar][SMB (MAR)]]
-    - [[#provenance][Provenance]]
-    - [[#antarctica-1][Antarctica]]
+    - [[#masks-east-west-peninsula-islands-grounded-and-shelves][Masks: East, West, Peninsula, Islands, Grounded and Shelves]]
+    - [[#smb-mar][SMB (MAR)]]
+    - [[#basal-melt-1][Basal melt]]
+    - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
 - [[#misc][Misc]]
   - [[#export-tables-to-csvs][Export tables to CSVs]]
   - [[#convert-pdfs-to-png][Convert PDFs to PNG]]
@@ -56,11 +53,11 @@ All figures are width-proportional within and between each other.
 | Code   | Term                     | Value | I/O |    Period | Source          | Comment                     |
 |--------+--------------------------+-------+-----+-----------+-----------------+-----------------------------|
 | RF     | Rainfall                 |    45 | I   | 2000-2019 | fettweis_2020   |                             |
-| CD     | Condensation             |     5 | I   |           |                 | guesstimate                 |
-| DP     | Deposition               |    10 | I   |           |                 | guesstimate                 |
+| CD     | Condensation             |     5 | I   | 2000-2019 | fettweis_2020   | guesstimate                 |
+| DP     | Deposition               |    10 | I   | 2000-2019 | fettweis_2020   | guesstimate                 |
 | SF     | Snowfall                 |   700 | I   | 2000-2019 | fettweis_2019   |                             |
 | RFZ    | Refreezing               |   200 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
-| EV     | Evaporation              |    10 | O   |           |                 | guesstimate                 |
+| EV     | Evaporation              |    10 | O   | 2000-2019 | fettweis_2020   | guesstimate                 |
 | RU     | Runoff                   |   450 | O   | 2000-2019 | fettweis_2020   |                             |
 | BM     | Basal melting            |    20 | O   |    steady | karlsson_2020   |                             |
 | DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
@@ -183,27 +180,31 @@ RFZ sum=197.6983057125
 | DD   | Drawdown             |   208 | -   |           | Derived             | .= sum(O) - sum(I)    |
 
 #+NAME: aq_baseline
-| Code   | Term                     |              Value | I/O | Period    | Source               | Comment                           |
-|--------+--------------------------+--------------------+-----+-----------+----------------------+-----------------------------------|
-| RF     | Rainfall                 |                  5 | I   | 2000-2019 | fettweis_2020        |                                   |
-| CD     | Condensation             |                  1 | I   |           |                      |                                   |
-| DP     | Deposition               |                  1 | I   |           |                      |                                   |
-| SF     | Snowfall                 |               2750 | I   |           | fettweis_2020        |                                   |
-| RFZ    | Refreezing               |                105 | IO  |           | fettweis_2020        |                                   |
-| EV     | Evaporation              |                  1 | O   |           |                      |                                   |
-| RU     | Runoff                   |                 10 | O   |           | fettweis_2020        |                                   |
-| BM     | Basal melting            |                 70 | O   | -         | van-liefferinge_2013 |                                   |
-| DYN    | Discharge                | 1090 + 1545 = 2635 | -   |           |                      |                                   |
-| SUB    | Submarine melting        |               1090 | O   |           | davison_2023         |                                   |
-| ICE    | Calving                  |               1545 | O   |           | davison_2023         |                                   |
-| GZRET  | Grounding line retreat ? |                  1 | O   |           |                      | 45 in Amundsen from Davison email |
-| FRLOSS | Frontal retreat          |       79+122+145-1 | O   |           | greene_2022          |                                   |
-| FRGAIN | Frontal advance          |          181+1+103 | O   |           | greene_2022          |                                   |
-| SU     | Sublimation              |                160 | O   |           | fettweis_2020        |                                   |
-| DD     | Drawdown                 |                    | -   |           | Derived              | .= sum(O) - sum(I)                |
-| MG     | Mass gain                |                    | -   |           | Derived              | .= sum(I) - sum(O)                |
+| Code   | Term                     |        Value | I/O |    Period | Source               | Comment                           |
+|--------+--------------------------+--------------+-----+-----------+----------------------+-----------------------------------|
+| RF     | Rainfall                 |            5 | I   | 2000-2019 | fettweis_2020        |                                   |
+| CD     | Condensation             |            1 | I   | 2000-2019 | fettweis_2020        |                                   |
+| DP     | Deposition               |           75 | I   | 2000-2019 | fettweis_2020        |                                   |
+| SF     | Snowfall                 |         2745 | I   | 2000-2019 | fettweis_2020        |                                   |
+| RFZ    | Refreezing               |          105 | IO  | 2000-2019 | fettweis_2020        |                                   |
+| EV     | Evaporation              |            5 | O   | 2000-2019 | fettweis_2020        |                                   |
+| RU     | Runoff                   |           10 | O   | 2000-2019 | fettweis_2020        |                                   |
+| BM     | Basal melting            |           70 | O   |         - | van-liefferinge_2013 |                                   |
+| DYN    | Discharge                |  1090 + 1545 | -   |           |                      |                                   |
+| SUB    | Submarine melting        |         1090 | O   |           | davison_2023         |                                   |
+| ICE    | Calving                  |         1545 | O   |           | davison_2023         |                                   |
+| GZRET  | Grounding line retreat ? |            1 | O   |           |                      | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat          | 79+122+145-1 | O   |           | greene_2022          |                                   |
+| FRGAIN | Frontal advance          |    181+1+103 | O   |           | greene_2022          |                                   |
+| SU     | Sublimation              |          230 | O   | 2000-2019 | fettweis_2020        |                                   |
+| DD     | Drawdown                 |              | -   |           | Derived              | .= sum(O) - sum(I)                |
+| MG     | Mass gain                |              | -   |           | Derived              | .= sum(I) - sum(O)                |
 #+CAPTION: Antarctic mass flow terms, values, and metadata
 
+#+CALL: orgtbl2csv(tbl="aq_baseline")
+
+#+RESULTS:
+: Exported aq_baseline to ./dat/aq_baseline.csv
 
 *** Reset
 
@@ -212,7 +213,7 @@ trash G_AQ
 [[ -e ./G_AQ ]] || grass -e -c EPSG:3031 ./G_AQ
 #+END_SRC
 
-** East v. West Antarctica
+*** Masks: East, West, Peninsula, Islands, Grounded and Shelves
 
 #+BEGIN_SRC bash :exports both :results verbatim
 grass ./G_AQ/PERMANENT
@@ -246,7 +247,148 @@ EOF
 r.colors map=basins color=viridis
 #+END_SRC
 
-** Basal melt
+*** SMB (MAR)
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c MAR
+
+ncdump -v TIME dat/MARv3.12-ANT-35km-annual.nc4 # 20-39 = 2000-2019
+ncra --overwrite -d TIME,20,39 dat/MARv3.12-ANT-35km-annual.nc4 tmp/MAR_AQ.nc
+
+ncdump -v X tmp/MAR_AQ.nc # 176
+ncdump -v Y tmp/MAR_AQ.nc # 148
+g.region w=$(( -3010000 - 17500 )) e=$(( 3115000 + 17500 )) s=$(( -2555000 - 17500 )) n=$(( 2590000 + 17500 )) res=35000 -p
+
+var=SF # debug
+for var in SF RF RU ME SMB EVA CON DEP SUB MSK; do
+  r.in.gdal -o input=NetCDF:tmp/MAR_AQ.nc:${var} output=${var}
+  r.region -c map=${var}
+done
+r.mapcalc "AREA = 35*35" # approx cell area b/c not provided with data
+
+# scale
+## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
+## + mm.w.eq. -> m w.eq.: /1E3
+## + m w.eq -> kg: *1E3
+## + area in km^2 -> m^2: *1E3*1E3
+## + kg -> Gt: /1E12
+# ds = ds/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+for var in SF RF RU ME SMB EVA CON DEP SUB; do
+  r.mapcalc "${var} = (${var}/1000) * 1000 * (AREA * 1000*1000) / exp(10,12)"
+done
+
+r.mapcalc "RFZ = ME + RF - RU"
+#+END_SRC
+
+**** Stats
+#+BEGIN_SRC bash :exports both :results verbatim
+r.mask --o raster=basins@PERMANENT --q maskcats="1 2 3 10 thru 20"
+for var in SF RF RU ME SMB EVA CON DEP SUB RFZ; do
+  echo -n "${var}"
+  r.univar -gt map=${var} zones=basins@PERMANENT | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+  r.univar -g ${var} | grep sum
+  echo "#"; echo "#"
+done
+r.mask -r --q
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[Raster MASK present]
+SF
+East (Grounded)       1387.407188825
+West (Grounded)       673.891075287499
+Peninsula (Grounded)  274.5307963125
+East (Floating)       172.951410625
+West (Floating)       176.842405075
+Peninsula (Floating)  57.63085265
+sum=2743.253728775
+
+RF
+East (Grounded)       0.541448162499999
+West (Grounded)       0.216686575
+Peninsula (Grounded)  2.1756300125
+East (Floating)       0.8517247375
+West (Floating)       0.442836275
+Peninsula (Floating)  2.348791725
+sum=6.57711748750004
+
+RU
+East (Grounded)       1.57932145
+West (Grounded)       0.005827325
+Peninsula (Grounded)  1.9542541375
+East (Floating)       1.544949175
+West (Floating)       0.0298606
+Peninsula (Floating)  4.4696152375
+sum=9.58382792499999
+
+ME
+East (Grounded)       15.84688175
+West (Grounded)       4.2583793
+Peninsula (Grounded)  17.7612768375
+East (Floating)       26.8997841875
+West (Floating)       9.09591654999999
+Peninsula (Floating)  35.12077205
+sum=108.983010675
+
+SMB
+East (Grounded)       1270.365507075
+West (Grounded)       664.4213965375
+Peninsula (Grounded)  266.942247775
+East (Floating)       153.5473230375
+West (Floating)       174.5008727
+Peninsula (Floating)  52.2455756375
+sum=2582.02292276251
+
+EVA
+East (Grounded)       0.6101841375
+West (Grounded)       0.19152385
+Peninsula (Grounded)  0.70492625
+East (Floating)       0.70472045
+West (Floating)       0.2383121125
+Peninsula (Floating)  0.7163720375
+sum=3.1660388375
+
+CON
+East (Grounded)       0.0014742875
+West (Grounded)       0.0022950375
+Peninsula (Grounded)  0.0130732
+East (Floating)       0.0031794875
+West (Floating)       0.001904875
+Peninsula (Floating)  0.0360572625
+sum=0.0579841499999998
+
+DEP
+East (Grounded)       35.9887286500001
+West (Grounded)       21.823741275
+Peninsula (Grounded)  5.408324775
+East (Floating)       5.671917825
+West (Floating)       5.91887476249999
+Peninsula (Floating)  1.5282824375
+sum=76.3398697249999
+
+SUB
+East (Grounded)       151.786921475
+West (Grounded)       31.4180472375
+Peninsula (Grounded)  12.4120436125
+East (Floating)       23.6493324375
+West (Floating)       8.38783041249999
+Peninsula (Floating)  4.0048882125
+sum=231.659063387501
+
+RFZ
+East (Grounded)       14.8090084625
+West (Grounded)       4.46923855
+Peninsula (Grounded)  17.9826527125
+East (Floating)       26.20655975
+West (Floating)       9.50889222500001
+Peninsula (Floating)  32.9999485375
+sum=105.9763002375
+
+[Raster MASK present]
+#+end_example
+
+*** Basal melt
 
 Van Liefferinge (2013) http://doi.org/10.5194/cp-9-2335-2013 
 
@@ -303,9 +445,9 @@ West (Floating)       0.781445329564939
 Peninsula (Floating)  0.254017664974735
 #+end_example
 
-** Antarctic Ice shelves
+*** Antarctic Ice shelves
 
-**** Submarine melt
+***** Submarine melt
 
 + Davison (2023) http://doi.org/10.1126/sciadv.adi0186 
 
@@ -372,7 +514,7 @@ df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 
 
 
-**** Calving
+***** Calving
 
 Same as above, different sheet. Reuses variables from above, run that first.
 
@@ -428,7 +570,7 @@ df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 
 
 
-**** GZ retreat
+***** GZ retreat
 
 Email from Davison
 
@@ -441,7 +583,7 @@ Email from Davison
 (220+230+200+420)/(2021-1997) = 44.5833333333
 
 
-*** Frontal Retreat from Greene 2022
+**** Frontal Retreat from Greene 2022
 
 #+BEGIN_QUOTE
 [greene_Supplementary_Table_1.xlsx](https://github.com/user-attachments/files/15598602/greene_Supplementary_Table_1.xlsx)
@@ -598,150 +740,6 @@ All                  61.0
 East                102.0
 Peninsula           121.0
 West                 42.0
-#+end_example
-
-** SMB (MAR)
-*** Provenance
-
-#+BEGIN_SRC bash :exports both :results verbatim
-mkdir -p dat
-pushd dat
-wget http://phypc15.geo.ulg.ac.be/fettweis/tmp/ken/MARv3.12-ANT.nc4
-wget http://phypc15.geo.ulg.ac.be/fettweis/tmp/ken/MARv3.12-GRD.nc4
-popd
-#+END_SRC
-
-+ MB ~ SF+RF-RU-SU.
-+ Refreezing ~ ME+RF-RU
-+ For the uncertainty, you can use 15%.
-
-*** Antarctica
-
-**** Export E/W/P mask on the MAR grid
-
-#+BEGIN_SRC bash :exports both :results verbatim
-grass -c ./G_AQ/MAR
-
-fname=dat/MARv3.12-ANT.nc4
-r.in.gdal -o input="NetCDF:${fname}:MSK" output=MSK
-ncdump -v X ${fname}
-ncdump -v Y ${fname}
-g.region rows=148 cols=176 w=-3010000 e=3115000 s=-2555000 n=2590000 -p
-g.region e=e+17500 w=w-17500 s=s-17500 n=n+17500 rows=148 cols=176 -p
-r.region -c map=MSK
-
-r.out.gdal -c -m input=basins@PERMANENT output=./tmp/basins.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
-#+END_SRC
-
-**** Report RCM values
-
-#+BEGIN_SRC jupyter-python :exports both
-import xarray as xr
-import rioxarray as rxr
-import rasterio as rio
-import rasterio.plot
-import geopandas as gpd
-import shapely
-import matplotlib.pyplot as plt
-
-ds = xr.open_dataset('./dat/MARv3.12-ANT.nc4')\
-    .rename({'TIME2':'time'})
-
-ds = ds.rio.write_crs('EPSG:3031')
-
-# east vs west (see GRASS code above)
-basins = rio.open('tmp/basins.tif').read().squeeze()
-ds['basins'] = (('Y','X'), basins[::-1,:])
-
-# Mask to ice
-ds = ds.where(ds['MSK'] > 50)
-ds = ds.sel({'time':slice(2000,2019)})
-ds = ds.where(ds['basins'] > 0)
-ds = ds.mean(dim='time')
-
-# Add new terms and limit to terms of interest
-ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
-ds['SMB'] = ds['SF'] + ds['RF'] - ds['RU'] - ds['SU']
-ds2 = ds[['SF','RF','RU','SU','ME','RFZ','SMB']]
-
-# scale
-## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
-## + mm.w.eq. -> m w.eq.: /1E3
-## + m w.eq -> kg: *1E3
-## + area in km^2 -> m^2: *1E3*1E3
-## + kg -> Gt: /1E12
-ds2 = (ds2 / 1E3) * 1E3 * ds['AREA']*1E3*1E3 / 1E12
-
-print("All:")
-print(ds2.sum().round().astype(int))
-
-print("\nEast:")
-print(ds2.where(ds['basins'] == 1).sum().round().astype(int))
-
-print("\nWest:")
-print(ds2.where(ds['basins'] == 2).sum().round().astype(int))
-
-print("\nPeninsula:")
-print(ds2.where(ds['basins'] == 3).sum().round().astype(int))
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
-All:
-<xarray.Dataset> Size: 64B
-Dimensions:      ()
-Coordinates:
-    spatial_ref  int64 8B 0
-Data variables:
-    SF           int64 8B 2751
-    RF           int64 8B 6
-    RU           int64 8B 9
-    SU           int64 8B 157
-    ME           int64 8B 107
-    RFZ          int64 8B 104
-    SMB          int64 8B 2591
-
-East:
-<xarray.Dataset> Size: 64B
-Dimensions:      ()
-Coordinates:
-    spatial_ref  int64 8B 0
-Data variables:
-    SF           int64 8B 1555
-    RF           int64 8B 1
-    RU           int64 8B 3
-    SU           int64 8B 133
-    ME           int64 8B 42
-    RFZ          int64 8B 40
-    SMB          int64 8B 1420
-
-West:
-<xarray.Dataset> Size: 64B
-Dimensions:      ()
-Coordinates:
-    spatial_ref  int64 8B 0
-Data variables:
-    SF           int64 8B 869
-    RF           int64 8B 1
-    RU           int64 8B 0
-    SU           int64 8B 13
-    ME           int64 8B 14
-    RFZ          int64 8B 14
-    SMB          int64 8B 857
-
-Peninsula:
-<xarray.Dataset> Size: 64B
-Dimensions:      ()
-Coordinates:
-    spatial_ref  int64 8B 0
-Data variables:
-    SF           int64 8B 327
-    RF           int64 8B 4
-    RU           int64 8B 6
-    SU           int64 8B 11
-    ME           int64 8B 52
-    RFZ          int64 8B 50
-    SMB          int64 8B 315
 #+end_example
 
 * Misc

@@ -1,16 +1,18 @@
-Label,Description,Value,Reference
-RFZ,Refreeze (after melt),150,fettweis_2020
-SF,Snowfall,2925,fettweis_2020
-RF,Rainfall,15,fettweis_2020
-CD,Condensation,10,TODO
-DP,Deposition,10,TODO
-FRLOSS,Frontal retreat,145+121+79,greene_2022
-FRGAIN,Frontal advance,181+1+103,green_2022
-GZRET,Grounding line retreat,145,TODO
-SU,Sublimation,165,fettweis_2020
-RU,Runoff,25,fettweis_2020
-DYN,Dynamics,1545+1090,davison_2023
-ICE,Icebergs,1545,davison_2023
-SUB,Submarine melt,1090,davison_2023
-EV,Evaporation,10,TODO
-BM,Basal melt,70,van-liefferinge_2013
+Code,Term,Value,I/O,Period,Source,Comment
+RF,Rainfall,5,I,2000-2019,fettweis_2020,
+CD,Condensation,1,I,2000-2019,fettweis_2020,
+DP,Deposition,75,I,2000-2019,fettweis_2020,
+SF,Snowfall,2745,I,2000-2019,fettweis_2020,
+RFZ,Refreezing,105,IO,2000-2019,fettweis_2020,
+EV,Evaporation,5,O,2000-2019,fettweis_2020,
+RU,Runoff,10,O,2000-2019,fettweis_2020,
+BM,Basal melting,70,O,-,van-liefferinge_2013,
+DYN,Discharge,1090 + 1545,-,,,
+SUB,Submarine melting,1090,O,,davison_2023,
+ICE,Calving,1545,O,,davison_2023,
+GZRET,Grounding line retreat ?,1,O,,,45 in Amundsen from Davison email
+FRLOSS,Frontal retreat,79+122+145-1,O,,greene_2022,
+FRGAIN,Frontal advance,181+1+103,O,,greene_2022,
+SU,Sublimation,230,O,2000-2019,fettweis_2020,
+DD,Drawdown,,-,,Derived,.= sum(O) - sum(I)
+MG,Mass gain,,-,,Derived,.= sum(I) - sum(O)
