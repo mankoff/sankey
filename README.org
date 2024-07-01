@@ -69,12 +69,12 @@ All figures are width-proportional within and between each other.
 | DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
 | SUB    | Submarine melting        |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
 | ICE    | Calving                  |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
-| GZRET  | Grounding line retreat ? |     1 | O   |           | See methods     |                             |
+| GZRET  | Grounding line retreat ? |     1 | O   |           | See methods     | guesstimate                 |
 | FRLOSS | Frontal retreat          |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
 | FRGAIN | Frontal advance          |     0 | O   |           |                 | None in GL                  |
 | SU     | Sublimation              |    55 | O   | 2000-2019 | fettweis_2020   |                             |
-| DD     | Drawdown                 |       | -   |           | Derived         | .= sum(O) - sum(I)          |
-| MG     | Mass gain                |       | -   |           | Derived         | .= sum(I) - sum(O)          |
+| DD     | Drawdown                 |       | -   |           | Derived         | sum(O) - sum(I)             |
+| MG     | Mass gain                |       | -   |           | Derived         | sum(I) - sum(O)             |
 #+CAPTION: Greenland mass flow terms, values, and metadata
 
 #+CALL: orgtbl2csv(tbl="gl_baseline")
@@ -137,7 +137,8 @@ ds = ds.where(ds['MSK'] > 50)
 ds = ds.sel({'time':slice(2000,2019)})
 # Add new terms and limit to terms of interest
 ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
-ds = ds[['SF','RF','RU','SU','ME','RFZ','AREA']]
+ds['SMB'] = ds['SF'] + ds['RF'] - ds['RU'] - ds['SU']
+ds = ds[['SF','RF','RU','SU','ME','RFZ','SMB','AREA']]
 
 # scale
 ## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
