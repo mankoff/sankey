@@ -19,14 +19,11 @@
     - [[#reset-1][Reset]]
   - [[#east-v-west-antarctica][East v. West Antarctica]]
   - [[#basal-melt-1][Basal melt]]
-    - [[#antarctica-1][Antarctica]]
-  - [[#antarctic-discharge-onto-shelves][Antarctic discharge (onto shelves)]]
   - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
-    - [[#mass-loss-from-davison-2023][Mass loss from Davison 2023]]
     - [[#frontal-retreat-from-greene-2022][Frontal Retreat from Greene 2022]]
   - [[#smb-mar][SMB (MAR)]]
     - [[#provenance][Provenance]]
-    - [[#antarctica-2][Antarctica]]
+    - [[#antarctica-1][Antarctica]]
 - [[#misc][Misc]]
   - [[#export-tables-to-csvs][Export tables to CSVs]]
   - [[#convert-pdfs-to-png][Convert PDFs to PNG]]
@@ -157,21 +154,53 @@ print(ds.mean(dim='time'))
 #+RESULTS:
 #+begin_example
 baseline:
-<xarray.Dataset>
+<xarray.Dataset> Size: 60B
 Dimensions:  ()
 Data variables:
-    SF       float64 704.4
-    RF       float64 44.26
-    RU       float64 446.4
-    SU       float64 53.25
-    ME       float64 605.9
-    RFZ      float64 203.8
-    AREA     float32 720.6
+    SF       float64 8B 704.4
+    RF       float64 8B 44.26
+    RU       float64 8B 446.4
+    SU       float64 8B 53.25
+    ME       float64 8B 605.9
+    RFZ      float64 8B 203.8
+    SMB      float64 8B 249.0
+    AREA     float32 4B 720.6
 #+end_example
 
 
 
 ** Antarctica
+
+#+NAME: third_party
+| Code | Term                 | Value | I/O |    Period | Source              | Comment               |
+|------+----------------------+-------+-----+-----------+---------------------+-----------------------|
+| SMB  | Surface mass balance |  2021 | IO  | 1979-2008 | rignot_2019 table 1 | 2098AQ-77Islands=2021 |
+| SMB  | Surface mass balance |  2590 | IO  | 2000-2019 | fettweis_2020       | WITH shelves          |
+| DYN  | Discharge            |  2229 | O   | 2009-2017 | rignot_2019 table 1 | 2306-77               |
+| DD   | Drawdown             |   208 | -   |           | Derived             | .= sum(O) - sum(I)    |
+
+#+NAME: aq_baseline
+| Code   | Term                     |              Value | I/O | Period    | Source               | Comment                           |
+|--------+--------------------------+--------------------+-----+-----------+----------------------+-----------------------------------|
+| RF     | Rainfall                 |                  5 | I   | 2000-2019 | fettweis_2020        |                                   |
+| CD     | Condensation             |                  1 | I   |           |                      |                                   |
+| DP     | Deposition               |                  1 | I   |           |                      |                                   |
+| SF     | Snowfall                 |               2750 | I   |           | fettweis_2020        |                                   |
+| RFZ    | Refreezing               |                105 | IO  |           | fettweis_2020        |                                   |
+| EV     | Evaporation              |                  1 | O   |           |                      |                                   |
+| RU     | Runoff                   |                 10 | O   |           | fettweis_2020        |                                   |
+| BM     | Basal melting            |                 70 | O   | -         | van-liefferinge_2013 |                                   |
+| DYN    | Discharge                | 1090 + 1545 = 2635 | -   |           |                      |                                   |
+| SUB    | Submarine melting        |               1090 | O   |           | davison_2023         |                                   |
+| ICE    | Calving                  |               1545 | O   |           | davison_2023         |                                   |
+| GZRET  | Grounding line retreat ? |                  1 | O   |           |                      | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat          |       79+122+145-1 | O   |           | greene_2022          |                                   |
+| FRGAIN | Frontal advance          |          181+1+103 | O   |           | greene_2022          |                                   |
+| SU     | Sublimation              |                160 | O   |           | fettweis_2020        |                                   |
+| DD     | Drawdown                 |                    | -   |           | Derived              | .= sum(O) - sum(I)                |
+| MG     | Mass gain                |                    | -   |           | Derived              | .= sum(I) - sum(O)                |
+#+CAPTION: Antarctic mass flow terms, values, and metadata
+
 
 *** Reset
 
@@ -184,32 +213,37 @@ trash G_AQ
 
 #+BEGIN_SRC bash :exports both :results verbatim
 grass ./G_AQ/PERMANENT
+
 v.in.ogr input=${DATADIR}/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp output=basins
 
 g.region vector=basins res=10000 -pas
 
 v.db.select map=basins|head
 v.db.select -c map=basins columns=Regions | sort | uniq # East West Peninsula Islands
+v.db.select -c map=basins columns=TYPE | sort | uniq # FL GR IS (float, ground, island)
 
-v.to.rast input=basins output=east use=val val=1 where='Regions == "East"'
-v.to.rast input=basins output=west use=val val=2 where='(Regions == "West")'
-v.to.rast input=basins output=peninsula use=val val=3 where='(Regions == "Peninsula")'
-# v.to.rast input=basins output=islands use=val val=3 where='(Regions == "Islands")'
-r.patch input=east,west,peninsula output=basins
+v.to.rast input=basins output=east_GR use=val val=1 where='((Regions == "East") AND (TYPE == "GR"))'
+v.to.rast input=basins output=east_FL use=val val=11 where='((Regions == "East") AND (TYPE == "FL"))'
+v.to.rast input=basins output=west_GR use=val val=2 where='((Regions == "West") AND (TYPE == "GR"))'
+v.to.rast input=basins output=west_FL use=val val=12 where='((Regions == "West") AND (TYPE == "FL"))'
+v.to.rast input=basins output=peninsula_GR use=val val=3 where='((Regions == "Peninsula") AND (TYPE == "GR"))'
+v.to.rast input=basins output=peninsula_FL use=val val=13 where='((Regions == "Peninsula") AND (TYPE == "FL"))'
+v.to.rast input=basins output=islands use=val val=4 where='(TYPE == "IS")'
+r.patch input=east_GR,east_FL,west_GR,west_FL,peninsula_GR,peninsula_FL,islands output=basins
+r.category basins separator=":" rules=- << EOF
+1:East (Grounded)
+11:East (Floating)       
+2:West (Grounded)
+12:West (Floating)
+3:Peninsula (Grounded)
+13:Peninsula (Floating)
+4:Islands	     
+EOF
 
-r.grow input=basins output=basins_grow radius=5
-r.mapcalc "basins_grow = int(basins_grow)" --o
-
-r.colors map=basins,basins_grow color=viridis
+r.colors map=basins color=viridis
 #+END_SRC
 
 ** Basal melt
-*** Greenland
-
-+ 21 Gt/yr from Karlsson (2021) http://doi.org/10.1038/s41467-021-23739-z
-+ Assume steady state
-
-*** Antarctica
 
 Van Liefferinge (2013) http://doi.org/10.5194/cp-9-2335-2013 
 
@@ -244,20 +278,33 @@ melt.head()
 grass ./G_AQ/PERMANENT
 g.mapset -c liefferinge_2023
 r.in.xyz input=./tmp/melt.csv output=melt sep=, --o
-r.univar -g map=melt | grep sum
-r.univar -g map=melt zones=basins |grep sum
 #+END_SRC
 
-sum=69.3982306335468
-sum=46.7540492694752
-sum=18.8528624157926
-sum=3.18704264192471
+#+BEGIN_SRC bash :exports both :results verbatim
+echo "All: " $(r.univar -g map=melt | grep sum)
+echo ""
+r.univar -gt map=melt zones=basins | cut -d"|" -f2,13 | column -s"|" -t
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+All:  sum=69.3982306335468
+
+label                 sum
+East (Grounded)       45.7178033424208
+West (Grounded)       18.0714170862276
+Peninsula (Grounded)  2.93302497694997
+Islands               0.279139711405429
+East (Floating)       1.03624592705523
+West (Floating)       0.781445329564939
+Peninsula (Floating)  0.254017664974735
+#+end_example
 
 ** Antarctic Ice shelves
 
-*** Mass loss from Davison 2023
-
 **** Submarine melt
+
++ Davison (2023) http://doi.org/10.1126/sciadv.adi0186 
 
 #+BEGIN_SRC jupyter-python :exports both
 import pandas as pd
@@ -302,23 +349,21 @@ for dfidx,ewidx in idx.T:
     df.iloc[dfidx] = arr
 df = df.drop(columns=['latitude','longitude'])
     
-df.loc['Total'] = df.sum(axis='rows', numeric_only=True)
-df.loc['Total', 'Region'] = 'All'
+df.loc['Total'] = [df['Mass'].sum(), None, 'All']
 
-df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
-
+df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 #+END_SRC
 
 #+RESULTS:
 :RESULTS:
-: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
-:   warnings.warn(
-| Region    |   Mass |
-|-----------+--------|
-| All       |   1087 |
-| East      |    321 |
-| Peninsula |    173 |
-| West      |    593 |
+: /tmp/ipykernel_1220053/4002790239.py:43: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+:   df.loc['Total'] = [df['Mass'].sum(), None, 'All']
+| Region    |     Mass |
+|-----------+----------|
+| All       | 1087.2   |
+| East      |  321.123 |
+| Peninsula |  172.74  |
+| West      |  593.128 |
 :END:
 
 
@@ -360,22 +405,21 @@ for dfidx,ewidx in idx.T:
     df.iloc[dfidx] = arr
 df = df.drop(columns=['latitude','longitude'])
     
-df.loc['Total'] = df.sum(axis='rows', numeric_only=True)
-df.loc['Total', 'Region'] = 'All'
+df.loc['Total'] = [df['Mass'].sum(), None, 'All']
 
-df.groupby('Region').sum(numeric_only=True).drop('Islands').round()
+df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 #+END_SRC
 
 #+RESULTS:
 :RESULTS:
-: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/array.py:1406: UserWarning: CRS not set for some of the concatenation inputs. Setting output's CRS as WGS 84 / Antarctic Polar Stereographic (the single non-null crs provided).
-:   warnings.warn(
-| Region    |   Mass |
-|-----------+--------|
-| All       |   1544 |
-| East      |    560 |
-| Peninsula |    236 |
-| West      |    746 |
+: /tmp/ipykernel_1220053/519284814.py:32: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+:   df.loc['Total'] = [df['Mass'].sum(), None, 'All']
+| Region    |     Mass |
+|-----------+----------|
+| All       | 1543.55  |
+| East      |  560.3   |
+| Peninsula |  236.416 |
+| West      |  745.595 |
 :END:
 
 
@@ -583,7 +627,7 @@ g.region rows=148 cols=176 w=-3010000 e=3115000 s=-2555000 n=2590000 -p
 g.region e=e+17500 w=w-17500 s=s-17500 n=n+17500 rows=148 cols=176 -p
 r.region -c map=MSK
 
-r.out.gdal -c -m input=basins_grow output=./tmp/basins.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
+r.out.gdal -c -m input=basins@PERMANENT output=./tmp/basins.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
 #+END_SRC
 
 **** Report RCM values
@@ -598,23 +642,24 @@ import shapely
 import matplotlib.pyplot as plt
 
 ds = xr.open_dataset('./dat/MARv3.12-ANT.nc4')\
-    .rename({'TIME2':'time'})\
-    .mean(dim='time')
+    .rename({'TIME2':'time'})
 
 ds = ds.rio.write_crs('EPSG:3031')
 
 # east vs west (see GRASS code above)
 basins = rio.open('tmp/basins.tif').read().squeeze()
 ds['basins'] = (('Y','X'), basins[::-1,:])
-# dsE = ds.where(ds['basins'] == 1)
-# dsW = ds.where(ds['basins'] == 2)
 
 # Mask to ice
 ds = ds.where(ds['MSK'] > 50)
+ds = ds.sel({'time':slice(2000,2019)})
+ds = ds.where(ds['basins'] > 0)
+ds = ds.mean(dim='time')
 
 # Add new terms and limit to terms of interest
 ds['RFZ'] = ds['ME'] + ds['RF'] - ds['RU']
-vars = ['SF','RF','RU','SU','ME','RFZ']
+ds['SMB'] = ds['SF'] + ds['RF'] - ds['RU'] - ds['SU']
+ds2 = ds[['SF','RF','RU','SU','ME','RFZ','SMB']]
 
 # scale
 ## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
@@ -622,74 +667,78 @@ vars = ['SF','RF','RU','SU','ME','RFZ']
 ## + m w.eq -> kg: *1E3
 ## + area in km^2 -> m^2: *1E3*1E3
 ## + kg -> Gt: /1E12
-ds[vars] = ds[vars]/1E3 * 1E3 * ds['AREA']*1E3*1E3 / 1E12
+ds2 = (ds2 / 1E3) * 1E3 * ds['AREA']*1E3*1E3 / 1E12
 
 print("All:")
-print(ds[vars].sum().round().astype(int))
+print(ds2.sum().round().astype(int))
 
 print("\nEast:")
-print(ds[vars].where(ds['basins'] == 1).sum().round().astype(int))
+print(ds2.where(ds['basins'] == 1).sum().round().astype(int))
 
 print("\nWest:")
-print(ds[vars].where(ds['basins'] == 2).sum().round().astype(int))
+print(ds2.where(ds['basins'] == 2).sum().round().astype(int))
 
 print("\nPeninsula:")
-print(ds[vars].where(ds['basins'] == 3).sum().round().astype(int))
+print(ds2.where(ds['basins'] == 3).sum().round().astype(int))
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
 All:
-<xarray.Dataset>
+<xarray.Dataset> Size: 64B
 Dimensions:      ()
 Coordinates:
-    spatial_ref  int64 0
+    spatial_ref  int64 8B 0
 Data variables:
-    SF           int64 2924
-    RF           int64 13
-    RU           int64 26
-    SU           int64 165
-    ME           int64 164
-    RFZ          int64 151
+    SF           int64 8B 2751
+    RF           int64 8B 6
+    RU           int64 8B 9
+    SU           int64 8B 157
+    ME           int64 8B 107
+    RFZ          int64 8B 104
+    SMB          int64 8B 2591
 
 East:
-<xarray.Dataset>
+<xarray.Dataset> Size: 64B
 Dimensions:      ()
 Coordinates:
-    spatial_ref  int64 0
+    spatial_ref  int64 8B 0
 Data variables:
-    SF           int64 1612
-    RF           int64 2
-    RU           int64 4
-    SU           int64 140
-    ME           int64 52
-    RFZ          int64 50
+    SF           int64 8B 1555
+    RF           int64 8B 1
+    RU           int64 8B 3
+    SU           int64 8B 133
+    ME           int64 8B 42
+    RFZ          int64 8B 40
+    SMB          int64 8B 1420
 
 West:
-<xarray.Dataset>
+<xarray.Dataset> Size: 64B
 Dimensions:      ()
 Coordinates:
-    spatial_ref  int64 0
+    spatial_ref  int64 8B 0
 Data variables:
-    SF           int64 875
-    RF           int64 1
-    RU           int64 0
-    SU           int64 13
-    ME           int64 15
-    RFZ          int64 15
+    SF           int64 8B 869
+    RF           int64 8B 1
+    RU           int64 8B 0
+    SU           int64 8B 13
+    ME           int64 8B 14
+    RFZ          int64 8B 14
+    SMB          int64 8B 857
 
 Peninsula:
-<xarray.Dataset>
+<xarray.Dataset> Size: 64B
 Dimensions:      ()
 Coordinates:
-    spatial_ref  int64 0
+    spatial_ref  int64 8B 0
 Data variables:
-    SF           int64 330
-    RF           int64 5
-    RU           int64 8
-    SU           int64 11
-    ME           int64 59
-    RFZ          int64 56
+    SF           int64 8B 327
+    RF           int64 8B 4
+    RU           int64 8B 6
+    SU           int64 8B 11
+    ME           int64 8B 52
+    RFZ          int64 8B 50
+    SMB          int64 8B 315
 #+end_example
 
 * Misc
