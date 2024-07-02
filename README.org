@@ -15,6 +15,7 @@
     - [[#basal-melt][Basal melt]]
     - [[#gz-retreat][GZ retreat]]
     - [[#smb][SMB]]
+    - [[#discharge][Discharge]]
   - [[#antarctica][Antarctica]]
     - [[#reset-1][Reset]]
     - [[#masks-east-west-peninsula-islands-grounded-and-shelves][Masks: East, West, Peninsula, Islands, Grounded and Shelves]]
@@ -60,9 +61,9 @@ All figures are width-proportional within and between each other.
 | EV     | Evaporation              |    10 | O   | 2000-2019 | fettweis_2020   | guesstimate                 |
 | RU     | Runoff                   |   440 | O   | 2000-2019 | fettweis_2020   |                             |
 | BM     | Basal melting            |    20 | O   |    steady | karlsson_2020   |                             |
-| DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
-| SUB    | Submarine melting        |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
-| ICE    | Calving                  |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
+| DYN    | Discharge                |   490 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
+| SUB    | Submarine melting        |   245 | O   |           | enderlin_2013   | 50 % of discharge           |
+| ICE    | Calving                  |   245 | O   |           | enderlin_2013   | 50 % of discharge           |
 | GZRET  | Grounding line retreat ? |     5 | O   |           | See methods     | guesstimate                 |
 | FRLOSS | Frontal retreat          |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
 | FRGAIN | Frontal advance          |     0 | O   |           |                 | None in GL                  |
@@ -126,7 +127,7 @@ for var in SF RF RU SU ME SMB EVA CON DEP SUB MSK AREA; do
   r.region -c map=${var}
 done
 
-r.mapcalc "GL_ice_all = (MSK > 50) & ((x()-y()) > 520000)"
+r.mapcalc "GL_ice_all = (MSK > 50) & ((x()-y()) > 520000)" # Limit to ice and remove Canada
 r.clump input=GL_ice output=clumps --o
 main_clump=$(r.stats -c -n clumps sort=desc | head -n2 | tail -n1 | cut -d" " -f1)
 r.mapcalc "GL_ice = if(clumps == ${main_clump}, 1, null())"
@@ -166,6 +167,21 @@ DEP sum=12.2697684982692
 SUB sum=61.8983408836194
 RFZ sum=194.430570032905
 #+end_example
+
+*** Discharge
+
+#+BEGIN_SRC jupyter-python :exports both
+import pandas as pd
+df = pd.read_csv('/home/kdm/data/Mankoff_2020/ice/GIS_D.csv', index_col=0, parse_dates=True)
+
+df = df['2000-01-01':'2019-12-31']
+df.resample('YS').mean().mean().round().astype(int).values[0]
+#+END_SRC
+
+#+RESULTS:
+: 487
+
+
 
 ** Antarctica
 

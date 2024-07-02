@@ -7,9 +7,9 @@ RFZ,Refreezing,195,IO,2000-2019,fettweis_2020,RFZ = ME + RF - RU
 EV,Evaporation,10,O,2000-2019,fettweis_2020,guesstimate
 RU,Runoff,440,O,2000-2019,fettweis_2020,
 BM,Basal melting,20,O,steady,karlsson_2020,
-DYN,Discharge,500,-,2000-2019,mankoff_2020,Submarine melting + calving
-SUB,Submarine melting,250,O,,enderlin_2013,50 % of discharge
-ICE,Calving,250,O,,enderlin_2013,50 % of discharge
+DYN,Discharge,490,-,2000-2019,mankoff_2020,Submarine melting + calving
+SUB,Submarine melting,245,O,,enderlin_2013,50 % of discharge
+ICE,Calving,245,O,,enderlin_2013,50 % of discharge
 GZRET,Grounding line retreat ?,5,O,,See methods,guesstimate
 FRLOSS,Frontal retreat,50,O,2000-2020,kochtitzky_2023,
 FRGAIN,Frontal advance,0,O,,,None in GL
