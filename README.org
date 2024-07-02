@@ -55,10 +55,10 @@ All figures are width-proportional within and between each other.
 | RF     | Rainfall                 |    45 | I   | 2000-2019 | fettweis_2020   |                             |
 | CD     | Condensation             |     5 | I   | 2000-2019 | fettweis_2020   | guesstimate                 |
 | DP     | Deposition               |    10 | I   | 2000-2019 | fettweis_2020   | guesstimate                 |
-| SF     | Snowfall                 |   700 | I   | 2000-2019 | fettweis_2019   |                             |
-| RFZ    | Refreezing               |   200 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
+| SF     | Snowfall                 |   685 | I   | 2000-2019 | fettweis_2019   |                             |
+| RFZ    | Refreezing               |   195 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
 | EV     | Evaporation              |    10 | O   | 2000-2019 | fettweis_2020   | guesstimate                 |
-| RU     | Runoff                   |   450 | O   | 2000-2019 | fettweis_2020   |                             |
+| RU     | Runoff                   |   440 | O   | 2000-2019 | fettweis_2020   |                             |
 | BM     | Basal melting            |    20 | O   |    steady | karlsson_2020   |                             |
 | DYN    | Discharge                |   500 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
 | SUB    | Submarine melting        |   250 | O   |           | enderlin_2013   | 50 % of discharge           |
@@ -66,7 +66,7 @@ All figures are width-proportional within and between each other.
 | GZRET  | Grounding line retreat ? |     5 | O   |           | See methods     | guesstimate                 |
 | FRLOSS | Frontal retreat          |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
 | FRGAIN | Frontal advance          |     0 | O   |           |                 | None in GL                  |
-| SU     | Sublimation              |    65 | O   | 2000-2019 | fettweis_2020   |                             |
+| SU     | Sublimation              |    60 | O   | 2000-2019 | fettweis_2020   |                             |
 | DD     | Drawdown                 |       | -   |           | Derived         | sum(O) - sum(I)             |
 | MG     | Mass gain                |       | -   |           | Derived         | sum(I) - sum(O)             |
 #+CAPTION: Greenland mass flow terms, values, and metadata
@@ -121,12 +121,10 @@ ncdump -v Y20_200 tmp/MAR_GL.nc # 181
 g.region w=$(( -645000 - 7500 )) e=$(( 855000 + 7500 )) s=$(( -3357928 - 7500 )) n=$((-657928 + 7500 )) res=15000 -p
 
 var=SF # debug
-for var in SF RF RU SU ME SMB EVA CON DEP SUB MSK; do
+for var in SF RF RU SU ME SMB EVA CON DEP SUB MSK AREA; do
   r.in.gdal -o input=NetCDF:tmp/MAR_GL.nc:${var} output=${var}
   r.region -c map=${var}
 done
-r.mapcalc "AREA = 15*15" # approx cell area b/c not provided with data
-
 
 r.mapcalc "GL_ice_all = (MSK > 50) & ((x()-y()) > 520000)"
 r.clump input=GL_ice output=clumps --o
@@ -157,16 +155,16 @@ done
 
 #+RESULTS:
 #+begin_example
-SF sum=696.615813562499
-RF sum=46.8772385625001
-RU sum=447.0171060375
-ME sum=597.838173187501
-SMB sum=239.736101175
-EVA sum=7.97627103749998
-CON sum=2.21466825
-DEP sum=12.1459762125
-SUB sum=62.38499715
-RFZ sum=197.6983057125
+SF sum=686.768815213334
+RF sum=45.5535346610575
+RU sum=440.665680238757
+ME sum=589.542715610605
+SMB sum=235.536411205988
+EVA sum=7.9188290228966
+CON sum=2.15906279235185
+DEP sum=12.2697684982692
+SUB sum=61.8983408836194
+RFZ sum=194.430570032905
 #+end_example
 
 ** Antarctica
@@ -175,17 +173,25 @@ RFZ sum=197.6983057125
 | Code | Term                 | Value | I/O |    Period | Source              | Comment               |
 |------+----------------------+-------+-----+-----------+---------------------+-----------------------|
 | SMB  | Surface mass balance |  2021 | IO  | 1979-2008 | rignot_2019 table 1 | 2098AQ-77Islands=2021 |
-| SMB  | Surface mass balance |  2590 | IO  | 2000-2019 | fettweis_2020       | WITH shelves          |
+| SMB  | Surface mass balance |  2582 | IO  | 2000-2019 | fettweis_2020       | WITH shelves          |
 | DYN  | Discharge            |  2229 | O   | 2009-2017 | rignot_2019 table 1 | 2306-77               |
-| DD   | Drawdown             |   208 | -   |           | Derived             | .= sum(O) - sum(I)    |
+
+Davison  2023
+| DIS | Discharge            | 1838 | O | ?? | davison_2023 | SUM(C7:C168)             |
+| BM  | Basal melt           |  902 | O |    |              | SUM(E7:E168)             |
+| C   | Calving              | 1348 | O |    |              | SUM(G7:G168)             |
+| SMB | Surface mass balance |  412 | I |    |              | SUM(I7:I168) shelf only  |
+
+902+1348-412 = 1838
+
 
 #+NAME: aq_baseline
 | Code   | Term                     |        Value | I/O |    Period | Source               | Comment                           |
 |--------+--------------------------+--------------+-----+-----------+----------------------+-----------------------------------|
 | RF     | Rainfall                 |            5 | I   | 2000-2019 | fettweis_2020        |                                   |
 | CD     | Condensation             |            1 | I   | 2000-2019 | fettweis_2020        |                                   |
-| DP     | Deposition               |           75 | I   | 2000-2019 | fettweis_2020        |                                   |
-| SF     | Snowfall                 |         2745 | I   | 2000-2019 | fettweis_2020        |                                   |
+| DP     | Deposition               |           80 | I   | 2000-2019 | fettweis_2020        |                                   |
+| SF     | Snowfall                 |         2750 | I   | 2000-2019 | fettweis_2020        |                                   |
 | RFZ    | Refreezing               |          105 | IO  | 2000-2019 | fettweis_2020        |                                   |
 | EV     | Evaporation              |            5 | O   | 2000-2019 | fettweis_2020        |                                   |
 | RU     | Runoff                   |           10 | O   | 2000-2019 | fettweis_2020        |                                   |
@@ -260,11 +266,10 @@ ncdump -v Y tmp/MAR_AQ.nc # 148
 g.region w=$(( -3010000 - 17500 )) e=$(( 3115000 + 17500 )) s=$(( -2555000 - 17500 )) n=$(( 2590000 + 17500 )) res=35000 -p
 
 var=SF # debug
-for var in SF RF RU ME SMB EVA CON DEP SUB MSK; do
+for var in SF RF RU ME SMB EVA CON DEP SUB MSK AREA; do
   r.in.gdal -o input=NetCDF:tmp/MAR_AQ.nc:${var} output=${var}
   r.region -c map=${var}
 done
-r.mapcalc "AREA = 35*35" # approx cell area b/c not provided with data
 
 # scale
 ## units are mm.w.eq. per grid cell. Grid cell areas are in km^2
@@ -282,7 +287,7 @@ r.mapcalc "RFZ = ME + RF - RU"
 
 **** Stats
 #+BEGIN_SRC bash :exports both :results verbatim
-r.mask --o raster=basins@PERMANENT --q maskcats="1 2 3 10 thru 20"
+r.mask --o raster=basins@PERMANENT --q maskcats="1 thru 3 10 thru 20" # drop 0 and Islands
 for var in SF RF RU ME SMB EVA CON DEP SUB RFZ; do
   echo -n "${var}"
   r.univar -gt map=${var} zones=basins@PERMANENT | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
@@ -296,94 +301,94 @@ r.mask -r --q
 #+begin_example
 [Raster MASK present]
 SF
-East (Grounded)       1387.407188825
-West (Grounded)       673.891075287499
-Peninsula (Grounded)  274.5307963125
-East (Floating)       172.951410625
-West (Floating)       176.842405075
-Peninsula (Floating)  57.63085265
-sum=2743.253728775
+East (Grounded)       1383.5170055779
+West (Grounded)       688.480301166503
+Peninsula (Grounded)  270.324169435779
+East (Floating)       172.41137746281
+West (Floating)       180.27593549343
+Peninsula (Floating)  56.6841289993761
+sum=2751.6929181358
 
 RF
-East (Grounded)       0.541448162499999
-West (Grounded)       0.216686575
-Peninsula (Grounded)  2.1756300125
-East (Floating)       0.8517247375
-West (Floating)       0.442836275
-Peninsula (Floating)  2.348791725
-sum=6.57711748750004
+East (Grounded)       0.53173174128475
+West (Grounded)       0.22197445329555
+Peninsula (Grounded)  2.1110471117335
+East (Floating)       0.842541426357001
+West (Floating)       0.4498711186449
+Peninsula (Floating)  2.307238481508
+sum=6.46440433282369
 
 RU
-East (Grounded)       1.57932145
-West (Grounded)       0.005827325
-Peninsula (Grounded)  1.9542541375
-East (Floating)       1.544949175
-West (Floating)       0.0298606
-Peninsula (Floating)  4.4696152375
-sum=9.58382792499999
+East (Grounded)       1.53022074184155
+West (Grounded)       0.0059355454226
+Peninsula (Grounded)  1.8834556710495
+East (Floating)       1.5089940427256
+West (Floating)       0.0304982132294
+Peninsula (Floating)  4.35827769837335
+sum=9.317381912642
 
 ME
-East (Grounded)       15.84688175
-West (Grounded)       4.2583793
-Peninsula (Grounded)  17.7612768375
-East (Floating)       26.8997841875
-West (Floating)       9.09591654999999
-Peninsula (Floating)  35.12077205
-sum=108.983010675
+East (Grounded)       15.4802688824357
+West (Grounded)       4.3355515366436
+Peninsula (Grounded)  17.3666975625616
+East (Floating)       26.407263870097
+West (Floating)       9.2284017518
+Peninsula (Floating)  34.440989714197
+sum=107.259173317735
 
 SMB
-East (Grounded)       1270.365507075
-West (Grounded)       664.4213965375
-Peninsula (Grounded)  266.942247775
-East (Floating)       153.5473230375
-West (Floating)       174.5008727
-Peninsula (Floating)  52.2455756375
-sum=2582.02292276251
+East (Grounded)       1268.09953548228
+West (Grounded)       678.756441138014
+Peninsula (Grounded)  262.863634061747
+East (Floating)       153.249402230902
+West (Floating)       177.921656614902
+Peninsula (Floating)  51.4267222532681
+sum=2592.31739178111
 
 EVA
-East (Grounded)       0.6101841375
-West (Grounded)       0.19152385
-Peninsula (Grounded)  0.70492625
-East (Floating)       0.70472045
-West (Floating)       0.2383121125
-Peninsula (Floating)  0.7163720375
-sum=3.1660388375
+East (Grounded)       0.60507218584105
+West (Grounded)       0.195446970963
+Peninsula (Grounded)  0.68838986544795
+East (Floating)       0.70256713317005
+West (Floating)       0.2422464141299
+Peninsula (Floating)  0.70164322473235
+sum=3.1353657942843
 
 CON
-East (Grounded)       0.0014742875
-West (Grounded)       0.0022950375
-Peninsula (Grounded)  0.0130732
-East (Floating)       0.0031794875
-West (Floating)       0.001904875
-Peninsula (Floating)  0.0360572625
-sum=0.0579841499999998
+East (Grounded)       0.00144321189675
+West (Grounded)       0.00237202472355
+Peninsula (Grounded)  0.01264862146645
+East (Floating)       0.0031724865901
+West (Floating)       0.0019547481581
+Peninsula (Floating)  0.03522553443475
+sum=0.0568166272697001
 
 DEP
-East (Grounded)       35.9887286500001
-West (Grounded)       21.823741275
-Peninsula (Grounded)  5.408324775
-East (Floating)       5.671917825
-West (Floating)       5.91887476249999
-Peninsula (Floating)  1.5282824375
-sum=76.3398697249999
+East (Grounded)       36.3995731586915
+West (Grounded)       22.3853823370692
+Peninsula (Grounded)  5.3339705229687
+East (Floating)       5.70103389655939
+West (Floating)       6.05853236904585
+Peninsula (Floating)  1.5062480433876
+sum=77.384740327722
 
 SUB
-East (Grounded)       151.786921475
-West (Grounded)       31.4180472375
-Peninsula (Grounded)  12.4120436125
-East (Floating)       23.6493324375
-West (Floating)       8.38783041249999
-Peninsula (Floating)  4.0048882125
-sum=231.659063387501
+East (Grounded)       150.624482553971
+West (Grounded)       32.2385823068849
+Peninsula (Grounded)  12.2348077688132
+East (Floating)       23.4661462650309
+West (Floating)       8.5418917438099
+Peninsula (Floating)  3.94097993607855
+sum=231.046890574587
 
 RFZ
-East (Grounded)       14.8090084625
-West (Grounded)       4.46923855
-Peninsula (Grounded)  17.9826527125
-East (Floating)       26.20655975
-West (Floating)       9.50889222500001
-Peninsula (Floating)  32.9999485375
-sum=105.9763002375
+East (Grounded)       14.4817798818789
+West (Grounded)       4.55159044451654
+Peninsula (Grounded)  17.5942890032456
+East (Floating)       25.7408112537284
+West (Floating)       9.64777465721551
+Peninsula (Floating)  32.3899504973317
+sum=104.406195737917
 
 [Raster MASK present]
 #+end_example

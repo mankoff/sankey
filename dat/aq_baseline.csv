@@ -1,8 +1,8 @@
 Code,Term,Value,I/O,Period,Source,Comment
 RF,Rainfall,5,I,2000-2019,fettweis_2020,
 CD,Condensation,1,I,2000-2019,fettweis_2020,
-DP,Deposition,75,I,2000-2019,fettweis_2020,
-SF,Snowfall,2745,I,2000-2019,fettweis_2020,
+DP,Deposition,80,I,2000-2019,fettweis_2020,
+SF,Snowfall,2750,I,2000-2019,fettweis_2020,
 RFZ,Refreezing,105,IO,2000-2019,fettweis_2020,
 EV,Evaporation,5,O,2000-2019,fettweis_2020,
 RU,Runoff,10,O,2000-2019,fettweis_2020,
