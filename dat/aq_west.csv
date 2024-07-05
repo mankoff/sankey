@@ -1,14 +1,14 @@
 Label,Description,Value,Reference
-RFZ,Refreeze (after melt),15,MAR
-SF,Snowfall,920,MAR
-RF,Rainfall,1,MAR
+RFZ,Refreeze,15,fettweis_2020
+SF,Snowfall,875,fettweis_2020
+RF,Rainfall,1,fettweis_2020
 CD,Condensation,10,
 DP,Deposition,10,
 FRLOSS,Frontal retreat,145,greene_2022
 FRGAIN,Frontal advance,105,green_2022
 GZRET,Grounding line retreat,45,TODO
-SU,Sublimation,10,MAR
-RU,Runoff,1,MAR
+SU,Sublimation,15,fettweis_2020
+RU,Runoff,1,fettweis_2020
 DYN,Dynamics,745+590,davison_2023
 ICE,Icebergs,745,davison_2023
 SUB,Submarine melt,590,davison_2023

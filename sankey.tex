@@ -11,7 +11,7 @@
 
 \selectcolormodel{cmyk} % Can be rbg or cmyk, cmyk is better for printing
 
-\begin{tikzpicture}[remember picture, overlay, shift={(5.5,-1.5)}]
+\begin{tikzpicture}[remember picture, overlay, shift={(5,-5)}]
 
   \begin{sankeydiagram}
     %% \sankeyset{debug=true}
@@ -30,33 +30,32 @@
         draw=white,
         line width=0pt,line cap=round,line join=round,
       },
-      every node/.style={angle=-90},
       start style=arrow,end style=arrow,
       %% fill/.style={fill=yellow!10,line width=0pt,draw=yellow!10},
-      ratio=1mm/33,
+      ratio=1mm/60,
       minimum radius=0mm,
       water/.style={fill/.style={draw=water,line width=0pt,fill=water,},},
       ice/.style={fill/.style={draw=ice,line width=0pt,fill=ice,},},
       air/.style={fill/.style={draw=air,line width=0pt,fill=air,},},
       black/.style={fill/.style={draw=black,line width=0pt,fill=black,},},
-      ice-to-water/.style={fill/.style={fill=none, top color=ice, bottom color=water},},
-      ice-to-water-horiz/.style={fill/.style={fill=none, right color=ice, left color=water},},
-      ice-to-air/.style={fill/.style={fill=none, top color=ice, bottom color=air},},
-      ice-to-air-horiz/.style={fill/.style={fill=none, left color=ice, right color=air},},
-      water-to-air-horiz/.style={fill/.style={fill=none, right color=water, left color=air},},
-      water-to-air/.style={fill/.style={fill=none, top color=water, bottom color=air},},
-      air-to-ice/.style={fill/.style={fill=none, top color=air, bottom color=ice},},
       red/.style={fill/.style={fill=none, top color=red, bottom color=red},},
-      red-to-ice/.style={fill/.style={fill=none, top color=red, bottom color=ice},},
-      water-to-ice/.style={fill/.style={fill=none, top color=water, bottom color=ice},},
-      ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
+      ice-to-water/.style={fill/.style={fill=none, left color=ice, right color=water},},
+      ice-to-air/.style={fill/.style={fill=none, left color=ice, right color=air},},
+      ice-to-black/.style={fill/.style={fill=none, top color=ice, bottom color=black},},
+      ice-to-air-vert/.style={fill/.style={fill=none, top color=ice, bottom color=air},},
+      ice-to-water-vert/.style={fill/.style={fill=none, bottom color=ice, top color=water},},
+      water-to-air-vert/.style={fill/.style={fill=none, right color=water, left color=air},},
+      water-to-air/.style={fill/.style={fill=none, left color=water, right color=air},},
+      air-to-ice/.style={fill/.style={fill=none, left color=air, right color=ice},},
+      red-to-ice/.style={fill/.style={fill=none, left color=red, right color=ice},},
+      water-to-ice/.style={fill/.style={fill=none, left color=water, right color=ice},},
       black-to-ice/.style={fill/.style={fill=none, bottom color=ice, top color=black},},
       in-black/.style={draw/.style={draw=gray,thick=3},},
       out-red/.style={draw/.style={draw=red,thick=3},},
       debug label/.style={
         overlay,
         draw,
-        font=\ttfamily,
+        font=\tiny,
         text=debug color,text opacity=1,
         inner sep=.1em,
         fill=white,fill opacity=0.5,
@@ -79,13 +78,13 @@
     % all nodes with their name, label and quantity
     \newcommand\qq[1]{\sankeygetnodeqty{#1}}
 
-    \newcommand\abovelabel[1]{ % valname
-      \node[font=\tiny, rotate=45, anchor=north west]
-      at ([yshift=5mm,xshift=-3mm]#1.center) {\qq{#1}: \Lab{v#1}};
+    \newcommand\labelleft[1]{ % valname
+      \node[font=\tiny, anchor=east]
+      at ([yshift=0mm,xshift=-3mm]#1.center) {\Lab{v#1}: \qq{#1}};
     }
-    \newcommand\belowlabel[2]{ % valname
-      \node[font=\tiny, rotate=45, anchor=north east]
-      at ([yshift=-2mm,xshift=0mm]#1.center) {\Lab{#2}: \qq{#1}};
+    \newcommand\labelright[2]{ % valname
+      \node[font=\tiny, anchor=west]
+      at ([yshift=0mm,xshift=3mm]#1.center) {\qq{#1}: \Lab{#2}};
     }
 
     \sankeyset{
@@ -107,17 +106,17 @@
     }
 
     \sankeyset{ice} % default color until otherwise specified
-    \newcommand\xoff{2mm}
+    \newcommand\yoff{2mm}
 
     \sankeynode{name=SF, quantity=\Q{vSF}}
-    \sankeynode{name=DP, quantity=\Q{vDP}, at={[xshift=-\xoff]SF.right}, anchor=left}
-    \sankeynode{name=CD, quantity=\Q{vCD}, at={[xshift=-\xoff]DP.right}, anchor=left}
-    \sankeynode{name=RF, quantity=\Q{vRF}, at={[xshift=-\xoff]CD.right}, anchor=left}
+    \sankeynode{name=DP, quantity=\Q{vDP}, at={[yshift=\yoff]SF.north}, anchor=right}
+    \sankeynode{name=CD, quantity=\Q{vCD}, at={[yshift=\yoff]DP.north}, anchor=right}
+    \sankeynode{name=RF, quantity=\Q{vRF}, at={[yshift=\yoff]CD.north}, anchor=right}
 
-    \abovelabel{SF}
-    \abovelabel{DP}
-    \abovelabel{CD}
-    \abovelabel{RF}
+    \labelleft{SF}
+    \labelleft{DP}
+    \labelleft{CD}
+    \labelleft{RF}
 
     \sankeystart{SF}
     \sankeystart[air]{DP}
@@ -125,8 +124,8 @@
     \sankeystart[water]{RF}
 
     \sankeynode{name=f0, quantity=\Q{vSF}+\Q{vDP}+\Q{vCD}+\Q{vRF},
-      at={[yshift=-15mm]SF.left}, anchor=left,
-      forked={\Q{vSF}/SFi, \Q{vDP}/DPi, \Q{vCD}/CDi, \Q{vRF}/RFi}}
+      at={[xshift=15mm, yshift=0mm]SF.right}, anchor=right,
+      forked={\Q{vRF}/RFi, \Q{vCD}/CDi, \Q{vDP}/DPi, \Q{vSF}/SFi}}
 
     \sankeyoutin{SF}{SFi}
     \sankeydubins[minimum radius=3mm,air-to-ice]{DP}{DPi}
@@ -135,12 +134,12 @@
 
     \ifthenelse{\Q{vMG} > \Q{vML}} {
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN},
-          at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\qq{f0}/f0i, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
+          at={[xshift=15mm]f0.right}, anchor=right,
+          forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \qq{f0}/f0i}}
     } {
         \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN},
-          at={[yshift=-15mm]f0.left}, anchor=left,
-          forked={\qq{f0}/f0i, \Q{vML}/MLi, \Q{vFRGAIN}/FG, \Q{vRFZ}/RFZi}}
+          at={[xshift=15mm]f0.right}, anchor=right,
+          forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \Q{vML}/MLi, \qq{f0}/f0i}}
     }
 
     \sankeyoutin{f0}{f0i}
@@ -148,120 +147,112 @@
 
     \ifthenelse{\Q{vMG} > \Q{vML}}
     {
-      \sankeyfork{f1}{
-        \Q{vMG}/MG,
-        \Q{vSU}/SU,
-        \Q{vFRLOSS}/FL,
-        \Q{vGZRET}/GZ,
-        \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
-    }
-    {
+      \sankeyfork{f1}{\Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/f8, \Q{vDYN}/f6,
+        \Q{vGZRET}/GZ, \Q{vFRLOSS}/FL, \Q{vBM}/BM, \Q{vMG}/MG}
+    }{
       \sankeyfork{f1}{
         %% \Q{vMG}/MG,
-        \Q{vSU}/SU,
-        \Q{vFRLOSS}/FL,
-        \Q{vGZRET}/GZ,
-        \Q{vDYN}/f6, \Q{vBM}/BM, \Q{vRU}+\Q{vEV}/f8, \Q{vRFZ}/RFZo}
+        \Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/f8, \Q{vDYN}/f6,
+        \Q{vGZRET}/GZ, \Q{vFRLOSS}/FL, \Q{vBM}/BM}
     }
 
-    \sankeydubins[minimum radius=5mm,ice-to-water-horiz]{RFZo}{RFZi}
+    \sankeyturnleft{RFZo}{1}
+    \sankeydubins[minimum radius=5mm,ice-to-water-vert]{RFZo}{RFZi}
 
     \sankeyadvance{f6}{10mm}
-    \sankeyfork{f6}{\Q{vICE}/D, \Q{vSUB}/SUB}
-    \sankeyadvance{D}{10mm}
+    \sankeyfork{f6}{\Q{vICE}/CALV, \Q{vSUB}/SUB}
+    \sankeyadvance[ice-to-water]{SUB}{10mm}
 
-    \sankeynode{name=SUBa, quantity=\qq{SUB}, at={[xshift=-\xoff]D.right}, anchor=left}
-    \sankeyoutin[ice-to-water]{SUB}{SUBa}
+    \sankeynode{name=CALVa, quantity=\qq{CALV}, at={[yshift=\yoff]SUB.left}, anchor=right}
+    \sankeyoutin{CALV}{CALVa}
 
-    \sankeynode{name=BMa, quantity=\qq{BM}, at={[xshift=-\xoff]SUBa.right}, anchor=left}
-    \sankeyoutin[ice-to-water]{BM}{BMa}
-
-    \sankeynode{name=f8a, quantity=\qq{f8}, at={[xshift=-\xoff]BMa.right}, anchor=left}
+    \sankeynode{name=f8a, quantity=\qq{f8}, at={[yshift=\yoff]CALVa.left}, anchor=right}
     \sankeyoutin[ice-to-water]{f8}{f8a}
 
-    \sankeynode{name=GZa, quantity=\qq{GZ}, at={[xshift=\xoff]D.left}, anchor=right}
+    \sankeynode{name=GZa, quantity=\qq{GZ}, at={[yshift=-\yoff]SUB.right}, anchor=left}
     \sankeyoutin{GZ}{GZa}
 
-    \sankeynode{name=FLa, quantity=\qq{FL}, at={[xshift=\xoff]GZa.left}, anchor=right}
+    \sankeynode{name=FLa, quantity=\qq{FL}, at={[yshift=-\yoff]GZa.right}, anchor=left}
     \sankeyoutin{FL}{FLa}
 
-    \sankeynode{name=SUa, quantity=\qq{SU}, at={[xshift=\xoff]FLa.left}, anchor=right}
-    \sankeyoutin{SU}{SUa}
+    \sankeynode{name=BMa, quantity=\qq{BM}, at={[yshift=-\yoff]FLa.right}, anchor=left}
+    \sankeyoutin[ice-to-water]{BM}{BMa}
 
     \sankeyadvance[out-red]{FLa}{10mm}
     \sankeyend[out-red]{FLa}
-    \belowlabel{FLa}{vFRLOSS}
+    \labelright{FLa}{vFRLOSS}
 
     \ifnum \numexpr\Q{vMG} > \Q{vML}
-      \sankeynode{name=MGa, quantity=\qq{MG},
-        at={[xshift=3mm,yshift=-3mm]MG.left}, anchor=left, angle=0}
-      \node[font=\tiny, anchor=north]
-      at ([yshift=0mm,xshift=3mm]MGa.south) {\qq{MGa}: Mass gain};
+      \sankeynode{name=MGa, quantity=\qq{MG}, angle=-90,
+        at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
+      \node[font=\tiny, anchor=east]
+      at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
       \sankeyoutin{MG}{MGa}
     \fi
 
-    \sankeyfork{f8a}{\Q{vRU}/RU, \Q{vEV}/EV}
+    \sankeyfork{f8a}{\Q{vEV}/EV, \Q{vRU}/RU}
     \sankeynode{name=EVa, quantity=\qq{EV},
-      at={[xshift=-3mm,yshift=-5mm]f8a.right}, anchor=right, angle=180}
-    \sankeyoutin[water]{EV}{EVa}
-    \sankeyadvance[water-to-air-horiz]{EVa}{5mm}
+      at={[yshift=2mm,xshift=5mm]f8a.left}, anchor=left, angle=45}
+    \sankeyoutin[water-to-air]{EV}{EVa}
+    \sankeyadvance[air]{EVa}{1mm}
     \sankeyend[air]{EVa}
 
+    \sankeynode{name=SUa, quantity=\qq{SU},
+      at={[xshift=-6mm]EVa.left}, anchor=right, angle=45}
+    %% \sankeyoutin[ice-to-air{SU}{SUa}
+    \sankeydubins[minimum radius=6mm,ice-to-air]{SU}{SUa}
+    \sankeyend[air]{SUa}
+
     \ifthenelse{\Q{vMG} < \Q{vML}} { % mass loss
-      \sankeynode{name=ML, quantity=\Q{vML}, at={[xshift=-\xoff]RF.right}, anchor=left}
-      \abovelabel{ML}
+      \sankeynode{name=ML, quantity=\Q{vML},
+        at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
+      \node[font=\tiny, anchor=east]
+      at ([xshift=-3mm,yshift=2mm]ML.west) {Mass loss: \qq{ML}};
 
       % frontal advance next to drawdown (mass loss)
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
-        at={[yshift=-5mm,xshift=-\xoff]ML.right}, anchor=left}
+        at={[yshift=0mm,xshift=6mm]ML.left}, anchor=right, angle=-45}
 
       \sankeystart[red]{ML}
-      \sankeyadvance[red-to-ice]{ML}{5mm}
-      \sankeyoutin{ML}{MLi}
+      \sankeyadvance[red]{ML}{5mm}
+      \sankeyoutin[red-to-ice]{ML}{MLi}
     }{ % mass gain
       \sankeyadvance[ice-to-black]{MGa}{3mm}
       \sankeyend[black]{MGa}
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
-        at={[yshift=15mm,xshift=3mm]RFZi.right}, anchor=left}
+        at={[xshift=-15mm,yshift=8mm]RFZi.right}, anchor=left, angle=-45}
     }
 
     \ifnum \numexpr\qq{FGi} > 0
     \sankeystart[in-black]{FGi}
     \sankeyoutin[in-black]{FGi}{FG}
-    \node[font=\tiny, rotate=45, anchor=north east]
-    at ([yshift=12mm,xshift=3mm]FGi.right) {Frontal advance: \qq{FGi}};
+    \node[font=\tiny, anchor=east]
+    at ([xshift=-3mm,yshift=3mm]FGi.west) {Frontal advance: \qq{FGi}};
     \fi
-
-
-    \sankeynode{name=SUaa, quantity=\qq{SU},
-      at={[xshift=2mm,yshift=-5mm]SUa.left}, anchor=left, angle=0}
-    \sankeyoutin[ice]{SUa}{SUaa}
-    \sankeyadvance[ice-to-air-horiz]{SUaa}{2mm}
-    \sankeyend[air]{SUaa}
 
     \sankeyadvance[ice-to-water,out-red]{GZa}{10mm}
     \sankeyend[water,out-red]{GZa}
-    \sankeyadvance{D}{10mm}
-    \sankeyend{D}
+    \sankeyadvance{CALVa}{10mm}
+    \sankeyend{CALVa}
 
     \sankeyset{water}
-    \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
-    \sankeyadvance{SUBa}{10mm}; \sankeyend{SUBa}
     \sankeyadvance{RU}{10mm}; \sankeyend{RU}
+    \sankeyadvance{BMa}{10mm}; \sankeyend{BMa}
+    \sankeyadvance{SUB}{10mm}; \sankeyend{SUB}
 
-    \belowlabel{RU}{vRU}
-    \belowlabel{BMa}{vBM}
-    \belowlabel{SUBa}{vSUB}
-    \belowlabel{D}{vICE}
-    \belowlabel{GZa}{vGZRET}
+    \labelright{RU}{vRU}
+    \labelright{BMa}{vBM}
+    \labelright{SUB}{vSUB}
+    \labelright{CALVa}{vICE}
+    \labelright{GZa}{vGZRET}
 
-    \node[font=\tiny, rotate=45, anchor=north east]
-    at ([yshift=1mm,xshift=3mm]SUaa.south) {\Lab{vSU}: \qq{SUaa}};
+    \node[font=\tiny, anchor=west]
+    at ([yshift=4mm,xshift=\yoff]SUa.west) {\qq{SUa}: \Lab{vSU}};
 
-    \node[font=\tiny, rotate=45, anchor=north east]
-    at ([yshift=0mm,xshift=5mm]EVa.north) {\Lab{vEV}: \qq{EVa}};
+    \node[font=\tiny, anchor=west]
+    at ([yshift=0mm,xshift=\yoff]EVa.west) {\qq{EVa}: \Lab{vEV}};
 
-    \node[font=\tiny, anchor=west, rotate=90]
+    \node[font=\tiny, anchor=east]
     at ([yshift=-0.5mm,xshift=1mm]RFZo.center) {\Lab{vRFZ}: \qq{RFZi}};
 
   \end{sankeydiagram}

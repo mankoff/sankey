@@ -44,7 +44,11 @@ All figures are width-proportional within and between each other.
 #+CALL: pdfs2png()
 
 #+ATTR_ORG: :width 800px
-[[./fig.png]]
+[[./fig_aq_gl.png]]
+
+#+ATTR_ORG: :width 800px
+[[./fig_aq_parts.png]]
+
 
 * Implementation
 
@@ -782,20 +786,13 @@ West                 42.0
 
 #+NAME: pdfs2png
 #+BEGIN_SRC bash :exports results :results verbatim :results none
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate +15-30 'Greenland' gl_baseline.pdf tmp/gl.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'Antarctica' aq_baseline.pdf tmp/aq.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate +25-60 'East' aq_east.pdf ./tmp/aqe.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -annotate -5-30 'West' aq_west.pdf ./tmp/aqw.png
-
-convert -density 300 -background white -alpha remove -trim -gravity center -draw "translate 60,-150 rotate -90 text 0,0 'Peninsula'" aq_peninsula.pdf ./tmp/aqp.png
-
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -100+75 'Greenland' gl_baseline.pdf tmp/gl.png
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -100+50 'Antarctica' aq_baseline.pdf tmp/aq.png
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -100+50 'East' aq_east.pdf ./tmp/aqe.png
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -100+75 'West' aq_west.pdf ./tmp/aqw.png
+convert -density 300 -background white -alpha remove -trim -gravity center -annotate -100+60 'Peninsula' aq_peninsula.pdf ./tmp/aqp.png
 convert -density 300 -background transparent -alpha remove legend.svg ./tmp/legend.png
-composite -gravity center -geometry '100%x100%+300-300' tmp/legend.png tmp/aq.png tmp/aq_legend.png
-
-convert +append tmp/{gl,aq_legend}.png gl_aq.png
-convert +append tmp/{aqe,aqw,aqp}.png aq_sub.png
-convert -gravity center -append {gl_aq,aq_sub}.png ./fig.png
+composite -gravity center -geometry '100%x100%+200-90' tmp/legend.png tmp/aq.png tmp/aq_legend.png
+convert -gravity center -append tmp/{gl,aq_legend}.png ./fig_aq_gl.png
+convert -gravity center -append tmp/{aqe,aqw,aqp}.png ./fig_aq_parts.png
 #+END_SRC
