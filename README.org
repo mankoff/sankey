@@ -17,11 +17,13 @@
     - [[#smb][SMB]]
     - [[#discharge][Discharge]]
   - [[#antarctica][Antarctica]]
+    - [[#export-tables-to-csv][Export tables to CSV]]
     - [[#reset-1][Reset]]
     - [[#masks-east-west-peninsula-islands-grounded-and-shelves][Masks: East, West, Peninsula, Islands, Grounded and Shelves]]
     - [[#smb-mar][SMB (MAR)]]
     - [[#basal-melt-1][Basal melt]]
     - [[#antarctic-ice-shelves][Antarctic Ice shelves]]
+    - [[#shelf-freezemelt][Shelf freeze/melt]]
 - [[#misc][Misc]]
   - [[#export-tables-to-csvs][Export tables to CSVs]]
   - [[#convert-pdfs-to-png][Convert PDFs to PNG]]
@@ -189,48 +191,115 @@ df.resample('YS').mean().mean().round().astype(int).values[0]
 
 ** Antarctica
 
-#+NAME: third_party
-| Code | Term                 | Value | I/O |    Period | Source              | Comment               |
-|------+----------------------+-------+-----+-----------+---------------------+-----------------------|
-| SMB  | Surface mass balance |  2021 | IO  | 1979-2008 | rignot_2019 table 1 | 2098AQ-77Islands=2021 |
-| SMB  | Surface mass balance |  2582 | IO  | 2000-2019 | fettweis_2020       | WITH shelves          |
-| DYN  | Discharge            |  2229 | O   | 2009-2017 | rignot_2019 table 1 | 2306-77               |
-
-Davison  2023
-| DIS | Discharge            | 1838 | O | ?? | davison_2023 | SUM(C7:C168)             |
-| BM  | Basal melt           |  902 | O |    |              | SUM(E7:E168)             |
-| C   | Calving              | 1348 | O |    |              | SUM(G7:G168)             |
-| SMB | Surface mass balance |  412 | I |    |              | SUM(I7:I168) shelf only  |
-
-902+1348-412 = 1838
-
-
 #+NAME: aq_baseline
-| Code   | Term                     |        Value | I/O |    Period | Source               | Comment                           |
-|--------+--------------------------+--------------+-----+-----------+----------------------+-----------------------------------|
-| RF     | Rainfall                 |            5 | I   | 2000-2019 | fettweis_2020        |                                   |
-| CD     | Condensation             |            1 | I   | 2000-2019 | fettweis_2020        |                                   |
-| DP     | Deposition               |           80 | I   | 2000-2019 | fettweis_2020        |                                   |
-| SF     | Snowfall                 |         2750 | I   | 2000-2019 | fettweis_2020        |                                   |
-| RFZ    | Refreezing               |          105 | IO  | 2000-2019 | fettweis_2020        |                                   |
-| EV     | Evaporation              |            5 | O   | 2000-2019 | fettweis_2020        |                                   |
-| RU     | Runoff                   |           10 | O   | 2000-2019 | fettweis_2020        |                                   |
-| BM     | Basal melting            |           70 | O   |         - | van-liefferinge_2013 |                                   |
-| DYN    | Discharge                |  1090 + 1545 | -   |           |                      |                                   |
-| SUB    | Submarine melting        |         1090 | O   |           | davison_2023         |                                   |
-| ICE    | Calving                  |         1545 | O   |           | davison_2023         |                                   |
-| GZRET  | Grounding line retreat ? |            1 | O   |           |                      | 45 in Amundsen from Davison email |
-| FRLOSS | Frontal retreat          | 79+122+145-1 | O   |           | greene_2022          |                                   |
-| FRGAIN | Frontal advance          |    181+1+103 | O   |           | greene_2022          |                                   |
-| SU     | Sublimation              |          230 | O   | 2000-2019 | fettweis_2020        |                                   |
-| DD     | Drawdown                 |              | -   |           | Derived              | .= sum(O) - sum(I)                |
-| MG     | Mass gain                |              | -   |           | Derived              | .= sum(I) - sum(O)                |
-#+CAPTION: Antarctic mass flow terms, values, and metadata
+| Code   | Term                   |                Value | I/O |    Period | Source                              | Comment                           |
+|--------+------------------------+----------------------+-----+-----------+-------------------------------------+-----------------------------------|
+| RF     | Rainfall               |                    5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| CD     | Condensation           |                    5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| DP     | Deposition             |                   75 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| SF     | Snowfall               |                 2750 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| RFZ    | Refreezing             |                  105 | IO  | 2000-2019 | fettweis_2020                       |                                   |
+| EV     | Evaporation            |                    5 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| RU     | Runoff                 |                   10 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| BM     | Basal melting          |                   70 | O   |         - | van-liefferinge_2013                |                                   |
+| DYN    | Discharge              | 900+1350+(2275-1840) | -   |         - | Sum of SUB + ICE                    |                                   |
+| SUB    | Submarine melting      |                  900 | O   |           | davison_2023                        |                                   |
+| ICE    | Calving                |     1350+(2275-1840) | O   |           | davison_2023 + rignot_2019 grounded | (2)                               |
+| GZRET  | Grounding line retreat |                   50 | O   |           |                                     | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat        |         79+122+145-1 | O   |           | greene_2022                         |                                   |
+| FRGAIN | Frontal advance        |            181+1+103 | O   |           | greene_2022                         |                                   |
+| SU     | Sublimation            |                  230 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| DD     | Drawdown               |                      | -   |           | Derived                             | .= sum(O) - sum(I)                |
+| MG     | Mass gain              |                      | -   |           | Derived                             | .= sum(I) - sum(O)                |
+#+CAPTION: Antarctic mass flow terms, values, and metadata. Calving represents ice shelf calving (1350 Gt yr^{-1} from citet:davison_2023) plus 435 Gt yr^{-1} which is the difference between 2275 Gt yr^{-1} discharge across all sectors 1999 through 2017 from citet:rignot_2019 and 1840 Gt yr^{-1} ice shelf grounding line discharge from citet:davison_2023 - that is, 435 Gt yr^{-1} is estimated as calving from non-shelf sectors. Grounding line retreat here is largerly unknown. We estimate \(\sim\)50 Gt yr^{-1} in the Amundsen sea sector (Davison, personal communication).
+
+#+NAME: aq_east
+| Code   | Term                   |              Value | I/O |    Period | Source                              | Comment                           |
+|--------+------------------------+--------------------+-----+-----------+-------------------------------------+-----------------------------------|
+| RF     | Rainfall               |                  5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| CD     | Condensation           |                  5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| DP     | Deposition             |                 40 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| SF     | Snowfall               |               1555 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| RFZ    | Refreezing             |                 40 | IO  | 2000-2019 | fettweis_2020                       |                                   |
+| EV     | Evaporation            |                  5 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| RU     | Runoff                 |                 10 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| BM     | Basal melting          |                 70 | O   |         - | van-liefferinge_2013                |                                   |
+| DYN    | Discharge              | 390+680+(1100-910) | -   |         - | Sum of SUB + ICE                    |                                   |
+| SUB    | Submarine melting      |                390 | O   |           | davison_2023                        |                                   |
+| ICE    | Calving                |   680 + (1100-910) | O   |           | davison_2023 + rignot_2019 grounded | (2)                               |
+| GZRET  | Grounding line retreat |                  5 | O   |           |                                     | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat        |                 80 | O   |           | greene_2022                         |                                   |
+| FRGAIN | Frontal advance        |                180 | O   |           | greene_2022                         |                                   |
+| SU     | Sublimation            |                175 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| DD     | Drawdown               |                    | -   |           | Derived                             | .= sum(O) - sum(I)                |
+| MG     | Mass gain              |                    | -   |           | Derived                             | .= sum(I) - sum(O)                |
+#+CAPTION: East Antarctic mass flow terms, values, and metadata. Calving here is ice shelf calving (1350 Gt yr^{-1} from citet:davison_2023) plus 435 Gt yr^{-1} which is the difference between 2275 Gt yr^{-1} discharge across all sectors 1999 through 2017 from citet:rignot_2019 and 1840 Gt yr^{-1} ice shelf grounding line discharge from citet:davison_2023 - that is, 435 Gt yr^{-1} is estimated as calving from non-shelf sectors.
+
+#+NAME: aq_west
+| Code   | Term                   |                 Value | I/O |    Period | Source                              | Comment                           |
+|--------+------------------------+-----------------------+-----+-----------+-------------------------------------+-----------------------------------|
+| RF     | Rainfall               |                     5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| CD     | Condensation           |                     5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| DP     | Deposition             |                    30 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| SF     | Snowfall               |                   870 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| RFZ    | Refreezing             |                    15 | IO  | 2000-2019 | fettweis_2020                       |                                   |
+| EV     | Evaporation            |                     5 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| RU     | Runoff                 |                    10 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| BM     | Basal melting          |                    70 | O   |         - | van-liefferinge_2013                |                                   |
+| DYN    | Discharge              | 410 + 560 + (765-765) | -   | 1999-2017 | Sum of SUB + ICE                    |                                   |
+| SUB    | Submarine melting      |                   410 | O   |           | davison_2023                        |                                   |
+| ICE    | Calving                |       560 + (765-765) | O   |           | davison_2023 + rignot_2019 grounded | (2)                               |
+| GZRET  | Grounding line retreat |                    50 | O   |           |                                     | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat        |                   145 | O   |           | greene_2022                         |                                   |
+| FRGAIN | Frontal advance        |                   105 | O   |           | greene_2022                         |                                   |
+| SU     | Sublimation            |                    40 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| DD     | Drawdown               |                       | -   |           | Derived                             | .= sum(O) - sum(I)                |
+| MG     | Mass gain              |                       | -   |           | Derived                             | .= sum(I) - sum(O)                |
+#+CAPTION: West Antarctic mass flow terms, values, and metadata.
+
+#+NAME: aq_peninsula
+| Code   | Term                   |                 Value | I/O |    Period | Source                              | Comment                           |
+|--------+------------------------+-----------------------+-----+-----------+-------------------------------------+-----------------------------------|
+| RF     | Rainfall               |                     5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| CD     | Condensation           |                     5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| DP     | Deposition             |                     5 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| SF     | Snowfall               |                   325 | I   | 2000-2019 | fettweis_2020                       |                                   |
+| RFZ    | Refreezing             |                    50 | IO  | 2000-2019 | fettweis_2020                       |                                   |
+| EV     | Evaporation            |                     5 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| RU     | Runoff                 |                    10 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| BM     | Basal melting          |                    70 | O   |         - | van-liefferinge_2013                |                                   |
+| DYN    | Discharge              | 100 + 105 + (330-160) | -   | 1999-2017 | Sum of SUB + ICE                    |                                   |
+| SUB    | Submarine melting      |                   100 | O   |           | davison_2023                        |                                   |
+| ICE    | Calving                |     105 + (330 - 160) | O   |           | davison_2023 + rignot_2019 grounded | (2)                               |
+| GZRET  | Grounding line retreat |                     5 | O   |           |                                     | 45 in Amundsen from Davison email |
+| FRLOSS | Frontal retreat        |                   120 | O   |           | greene_2022                         |                                   |
+| FRGAIN | Frontal advance        |                     0 | O   |           | greene_2022                         |                                   |
+| SU     | Sublimation            |                    15 | O   | 2000-2019 | fettweis_2020                       |                                   |
+| DD     | Drawdown               |                       | -   |           | Derived                             | .= sum(O) - sum(I)                |
+| MG     | Mass gain              |                       | -   |           | Derived                             | .= sum(I) - sum(O)                |
+#+CAPTION: Antarctic peninsula mass flow terms, values, and metadata
+
+*** Export tables to CSV
 
 #+CALL: orgtbl2csv(tbl="aq_baseline")
 
 #+RESULTS:
 : Exported aq_baseline to ./dat/aq_baseline.csv
+
+#+CALL: orgtbl2csv(tbl="aq_east")
+
+#+RESULTS:
+: Exported aq_east to ./dat/aq_east.csv
+
+#+CALL: orgtbl2csv(tbl="aq_west")
+
+#+RESULTS:
+: Exported aq_west to ./dat/aq_west.csv
+
+#+CALL: orgtbl2csv(tbl="aq_peninsula")
+
+#+RESULTS:
+: Exported aq_peninsula to ./dat/aq_peninsula.csv
 
 *** Reset
 
@@ -252,22 +321,14 @@ v.db.select map=basins|head
 v.db.select -c map=basins columns=Regions | sort | uniq # East West Peninsula Islands
 v.db.select -c map=basins columns=TYPE | sort | uniq # FL GR IS (float, ground, island)
 
-v.to.rast input=basins output=east_GR use=val val=1 where='((Regions == "East") AND (TYPE == "GR"))'
-v.to.rast input=basins output=east_FL use=val val=11 where='((Regions == "East") AND (TYPE == "FL"))'
-v.to.rast input=basins output=west_GR use=val val=2 where='((Regions == "West") AND (TYPE == "GR"))'
-v.to.rast input=basins output=west_FL use=val val=12 where='((Regions == "West") AND (TYPE == "FL"))'
-v.to.rast input=basins output=peninsula_GR use=val val=3 where='((Regions == "Peninsula") AND (TYPE == "GR"))'
-v.to.rast input=basins output=peninsula_FL use=val val=13 where='((Regions == "Peninsula") AND (TYPE == "FL"))'
-v.to.rast input=basins output=islands use=val val=4 where='(TYPE == "IS")'
-r.patch input=east_GR,east_FL,west_GR,west_FL,peninsula_GR,peninsula_FL,islands output=basins
+v.to.rast input=basins output=east use=val val=1 where='(Regions == "East")'
+v.to.rast input=basins output=west use=val val=2 where='(Regions == "West")'
+v.to.rast input=basins output=peninsula use=val val=3 where='(Regions == "Peninsula")'
+r.patch input=east,west,peninsula output=basins
 r.category basins separator=":" rules=- << EOF
-1:East (Grounded)
-11:East (Floating)       
-2:West (Grounded)
-12:West (Floating)
-3:Peninsula (Grounded)
-13:Peninsula (Floating)
-4:Islands	     
+1:East
+2:West
+3:Peninsula
 EOF
 
 r.colors map=basins color=viridis
@@ -319,95 +380,64 @@ r.mask -r --q
 
 #+RESULTS:
 #+begin_example
-[Raster MASK present]
-SF
-East (Grounded)       1383.5170055779
-West (Grounded)       688.480301166503
-Peninsula (Grounded)  270.324169435779
-East (Floating)       172.41137746281
-West (Floating)       180.27593549343
-Peninsula (Floating)  56.6841289993761
+SF
+East       1555.92838304071
+West       868.756236659932
+Peninsula  327.008298435155
 sum=2751.6929181358
 
 RF
-East (Grounded)       0.53173174128475
-West (Grounded)       0.22197445329555
-Peninsula (Grounded)  2.1110471117335
-East (Floating)       0.842541426357001
-West (Floating)       0.4498711186449
-Peninsula (Floating)  2.307238481508
+East       1.37427316764175
+West       0.67184557194045
+Peninsula  4.4182855932415
 sum=6.46440433282369
 
 RU
-East (Grounded)       1.53022074184155
-West (Grounded)       0.0059355454226
-Peninsula (Grounded)  1.8834556710495
-East (Floating)       1.5089940427256
-West (Floating)       0.0304982132294
-Peninsula (Floating)  4.35827769837335
+East       3.03921478456715
+West       0.036433758652
+Peninsula  6.24173336942285
 sum=9.317381912642
 
 ME
-East (Grounded)       15.4802688824357
-West (Grounded)       4.3355515366436
-Peninsula (Grounded)  17.3666975625616
-East (Floating)       26.407263870097
-West (Floating)       9.2284017518
-Peninsula (Floating)  34.440989714197
+East       41.8875327525325
+West       13.5639532884436
+Peninsula  51.8076872767586
 sum=107.259173317735
 
 SMB
-East (Grounded)       1268.09953548228
-West (Grounded)       678.756441138014
-Peninsula (Grounded)  262.863634061747
-East (Floating)       153.249402230902
-West (Floating)       177.921656614902
-Peninsula (Floating)  51.4267222532681
+East       1421.34893771318
+West       856.678097752916
+Peninsula  314.290356315015
 sum=2592.31739178111
 
 EVA
-East (Grounded)       0.60507218584105
-West (Grounded)       0.195446970963
-Peninsula (Grounded)  0.68838986544795
-East (Floating)       0.70256713317005
-West (Floating)       0.2422464141299
-Peninsula (Floating)  0.70164322473235
+East       1.3076393190111
+West       0.4376933850929
+Peninsula  1.3900330901803
 sum=3.1353657942843
 
 CON
-East (Grounded)       0.00144321189675
-West (Grounded)       0.00237202472355
-Peninsula (Grounded)  0.01264862146645
-East (Floating)       0.0031724865901
-West (Floating)       0.0019547481581
-Peninsula (Floating)  0.03522553443475
+East       0.00461569848685
+West       0.00432677288165001
+Peninsula  0.0478741559012
 sum=0.0568166272697001
 
 DEP
-East (Grounded)       36.3995731586915
-West (Grounded)       22.3853823370692
-Peninsula (Grounded)  5.3339705229687
-East (Floating)       5.70103389655939
-West (Floating)       6.05853236904585
-Peninsula (Floating)  1.5062480433876
+East       42.1006070552508
+West       28.4439147061151
+Peninsula  6.8402185663563
 sum=77.384740327722
 
 SUB
-East (Grounded)       150.624482553971
-West (Grounded)       32.2385823068849
-Peninsula (Grounded)  12.2348077688132
-East (Floating)       23.4661462650309
-West (Floating)       8.5418917438099
-Peninsula (Floating)  3.94097993607855
+East       174.090628819002
+West       40.7804740506949
+Peninsula  16.1757877048917
 sum=231.046890574587
 
 RFZ
-East (Grounded)       14.4817798818789
-West (Grounded)       4.55159044451654
-Peninsula (Grounded)  17.5942890032456
-East (Floating)       25.7408112537284
-West (Floating)       9.64777465721551
-Peninsula (Floating)  32.3899504973317
+East       40.2225911356072
+West       14.199365101732
+Peninsula  49.9842395005773
 sum=104.406195737917
 
 [Raster MASK present]
@@ -472,7 +502,7 @@ Peninsula (Floating)  0.254017664974735
 
 *** Antarctic Ice shelves
 
-***** Submarine melt
+**** Submarine melt
 
 + Davison (2023) http://doi.org/10.1126/sciadv.adi0186 
 
@@ -485,20 +515,9 @@ loc = pd.read_excel(fname, sheet_name='Total mass changes', index_col = 0, useco
 loc = loc.drop('Antarctic Ice Shelves')
 
 
-df = pd.read_excel(fname, sheet_name='Melt',
-                   index_col = 1, skiprows = 3)
+df = pd.read_excel(fname, sheet_name='Steady-state',
+                   index_col = 0, skiprows = 4, usecols=((1,4)))
 
-# drop uncertainty columns
-unc = []
-for c in df.columns:
-     if type(c) == str:
-          if c[0:8] == 'Unnamed:':
-               unc.append(c)
-df = df.drop(columns = unc)
-df = df[df.columns[3:]]
-df = df.iloc[1:]
-
-df = pd.DataFrame(df.mean(axis='columns'))
 df.columns = ['Mass']
 
 df = loc.join(df)
@@ -526,39 +545,26 @@ df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 
 #+RESULTS:
 :RESULTS:
-: /tmp/ipykernel_1220053/4002790239.py:43: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+: /tmp/ipykernel_3346806/3471234904.py:32: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
 :   df.loc['Total'] = [df['Mass'].sum(), None, 'All']
-| Region    |     Mass |
-|-----------+----------|
-| All       | 1087.2   |
-| East      |  321.123 |
-| Peninsula |  172.74  |
-| West      |  593.128 |
+| Region    |    Mass |
+|-----------+---------|
+| All       | 902.775 |
+| East      | 392.012 |
+| Peninsula | 101.994 |
+| West      | 408.457 |
 :END:
 
-
-
-
-***** Calving
+**** Calving
 
 Same as above, different sheet. Reuses variables from above, run that first.
 
 #+BEGIN_SRC jupyter-python :exports both
 fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
-df = pd.read_excel(fname, sheet_name='Calving',
-                   index_col = 1, skiprows = 3)
 
-# drop uncertainty columns
-unc = []
-for c in df.columns:
-     if type(c) == str:
-          if c[0:8] == 'Unnamed:':
-               unc.append(c)
-df = df.drop(columns = unc)
-df = df[df.columns[3:]]
-df = df.iloc[1:]
+df = pd.read_excel(fname, sheet_name='Steady-state',
+                   index_col = 0, skiprows = 4, usecols=((1,6)))
 
-df = pd.DataFrame(df.mean(axis='columns'))
 df.columns = ['Mass']
 
 df = loc.join(df)
@@ -582,33 +588,63 @@ df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
 
 #+RESULTS:
 :RESULTS:
-: /tmp/ipykernel_1220053/519284814.py:32: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+: /tmp/ipykernel_3346806/353247760.py:22: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
 :   df.loc['Total'] = [df['Mass'].sum(), None, 'All']
 | Region    |     Mass |
 |-----------+----------|
-| All       | 1543.55  |
-| East      |  560.3   |
-| Peninsula |  236.416 |
-| West      |  745.595 |
+| All       | 1348.02  |
+| East      |  681.734 |
+| Peninsula |  103.439 |
+| West      |  561.832 |
+:END:
+
+**** Discharge
+
+Same as above, different sheet. Reuses variables from above, run that first.
+
+#+BEGIN_SRC jupyter-python :exports both
+fname = '~/data/Davison_2023/adi0186_table_s2.xlsx'
+
+df = pd.read_excel(fname, sheet_name='Steady-state',
+                   index_col = 0, skiprows = 4, usecols=((1,2)))
+
+df.columns = ['Mass']
+
+df = loc.join(df)
+
+df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df['longitude'],df['latitude']), crs="EPSG:4326")
+df = df.to_crs('epsg:3031')
+e = ew.to_crs('epsg:3031')
+
+idx = ew.sindex.nearest(df['geometry'], return_all=False)
+df['Region'] = ''
+for dfidx,ewidx in idx.T:
+    arr = df.iloc[dfidx].copy(deep=True)
+    arr['Region'] = ew.iloc[ewidx]['Regions']
+    df.iloc[dfidx] = arr
+df = df.drop(columns=['latitude','longitude'])
+    
+df.loc['Total'] = [df['Mass'].sum(), None, 'All']
+
+df[['Mass','Region']].groupby('Region').sum().drop('Islands').round()
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: /tmp/ipykernel_3346806/927385710.py:22: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+:   df.loc['Total'] = [df['Mass'].sum(), None, 'All']
+| Region    |     Mass |
+|-----------+----------|
+| All       | 1838.8   |
+| East      |  910.573 |
+| Peninsula |  159.697 |
+| West      |  767.324 |
 :END:
 
 
 
 
-***** GZ retreat
-
-Email from Davison
-
-| Ice Shelf   | Mass change due to grounding line migration from 1997 to 2021 (Gt) | Error (Gt) |
-| Pine Island |                                                                220 |         40 |
-| Thwaites    |                                                                230 |         25 |
-| Crosson     |                                                                200 |         25 |
-| Dotson      |                                                                420 |         80 |
-
-(220+230+200+420)/(2021-1997) = 44.5833333333
-
-
-**** Frontal Retreat from Greene 2022
+**** Frontal Retreat
 
 #+BEGIN_QUOTE
 [greene_Supplementary_Table_1.xlsx](https://github.com/user-attachments/files/15598602/greene_Supplementary_Table_1.xlsx)
@@ -766,6 +802,133 @@ East                102.0
 Peninsula           121.0
 West                 42.0
 #+end_example
+
+**** GZ retreat
+
+Email from Davison
+
+| Ice Shelf   | Mass change due to grounding line migration from 1997 to 2021 (Gt) | Error (Gt) |
+| Pine Island |                                                                220 |         40 |
+| Thwaites    |                                                                230 |         25 |
+| Crosson     |                                                                200 |         25 |
+| Dotson      |                                                                420 |         80 |
+
+(220+230+200+420)/(2021-1997) = 44.5833333333
+
+
+*** Shelf freeze/melt
+
+#+BEGIN_SRC jupyter-python :exports both
+import xarray as xr
+ds = xr.open_mfdataset("~/data/Paolo_2023/ANT_G1920V01_IceShelfMelt.nc")
+ds = ds['melt'].sel({'time':slice('2010-01-01','2017-12-31')}).mean(dim='time')
+
+delayed_obj = ds.to_netcdf('tmp/shelf_melt.nc', compute=False)
+from dask.diagnostics import ProgressBar
+with ProgressBar():
+    results = delayed_obj.compute()
+
+print(ds)
+#+END_SRC
+
+#+RESULTS:
+: [########################################] | 100% Completed | 4.27 s
+: <xarray.DataArray 'melt' (y: 2916, x: 2916)> Size: 34MB
+: dask.array<mean_agg-aggregate, shape=(2916, 2916), dtype=float32, chunksize=(486, 486), chunktype=numpy.ndarray>
+: Coordinates:
+:   * x        (x) float64 23kB -2.798e+06 -2.796e+06 ... 2.796e+06 2.798e+06
+:   * y        (y) float64 23kB 2.798e+06 2.796e+06 ... -2.796e+06 -2.798e+06
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c Paolo_2023
+
+ncdump -v x tmp/shelf_melt.nc # 2916x2916
+ncdump -v y tmp/shelf_melt.nc
+
+x0=-2798407.5
+x1=2798392.5
+y0=-2798392.5
+y1=2798407.5
+
+g.region w=$(( -2798407 - 960 )) e=$(( 2798392 + 960 )) s=$(( -2798392 - 960 )) n=$(( 2798407 + 960 )) res=1920 -p
+r.mapcalc "area = area()"
+
+r.in.gdal -o input=NetCDF:tmp/shelf_melt.nc:melt output=melt
+r.region -c map=melt
+
+## + kg/m^2 -> Gt: / 1E12
+r.mapcalc "melt = melt * 1000 * area / exp(10,12)" --o
+
+r.mapcalc "melt_on = if(melt > 0, melt, null())"
+r.mapcalc "melt_off = if(melt < 0, abs(melt), null())"
+
+r.colors -ae map=melt color=difference
+r.colors -ge map=melt_on color=viridis
+r.colors -ge map=melt_off color=viridis
+
+# d.rast melt
+# d.rast melt_on
+# d.rast melt_off
+
+r.mapcalc "basins = if((basins@PERMANENT == 1) | (basins@PERMANENT == 11), 1, 0)"
+r.mapcalc "basins = if((basins@PERMANENT == 2) | (basins@PERMANENT == 12), 2, basins)"
+r.mapcalc "basins = if((basins@PERMANENT == 3) | (basins@PERMANENT == 13), 3, basins)"
+r.mapcalc "basins = if((basins@PERMANENT == 4), 4, basins)"
+r.colors map=basins color=viridis
+r.category basins separator=":" rules=- << EOF
+1:East
+2:West
+3:Peninsula
+4:Islands	     
+EOF
+#+END_SRC
+
+**** Stats
+#+BEGIN_SRC bash :exports both :results verbatim
+echo "ALL"
+r.univar -gt map=melt zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -g melt | grep sum
+
+echo ""
+echo "FREEZE_ON"
+r.univar -gt map=melt_on zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -g melt_on | grep sum
+
+echo ""
+echo "MELT_OFF"
+r.univar -gt map=melt_off zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -g melt_off | grep sum
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+ALL
+
+East       -327.749700568986
+West       -476.184170767834
+Peninsula  -140.389218858182
+Islands    -17.06901600716
+sum=-977.26950720935
+
+FREEZE_ON
+
+East       204.212024518552
+West       174.058868541697
+Peninsula  16.7004224367821
+Islands    1.97652927957632
+sum=404.684807702491
+
+MELT_OFF
+
+East       531.961725087539
+West       650.243039309524
+Peninsula  157.089641294966
+Islands    19.0455452867363
+sum=1381.95431491188
+#+end_example
+
+
+
 
 * Misc
 ** Export tables to CSVs
