@@ -41,7 +41,7 @@
       red/.style={fill/.style={fill=none, top color=red, bottom color=red},},
       ice-to-water/.style={fill/.style={fill=none, left color=ice, right color=water},},
       ice-to-air/.style={fill/.style={fill=none, left color=ice, right color=air},},
-      ice-to-black/.style={fill/.style={fill=none, top color=ice, bottom color=black},},
+      ice-to-black/.style={fill/.style={fill=none, left color=ice, right color=black},},
       ice-to-air-vert/.style={fill/.style={fill=none, top color=ice, bottom color=air},},
       ice-to-water-vert/.style={fill/.style={fill=none, bottom color=ice, top color=water},},
       water-to-air-vert/.style={fill/.style={fill=none, right color=water, left color=air},},
@@ -183,11 +183,11 @@
     \labelright{FLa}{vFRLOSS}
 
     \ifnum \numexpr\Q{vMG} > \Q{vML}
-      \sankeynode{name=MGa, quantity=\qq{MG}, angle=-90,
+      \sankeynode{name=MGa, quantity=\qq{MG}, angle=-35,
         at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
       \node[font=\tiny, anchor=east]
       at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
-      \sankeyoutin{MG}{MGa}
+      \sankeyoutin[ice-to-black]{MG}{MGa}
     \fi
 
     \sankeyfork{f8a}{\Q{vEV}/EV, \Q{vRU}/RU}
@@ -217,7 +217,7 @@
       \sankeyadvance[red]{ML}{5mm}
       \sankeyoutin[red-to-ice]{ML}{MLi}
     }{ % mass gain
-      \sankeyadvance[ice-to-black]{MGa}{3mm}
+      \sankeyadvance[black]{MGa}{3mm}
       \sankeyend[black]{MGa}
       \sankeynode{name=FGi, quantity=\Q{vFRGAIN},
         at={[xshift=-15mm,yshift=8mm]RFZi.right}, anchor=left, angle=-45}
