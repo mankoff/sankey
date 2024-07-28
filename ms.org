@@ -1,0 +1,719 @@
+#+Latex_Class: igs
+#+AUTHOR: 
+#+DATE: 
+#+LaTeX_CLASS_OPTIONS: [jog,oneside,review]
+#+Options: toc:nil ^:t {}:t title:nil
+
+#+EXPORT_FILE_NAME: ms.tex
+
+#+EXCLUDE_TAGS: noexport
+
+#+LATEX_HEADER_EXTRA: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER_EXTRA: \usepackage{mathabx}
+#+LATEX_HEADER_EXTRA: \usepackage{graphicx}
+#+LATEX_HEADER_EXTRA: \usepackage{siunitx}
+#+LATEX_HEADER_EXTRA: % \setcounter{secnumdepth}{2}
+
+#+LATEX_HEADER_EXTRA: \jourvolume{V}
+#+LATEX_HEADER_EXTRA: \jourissue{N}
+#+LATEX_HEADER_EXTRA: \jourpubyear{YYYY}
+
+#+BEGIN_EXPORT LaTeX
+\title[Sankey mass flows]{Ice sheet mass flows}
+
+\author[Mankoff and others]
+       {Kenneth D. MANKOFF,$^{1,2}$
+         Xavier FETTWEIS,
+         Chad GREENE,
+         Brice VAN LIEFFERINGE,
+         Someone, ELSE,$^n$,
+       add your name to CREDIT.CSV in repository}
+
+\affiliation{%
+  $^1$NASA Goddard Institute for Space Studies, New York, NY, 10025 USA\\
+  $^2$Autonomic Integra LLC, New York, NY, 10025 USA\\
+  $^n$Somewhere Else\\
+  Correspondence: Ken Mankoff
+  \email{ken.mankoff@nasa.gov}}
+#+END_EXPORT
+
+#+LATEX: \begin{frontmatter}
+
+#+LATEX: \maketitle
+
+#+LATEX: \begin{abstract}
+
+Understanding the processes involved in ice sheet mass loss requires knowledge production and sharing, in addition to field observations and computer modeling. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting all mass flow of water in various phases in Greenland and Antarctica. Sankey diagrams help bring perspective to the interplay and relative importance of snowfall, rain, drawdown, refreezing, submarine melt, iceberg calving, and grounding line retreat in contributing to ice sheet mass balance.
+
+This work quantifies both grounded and floating ice mass loss. From this, mass loss in Greenland is 330 Gt yr$^{-1}$ which is ~20 % higher than the ~270 Gt yr$^{-1}$ estimates that neglect terminus retreat of ice at or near flotation. Mass loss in Antarctica is 275 Gt yr$^{-1}$ which is ~85 % higher than the ~150 Gt yr$^{-1}$ estimates of grounded ice mass loss.
+
+# This work also reports gross not net values for most properties. Net frontal retreat of ice shelves in Antarctica is 60 Gt yr^{-1}, but we report six times that amount or 345 Gt yr$^{-1}$ of frontal retreat offset by 285 Gt yr$^{-1}$ of frontal advance.
+
+#+LATEX: \end{abstract}
+#+LATEX: \end{frontmatter}
+
+* Introduction and Background
+
+Mass loss from the grounded portion of the Greenlandic and Antarctic ice sheets contributes to sea level rise (SLR), and can be captured by a single value per ice sheet. Reporting a single value is beneficial because it simplifies interpretation and comparison. However, ice sheets are complex systems and while their contribution to sea level rise is important, it is not a holistic view and does not capture the general health and state of the ice sheet. Few studies consider all processes and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process. As one example, an ice sheet that increases output via discharge or submarine melting by X \% but has that offset by an equal increase in snowfall would report no net mass change or net SLR contribution, but has entered a different state when viewing constituent terms or gross values.
+
+Net mass flow (mass balance) is typically analyzed using one or a combination of three methods.
+
+The gravamitric method is observation-based and excels at measuring the grounded ice contribution to sea level rise, but cannot observe changes in floating ice, nor distinguish processes that contribute to changes of the grounded ice. Spatial resolution is O(100) km and temporal resolution is monthly (~30 day).
+
+The volumetric method is also observation-based has spatial resolution of O(10) km and temporal resolution is ~10 day. It can be used over floating ice, and this is the primary method for observing ice shelf thinning from which basal melt is inferred. However, in Greenland the volumetric method has not been used to distinguish between surface and basal processes, and only reports total thinning.
+
+The input-output (IO) method is a hybrid of regional climate models (RCM) and observation based (velocity, thickness). It is typically reported at low spatial resolution - at most individual glacier basin, but in theory can be applied at the resolution of the RCMs. Temporal resolution is ~10 days or whenver a new velocity map is generated. This method is the only one that captures all of the processes contributing to changes of grounded ice.
+
+Here we use a combination of the IO and altimetry method. The IO is the primary source and the only source in Greenland, but altimetry provides ice shelf mass loss in Antarctica. We present Sankey diagrams that provide an overview of all mass flow terms and processes for both the Greenlandic and Antarctic ice sheets.
+
+** Introduction to Sankey diagrams
+
+Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., citet:kraak_2021) that combines the magnitude of active soldiers overlaid on a geographical map to show attrition during one battle in a war. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
+
+A similar display to the diagrams presented here by citet:cogley_2011 (Fig. 2) shows flows overlaid an a glacier schematic and here we build on that work by adding magnitude of processes and making the graphics proportional to magnitudes.
+
+* Data
+
+We use the existing data products
+
+We use constituent terms of surface mass balance from the MAR RCM for both Greenland citep:MAR_GL and Antarctica citep:MAR_AQ. The remaining products are hemisphere-specific.
+
+In Greenland, we use ice discharge across flux gates ~5 km upstream from the grounding lines citep:mankoff_2020_solid, frontal retreat citep:greene_2024, and basal mass loss citep:karlsson_2021.
+
+In Antarctica we use ice discharg across grounding lines including both into ice shelf and non-shelf regions citep:rignot_2019, ice shelf basal melting  and calving citep:davison_2023, frontal retreat citep:greene_2022, and grouned ice basal mass loss citep:levfrienge_2020
+
+* Methods
+
+We use the data introduced above to derive some new values, some new estimates of mass flows not previously reported, and some adjustments to the above products.
+
+** Derived values
+
+The derived values is only net mass change - here shown as 'drawdown' except East Antarctica where it is 'accumulation'. This term balances all the other terms, so that the Sankey diagram has outputs balancing inputs.
+
+Unlike typical reports of MAR values where sublimation is actually net sublimation, here sublimation is only the process that converts solid ice to a gas. The opposite is deposition. Evaporation and condensation are analagous but for liquid rather than gas.
+
+** New estimates
+
+All values are rounded to the nearest 5 Gt yr^{-1}, except values < 5 Gt yr^{-1} which are rounded up to 5 Gt yr^{-1}.
+
+The Greenlandic ice discharge term citep:mankoff_2020_solid is across flux gates ~5 km upstream from the terminus. How that discharge is separated into submarine melt or calving is highly uncertain. We estimate it at a 50 % \pm 40 % split between these two processes citep:enderlin_2013,
+
+There are no published values for Antarctic ice shelf grounding line retreat in units of Gt yr^{-1}, but we have an estimate of ~50 Gt yr^{-1} from B. Davison (personal comms.) for the Amundsen Sea sector. We therefore assign 50 Gt yr^{-1} for West Antarctica, and 5 Gt yr^{-1} for both East Antarctica and the Antarctic Peninsula.
+
+In Greenland, there is no known assessment of grounding line retreat separate from ice front retreat, in units of Gt yr^{-1}. These two terms are the same in most places in Greenland, because there are few ice shelves. In these locations, we used published values from citet:kochtitzky_2023 and assign this to frontal retreat. There are published values of grounding line retreat at some glaciers, but units are typically m and not Gt yr$^{-1}$. Here we use published values of Petermann glacier grounding line retreat (units m) from citet:millan_2022, ice velocity from citet:millan_2022, ice thickness from citet:ciraci_2023, and an estimate of ice density of 917 kg m$^{3}$ to calculate grounding line retreat in units of Gt yr$^{-1}$. We estimate \sim 1.5 Gt yr$^{-1}$.
+
+** Other
+
+In Antarctica, we use the MEaSUREs Antarctic Boundaries for IPY 2007-2009 from Satellite Radar, Version 2 (NSIDC product 0709; citet:mouginot_2017,rignot_2013) to separate Antarctica into East, West, and Peninsula. We drop all unattached islands, so the sum of the regional terms may not equal the total Antarctic values in Fig. \ref{fig:aq_regions}.
+
+** Sankey diagrams
+
+The Sankey diagrams shown here are generated from a script that combines a CSV file of values with a \LaTeX template that uses the TikZ Sankey package citep:sankey. This architecture makes it trivial to generate similar diagrams for other time periods, differences between time periods, or other regions (e.g., Appendix A) after generating CSV files with representative values. 
+
+* Results
+** Greenland
+
+#+CAPTION:Sankey mass flow diagrams for Greenland. All widths are proportional within and between images. Because Sankey diagrams balance all inputs and outputs, mass losses require a `drawdown' input (red) to balance the larger outputs.
+#+NAME: fig:gl
+[[./gl_baseline.pdf]]
+
+The reported mass loss for Greenland is 330 Gt yr^{-1}, which is ~20 % higher than previously reported values from the gravimetric method or IO limited to grounded ice. Here two additional loss terms, frontal retreat and grounding line retreat, sum to 55 Gt yr^{-1}, which matches the earlier grounded ice mass loss estimates within 5 Gt yr^{-1}, or a few percent. 
+
+The reported mass loss for Antarctica is 225, significantly higher than existing estimates that only report grounded ice mass loss, due to the inclusion of ice shelves. 
+
+
+As previously stated, few existing studies outside of review papers address all terms, and the review papers usually do not focus of quantitative assessment of magnitude. Therefore, we compare parts of this graphic to other existing estimates.
+
+
+# The ice sheet mass balance intercomparison experiment (IMBIE; citet:otosaka_2023) reports recent Greenlandic ice sheet mass loss as -257 \pm42 Gt yr$^{-1}$. Elsewhere the gravimetric method reports recent Greenlandic mass loss of ~277 Gt yr$^{-1}$ (GRACE site, need CITATION). These are both significantly less than our estimate of 325 drawdown in order to balance the inputs with outputs. This can be directly attributable to the gravimetric method not observing frontal retreat (50 Gt yr$^{-1}$) nor grounding line retreat (5 Gt yr$^{-1}$). When these loss terms are removed from our estimate, it becomes 270 Gt yr$^{-1}$ which is well within the uncertainty.
+
+# \begin{figure*}
+# \centering{\includegraphics[width=0.85\textwidth]{fig_aq_gl.png}}
+# \caption{Sankey mass flow diagrams for Antarctica and Greenland, and Antarctica split into East, West, and Peninsula. All widths are proportional within and between images. Because Sankey diagrams balance all inputs and outputs, mass losses require a `drawdown' input (red) to balance the larger outputs, and mass gains requires an `accumulation' output (black) to balance the larger inputs.}
+# \label{fig}
+# \end{figure*}
+
+** Antarctica
+
+#+CAPTION:Sankey mass flow diagrams for Antarctica. All widths are proportional within and between images. Because Sankey diagrams balance all inputs and outputs, mass losses require a `drawdown' input (red) to balance the larger outputs.
+#+NAME: fig:aq
+[[./aq_baseline.pdf]]
+
+* Discussion
+
+** Interpretation of graphics
+
+Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagram(s) shown here. The widths of all lines are proportional to all other widths, both within and among figures. Color here represents both phase and net mass change. Colors gray, blue, and yellow represent solid, liquid, and gaseous phases respectively, while red interior represents net mass loss. The latter may be counter-intuitive - for example to see mass loss as an input at the left (red in Fig. \ref{fig}) even though most mass loss terms (runoff, calving, etc.) are at the right. This is because Sankey diagrams are balanced, here outputs are larger than inputs (hence net mass loss), and so the mass loss term is an input - drawdown of the historical 'stable' ice mass.
+
+These diagrams also do not represent every process perfectly. For example, frontal retreat is a combination of discharge and submarine melting (and should therefore divide between ice and liquid, with the same uncertainty citep:enderlin_2013, but frontal retreat is shown separately here because it is usually treated separately in the literature.
+
+We highlight frontal retreat and grounding line retreat both with a red outline, and by not including frontal retreat in the larger (in Greenland) discharge and submarine melting flow. We do this for two reasons.
+
+First these two terms imply an imbalance. Regardless whether a system is gaining mass, losing mass, or in steady state. If there is grounding line and frontal retreat, it implies a system imbalance in the long term, even if not a numerical imbalance as represented here.
+
+Secondly, these two terms are rarely included in mass change estimates. The gravimetric method does not see these processes, the volumetric method in Greenland is usually cropped at the some fixed grounding line upstream of these processes, and the IO method has typically ignored these two terms as downstream of the flux gates.
+
+** Missing terms, limitations, and simplifications
+
+\label{sec:limits}
+
+These figures neglect some mass flow processes (some of which are included in citet:cogley_2011 (Fig. 2), and simplify others.
+
+Neglected processes include basal freeze-on (e.g., citet:bell_2014). Basal melting estimates currently assume all melt leaves the ice sheet and is therefore mass loss. That seems unlikely, given both observations of freeze-on citep:bell_2014 and that some melt, especially from the geothermal term (c.f., citet:karlsson_2021) occurs under thick ice far inland and far from active subglacial conduits.
+
+Grounding line retreate in both Greenland and Antarctica is largely unquantified in the units needed to include it here.
+
+We also neglect avalanche on and off - these likely matter more for mountain glaciers than ice sheets.
+
+Snow drift on and off is also excluded. There is likely little snow drift onto either ice sheet, but drifting off may be of similar magnitude to some of the other smaller terms shown here. Some drift off may be implicitly included in the sublimation term (TODO: Xavier?)
+
+There may be other missing terms. For example, the earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in citet:cogley_2011, but their respective values were highly uncertain, and still are, although recent work by citet:kochtitzky_2023,greene_2024 have constrained these values in Greenland. 
+
+We make the following simplifications.
+
+Subaerial frontal melt and sublimation (the vertical face in above the water line, citet:cogley_2011 (Fig. 2) is not explicitly treated but is included in other terms.
+
+There are a variety of other simplifications. For example, rainfall input does not all turn to ice. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still correct - at least as well as we are able to estimate them.
+
+
+** Uncertainty
+
+Here we discuss both the uncertainty of each term, and discuss the where this uncertainty comes from.
+
+Sankey diagrams do not typically include a display of uncertainty, although it is possible to add a visual indicator to the graphic citep:TODO. Here we do not include a display of uncertainty in the main graphics, but do in the tabular display and visually in Appendix X for Greenland.
+
+*** Magnitudes
+
+Reported uncertainties are all < 15 % with the exception of the Greenlandic division of discharge when it is divided into submarine melt and calving, each of which have an uncertainty of 90 % \pm 40 % based on citet:enderlin_2013. The magnitude of the sum of the two terms is reasonably well constrtained at ~10 % citep:mankoff_2020_solid.
+
+*** Sources of uncertainty
+
+The diverse source of inputs and outputs here have a range of reasons for their respective uncertainties. The errors here are often a combination of several of the sources of uncertainty. These include, but are not limited to,
+
++ Model limitations - Unknown physics, temporal or spatial resolution, or initial and boundary conditions.
++ Observational limits - Processes that are difficult to observe, or processes that are easy to observe or constraints on spatial resolution (e.g., number of sensors) or temporal resolution (e.g., satellite repeat period).
++ Researcher decisions - Researchers make mistakes, and also regularly make intentional decisions in to save time, cost, complexity, etc. in their workflows.
+
+Nonetheless, the broad agreement among the three mostly-independent methods of estimating the total mass loss suggests that even with all these sources of uncertainty, the mean values are reasonably well constrained and there is likely a randomness that cancels out when combining terms, as opposed to a bias that amplifies.
+
+A specific example of multiple components of uncertainty that combines all of the above is the Greenlandic discharge term from citet:mankoff_2020_solid. That is not explicitly displayed here, but it's value is 490 \pm 50 Gt yr^{-1} which is the sum of the submarine melting and calving terms (those terms are defined as a percentage of discharge). The primary source of uncertainty here is ice thickness at the location of the flux gates, which has large uncertainty near the grounding line of fast flowing glaciers. The ice thickness uncertainty is in turn due to a combination of observational and model.
+
+Observationally, radar is unable to see the bed when there is a large amount of water and nearby steep fjord sidewalls, and drilling a sufficient number of boreholes is prohibitive due to both cost and safety issues.
+
+Model limitations are inherent in the mass balance solution and kriging.
+
+Moving back to the citet:mankoff_2020_solid product, they use velocity with up to 12 day temporal resolution, but that product although updated every 12 days comes from a 24 day average, which means minima and maxima are missed citep:greene_202X, although total displacement is captured.
+
+Firn is excluded, which may be a reasonable choice for flux gates at low elevations when thickness was measured during the summer over a bare ice surface. Firn is regularly addressed in Antarctic products that consider ice density, but neither citet:mankoff_2020_solid nor any other ice density estimate that we know of treats crevasses, which may reduced ice volume by 20 % or more regionally citep:mankoff_2020_A380.
+
+Finally, citet:mankoff_2020_solid intentionally exclude SMB effects downstream of the flux gate. There is likely some amount of net mass loss (runoff, sublimation, evaporation) below the flux gates, and in the winter some temporary SMB gains. Here SMB terms are reported from a separate calculation covirg all of Greenland, meaning they are double counted below the flux gates. Assuming a net mass loss below flux gates, the calving and submarine melt terms are then slightly overestimated.
+
+According to citet:kochtzitzky_XXXX, this is approximately XX Gt yr^{-1}.
+
+This decision was made for the following reasons: This is the standard behavior in Greenland so repeating in supported comparison. Negleting SMB terms saved a significant amount of complexity and time in the analysis. Including SMB requires addressing frontal retreat, which is itself a significant effort (c.f., citep:kotchtziky_2023,greene_2024). Finally, MAR reports a 15 % uncertainty, but that is for an ice-sheet wide mean value. It seems unlikely MAR uncertainty is that small at the margins where there is significant summer melt, crevasses, and high topographic relief.
+
+Each product here likely has a similar but different combination of reasons for their uncertainty including model, observation, and human caused.
+
+
+
+
+# Advice from Hester: Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
+
+# %% Mass change of shelves is a bulk aggregate property, and should not the default reporting metric because it obscures information. For example, in theory ice shelf mass can grow even as they collapse, as long as the grounding line retreats (adds mass to the shelf from the upstream ice sheet) faster than the mass loss at the frontal or submarine boundaries. A mass flow diagram dedicated to ice shelves (this one is not) would clearly convey each of these processes. 
+
+%% \subsection{Drifting snow}
+
+%% %% From Hester: I think if you were to go into a discussion of snowdrift it should go further than, for example, the works of Lenaerts et al. Perhaps it is beter to plainly list the uncertainties / poor definitions but in terms of process just refer to the existing papers. However, I am in two minds about this.
+
+
+** Constituent terms and net versus gross
+
+We recommend the community report constituent terms, or gross not net. If needed, it is relatively straightforward to include a net term in addition to the constituent terms. There are numerous advantages.
+
+Broadly, increased information density is a net good. The potential benefits for future researchers, self and others, to address currently-unknown research questions and needs is likely to outweigh the costs of increased complexity, time, storage, and access.
+
+Sea level rise research often focuses on how and why, not only how much. This is the reason that the IO method is used in addition to the gravimetric method. Or why the gravmitric method reports seasonal and not only annual values. The larger amplitude seasonal signal informs us that there is increased winter mass gain over time, offset by even larger increases in summer mass loss.
+
+However, even the IO method, usually estimated with a single SMB value rather than  constituent terms, may miss important information. For example, if mass loss stays the same, but snowfall and runoff both increase, this indicates a different ice sheet state.
+
+Here for example we have shown that freshwater flux from one source, ice shelf frontal retreat in Antarctica, is six times larger than the net value, due to significant frontal advance.
+
+Finally, although we argue for gross not net and inclusion of constituent terms in general when sharing outputs, we caution that any users should consider if this is the correct treatment for inputs. For any given term - basal freeze-on being a likely candidate for freshwater studies - it may be more correct to use net not gross.
+
+* Conclusion
+
+We show Sankey diagrams as an intuitive display for mass flow of ice sheet processes. A script supports generating these diagrams based on a CSV table, supporting bulk or automated processing for other ice sheets, sub-regions (e.g. East Antarctica or just one ice shelf), or other time periods or time spans.
+
+By tracking all mass flow terms including floating ice we estimate total ice mass loss from ~2000 through ~2019 at 330 Gt yr^{-1} in Greenland and XX Gt yr^{-1} in Antarctica.
+
+
+* Acknowledgements
+
+We thank citep:sankey for the \LaTeX TikZ Sankey package, and citet:cogley_2011 for a reference graphic. Analysis was aided by the software packages Pandas (citet:pandas_team), Xarray (citet:xarray), and GRASS GIS (citet:GRASS), among other tools.
+
+We thank Jakob Steiner, Xavier Fettweis, Benjamin Davison, Anna Hogg, Chad Greene, Katie Leonard, Jan Lenaerts, Damien Ringeisen, Liam Colgan, Robert Fausto, Dominik Fahrner, Nanna Karlsson, Brice Van Liefferinge, and Andreas Ahlstrøm for conversations in the development of this work.
+
+* Bibliography
+
+\bibliography{library}
+\bibliographystyle{igs}
+
+* Appendices
+
+Conversely, in East Antarctica mass gain is an output at the bottom (black in Fig. \ref{fig}} that balances the diagram, because without it, there are more flows into the system than out of it.
+
+\appendix
+\section{Appendix A}
+\label{sec:appendix:A}
+
+\begin{table*}
+\caption{Mass flow values used for Greenland in Fig. \ref{fig}}
+\label{tab:gl}
+\begin{tabular}{@{}lcc}\hline
+  Term & Source\\
+  Snowfall & citet:fettweis_2020}\\
+  Rainfall & citet:fettweis_2020}\\
+  Condensation & TODO\\
+  Deposition & TODO\\
+  Sublimation & citet:fettweis_2020}\\
+  Evaporation & citet:fettweis_2020}\\
+  Runoff & citet:fettweis_2020}\\
+  Refreezing & citet:fettweis_2020}\\
+  Frontal retreat & citet:kochtitzky_2023,greene_2024}\\
+  Grounding line retreat & Estimated here\\
+  Discharge + submarine melting & citet:mankoff_2020_solid}\\
+  Split of discharge \& submarine melting & citet:enderlin_2013}\\
+  Basal melting & citet:karlsson_2021}\\
+  Drawdown & Derived from above terms
+\end{tabular}
+\end{table*}
+
+\begin{table*}
+\caption{Mass flow values used for Antarctica and Antarctica regions in Fig. \ref{fig}}
+\label{tab:aq}
+\begin{tabular}{@{}lcc}\hline
+  Term & Source\\
+  Snowfall & citet:fettweis_2020}\\
+  Rainfall & citet:fettweis_2020}\\
+  Condensation & TODO\\
+  Deposition & TODO\\
+  Sublimation & citet:fettweis_2020}\\
+  Evaporation & citet:fettweis_2020}\\
+  Runoff & citet:fettweis_2020}\\
+  Refreezing & citet:fettweis_2020}\\
+  Frontal retreat & TODO\\
+  Grounding line retreat & TODO\\
+  Discharge + submarine melting & citet:davison_2023}\\
+  Split of discharge \& submarine melting & citet:davison_2023}\\
+  Basal melting & citet:van-liefferinge_2013}\\
+  Drawdown or accumulation & Derived from above
+\end{tabular}
+\end{table*}
+
+\section{Appendix B}
+\label{sec:appendix:B}
+
+\begin{figure*}
+% # \centering{\includegraphics[width=0.85\textwidth]{fig_aq_parts.png}}
+\centering{\includegraphics[width=0.85\textwidth]{aq_east.pdf}}
+\centering{\includegraphics[width=0.85\textwidth]{aq_west.pdf}}
+\centering{\includegraphics[width=0.85\textwidth]{aq_peninsula.pdf}}
+\caption{Sankey mass flow diagrams for Antarctica and Greenland, and Antarctica split into East, West, and Peninsula. All widths are proportional within and between images. Because Sankey diagrams balance all inputs and outputs, mass losses require a `drawdown' input (red) to balance the larger outputs, and mass gains requires an `accumulation' output (black) to balance the larger inputs.}
+\label{fig}
+\end{figure*}
+
+\end{document}
+
+
+
+* Author Contributions
+
+KDM led C2, helped prepare and co-led C4, led the instrument search between C4 and C5, helped prepare and led C5 and C6, and helped write the manuscript. DVA participated in C4, C5 and C6, helped prepare C5 and C6, maintained chain-of-custody, and helped write the manuscript. AL participated in C5 and C6. TB participated SnowTEM testing between C4 and C5, participated in C5, and helped write the manuscript. JE participated in C5 and helped write the manuscript. RK participated in C5. HC did UHF-band signal processing during C3, was responsible for signal reprocessing between C4 and C5, and helped write the manuscript. HO led the C3 signal processing, and processed the L-band images. PDF initiated, organized, and led C3. ORdP led the hardware group for C3 and planned the C3 data acquisition and flights. AVC built SnowTEM and participated in SnowTEM testing between C4 and C5. EA oversaw SnowTEM development. KH participated in C4 and helped prepare C5. WC assisted with planning C4, participated in C4, and helped write the manuscript. NBK initiated the field projects, helped prepare and co-led C4, helped prepare C5, and helped write the manuscript.
+
+* Conflict of Interest
+
+Financial: Authors DVA, AL, and JE operate private companies that benefit financially from finding airplane engines in Greenland and other similar work. All authors and or their employers had at least some short-term financial benefits from this project.
+
+* Acknowledgments
+
+Funding for this project was provided by the Accident Investigation Board Denmark (AIB-DK), Air France, Airbus, Bureau d’Enquêtes et d’Analyse (BEA), and Engine Alliance.
+
+We are grateful for help and support from the following people and organizations. Order does not indicated level of support or level of gratitude: Arnar Ingi Gunnarsson (ICE-SAR FBSR), Anton Aðalsteinsson (ICE-SAR FBSR) and Tómas Eldjárn Vilhjálmsson (ICE-SAR FBSR) for their help during C6; Andreas Bergström for help during C5; Henrik Spanggård (GEUS) for logistic support during C5 and C6; Pradip Maurya (HGG), Søren Dath Møller (HGG), Lichao Liu (HGG) and Christian Lundager Nedergaard (HGG) for their help in testing and construction of the SnowTEM instrument; Zoe Courville (CRREL) for help with GPR analysis and crevasse detection; Jacky Simoud (Blue Ice Explorer) for logistic support in Narsarsuaq, and the many Greenlandic citizens who helped with last-minute equipment and supplies; Andreas Ahlstrøm (GEUS) for initiating the project; Robert Fausto (GEUS) for help with C2; Hans Jørgen Lorentzen (GEUS), Niels Jákup Korsgaard (GEUS), Jason E. Box (GEUS), and Mauro Hermann (ETHZ) for participating in C4; Lennart Brugge (RECCO) and Lars-Bertil Karlsson (RECCO) for help testing the RECCO sensors; Anjan Truffer for logistic support in Zermatt; Toke Brødsgaard, Peter Frederik Lyberth, Per Mikkelsen and many helicopter pilots from Air Greenland; Many employees of Mittarfeqarfiit for help around the airport; Flemming Hougaard and the Arktisk Kommand team for providing logistic support, a hangar for the plane and a processing room during the C3 campaign in Kangerlussuaq; Norlandair; The Aviation Défense Service (AVDEF) for flying the aircraft with the L’Office National d'Études et de Recherches Aérospatiales (ONERA) sensors; The Polar Geospatial Centre for the DTM used for ONERA image synthesis (NSF OPP awards 1043681, 1559691 & 1542736); Sunny Gupta (Airbus) for helping supply Pleiades and TerraSAR-X imagery; Naor Movshovitz for suggesting the impact depth estimate equation; Many additional unnamed members of the A380 F-HPJE Engine Search project at AIB-DK, Air France, Airbus, BEA, Engine Alliance, GE, GEUS, the NTSB, ONERA, and other institutions. Finally, Stéphane Otin (BEA) and Anders Bjørn Kristensen (AIB-DK) for their support and encouragement throughout the project.
+
+We thank the editors and reviewers (Carolyn Clason and two anonymous) for their help improving the text for publication.
+
+* COMMENT References                                              :ignore:
+
+# #+LATEX: \bibliography{A380}   % reads igsrefs.bib
+#+LATEX: \bibliographystyle{igs}  % imposes IGS bibliography style on output
+
+#+BEGIN_LaTeX
+\begin{thebibliography}{34}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[\protect\citename{Alexander and Foote,
+  }1998]{alexander_1998_radiology}
+Alexander C and Foote G (1998) Radiology in forensic identification: the {M}t
+  {E}rebus disaster. \emph{Australasian radiology}, \textbf{42}(4), 321--326
+
+\bibitem[\protect\citename{Arcone and others, }2016]{arcone_2016_ground}
+Arcone SA, Lever JH, Ray LE, Walker BS, Hamilton G and Kaluzienski L (2016)
+  Ground-penetrating radar profiles of the {M}c{M}urdo {S}hear {Z}one,
+  {A}ntarctica, acquired with an unmanned rover: {I}nterpretation of crevasses,
+  fractures, and folds within firn and marine ice. \emph{Geophysics},
+  \textbf{81}(1), WA21–WA34, ISSN 1942-2156 (\doi {10.1190/geo2015-0132.1})
+
+\bibitem[\protect\citename{Auken and others, }2018]{auken_2018}
+Auken E, Foged N, Larsen JJ, Lassen KVT, Maurya PK, Dath SM and Eiskjær TT
+  (2018) {tTEM} — a towed transient electromagnetic system for detailed {3D}
+  imaging of the top 70 m of the subsurface. \emph{Geophysics}, \textbf{84}(1),
+  E13–E22, ISSN 1942-2156 (\doi {10.1190/geo2018-0355.1})
+
+\bibitem[\protect\citename{{BEA}, }2019]{A380_TechReport}
+{BEA} (2019) Accident to the {A}irbus {A380} registered {F-HPJE} an operated by
+  {A}ir {F}rance on 30/09/2017 en route over {G}reenland; {O}ctober 2017 --
+  {J}une 2018; {S}earch {P}hase {I \& II}. Technical report, Bureau
+  d’Enquêtes et d’Analyse (BEA), 10 rue de Paris, Zone Sud - Bâtiment
+  153, Aéroport du Bourget, 93352 Le Bourget Cedex - France
+
+\bibitem[\protect\citename{Bjørk and others, }2015]{bjork_2015_brief}
+Bjørk AA, Kruse LM and Michaelsen PB (2015) Brief communication: Getting
+  {G}reenland's glaciers right -- a new dataset of all official {G}reenlandic
+  glacier names. \emph{The Cryosphere}, \textbf{9}(6), 2215--2218 (\doi
+  {10.5194/tc-9-2215-2015})
+
+\bibitem[\protect\citename{Boe, }2003]{NIRAS_2003}
+Boe US (2003) Aktivitets- og affaldskortlægning i det åbne land.
+  {H}ovedrappart - {F}ase 1. Technical report, NIRAS, Spindlers Bakke 10 A,
+  Postboks 769, 3900 Nuuk
+
+\bibitem[\protect\citename{Brooks, }2010]{brooks_2010_loss}
+Brooks K (2010) The loss, discovery, and rediscovery of the crew of {U.S.}
+  {N}avy {LA-9} at {K}ronborg {G}lacier, east {G}reenland. \emph{Polar Record},
+  \textbf{47}(2), 181–184, ISSN 1475-3057 (\doi {10.1017/s0032247410000288})
+
+\bibitem[\protect\citename{Bruyant and others, }2011]{bruyant_2011_SETHI}
+Bruyant J, Dreuillet P, Du~Plessis O, Oriot H, Dubois-Fernandez P and
+  Cantalloube H (2011) {SETHI}: The flying lab. \emph{International Journal of
+  Electronics and Telecommunications}, \textbf{57}(1), 29--35
+
+\bibitem[\protect\citename{Burgess and others, }2010]{burgess_2010_greenland}
+Burgess EW, Forster RR, Box JE, Mosley-Thompson E, Bromwich DH, Bales RC and
+  Smith LC (2010) A spatially calibrated model of annual accumulation rate on
+  the {G}reenland ice sheet (1958-2007). \emph{Journal of Geophysical Research:
+  Earth Surface}, \textbf{115}(F2), ISSN 0148-0227 (\doi
+  {10.1029/2009jf001293})
+
+\bibitem[\protect\citename{Clason and others, }2015]{clason_2015_dye}
+Clason CC, Coch C, Jarsjö J, Brugger K, Jansson P and Rosqvist G (2015) Dye
+  tracing to determine flow properties of hydrocarbon-polluted {R}abots
+  glaciär, {K}ebnekaise, {S}weden. \emph{Hydrology and Earth System Sciences},
+  \textbf{19}(6), 2701–2715, ISSN 1607-7938 (\doi
+  {10.5194/hess-19-2701-2015})
+
+\bibitem[\protect\citename{Colgan and others, }2016]{colgan_2016_glacier}
+Colgan W, Rajaram H, Abdalati W, McCutchan C, Mottram R, Moussavi MS and
+  Grigsby S (2016) Glacier crevasses: Observations, models, and mass balance
+  implications. \emph{Reviews of Geophysics}, \textbf{54}(1), 119–161, ISSN
+  8755-1209 (\doi {10.1002/2015rg000504})
+
+\bibitem[\protect\citename{Compagno and others, }2019]{compagno_2019_modeling}
+Compagno L, Jouvet G, Bauder A, Funk M, Church G, Leinss S and Lüthi MP (2019)
+  Modeling the re-appearance of a crashed airplane on {G}auligletscher,
+  {S}witzerland. \emph{Frontiers in Earth Science}, \textbf{7}, ISSN 2296-6463
+  (\doi {10.3389/feart.2019.00170})
+
+\bibitem[\protect\citename{Dixon and others, }2014]{dixon_2014_emergence}
+Dixon EJ, Callanan ME, Hafner A and Hare PG (2014) The emergence of glacial
+  archaeology. \emph{Journal of Glacial Archaeology}, \textbf{1}(0), 1–9,
+  ISSN 2050-3407 (\doi {10.1558/jga.v1i1.1})
+
+\bibitem[\protect\citename{Haas and others, }2009]{haas_2009_helicopter}
+Haas C, Lobach J, Hendricks S, Rabenstein L and Pfaffling A (2009)
+  Helicopter-borne measurements of sea ice thickness, using a small and
+  lightweight, digital {EM} system. \emph{Journal of Applied Geophysics},
+  \textbf{67}(3), 234–241, ISSN 0926-9851 (\doi
+  {10.1016/j.jappgeo.2008.05.005})
+
+\bibitem[\protect\citename{Hayes, }1994]{hayes_1994}
+Hayes D (1994) \emph{The Lost Squadron: A True Story}. Bloomsbury, ISBN
+  9780747518266
+
+\bibitem[\protect\citename{Heggie, }2008]{heggie_2008_search}
+Heggie TW (2008) Search and rescue in {A}laska’s national parks. \emph{Travel
+  Medicine and Infectious Disease}, \textbf{6}(6), 355–361, ISSN 1477-8939
+  (\doi {10.1016/j.tmaid.2008.07.002})
+
+\bibitem[\protect\citename{Hermann and others, }2018]{hermann_2018_application}
+Hermann M, Box JE, Fausto RS, Colgan WT, Langen PL, Mottram R, Wuite J,
+  No{\"e}l B, {Van Den Broeke} MR and {Van As} D (2018) Application of
+  {PROMICE} {Q}-transect in situ accumulation and ablation measurements
+  (2000-2017) to constrain mass balance at the southern tip of the {G}reenland
+  ice sheet. \emph{Journal of Geophysical Research: Earth Surface}, ISSN
+  2169-9003 (\doi {10.1029/2017jf004408})
+
+\bibitem[\protect\citename{Joughin, }2018]{NSIDC_0725}
+Joughin I (2018) {MEaSUREs} {G}reenland {A}nnual {I}ce {S}heet {V}elocity
+  mosaics from sar and landsat, version 1 (\doi {10.5067/OPFQ9QDEUFFY}),
+  updated 2019. Used 2015 and 2016; Accessed 2019-06-05. {NASA} National Snow
+  and Ice Data Center Distributed Active Archive Center
+
+\bibitem[\protect\citename{Joughin and others, }2015, updated 2018]{NSIDC_0478}
+Joughin I, Smith B, Howat I and Scambos T (2015, updated 2018) {MEaSUREs}
+  {G}reenland {I}ce {S}heet velocity map from {InSAR} data, version 2 (\doi
+  {10.5067/OC7B04ZM9G6Q}), used 2016 and 2017; Accessed 2019-03-10. {NASA}
+  National Snow and Ice Data Center Distributed Active Archive Center
+
+\bibitem[\protect\citename{Joughin and others, }2010]{joughin_2010_greenland}
+Joughin IR, Smith B, Howat IM, Scambos TA and Moon T (2010) {G}reenland flow
+  variability from ice-sheet-wide velocity mapping. \emph{Journal of
+  Glaciology}, \textbf{56}(197), 415--430, ISSN 0022-1430 (\doi
+  {10.3189/002214310792447734})
+
+\bibitem[\protect\citename{Kaluzienski and others,
+  }2019]{kaluzienski_2019_crevasse}
+Kaluzienski L, Koons P, Enderlin E, Hamilton G, Courville Z and Arcone S (2019)
+  Crevasse initiation and history within the {M}c{M}urdo {S}hear {Z}one,
+  {A}ntarctica. \emph{Journal of Glaciology}, \textbf{65}(254), 989–999, ISSN
+  1727-5652 (\doi {10.1017/jog.2019.65})
+
+\bibitem[\protect\citename{Karlsson and others, }2019]{karlsson_2019_ice}
+Karlsson NB, Colgan WT, Binder D, Machguth H, Abermann J, Hansen K and Pedersen
+  A{\O} (2019) Ice-penetrating radar survey of the subsurface debris field at
+  {C}amp {C}entury, {G}reenland. \emph{Cold Regions Science and Technology},
+  \textbf{165}, 102788, ISSN 0165-232X (\doi
+  {10.1016/j.coldregions.2019.102788})
+
+\bibitem[\protect\citename{Lever and others, }2012]{lever_2012_autonomous}
+Lever JH, Delaney AJ, Ray LE, Trautmann E, Barna LA and Burzynski AM (2012)
+  Autonomous {GPR} surveys using the polar rover \textit{Yeti}. \emph{Journal
+  of Field Robotics}, \textbf{30}(2), 194–215, ISSN 1556-4959 (\doi
+  {10.1002/rob.21445})
+
+\bibitem[\protect\citename{{May v Commonwealth of Australia}, }2019]{AU_heli}
+{May v Commonwealth of Australia} (2019) May v {C}ommonwealth of {A}ustralia
+  and {H}elicopter {R}esources {P}ty {L}td ({N}o 2). [2019] {ACTMC} 31.
+  \url{https://courts.act.gov.au/magistrates/decisions/may-v-commonwealth-of-australia-and-helicopter-resources-pty-ltd-no-2}
+
+\bibitem[\protect\citename{Melville, }1851]{melville}
+Melville H (1851) \emph{Moby-Dick; or, The Whale}
+
+\bibitem[\protect\citename{Morlighem and others,
+  }2017{\natexlab{a}}]{NSIDC_BedMachine}
+Morlighem M, Williams C, Rignot E, An L, Arndt JE, Bamber J, Catania G,
+  Chauché N, Dowdeswell JA, Dorschel B, Fenty I, Hogan K, Howat I, Hubbard A,
+  Jakobsson M, Jordan TM, Kjeldsen KK, Millan R, Mayer L, Mouginot J, Noël B,
+  O'Cofaigh C, Palmer SJ, Rysgaard S, Seroussi H, Siegert MJ, Slabon P, Straneo
+  F, van~den Broeke MR, Weinrebe W, Wood M and Zinglersen K
+  (2017{\natexlab{a}}) {IceBridge} {BedMachine} {G}reenland, version 3 (\doi
+  {10.5067/2CIX82HUV88Y}), used all subsets; Accessed 2018-10-28
+
+\bibitem[\protect\citename{Morlighem and others,
+  }2017{\natexlab{b}}]{morlighem_2017_bedmachine}
+Morlighem M, Williams CN, Rignot E, An L, Arndt JE, Bamber JL, Catania G,
+  Chauch{\'e} N, Dowdeswell JA, Dorschel B, Fenty I, Hogan K, Howat IM, Hubbard
+  A, Jakobsson M, Jordan TM, Kjeldsen KK, Millan R, Mayer L, Mouginot J,
+  No{\"e}l BPY, Cofaigh C{\'O}, Palmer S, Rysgaard S, Seroussi H, Siegert MJ,
+  Slabon P, Straneo F, {van den Broeke} MR, Weinrebe W, Wood M and Zinglersen
+  KB (2017{\natexlab{b}}) {B}ed{M}achine v3: Complete bed topography and ocean
+  bathymetry mapping of {G}reenland from multi-beam echo sounding combined with
+  mass conservation. \emph{Geophysical Research Letters}, ISSN 0094-8276 (\doi
+  {10.1002/2017gl074954})
+
+\bibitem[\protect\citename{Pilloud and others, }2016]{pilloud_2016_taphonomy}
+Pilloud MA, Megyesi MS, Truffer M and Congram D (2016) The taphonomy of human
+  remains in a glacial environment. \emph{Forensic Science International},
+  \textbf{261}, 161.e1–161.e8, ISSN 0379-0738 (\doi
+  {10.1016/j.forsciint.2016.01.027})
+
+\bibitem[\protect\citename{Ray and others, }2007]{ray_2007_design}
+Ray LE, Lever JH, Streeter AD and Price AD (2007) Design and power management
+  of a solar-powered "{C}ool {R}obot" for polar instrument networks.
+  \emph{Journal of Field Robotics}, \textbf{24}(7), 581--599
+
+\bibitem[\protect\citename{Safronov, }2018]{safronov_2018_mixed}
+Safronov AN (2018) A mixed methods approach for locating the missing {H-209}
+  aircraft. \emph{Polar Geography}, \textbf{41}(2), 126–138, ISSN 1939-0513
+  (\doi {10.1080/1088937x.2018.1464077})
+
+\bibitem[\protect\citename{Schultz, }2008]{schultz_2008_sequential}
+Schultz JJ (2008) Sequential monitoring of burials containing small pig
+  cadavers using ground penetrating radar. \emph{Journal of Forensic Sciences},
+  \textbf{53}(2), 279–287, ISSN 1556-4029 (\doi
+  {10.1111/j.1556-4029.2008.00665.x})
+
+\bibitem[\protect\citename{Talalay, }2019]{talalay_2019_hot}
+Talalay PG (2019) Hot-point drills. \emph{Springer Geophysics}, 1–80, ISSN
+  2364-9127 (\doi {10.1007/978-981-13-8848-4\_1})
+
+\bibitem[\protect\citename{{van As} and others, }2011]{vanas_2011_programme}
+{van As} D, Fausto RS and the {PROMICE}~project team (2011) {P}rogramme for
+  {M}onitoring of the {G}reenland {I}ce {S}heet ({PROMICE}): first temperature
+  and ablation records. \emph{Geological Survey of Denmark and Greenland
+  Bulletin}, \textbf{23}, 73--76
+
+\bibitem[\protect\citename{Ward, }1955]{ward_1955_studies}
+Ward WH (1955) Studies in glacier physics on the {P}enny {I}ce {C}ap, {B}affin
+  {I}sland, 1953: Part {IV}: The flow of {H}ighway {G}lacier. \emph{Journal of
+  Glaciology}, \textbf{2}(18), 592–600, ISSN 1727-5652 (\doi
+  {10.3189/002214355793702082})
+
+\end{thebibliography}
+
+#+END_LaTeX
+
+* COMMENT Appendix                                                :ignore:
+
+\appendix
+\section{Appendix: Synthetic aperture radar processing}
+\label{Appendix:SAR}
+
+The test fan hub fragment was eventually found in the radar data with a signal 10 dB below the background signal. Detecting an object with a signal amplitude equal to 10 % of the background with an acceptable false negative and positive rate is difficult. Radar uses coherent electromagnetic waves and this coherency induces random amplitude fluctuations (speckle). These fluctuations are not strictly speaking noise - if the same measurement is done with the same flight trajectory, the signal fluctuations occur at the same positions (this property is exploited for interferometric SAR to measure precise earth motion). Real noise does exist in the observations, but in the SETHI measurement used here the thermal noise was 3 orders of magnitude lower than the speckle. We opted not use spatial averaging to enhance the signal because this degrades the spatial resolution. The alternative is to stack independent images.
+
+After stacking \(N\) images, the normalised standard deviation (standard deviation divided by the mean) of the fluctuations is ~\(1.85/\sqrt{N}\). To detect a target with a false alarm rate below 10^{-9}, from a search area covered by ~3.10^{9} pixels, the target level should be higher than ~6 standard deviations of the fluctuations. For a target level of 0.1, \(N\) must be larger than 111. This is a minimum number of images, because here it would likely give 3 false alarms, and each false alarm equals ~15 tons of snow if digging for visual verification.
+
+It is possible to obtain several images from one single acquisition by using different polarisations of the electromagnetic waves and by looking slightly fore and aft with respect to the antenna pointing. For the X-band this can only raise \(N\) to ~18 from 24 images, because the 4 polarisations are not fully independent. We combined images from 18 acquisitions from different directions for a total of 432 images. From these 432 images, \(N\) increases to only ~200 because of polarisation dependencies and incomplete overlap of the images.
+
+Combining images from different directions has advantages and disadvantages. The target signal may depend on the direction of illumination and using acquisitions from different directions increases the chance of observing a brighter signal. But unlike images from the same acquisition, the registration (within the 20 cm of SETHI resolution) of different observations is difficult. To co-register observations, 1) sensor trajectories (i.e. flight path) must be accurate to less than ~10 cm due to lack of stationary landmarks on the ice sheet, 2) radar range must be accurate to less than ~10 cm (signal delay accuracy below 500 ps), 3) terrain surface should be accurate to ~10 cm, 4) because several days may separate acquisitions, ice drift must be known and compensated for, and 5) target depth below surface and snow/ice refraction index are only approximated, and the effect of refraction should be accurately compensated for the effective target depth. This was estimated from a known target - a cowling fragment left in the light debris field during C1.
+
+# 102000*110000 = 11220000000
+# 55000 * 51000 = 2805000000
+
+Initial processing occurred over the full 102,000 x 110,000 pixel scene. Synthesis, registration, and fusion of these 432 images required 750 hours on a 120-core computer and ~40 Tb of temporary storage. A second improved processing was done over the final smaller search area - each scene was only 55,000 x 51,000 pixels.
+
+# \section{Appendix: Field Campaign Weights}
+
+# C4 required ~3000 to ~4000 kg of equipment and C5 planned to move ~6500 kg to the search area to support the search team. C4 was designed for six people for 23 nights. C5 was designed for seven people for 24 nights (Table 1). The extra C5 weight came from the addition of the FrostyBoy robot, the SnowTEM, their batteries, heaters, significantly larger fuel requirements, more safety equipment, improved tent infrastructure, and increased redundancy throughout based on C4 experiences. The ~500 to 900 kg of equipment per person during these ice-sheet campaigns is up to ~80% greater than previous ice-sheet expeditions of similar size citep:colgan_2018_initial. We attribute this to the more diverse and fluid daily tasking and an increase in redundancy necessitated by a search-and-recovery operation. 
+
+# The shorter C6 campaign, that had the limited scope to excavate the fan hub fragment, still planned to move ~3000 kg of equipment (for example the heater plus two fuel barrels is ~600 kg alone) to the site only to support day-visits of a five-person Narsarsuaq-based dig-team while a helicopter remained present at all times. However, because of forecasted weather windows too short for helicopter-based operations, camping was required. The disassembled C5 equipment was moved and re-used at the nearby T1 location (Figs. 3 and 9).
+
+* Figures
+
+Figure 1: The parts of engine that remained attached to the plane after the accident. Photo taken in-flight by passenger Enrique Guillen.
+
+Figure 2: Overview of field site. Fan hub fragment found to left of T1 label. T2A and T2B dots were secondary targets. Orange dots near T1 are locations of snow-covered crevasses from ground-penetrating radar (GPR) survey to T1. Airplane icon shows accident location on solid black line flight path. Dots in upper right show initial debris field. White and black dashed lines are primary and secondary search areas, respectively. Pale colored lines show GPR tracks from C4 wide-area search (right-most circles indicate C4 basecamp). C5 basecamp marked with tent icon. Bottom left shows white Greenland with circle representing the approximate location. Basemap is a contrast-enhanced Landsat image (15 m per pixel) and curved features in lower right corner are the surface depression over snow-covered crevasses.
+
+Figure 3: Overview of field site search area and crevasse fields. Similar to Fig. 2 except zoomed in and here basemap is an ultra-high frequency (UHF) synthetic aperture radar image from the SETHI instrument acquired during the third campaign. Approximate crevass locations are shown by light-colored streaks. Fan hub fragment location marked with X near T1. MEaSUREs 2015 - 2017 average velocity shown by arrows, with minimum 20 m yr^{-1} and maximum 75 m yr^{-1} marked at top left and bottom right, respectively.
+
+Figure 4: Density profile from April 2018 (C4). Snow pit down to 1.5 m and then nearby core from 1.5 to 12 m. Blue lines denote visible ice layers.
+
+Figure 5: A SnowTEM photograph (top) and down-looking schematic (bottom). Snowmobile with instrumentation (left), transmitter coil (center) and receiver coil (right). Dual receiver in photo is experimental setup not used during search. Photo by Thue Bording.
+
+Figure 6: Local view of Target 1 site. Basemap is 0.18 m/pixel resolution X-band composite, acquired during 2018 C3 but shifted so that target T1 lines up with location where fan hub fragment was found during 2019 C5. Dark spot near T1 arrow marks the fan hub fragment. Dark and light streaks mark crevasses, also detected during C5 FrostyBoy GPR survey and marked with orange. Black dashed line is approximate transect shown in Fig. 7. White lines and camera show approximate view and region of Fig. 9. Helicopter (credit: Rune Kraghede) added graphically at scale to show work environment (camera not to scale).
+
+Figure 7: Anomalous feature (in white circle and zoomed in circle) and crevasses (white boxes) from 400 MHz SIR-30 GPR towed by FrostyBoy. Near top axis, dashed box shows planned pit and work island, and tent (not to scale) marks camp island (Figs. 6 and 9). On bottom axis, A and A’ refer to labels in Fig. 9. N and S refer to North and South ends of transect (see Fig. 6).
+
+Figure 8: Plot of SnowTEM signal response showing signal strength (y-axis; \(d\)B is change in magnetic B-field, not decibel dB) v. time (x-axis). The open symbols have opposite polarity from the closed symbols. Squares show the maximum signal from the T1 target, Triangles show responses with no engine pieces, and circles show the signal from test piece. The first half (until 100 \(\mu\)s) of the no-engine piece signal is dominated by an internal instrument signal, and thereafter noise or couplings with opposite polarity. The three consecutive gates at 75, 100 and 132 \(\mu\)s were used for localisation of the test piece.
+
+Figure 9: Photograph from helicopter of excavation work-site. A & A': Dark red graphic overlays between flags mark known crevasse locations as detected by GPR and DGNSS (also in Figs. 6 and 7). Dashed lines enclose safe areas and pink marks unsafe areas defined with GPR data, the UHF basemap (Fig. 3), extensive snow probing, and crevasse location uncertainty with distance from known crevasse locations. B: Ramp out of pit. C: Plywood used to cover pit overnight to prevent drifting snow filling. D: Safety rope bridging crevasse between the northern (far) camp island and the southern (near) work island. E: Sled. F: Winch and winch platform. G: Generator used to power winch. H: Bamboo poles marking polar bear alarm trip-wire surrounding sleep tent. I: Herman Nelson heater, hose, and fuel barrel. J: Helicopter landing zone. Photo by Austin Lines.
+
+\clearpage
+
+\begin{table*} % table2, two column
+\caption{Overview of field campaigns. Campaign duration is days in Greenland. Camp duration refers to nights camping on-ice. Equipment weight is the weight of equipment moved to the ice sheet for the campaign. C4 combines helicopter and Twin Otter flights.}
+\centering
+\begin{tabular}{lllllll}
+ &      & Time since   & Campaign  & Camp [days]      & Flights [days]      & Equipment \\
+ & Date & event [days] & [days]    & planned/actual   & with/without delays & weight [kg] \\\hline
+C1  & Oct '17      & 4-11     & 8   & 0/0    & 5/3   & \\
+C2  & Mar '18      & 174-181  & 7   & 0/0    & 0/1   & \\
+C3  & Apr '18      & 184-201  & 17  & 0/0    & 5/5   & \\
+C4  & Apr/May '18  & 199-228  & 29  & 23/23  & 3/5   & 3000-4000\\
+C5  & May '19      & 572-605  & 33  & 24/15  & 10/9  & 6,500\\
+C6  & Jun/Jul '19  & 630-644  & 14  & 0/2    & 3/6   & 3000-4000\\
+\end{tabular}
+\end{table*}
+
+* LaTeX Setup                                           :noexport:
+#+NAME: jog-latex-setup
+#+BEGIN_SRC elisp
+(add-to-list 'org-latex-classes
+               `("igs"
+                 "\\documentclass{igs}
+               [NO-DEFAULT-PACKAGES]
+               [NO-PACKAGES]
+               [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+               )
+
+(org-add-link-type
+ "citet"  (lambda (key) (kdm/org-pdf-open key))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'latex) (format "\\cite{%s}" path))
+    ((eq format 'ascii) (format "%s" desc))
+    )))
+(org-add-link-type
+ "citep"  (lambda (key) (kdm/org-pdf-open key))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'latex) (format "\\citep{%s}" path))
+    ((eq format 'ascii) (format "%s" desc))
+    )))
+
+(setq-local org-latex-title-command "")
+#+END_SRC
+
+#+RESULTS: jog-latex-setup
+
+* TODO QC                                               :noexport:
+
+(langtool-check)
+(langtool-correct-buffer)
+(langtool-check-done)
+
+Export as ASCII, then,
+
+#+BEGIN_SRC elisp :results none :eval no-export
+(setq org-ascii-text-width 80)
+(org-ascii-export-to-ascii)
+#+END_SRC
+
+#+BEGIN_SRC bash :cmdline "-i" :results output :eval no-export :exports none
+this='A380.txt'
+aspell list < $this | sort | uniq
+echo "\n"
+
+declare -a cmds=("style" "diction -s")
+for cmd in "${cmds[@]}"; do
+    echo "###\n### $cmd\n###"
+    #echo $cmd $this
+    ${cmd} ${this}
+    echo "\n"
+done
+#+END_SRC
+
+* LaTeXdiff                                             :noexport:
+#+BEGIN_SRC sh :results verbatim :results none :eval no-export
+
+OLD=A380_ce66c80.tex
+NEW=A380.tex
+latexdiff --disable-citation-markup --append-safecmd="textcite,autocite" --config="PICTUREENV=(?:picture|DIFnomarkup|tabular)[\w\d*@]*" $OLD $NEW > diff.tex
+
+# NOTE: Stil requires some manual editing of diff.tex, particularly
+# when \DIFDEL and \DIFADD are inside CITE commands.
+
+# latexmk diff.tex
+#+END_SRC
+#+RESULTS:
+
+* Release                                               :noexport:
+** Share w/ Coauthors
+#+BEGIN_SRC sh :results verbatim
+pandoc -f latex -i A380.tex -t DOCX -o A380.docx --bibliography ./A380.bib
+pandoc -f latex -i review.tex -t DOCX -o review.docx
+
+zip -r A380.zip A380.pdf diff.pdf A380.docx A380.tex review.pdf review.docx
+mv A380.zip ~/Dropbox/out/A380.zip
+
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+dropbox sharelink ~/Dropbox/out/A380.zip | pbcopy; pbpaste
+#+END_SRC
