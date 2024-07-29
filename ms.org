@@ -145,7 +145,7 @@ As previously stated, few existing studies outside of review papers address all 
 
 Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagram(s) shown here. The widths of all lines are proportional to all other widths, both within and among figures. Color here represents both phase and net mass change. Colors gray, blue, and yellow represent solid, liquid, and gaseous phases respectively, while red interior represents net mass loss. The latter may be counter-intuitive - for example to see mass loss as an input at the left (red in Fig. \ref{fig}) even though most mass loss terms (runoff, calving, etc.) are at the right. This is because Sankey diagrams are balanced, here outputs are larger than inputs (hence net mass loss), and so the mass loss term is an input - drawdown of the historical 'stable' ice mass.
 
-These diagrams also do not represent every process perfectly. For example, frontal retreat is a combination of discharge and submarine melting (and should therefore divide between ice and liquid, with the same uncertainty citep:enderlin_2013, but frontal retreat is shown separately here because it is usually treated separately in the literature.
+These diagrams also do not represent every process perfectly. For example, frontal retreat is a combination of discharge and submarine melting (and should therefore divide between ice and liquid with the same 50 % \pm 40 % uncertainty citep:enderlin_2013), but frontal retreat is shown separately here because it is usually treated separately in the literature.
 
 We highlight frontal retreat and grounding line retreat both with a red outline, and by not including frontal retreat in the larger (in Greenland) discharge and submarine melting flow. We do this for two reasons.
 
@@ -161,6 +161,8 @@ These figures neglect some mass flow processes (some of which are included in ci
 
 Neglected processes include basal freeze-on (e.g., citet:bell_2014). Basal melting estimates currently assume all melt leaves the ice sheet and is therefore mass loss. That seems unlikely, given both observations of freeze-on citep:bell_2014 and that some melt, especially from the geothermal term (c.f., citet:karlsson_2021) occurs under thick ice far inland and far from active subglacial conduits.
 
+Frontal melt is excluded in Antarctica, because it is usually excluded in the literature that focus on ice shelf basal melt or calving.
+
 Grounding line retreate in both Greenland and Antarctica is largely unquantified in the units needed to include it here.
 
 We also neglect avalanche on and off - these likely matter more for mountain glaciers than ice sheets.
@@ -174,7 +176,6 @@ We make the following simplifications.
 Subaerial frontal melt and sublimation (the vertical face in above the water line, citet:cogley_2011 (Fig. 2) is not explicitly treated but is included in other terms.
 
 There are a variety of other simplifications. For example, rainfall input does not all turn to ice. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still correct - at least as well as we are able to estimate them.
-
 
 ** Uncertainty
 
@@ -716,4 +717,10 @@ mv A380.zip ~/Dropbox/out/A380.zip
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 dropbox sharelink ~/Dropbox/out/A380.zip | pbcopy; pbpaste
+#+END_SRC
+
+
+#+BEGIN_SRC bash :exports none :results none
+pandoc ms.org --bibliography ~/Documents/Papers/library.bib --citeproc --csl ~/Documents/templates/copernicus-publications.csl -o ms.docx
+# xdg-open ms.docx
 #+END_SRC
