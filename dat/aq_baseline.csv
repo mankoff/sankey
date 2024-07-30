@@ -7,10 +7,10 @@ RFZ,Refreezing,105,IO,2000-2019,fettweis_2020,
 EV,Evaporation,5,O,2000-2019,fettweis_2020,
 RU,Runoff,10,O,2000-2019,fettweis_2020,
 BM,Basal melting,70,O,-,van-liefferinge_2013,
-DYN,Discharge,1375+1350+(2275-1840),-,1997-2021; 1999-2017,Sum of SUB + ICE,See caption
-SUB,Submarine melting,1375,O,2000-2017,paolo_2023,
-SUBF,Freeze-on,365,I,2000-2017,paolo_2023,
-ICE,Calving,1350+(2275-1840),O,1997-2021; 1999-2017,davison_2023 + rignot_2019 grounded,See caption
+DYN,Discharge,1335+1350+(2275-75-1840),-,1997-2021; 1999-2017,Sum of SUB + ICE,See caption
+SUB,Submarine melting,1335,O,2000-2017,paolo_2023,
+SUBF,Freeze-on,355,I,2000-2017,paolo_2023,
+ICE,Calving,1350+(2275-75-1840),O,1997-2021; 1999-2017,davison_2023 + rignot_2019 grounded,See caption
 GZRET,Grounding line retreat,50,O,1997-2021,Davison (personal comm.),
 FRLOSS,Frontal retreat,79+122+145-1,O,2000-2021,greene_2022,
 FRGAIN,Frontal advance,181+1+103,O,2000-2021,greene_2022,

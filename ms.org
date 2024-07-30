@@ -1,3 +1,5 @@
+
+:settings_drawer:
 #+Latex_Class: igs
 #+AUTHOR: 
 #+DATE: 
@@ -17,37 +19,43 @@
 #+LATEX_HEADER_EXTRA: \jourvolume{V}
 #+LATEX_HEADER_EXTRA: \jourissue{N}
 #+LATEX_HEADER_EXTRA: \jourpubyear{YYYY}
+:end:
 
 #+BEGIN_EXPORT LaTeX
 \title[Sankey mass flows]{Ice sheet mass flows}
 
 \author[Mankoff and others]
        {Kenneth D. MANKOFF,$^{1,2}$
-         Xavier FETTWEIS,
-         Chad GREENE,
-         Brice VAN LIEFFERINGE,
+         Benjamin DAVISON,$^{3}$
+         Chad GREENE,$^{4}$
+         Xavier FETTWEIS,$^{5}$
+         Brice VAN LIEFFERINGE,$^{6}$
          Someone, ELSE,$^n$,
        add your name to CREDIT.CSV in repository}
 
 \affiliation{%
   $^1$NASA Goddard Institute for Space Studies, New York, NY, 10025 USA\\
   $^2$Autonomic Integra LLC, New York, NY, 10025 USA\\
-  $^n$Somewhere Else\\
+  $^3$\\
+  $^4$Jet Propulsion Laboratory California Institute of Technology Pasadena CA USA\\
+  $^5$\\
+  $^6$\\
   Correspondence: Ken Mankoff
   \email{ken.mankoff@nasa.gov}}
 #+END_EXPORT
 
 #+LATEX: \begin{frontmatter}
-
 #+LATEX: \maketitle
-
 #+LATEX: \begin{abstract}
 
-Understanding the processes involved in ice sheet mass loss requires knowledge production and sharing, in addition to field observations and computer modeling. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting all mass flow of water in various phases in Greenland and Antarctica. Sankey diagrams help bring perspective to the interplay and relative importance of snowfall, rain, drawdown, refreezing, submarine melt, iceberg calving, and grounding line retreat in contributing to ice sheet mass balance.
+Understanding the processes involved in ice sheet mass loss requires knowledge production and sharing, in addition to field observations and computer modeling. Tabular data is optimized for computers and useful for humans, but graphical presentations can provide significantly higher information density. Here we present several Sankey diagrams depicting all mass flow of ice in various phases in Greenland and Antarctica.
 
-This work quantifies both grounded and floating ice mass loss. From this, mass loss in Greenland is 330 Gt yr$^{-1}$ which is ~20 % higher than the ~270 Gt yr$^{-1}$ estimates that neglect terminus retreat of ice at or near flotation. Mass loss in Antarctica is 275 Gt yr$^{-1}$ which is ~85 % higher than the ~150 Gt yr$^{-1}$ estimates of grounded ice mass loss.
+This work quantifies both grounded and floating ice mass loss from approximately 2000 through 2019, although not all products cover the same timespan. Ice mass loss in Greenland is 330 Gt yr$^{-1}$ which is ~20 % larger than grounded ice mass loss estimates that neglect terminus retreat of ice at or near flotation. Ice mass loss in Antarctica is 280 Gt yr$^{-1}$ or ~85 % larger than grounded ice mass loss.
 
-# This work also reports gross not net values for most properties. Net frontal retreat of ice shelves in Antarctica is 60 Gt yr^{-1}, but we report six times that amount or 345 Gt yr$^{-1}$ of frontal retreat offset by 285 Gt yr$^{-1}$ of frontal advance.
+# GL: (330/270 %) - 100 = 22.222222222
+# AQ: (280/150 %) - 100 = 86.666666667
+
+This work also reports gross not net values for most properties, which leads to significantly higher estimates of freshwater volumes. Net frontal retreat of ice shelves in Antarctica is 60 Gt yr^{-1}, but we report six times that amount or 345 Gt yr$^{-1}$ of frontal retreat offset by 285 Gt yr$^{-1}$ of frontal advance. Total freshwater volume flow rate from Greenland is ~1000 Gt yr^{-1} or ~3x mass loss, and from Antarctica is ~3500 Gt yr^{-1}, or ~12x mass loss.
 
 #+LATEX: \end{abstract}
 #+LATEX: \end{frontmatter}
@@ -219,9 +227,9 @@ This decision was made for the following reasons: This is the standard behavior 
 
 Each product here likely has a similar but different combination of reasons for their uncertainty including model, observation, and human caused.
 
-Ice shelf net basal melt rates from citet:paolo_2023 for 2000 through 2017 are 1010 (from gross terms of 1375 melt minus 365 freeze-on), 315 (515-200), 520 (665-145), and 145 (155-10) Gt yr^{-1} for all of Antarctica, East, West, and Peninsula regions respectively. Comparing these the net to citet:davison_2023 who only provide net, their estimates for 1997 through 2021 are 900, 390, 410, and 100 Gt yr^{-1} for the same regions, or ~10 % less (all Antarctica), 25 % more (East), 20 % less (West) and 30 % less (Peninsula).
+Ice shelf net basal melt rates from citet:paolo_2023 for 2000 through 2017 are 980 (from gross terms of 1335 melt minus 355 freeze-on), 315 (515-200), 520 (665-145), and 145 (155-10) Gt yr^{-1} for all of Antarctica, East, West, and Peninsula regions respectively. Comparing these the net to citet:davison_2023 who only provide net, their estimates for 1997 through 2021 are 900, 390, 410, and 100 Gt yr^{-1} for the same regions, or ~8 % less (all Antarctica), 25 % more (East), 20 % less (West) and 30 % less (Peninsula).
 
-# 100 - 900/1010 % = 10.8910891089
+# 100 - 900/980 % = 8.1632653061
 # 100 - 390/315 % = -23.80952381    315*1.25 = 393.75
 # 100 - 410/520 % = 21.1538461538
 # 100 - 100/145 % = 31.0344827586
