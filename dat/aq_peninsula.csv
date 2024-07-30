@@ -7,12 +7,13 @@ RFZ,Refreezing,50,IO,2000-2019,fettweis_2020,
 EV,Evaporation,5,O,2000-2019,fettweis_2020,
 RU,Runoff,10,O,2000-2019,fettweis_2020,
 BM,Basal melting,70,O,-,van-liefferinge_2013,
-DYN,Discharge,100 + 105 + (330-160),-,1999-2017,Sum of SUB + ICE,
-SUB,Submarine melting,100,O,,davison_2023,
-ICE,Calving,105 + (330 - 160),O,,davison_2023 + rignot_2019 grounded,(2)
-GZRET,Grounding line retreat,5,O,,,45 in Amundsen from Davison email
-FRLOSS,Frontal retreat,120,O,,greene_2022,
-FRGAIN,Frontal advance,0,O,,greene_2022,
+DYN,Discharge,155 + 105 + (330-160),-,1997-2021; 1999-2017,Sum of SUB + ICE,See caption
+SUB,Submarine melting,155,O,2000-2017,paolo_2023,
+SUBF,Freeze-on,10,I,2000-2017,paolo_2023,
+ICE,Calving,105 + (330 - 160),O,1997-2021; 1999-2017,davison_2023 + rignot_2019 grounded,See caption
+GZRET,Grounding line retreat,5,O,1997-2021,Davison (personal comm.),
+FRLOSS,Frontal retreat,120,O,2000-2021,greene_2022,
+FRGAIN,Frontal advance,0,O,2000-2021,greene_2022,
 SU,Sublimation,15,O,2000-2019,fettweis_2020,
-DD,Drawdown,,-,,Derived,.= sum(O) - sum(I)
-MG,Mass gain,,-,,Derived,.= sum(I) - sum(O)
+DD,Drawdown,,-,,Derived,sum(O) - sum(I)
+MG,Mass gain,,-,,Derived,sum(I) - sum(O)

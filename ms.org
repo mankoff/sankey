@@ -183,6 +183,10 @@ Here we discuss both the uncertainty of each term, and discuss the where this un
 
 Sankey diagrams do not typically include a display of uncertainty, although it is possible to add a visual indicator to the graphic citep:TODO. Here we do not include a display of uncertainty in the main graphics, but do in the tabular display and visually in Appendix X for Greenland.
 
+*** General
+
+Here we report a single value from mostly overlapping time periods. However, changes in ice shelf melt rate or upstream glacier thinning was occurring during these times citep:paolo_2023.
+
 *** Magnitudes
 
 Reported uncertainties are all < 15 % with the exception of the Greenlandic division of discharge when it is divided into submarine melt and calving, each of which have an uncertainty of 90 % \pm 40 % based on citet:enderlin_2013. The magnitude of the sum of the two terms is reasonably well constrtained at ~10 % citep:mankoff_2020_solid.
@@ -215,8 +219,12 @@ This decision was made for the following reasons: This is the standard behavior 
 
 Each product here likely has a similar but different combination of reasons for their uncertainty including model, observation, and human caused.
 
+Ice shelf net basal melt rates from citet:paolo_2023 for 2000 through 2017 are 1010 (from gross terms of 1375 melt minus 365 freeze-on), 315 (515-200), 520 (665-145), and 145 (155-10) Gt yr^{-1} for all of Antarctica, East, West, and Peninsula regions respectively. Comparing these the net to citet:davison_2023 who only provide net, their estimates for 1997 through 2021 are 900, 390, 410, and 100 Gt yr^{-1} for the same regions, or ~10 % less (all Antarctica), 25 % more (East), 20 % less (West) and 30 % less (Peninsula).
 
-
+# 100 - 900/1010 % = 10.8910891089
+# 100 - 390/315 % = -23.80952381    315*1.25 = 393.75
+# 100 - 410/520 % = 21.1538461538
+# 100 - 100/145 % = 31.0344827586
 
 # Advice from Hester: Synthesize what each of the uncertainties is a function of (lack of measurements/scale/timing of measurements/lack of process understanding/variability/etc.). Also, rather than singling the uncertainty of each factor the feedbacks between them could be indicated.
 

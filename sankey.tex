@@ -98,9 +98,9 @@
         %% COMPUTED
         {vML/Mass loss/
           (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRLOSS}+\Q{vGZRET}+\Q{vEV})-
-          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN})},
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN}+\Q{vSUBF})},
         {vMG/Mass gain/
-          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN})-
+          (\Q{vSF}+\Q{vRF}+\Q{vCD}+\Q{vDP}+\Q{vFRGAIN}+\Q{vSUBF})-
           (\Q{vSU}+\Q{vRU}+\Q{vBM}+\Q{vDYN}+\Q{vFRLOSS}+\Q{vGZRET}+\Q{vEV})}
       },
     }
@@ -126,25 +126,34 @@
     \sankeynode{name=f0, quantity=\Q{vSF}+\Q{vDP}+\Q{vCD}+\Q{vRF},
       at={[xshift=15mm, yshift=0mm]SF.right}, anchor=right,
       forked={\Q{vRF}/RFi, \Q{vCD}/CDi, \Q{vDP}/DPi, \Q{vSF}/SFi}}
-
+    
     \sankeyoutin{SF}{SFi}
     \sankeydubins[minimum radius=3mm,air-to-ice]{DP}{DPi}
     \sankeydubins[minimum radius=3mm]{CD}{CDi}
     \sankeydubins[minimum radius=3mm,water-to-ice]{RF}{RFi}
 
-    \ifthenelse{\Q{vMG} > \Q{vML}} {
-        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN},
-          at={[xshift=15mm]f0.right}, anchor=right,
-          forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \qq{f0}/f0i}}
-    } {
-        \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN},
-          at={[xshift=15mm]f0.right}, anchor=right,
-          forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \Q{vML}/MLi, \qq{f0}/f0i}}
-    }
+    \sankeynode{name=SUBF, quantity=\Q{vSUBF},
+      at={[yshift=-\yoff]SF.south}, anchor=left}
 
+    \ifthenelse{\Q{vMG} > \Q{vML}} {
+      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vFRGAIN}+\Q{vSUBF},
+        at={[xshift=30mm, yshift=\yoff]SUBF.south}, anchor=right,
+        forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \qq{f0}/f0i, \Q{vSUBF}/SUBFi}}
+    } {
+      \sankeynode{name=f1, quantity=\Q{vRFZ}+\qq{f0}+\Q{vML}+\Q{vFRGAIN}+\Q{vSUBF},
+        at={[xshift=30mm, yshift=\yoff]SUBF.south}, anchor=right,
+        forked={\Q{vRFZ}/RFZi, \Q{vFRGAIN}/FG, \Q{vML}/MLi, \qq{f0}/f0i, \Q{vSUBF}/SUBFi}}
+    }
+    
     \sankeyoutin{f0}{f0i}
     \sankeyadvance{f1}{15mm}
 
+    \ifnum \numexpr\Q{vSUBF} > 0
+    \labelleft{SUBF}
+    \sankeystart[water]{SUBF}
+    \sankeydubins[water-to-ice]{SUBF}{SUBFi}
+    \fi
+    
     \ifthenelse{\Q{vMG} > \Q{vML}}
     {
       \sankeyfork{f1}{\Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/f8, \Q{vDYN}/f6,
