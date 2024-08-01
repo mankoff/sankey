@@ -12,10 +12,11 @@
 - [[#implementation][Implementation]]
   - [[#greenland][Greenland]]
     - [[#reset][Reset]]
+    - [[#discharge][Discharge]]
     - [[#basal-melt][Basal melt]]
     - [[#gz-retreat][GZ retreat]]
     - [[#smb][SMB]]
-    - [[#discharge][Discharge]]
+    - [[#discharge-1][Discharge]]
   - [[#antarctica][Antarctica]]
     - [[#export-tables-to-csv][Export tables to CSV]]
     - [[#reset-1][Reset]]
@@ -57,26 +58,26 @@ All figures are width-proportional within and between each other.
 ** Greenland
 
 #+NAME: gl_baseline
-| Code   | Term                   | Value | I/O |    Period | Source          | Comment                     |
-|--------+------------------------+-------+-----+-----------+-----------------+-----------------------------|
-| RF     | Rainfall               |    45 | I   | 2000-2019 | fettweis_2020   |                             |
-| CD     | Condensation           |     5 | I   | 2000-2019 | fettweis_2020   |                             |
-| DP     | Deposition             |    10 | I   | 2000-2019 | fettweis_2020   |                             |
-| SF     | Snowfall               |   685 | I   | 2000-2019 | fettweis_2019   |                             |
-| RFZ    | Refreezing             |   195 | IO  | 2000-2019 | fettweis_2020   | RFZ = ME + RF - RU          |
-| EV     | Evaporation            |    10 | O   | 2000-2019 | fettweis_2020   |                             |
-| RU     | Runoff                 |   440 | O   | 2000-2019 | fettweis_2020   |                             |
-| BM     | Basal melting          |    20 | O   |    steady | karlsson_2020   |                             |
-| DYN    | Discharge              |   490 | -   | 2000-2019 | mankoff_2020    | Submarine melting + calving |
-| SUB    | Submarine melting      |   245 | O   |           | enderlin_2013   | 50 % of discharge           |
-| SUBF   | Freeze-on              |     0 | I   |           |                 | None in Greenland           |
-| ICE    | Calving                |   245 | O   |           | enderlin_2013   | 50 % of discharge           |
-| GZRET  | Grounding line retreat |     5 | O   |           |                 | Estimate                    |
-| FRLOSS | Frontal retreat        |    50 | O   | 2000-2020 | kochtitzky_2023 |                             |
-| FRGAIN | Frontal advance        |     0 | O   |           |                 | None in GL                  |
-| SU     | Sublimation            |    60 | O   | 2000-2019 | fettweis_2020   |                             |
-| DD     | Drawdown               |       | -   |           | Derived         | sum(O) - sum(I)             |
-| MG     | Mass gain              |       | -   |           | Derived         | sum(I) - sum(O)             |
+| Code   | Term                   |  Value | I/O |    Period | Source                             | Comment                           |
+|--------+------------------------+--------+-----+-----------+------------------------------------+-----------------------------------|
+| RF     | Rainfall               |     45 | I   | 2000-2019 | fettweis_2020                      |                                   |
+| CD     | Condensation           |      5 | I   | 2000-2019 | fettweis_2020                      |                                   |
+| DP     | Deposition             |     10 | I   | 2000-2019 | fettweis_2020                      |                                   |
+| SF     | Snowfall               |    685 | I   | 2000-2019 | fettweis_2020                      |                                   |
+| RFZ    | Refreezing             |    195 | IO  | 2000-2019 | fettweis_2020                      | Melt + rainfall - runoff          |
+| EV     | Evaporation            |     10 | O   | 2000-2019 | fettweis_2020                      |                                   |
+| RU     | Runoff                 |    440 | O   | 2000-2019 | fettweis_2020                      |                                   |
+| BM     | Basal melting          |     20 | O   |    steady | karlsson_2021                      |                                   |
+| DYN    | Discharge              | 475-25 | -   | 2000-2019 | mankoff_2021_solid,kochtitzky_2023 | Submarine melting + calving - SMB |
+| SUB    | Submarine melting      |    225 | O   |           | enderlin_2013                      | 50 % of discharge                 |
+| SUBF   | Freeze-on              |      0 | I   |           |                                    | None in Greenland                 |
+| ICE    | Calving                |    225 | O   |           | enderlin_2013                      | 50 % of discharge                 |
+| GZRET  | Grounding line retreat |      5 | O   |           |                                    | Estimate                          |
+| FRLOSS | Frontal retreat        |     50 | O   | 2000-2020 | kochtitzky_2023                    |                                   |
+| FRGAIN | Frontal advance        |      0 | O   |           |                                    | None in Greenland                 |
+| SU     | Sublimation            |     60 | O   | 2000-2019 | fettweis_2020                      |                                   |
+| DD     | Mass loss              |        | -   |           | Derived                            | sum(O) - sum(I)                   |
+| MG     | Mass gain              |        | -   |           | Derived                            | sum(I) - sum(O)                   |
 #+CAPTION: Greenland mass flow terms, values, and metadata
 
 #+CALL: orgtbl2csv(tbl="gl_baseline")
@@ -89,6 +90,23 @@ All figures are width-proportional within and between each other.
 trash G_GL
 [[ -e ./G_GL ]] || grass -e -c EPSG:3413 ./G_GL
 #+END_SRC
+
+*** Discharge
+
+
+#+BEGIN_SRC bash :exports both :results verbatim
+cat ~/data/Mankoff_2021/708/MB_SMB_D_BMB_ann.csv \
+    | cut -d, -f1,6 \
+    | sed -e '1,/^1999/d' \
+    | sed  '/^2019/q' \
+    | datamash -t, mean 1,2
+#+END_SRC
+
+#+RESULTS:
+: 2009.5,476.44290795
+: org_babel_sh_eoe
+
+Then, subtract 25 from 475 based on citet:kochtitzky_2023 who report, in Section 3.3, 17 +- 6.8 and 14.5 +- 5.8 but that "[b]ecause our fluxgates were typically located tens to hundreds of meters lower than those in the similar studies (King et al., 2018; Mankoff et al., 2020), the melt correction for these studies would be higher than values presented herein, although it is beyond the scope of the current study to determine what those values would be."
 
 *** Basal melt
 
@@ -463,48 +481,55 @@ mat = sp.io.loadmat('/home/kdm/data/Van_Liefferinge_2023/Melt_Mean_Std_15exp.mat
 X = mat['X'].flatten() * 1E3 # convert from km to m
 Y = mat['Y'].flatten() * 1E3
 m = mat['MeanMelt'].flatten() / 10 # cm to mm
+e = mat['StdMelt'].flatten() / 10 # cm to mm
 
-melt = pd.DataFrame(np.array([X,Y,m]).T, columns=['x','y','melt'])\
-         .dropna()
+melt = pd.DataFrame(np.array([X,Y,m,e]).T, columns=['x','y','melt','err']).dropna()
 melt.to_csv('./tmp/melt.csv', header=False, index=False)
 melt.head()
 #+END_SRC
 
 #+RESULTS:
-|        |         x |          y |        melt |
-|--------+-----------+------------+-------------|
-| 148741 | 1.045e+06 | -2.14e+06  | 1e-09       |
-| 149859 | 1.03e+06  | -2.135e+06 | 0.00146608  |
-| 149860 | 1.035e+06 | -2.135e+06 | 0.000266042 |
-| 149861 | 1.04e+06  | -2.135e+06 | 1e-09       |
-| 149862 | 1.045e+06 | -2.135e+06 | 0.00045698  |
+|        |         x |          y |        melt |         err |
+|--------+-----------+------------+-------------+-------------|
+| 148741 | 1.045e+06 | -2.14e+06  | 1e-09       | 1.71243e-25 |
+| 149859 | 1.03e+06  | -2.135e+06 | 0.00146608  | 0.000148305 |
+| 149860 | 1.035e+06 | -2.135e+06 | 0.000266042 | 0.000389444 |
+| 149861 | 1.04e+06  | -2.135e+06 | 1e-09       | 1.71243e-25 |
+| 149862 | 1.045e+06 | -2.135e+06 | 0.00045698  | 0.000668948 |
 
 #+BEGIN_SRC bash :exports both :results verbatim
 grass ./G_AQ/PERMANENT
 g.mapset -c liefferinge_2023
 r.in.xyz input=./tmp/melt.csv output=melt sep=, --o
+r.in.xyz input=./tmp/melt.csv output=err z=4 sep=, --o
 #+END_SRC
 
 #+BEGIN_SRC bash :exports both :results verbatim
 echo "All: " $(r.univar -g map=melt | grep sum)
+echo "All: " $(r.univar -g map=err | grep sum)
 echo ""
 r.univar -gt map=melt zones=basins | cut -d"|" -f2,13 | column -s"|" -t
+echo ""
+r.univar -gt map=err zones=basins | cut -d"|" -f2,13 | column -s"|" -t
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
 All:  sum=69.3982306335468
+All:  sum=20.0261054475124
 
-label                 sum
-East (Grounded)       45.7178033424208
-West (Grounded)       18.0714170862276
-Peninsula (Grounded)  2.93302497694997
-Islands               0.279139711405429
-East (Floating)       1.03624592705523
-West (Floating)       0.781445329564939
-Peninsula (Floating)  0.254017664974735
+label      sum
+East       46.7540492694752
+West       18.8528624157926
+Peninsula  3.18704264192471
+
+label      sum
+East       14.784924204035
+West       4.90322548927998
+Peninsula  0.221183549670513
 #+end_example
 
+20/69 % = 28.9855072464
 *** Antarctic Ice shelves
 
 **** Submarine melt
@@ -826,7 +851,7 @@ Email from Davison
 #+BEGIN_SRC jupyter-python :exports both
 import xarray as xr
 ds = xr.open_mfdataset("~/data/Paolo_2023/ANT_G1920V01_IceShelfMelt.nc")
-ds = ds['melt'].sel({'time':slice('2000-01-01','2017-12-31')}).mean(dim='time')
+ds = ds[['melt','melt_err']].sel({'time':slice('2000-01-01','2017-12-31')}).mean(dim='time')
 
 delayed_obj = ds.to_netcdf('tmp/shelf_melt.nc', compute=False)
 from dask.diagnostics import ProgressBar
@@ -837,12 +862,15 @@ print(ds)
 #+END_SRC
 
 #+RESULTS:
-: [########################################] | 100% Completed | 6.40 s
-: <xarray.DataArray 'melt' (y: 2916, x: 2916)> Size: 34MB
-: dask.array<mean_agg-aggregate, shape=(2916, 2916), dtype=float32, chunksize=(486, 486), chunktype=numpy.ndarray>
+: [########################################] | 100% Completed | 7.79 s
+: <xarray.Dataset> Size: 68MB
+: Dimensions:   (y: 2916, x: 2916)
 : Coordinates:
-:   * x        (x) float64 23kB -2.798e+06 -2.796e+06 ... 2.796e+06 2.798e+06
-:   * y        (y) float64 23kB 2.798e+06 2.796e+06 ... -2.796e+06 -2.798e+06
+:   * x         (x) float64 23kB -2.798e+06 -2.796e+06 ... 2.796e+06 2.798e+06
+:   * y         (y) float64 23kB 2.798e+06 2.796e+06 ... -2.796e+06 -2.798e+06
+: Data variables:
+:     melt      (y, x) float32 34MB dask.array<chunksize=(486, 486), meta=np.ndarray>
+:     melt_err  (y, x) float32 34MB dask.array<chunksize=(486, 486), meta=np.ndarray>
 
 #+BEGIN_SRC bash :exports both :results verbatim
 g.mapset -c Paolo_2023
@@ -859,13 +887,18 @@ g.region w=$(( -2798407 - 960 )) e=$(( 2798392 + 960 )) s=$(( -2798392 - 960 )) 
 r.mapcalc "area = area()"
 
 r.in.gdal -o input=NetCDF:tmp/shelf_melt.nc:melt output=melt
+r.in.gdal -o input=NetCDF:tmp/shelf_melt.nc:melt_err output=err
 r.region -c map=melt
+r.region -c map=err
 
 ## + kg/m^2 -> Gt: / 1E12
 r.mapcalc "melt = melt * 1000 * area / exp(10,12)" --o
+r.mapcalc "err = err * 1000 * area / exp(10,12)" --o
 
 r.mapcalc "melt_on = if(melt > 0, melt, null())"
+r.mapcalc "err_on = if(melt > 0, err, null())"
 r.mapcalc "melt_off = if(melt < 0, melt, null())"
+r.mapcalc "err_off = if(melt < 0, err, null())"
 
 r.colors -ae map=melt color=difference
 r.colors -ge map=melt_on color=viridis
@@ -890,38 +923,53 @@ EOF
 #+BEGIN_SRC bash :exports both :results verbatim
 echo "NET"
 r.univar -gt map=melt zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -gt map=err zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
 # r.univar -g melt | grep sum
 
 echo ""
 echo "FREEZE_ON"
 r.univar -gt map=melt_on zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -gt map=err_on zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
 # r.univar -g melt_on | grep sum
 
 echo ""
 echo "MELT_OFF"
 r.univar -gt map=melt_off zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
+r.univar -gt map=err_off zones=basins | cut -d"|" -f2,13 | column -s"|" -t | sed 's/label.*//'
 # r.univar -g melt_off | grep sum
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
-NET
+NET
 
 East       -314.59815832386
 West       -516.40649095369
 Peninsula  -144.781596164836
 
-FREEZE_ON
+East       1262.04130311163
+West       1500.90827154852
+Peninsula  230.826477084729
+
+FREEZE_ON
 
 East       199.82814766386
 West       146.110647983701
 Peninsula  10.5669662518996
 
-MELT_OFF
+East       462.492239471166
+West       576.342637546049
+Peninsula  35.4516506207232
+
+MELT_OFF
 
 East       -514.426305987718
 West       -662.517138937384
 Peninsula  -155.348562416735
+
+East       799.549063640453
+West       924.565634002478
+Peninsula  195.374826464004
 #+end_example
 
 
