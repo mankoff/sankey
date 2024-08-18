@@ -1,19 +1,18 @@
-Code,Term,Value,I/O,Period,Source,Comment
+ID,Term,Value,IO,Period,Source,Comment
 RF,Rainfall,5,I,2000-2019,fettweis_2020,
 CD,Condensation,5,I,2000-2019,fettweis_2020,
 DP,Deposition,30,I,2000-2019,fettweis_2020,
-SF,Snowfall,870,I,2000-2019,fettweis_2020,
+SF,Snowfall,865 +30,I,2000-2019,fettweis_2020,
 RFZ,Refreezing,15,IO,2000-2019,fettweis_2020,
 EV,Evaporation,5,O,2000-2019,fettweis_2020,
 RU,Runoff,5,O,2000-2019,fettweis_2020,
-BM,Basal melting,20,O,-,van-liefferinge_2013,
-DYN,Discharge,665 + 560 + (765-765),-,1999-2017,Sum of SUB + ICE,See caption
-SUB,Submarine melting,665,O,2000-2017,paolo_2023,
-SUBF,Freeze-on,145,I,2000-2017,paolo_2023,
-ICE,Calving,560 + (765-765),O,1997-2021; 1999-2017,davison_2023 + rignot_2019 grounded,See caption
-GZRET,Grounding line retreat,50,O,1997-2021,Davison (personal comm.),
-FRLOSS,Frontal retreat,145,O,2000-2021,greene_2022,
-FRGAIN,Frontal advance,105,O,2000-2021,greene_2022,
 SU,Sublimation,40,O,2000-2019,fettweis_2020,
-DD,Drawdown,,-,,Derived,sum(O) - sum(I)
-MG,Mass gain,,-,,Derived,sum(I) - sum(O)
+BMB,Grounded basal melting,20,O,-,van-liefferinge_2013,
+DISCH,Discharge,857+23+45,-,1999-2017,Sum of SUB + ICE,See caption
+CALV,Calving,567+23,O,,greene_2022,See caption
+FRONTMELT,Frontal melting,0,,,,
+SHELFMELT,Sub-shelf melting,665,O,2000-2017,paolo_2023,
+SHELFFREEZE,Sub-shelf freeze-on,145,I,2000-2017,paolo_2023,
+GZRET,Grounding line retreat,50,O,1997-2021,Davison (personal comm.),
+FRONTRET,Frontal retreat,205,O,2000-2021,greene_2022,
+FRONTADV,Frontal advance,5,O,2000-2021,greene_2022,

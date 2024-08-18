@@ -30,11 +30,6 @@
       %%   draw=white,
       %%   line width=0pt,line cap=round,line join=round,
       %% },
-      %% comment for gray outline
-      draw/.style={
-        draw=black,
-        line width=0.1mm,line cap=round,line join=round,
-      },
       start style=arrow,end style=arrow,
       %% fill/.style={fill=yellow!10,line width=0pt,draw=yellow!10},
       ratio=1mm/60,
@@ -144,16 +139,10 @@
     \sankeynode{name=SHELFFREEZE, quantity=\Q{vSHELFFREEZE},
       at={[yshift=-\yoff]SF.south}, anchor=left}
 
-    \ifthenelse{\Q{vML} > \Q{vMG}} { % mass loss
-      \sankeynode{name=f1, at={[xshift=30mm, yshift=\yoff]SHELFFREEZE.south}, anchor=right,
-        quantity=\qq{SMBIN}+\Q{vFRONTADV}+\Q{vSHELFFREEZE}+\Q{vML}+\Q{vRFZ},
-        forked={\Q{vRFZ}/RFZi, \Q{vFRONTADV}/FG, \Q{vML}/MLi,
-          \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi}}
-    } { % mass gain edge case
-      \sankeynode{name=f1, at={[xshift=30mm, yshift=\yoff]SHELFFREEZE.south}, anchor=right,
-        quantity=\qq{SMBIN}+\Q{vFRONTADV}+\Q{vSHELFFREEZE}+\Q{vRFZ},
-        forked={\Q{vRFZ}/RFZi, \Q{vFRONTADV}/FG, \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi}}
-    }
+    \sankeynode{name=f1, at={[xshift=30mm, yshift=\yoff]SHELFFREEZE.south}, anchor=right,
+      quantity=\qq{SMBIN}+\Q{vFRONTADV}+\Q{vSHELFFREEZE}+\Q{vML}+\Q{vRFZ},
+      forked={\Q{vRFZ}/RFZi, \Q{vFRONTADV}/FG, \Q{vML}/MLi,
+        \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi}}
     
     \sankeyoutin{SMBIN}{SMBINi}
     \sankeyadvance{f1}{15mm}
@@ -164,78 +153,43 @@
     \sankeydubins[water-to-ice]{SHELFFREEZE}{SHELFFREEZEi}
     \fi
     
-    \ifthenelse{\Q{vML} > \Q{vMG}} { % mass loss
-      \sankeyfork{f1}{\Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/RUEV,
-        \Q{vCALV}/CALV, \Q{vFRONTMELT}/FRONTMELT, \Q{vSHELFMELT}/SHELFMELT,
-        \Q{vFRONTRET}/FRONTRET, \Q{vGZRET}/GZ, \Q{vBMB}/BMB}
-    }{ % mass gain edge case (AQ_east)
-      \sankeyfork{f1}{\Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/RUEV,
-        \Q{vCALV}/CALV, \Q{vFRONTMELT}/FRONTMELT, \Q{vSHELFMELT}/SHELFMELT,
-        \Q{vFRONTRET}/FRONTRET, \Q{vGZRET}/GZ, \Q{vBMB}/BMB, \Q{vMG}/MG}
-    }
+    \sankeyfork{f1}{\Q{vRFZ}/RFZo, \Q{vSU}/SU, \Q{vRU}+\Q{vEV}/RUEV,
+      \Q{vCALV}+\Q{vFRONTMELT}/DISCH, \Q{vSHELFMELT}/SHELFMELT,
+      \Q{vFRONTRET}/FRONTRET, \Q{vGZRET}/GZ, \Q{vBMB}/BMB}
+
     \sankeyturnleft{RFZo}{1}
     \sankeydubins[minimum radius=5mm,ice-to-water-vert]{RFZo}{RFZi}
     \node[font=\tiny, anchor=east]
-           at ([yshift=+1.5mm,xshift=1mm]RFZo.north) {\Lab{vRFZ}: \qq{RFZi}};
+    at ([yshift=+1.5mm,xshift=1mm]RFZo.north) {\Lab{vRFZ}: \qq{RFZi}};
 
-    \ifthenelse{\Q{vFRONTMELT} > \Q{vSHELFMELT}} { % Greenland
-      %% Discharge splits to FRONTMELT (straight) & CALV (above).
-      %% SHELFMELT below FRONTMELT. FRONTRET below SHELFMELT.
-      \sankeyadvance{FRONTMELT}{20mm}
-
-      \sankeynode{name=SHELFMELTa,quantity=\qq{SHELFMELT},
-        at={[yshift=-\yoff, xshift=10mm]FRONTMELT.right}}
-      \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
-        at={[yshift=-\yoff]SHELFMELTa.right}}
-      \sankeyadvance[ice-to-water]{FRONTMELT}{10mm}
-      
-      \sankeynode{name=CALVa, quantity=\qq{CALV},
-        at={[yshift=\yoff,xshift=0mm]FRONTMELT.left}, anchor=right}
-
-      \sankeyset{water}
-      \sankeyadvance{FRONTMELT}{10mm}; \sankeyend{FRONTMELT}
-      \labelright{FRONTMELT}{vFRONTMELT}
-    } {
-      % Antarctica
-      %% Discharge splits to SHELFMELT (straight) & CALV (above).
-      %% No FRONTMELT. Then FRONTRET
-      \sankeyadvance{SHELFMELT}{10mm}
-      \sankeynode{name=SHELFMELTa, quantity=\qq{SHELFMELT},
-        at={[yshift=0, xshift=20mm]SHELFMELT.right}, anchor=right}
-
-      \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
-        at={[yshift=-\yoff]SHELFMELT.right}}
-      \sankeynode{name=CALVa, quantity=\qq{CALV},
-        at={[yshift=\yoff,xshift=0mm]SHELFMELTa.left}, anchor=right}
-      \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
-        at={[yshift=-\yoff]SHELFMELTa.right}, anchor=left}
-    }
-
-    \sankeyset{ice}
+    \sankeyadvance{DISCH}{10mm}
+    \sankeyfork{DISCH}{\Q{vCALV}/CALV, \Q{vFRONTMELT}/FRONTMELT}
     
-    \sankeyoutin[ice-to-water]{SHELFMELT}{SHELFMELTa}
-    \sankeyadvance[water]{SHELFMELTa}{10mm}; \sankeyend[water]{SHELFMELTa}
-    \labelright{SHELFMELTa}{vSHELFMELT}
-        
-    %% \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET}, at={[yshift=-\yoff]SHELFMELTa.right}}
-    \sankeyoutin[out-blue]{FRONTRET}{FRONTRETa};
+    \sankeynode{name=SHELFMELTa,quantity=\qq{SHELFMELT}, at={[yshift=-\yoff, xshift=10mm]FRONTMELT.right}}
+    \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET}, at={[yshift=-\yoff]SHELFMELTa.right}}
+    \sankeyadvance[ice-to-water]{FRONTMELT}{10mm}
+    \sankeynode{name=CALVa, quantity=\qq{CALV}, at={[yshift=\yoff]FRONTMELT.left}, anchor=right}
 
     \sankeynode{name=GZa, quantity=\qq{GZ}, at={[yshift=-\yoff]FRONTRETa.right}, anchor=left}
-    
     \sankeynode{name=BMBa, quantity=\qq{BMB}, at={[yshift=-\yoff]GZa.right}, anchor=left}
-    \sankeyoutin[ice-to-water]{BMB}{BMBa}; \sankeyadvance[water]{BMBa}{10mm};
-    \sankeyend[water]{BMBa}; \labelright{BMBa}{vBMB}
 
-    \sankeyoutin[ice-to-water]{GZ}{GZa}; \sankeyadvance[water]{GZa}{10mm};
-    \sankeyend[water]{GZa}; \labelbold{GZa}{vGZRET}
-    \sankeyadvance[out-blue]{FRONTRETa}{10mm}; 
-    \sankeyend[out-blue]{FRONTRETa}; \labelbold{FRONTRETa}{vFRONTRET}
-    
-    \sankeyadvance{CALV}{5mm};
     \sankeyoutin{CALV}{CALVa};
+    \sankeyoutin[ice-to-water]{SHELFMELT}{SHELFMELTa}
+    \sankeyoutin[out-blue]{FRONTRET}{FRONTRETa};
+    \sankeyoutin[ice-to-water]{BMB}{BMBa}
+    \sankeyoutin[ice-to-water]{GZ}{GZa}
 
+    %% Finish dynamic outputs
+    \sankeyadvance{CALVa}{10mm}; \sankeyend{CALVa}; \labelright{CALVa}{vCALV}
+    \sankeyadvance[water]{FRONTMELT}{10mm}; \sankeyend[water]{FRONTMELT}; \labelright{FRONTMELT}{vFRONTMELT}
+    \sankeyadvance[water]{SHELFMELTa}{10mm}; \sankeyend[water]{SHELFMELTa}; \labelright{SHELFMELTa}{vSHELFMELT}
+    \sankeyadvance[out-blue]{FRONTRETa}{10mm}; \sankeyend[out-blue]{FRONTRETa}; \labelbold{FRONTRETa}{vFRONTRET}
+    \sankeyadvance[water]{GZa}{10mm}; \sankeyend[water]{GZa}; \labelbold{GZa}{vGZRET}
+    \sankeyadvance[water]{BMBa}{10mm}; \sankeyend[water]{BMBa}; \labelright{BMBa}{vBMB}
+
+    
     %% SMB outputs
-    \sankeynode{name=RUEVa, quantity=\qq{RUEV}, at={[yshift=\yoff]CALVa.left}, anchor=right}
+    \sankeynode{name=RUEVa, quantity=\qq{RUEV}, at={[yshift=\yoff, xshift=-10mm]CALVa.left}, anchor=right}
     \sankeyoutin[ice-to-water]{RUEV}{RUEVa}
     \sankeyfork{RUEVa}{\Q{vEV}/EV, \Q{vRU}/RU}
     \sankeynode{name=EVa, quantity=\qq{EV},
@@ -250,37 +204,24 @@
     \sankeydubins[minimum radius=6mm,ice-to-air]{SU}{SUa}; \sankeyend[air]{SUa}
     \node[font=\tiny, anchor=west] at ([yshift=4mm,xshift=\yoff]SUa.west) {\qq{SUa}: \Lab{vSU}};
 
-    \sankeyadvance{CALVa}{10mm}; \sankeyend{CALVa}; \labelright{CALVa}{vCALV}
+    \sankeynode{name=ML, quantity=\Q{vML},
+      at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
+    \node[font=\tiny, anchor=east]
+    at ([xshift=-3mm,yshift=2mm]ML.west) {\textbf{Glacier drawdown: \qq{ML}}};
     
-    \ifthenelse{\Q{vMG} < \Q{vML}} { % mass loss
-      \sankeynode{name=ML, quantity=\Q{vML},
-        at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
-      \node[font=\tiny, anchor=east]
-      at ([xshift=-3mm,yshift=2mm]ML.west) {\textbf{Mass Loss: \qq{ML}}};
+    % frontal advance next to drawdown (mass loss)
+    \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
+      at={[yshift=0mm,xshift=6mm]ML.left}, anchor=right, angle=-45}
 
-      % frontal advance next to drawdown (mass loss)
-      \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
-        at={[yshift=0mm,xshift=6mm]ML.left}, anchor=right, angle=-45}
-
-      \sankeystart[red]{ML}
-      \sankeyadvance[red]{ML}{5mm}
-      \sankeyoutin[red-to-ice]{ML}{MLi}
-    }{ % mass gain
-      \sankeynode{name=MGa, quantity=\qq{MG}, angle=-35,
-        at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
-      \node[font=\tiny, anchor=east]
-        at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
-      \sankeyoutin[ice-to-black]{MG}{MGa}; \sankeyadvance[black]{MGa}{3mm}
-      \sankeyend[black]{MGa}
-      \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
-        at={[xshift=-15mm,yshift=8mm]RFZi.right}, anchor=left, angle=-45}
-    }
+    \sankeystart[red]{ML}
+    \sankeyadvance[red]{ML}{5mm}
+    \sankeyoutin[red-to-ice]{ML}{MLi}
 
     \ifnum \numexpr\qq{FRONTADVi} > 0
-      \sankeystart[in-black]{FRONTADVi}
-      \sankeyoutin[in-black]{FRONTADVi}{FG}
-      \node[font=\tiny, anchor=east]
-          at ([xshift=-3mm,yshift=3mm]FRONTADVi.west) {Frontal advance: \qq{FRONTADVi}};
+    \sankeystart[in-black]{FRONTADVi}
+    \sankeyoutin[in-black]{FRONTADVi}{FG}
+    \node[font=\tiny, anchor=east]
+    at ([xshift=-3mm,yshift=3mm]FRONTADVi.west) {Frontal advance: \qq{FRONTADVi}};
     \fi
 
     %% % fancy labels

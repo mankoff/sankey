@@ -1,0 +1,284 @@
+<svg aria-roledescription="sankey" role="graphics-document document" viewBox="0 -12.831616401672363 700 612.8316040039062" style="max-width: 700px; background-color: white;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg">
+  <style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+  </style>
+  <g/>
+  <g class="nodes">
+    <g y="212.65847860538832" x="517.5" transform="translate(517.5,212.65847860538832)" id="node-1" class="node">
+      <rect fill="#4e79a7" width="10" height="13.807448494453297"/>
+    </g>
+    <g y="187.15900064051672" x="690" transform="translate(690,187.15900064051672)" id="node-2" class="node">
+      <rect fill="#f28e2c" width="10" height="13.133914421553072"/>
+    </g>
+    <g y="225.2929150610332" x="690" transform="translate(690,225.2929150610332)" id="node-3" class="node">
+      <rect fill="#e15759" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="250.62968243572902" x="690" transform="translate(690,250.62968243572902)" id="node-4" class="node">
+      <rect fill="#76b7b2" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="2.9071455266698756" x="345" transform="translate(345,2.9071455266698756)" id="node-5" class="node">
+      <rect fill="#59a14f" width="10" height="176.46592709984154"/>
+    </g>
+    <g y="0" x="0" transform="translate(0,0)" id="node-6" class="node">
+      <rect fill="#edc949" width="10" height="0.3367670364500839"/>
+    </g>
+    <g y="1.4210854715202004e-14" x="172.5" transform="translate(172.5,1.4210854715202004e-14)" id="node-7" class="node">
+      <rect fill="#af7aa1" width="10" height="164.0055467511885"/>
+    </g>
+    <g y="25.336767036450084" x="0" transform="translate(0,25.336767036450084)" id="node-8" class="node">
+      <rect fill="#ff9da7" width="10" height="4.377971473851034"/>
+    </g>
+    <g y="54.71473851030112" x="0" transform="translate(0,54.71473851030112)" id="node-9" class="node">
+      <rect fill="#9c755f" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="80.05150554675117" x="0" transform="translate(0,80.05150554675117)" id="node-10" class="node">
+      <rect fill="#bab0ab" width="10" height="158.95404120443743"/>
+    </g>
+    <g y="0" x="517.5" transform="translate(517.5,0)" id="node-11" class="node">
+      <rect fill="#4e79a7" width="10" height="4.71473851030111"/>
+    </g>
+    <g y="29.71473851030111" x="517.5" transform="translate(517.5,29.71473851030111)" id="node-12" class="node">
+      <rect fill="#f28e2c" width="10" height="157.9437400950872"/>
+    </g>
+    <g y="189.00554675118852" x="172.5" transform="translate(172.5,189.00554675118852)" id="node-13" class="node">
+      <rect fill="#e15759" width="10" height="12.460380348652961"/>
+    </g>
+    <g y="264.0055467511886" x="0" transform="translate(0,264.0055467511886)" id="node-14" class="node">
+      <rect fill="#76b7b2" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="303.74405705229776" x="172.5" transform="translate(172.5,303.74405705229776)" id="node-15" class="node">
+      <rect fill="#59a14f" width="10" height="29.635499207606983"/>
+    </g>
+    <g y="289.34231378763866" x="0" transform="translate(0,289.34231378763866)" id="node-16" class="node">
+      <rect fill="#edc949" width="10" height="1.0103011093502232"/>
+    </g>
+    <g y="315.3526148969889" x="0" transform="translate(0,315.3526148969889)" id="node-17" class="node">
+      <rect fill="#af7aa1" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="340.68938193343894" x="0" transform="translate(0,340.68938193343894)" id="node-18" class="node">
+      <rect fill="#ff9da7" width="10" height="27.951664025356592"/>
+    </g>
+    <g y="516.9968304278921" x="517.5" transform="translate(517.5,516.9968304278921)" id="node-19" class="node">
+      <rect fill="#9c755f" width="10" height="3.0309033280507265"/>
+    </g>
+    <g y="491.30387558933205" x="690" transform="translate(690,491.30387558933205)" id="node-20" class="node">
+      <rect fill="#bab0ab" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="516.640642623716" x="690" transform="translate(690,516.640642623716)" id="node-21" class="node">
+      <rect fill="#4e79a7" width="10" height="0.33676703645005546"/>
+    </g>
+    <g y="541.9774097519877" x="690" transform="translate(690,541.9774097519877)" id="node-22" class="node">
+      <rect fill="#f28e2c" width="10" height="2.357369255150502"/>
+    </g>
+    <g y="308.477247880467" x="345" transform="translate(345,308.477247880467)" id="node-23" class="node">
+      <rect fill="#e15759" width="10" height="248.53407290015838"/>
+    </g>
+    <g y="251.46592709984134" x="517.5" transform="translate(517.5,251.46592709984134)" id="node-24" class="node">
+      <rect fill="#76b7b2" width="10" height="122.58320126782883"/>
+    </g>
+    <g y="226.46592709984148" x="172.5" transform="translate(172.5,226.46592709984148)" id="node-25" class="node">
+      <rect fill="#59a14f" width="10" height="27.278129952456425"/>
+    </g>
+    <g y="399.04912836767016" x="517.5" transform="translate(517.5,399.04912836767016)" id="node-26" class="node">
+      <rect fill="#edc949" width="10" height="92.9477020602219"/>
+    </g>
+    <g y="545.0277337559428" x="517.5" transform="translate(517.5,545.0277337559428)" id="node-27" class="node">
+      <rect fill="#af7aa1" width="10" height="3.0309033280507265"/>
+    </g>
+    <g y="573.0586370839935" x="517.5" transform="translate(517.5,573.0586370839935)" id="node-28" class="node">
+      <rect fill="#ff9da7" width="10" height="26.941362916006483"/>
+    </g>
+    <g y="358.37955625990475" x="172.5" transform="translate(172.5,358.37955625990475)" id="node-29" class="node">
+      <rect fill="#9c755f" width="10" height="13.133914421553072"/>
+    </g>
+    <g y="396.5134706814578" x="172.5" transform="translate(172.5,396.5134706814578)" id="node-30" class="node">
+      <rect fill="#bab0ab" width="10" height="157.9437400950872"/>
+    </g>
+    <g y="579.457210776545" x="172.5" transform="translate(172.5,579.457210776545)" id="node-31" class="node">
+      <rect fill="#4e79a7" width="10" height="20.542789223454974"/>
+    </g>
+  </g>
+  <g font-size="14" font-family="sans-serif" class="node-labels">
+    <text text-anchor="end" dy="0em" y="219.56220285261497" x="511.5">SMB output G
+    205
+    </text>
+    <text text-anchor="end" dy="0em" y="193.72595785129326" x="684">Sublimation G
+    195
+    </text>
+    <text text-anchor="end" dy="0em" y="225.46129857925823" x="684">Evap G
+    5
+    </text>
+    <text text-anchor="end" dy="0em" y="250.79806595395405" x="684">Runoff G
+    5
+    </text>
+    <text text-anchor="start" dy="0em" y="91.14010907659063" x="361">Gross G
+    2620
+    </text>
+    <text text-anchor="start" dy="0em" y="0.16838351822504194" x="16">Condensation G
+    5
+    </text>
+    <text text-anchor="start" dy="0em" y="82.00277337559427" x="188.5">SMB input G
+    2435
+    </text>
+    <text text-anchor="start" dy="0em" y="27.5257527733756" x="16">Deposition G
+    65
+    </text>
+    <text text-anchor="start" dy="0em" y="54.883122028526145" x="16">Rainfall G
+    5
+    </text>
+    <text text-anchor="start" dy="0em" y="159.5285261489699" x="16">Snowfall G
+    2360
+    </text>
+    <text text-anchor="end" dy="0em" y="2.357369255150555" x="511.5">Grounded basal loss
+    70
+    </text>
+    <text text-anchor="end" dy="0em" y="108.68660855784472" x="511.5">Discharge to shelf
+    2345
+    </text>
+    <text text-anchor="start" dy="0em" y="195.235736925515" x="188.5">Mass Loss (Grounded)
+    185
+    </text>
+    <text text-anchor="start" dy="0em" y="264.17393026941363" x="16">Condensation S
+    5
+    </text>
+    <text text-anchor="start" dy="0em" y="318.5618066561012" x="188.5">SMB input S
+    440
+    </text>
+    <text text-anchor="start" dy="0em" y="289.84746434231374" x="16">Deposition S
+    15
+    </text>
+    <text text-anchor="start" dy="0em" y="315.5209984152139" x="16">Rainfall S
+    5
+    </text>
+    <text text-anchor="start" dy="0em" y="354.6652139461172" x="16">Snowfall S
+    415
+    </text>
+    <text text-anchor="end" dy="0em" y="518.5122820919174" x="511.5">SMB output S
+    45
+    </text>
+    <text text-anchor="end" dy="0em" y="491.4722591075571" x="684">Evap S
+    5
+    </text>
+    <text text-anchor="end" dy="0em" y="516.809026141941" x="684">Runoff S
+    5
+    </text>
+    <text text-anchor="end" dy="0em" y="543.156094379563" x="684">Sublimation S
+    35
+    </text>
+    <text text-anchor="start" dy="0em" y="432.7442843305462" x="361">Shelf
+    3690
+    </text>
+    <text text-anchor="end" dy="0em" y="312.75752773375575" x="511.5">Calving
+    1820
+    </text>
+    <text text-anchor="start" dy="0em" y="240.1049920760697" x="188.5">Freeze-on
+    405
+    </text>
+    <text text-anchor="end" dy="0em" y="445.5229793977811" x="511.5">Sub-shelf melt
+    1380
+    </text>
+    <text text-anchor="end" dy="0em" y="546.5431854199682" x="511.5">Grounding line retreat
+    45
+    </text>
+    <text text-anchor="end" dy="0em" y="586.5293185419968" x="511.5">Frontal retreat
+    400
+    </text>
+    <text text-anchor="start" dy="0em" y="364.9465134706813" x="188.5">Frontal advance
+    195
+    </text>
+    <text text-anchor="start" dy="0em" y="475.48534072900145" x="188.5">Discharge from ground
+    2345
+    </text>
+    <text text-anchor="start" dy="0em" y="589.7286053882725" x="188.5">Mass loss (Shelf)
+    305
+    </text>
+  </g>
+  <g stroke-opacity="0.5" fill="none" class="links">
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="13.13391442155309" stroke="#cccccc" d="M527.5,219.22543581616486C608.75,219.22543581616486,608.75,193.72595785129326,690,193.72595785129326"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M527.5,225.96077654516645C608.75,225.96077654516645,608.75,225.46129857925823,690,225.46129857925823"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M527.5,226.29754358161654C608.75,226.29754358161654,608.75,250.79806595395405,690,250.79806595395405"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="13.807448494453249" stroke="#cccccc" d="M355,172.46934837928478C436.25,172.46934837928478,436.25,219.56220285261494,517.5,219.56220285261494"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M10,0.1683835182250396C91.25,0.1683835182250396,91.25,0.16838351822505382,172.5,0.16838351822505382"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="4.37797147385103" stroke="#cccccc" d="M10,27.5257527733756C91.25,27.5257527733756,91.25,2.5257527733756087,172.5,2.5257527733756087"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M10,54.88312202852616C91.25,54.88312202852616,91.25,4.883122028526163,172.5,4.883122028526163"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="158.9540412044374" stroke="#cccccc" d="M10,159.5285261489699C91.25,159.5285261489699,91.25,84.5285261489699,172.5,84.5285261489699"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="4.7147385103011095" stroke="#cccccc" d="M355,5.264514781820431C436.25,5.264514781820431,436.25,2.3573692551505547,517.5,2.3573692551505547"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="164.0055467511886" stroke="#cccccc" d="M182.5,82.00277337559432C263.75,82.00277337559432,263.75,84.90991890226418,345,84.90991890226418"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="157.94374009508718" stroke="#cccccc" d="M355,86.59375408451457C436.25,86.59375408451457,436.25,108.68660855784469,517.5,108.68660855784469"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="12.460380348652931" stroke="#cccccc" d="M182.5,195.23573692551497C263.75,195.23573692551497,263.75,173.14288245218492,345,173.14288245218492"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M10,264.17393026941363C91.25,264.17393026941363,91.25,303.9124405705228,172.5,303.9124405705228"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1.0103011093502376" stroke="#cccccc" d="M10,289.8474643423138C91.25,289.8474643423138,91.25,304.58597464342296,172.5,304.58597464342296"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M10,315.5209984152139C91.25,315.5209984152139,91.25,305.25950871632307,172.5,305.25950871632307"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="27.95166402535658" stroke="#cccccc" d="M10,354.6652139461172C91.25,354.6652139461172,91.25,319.40372424722636,172.5,319.40372424722636"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M527.5,517.1652139461171C608.75,517.1652139461171,608.75,491.4722591075571,690,491.4722591075571"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="1" stroke="#cccccc" d="M527.5,517.5019809825671C608.75,517.5019809825671,608.75,516.809026141941,690,516.809026141941"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="2.3573692551505547" stroke="#cccccc" d="M527.5,518.8490491283675C608.75,518.8490491283675,608.75,543.156094379563,690,543.156094379563"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="29.635499207606973" stroke="#cccccc" d="M182.5,318.5618066561012C263.75,318.5618066561012,263.75,350.5731274367269,345,350.5731274367269"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="3.030903328050713" stroke="#cccccc" d="M355,525.523602872543C436.25,525.523602872543,436.25,518.5122820919174,517.5,518.5122820919174"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="122.58320126782884" stroke="#cccccc" d="M355,369.76884851438143C436.25,369.76884851438143,436.25,312.75752773375575,517.5,312.75752773375575"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="27.278129952456418" stroke="#cccccc" d="M182.5,240.1049920760697C263.75,240.1049920760697,263.75,322.11631285669523,345,322.11631285669523"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="92.94770206022187" stroke="#cccccc" d="M355,477.5343001784068C436.25,477.5343001784068,436.25,445.5229793977811,517.5,445.5229793977811"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="3.030903328050713" stroke="#cccccc" d="M355,528.5545062005938C436.25,528.5545062005938,436.25,546.5431854199682,517.5,546.5431854199682"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="26.94136291600634" stroke="#cccccc" d="M355,543.5406393226223C436.25,543.5406393226223,436.25,586.5293185419966,517.5,586.5293185419966"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="13.13391442155309" stroke="#cccccc" d="M182.5,364.9465134706813C263.75,364.9465134706813,263.75,371.95783425130696,345,371.95783425130696"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="157.94374009508718" stroke="#cccccc" d="M182.5,475.4853407290014C263.75,475.4853407290014,263.75,457.4966615096271,345,457.4966615096271"/>
+    </g>
+    <g style="mix-blend-mode: multiply;" class="link">
+      <path stroke-width="20.542789223454832" stroke="#cccccc" d="M182.5,589.7286053882724C263.75,589.7286053882724,263.75,546.739926168898,345,546.739926168898"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   aria-roledescription="sankey"
+   role="graphics-document document"
+   viewBox="0 -12.707944 717.45312 317.29749"
+   width="717.45312"
+   id="my-svg"
+   version="1.1"
+   sodipodi:docname="mermaid_GL_gray.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   height="317.29749"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs213">
+    <rect
+       x="-25.191141"
+       y="44.976387"
+       width="120.73059"
+       height="37.113876"
+       id="rect12470" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview211"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="2.2425386"
+     inkscape:cx="677.5803"
+     inkscape:cy="219.61717"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="my-svg"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <style
+     id="style2">#my-svg{font-family:&quot;trebuchet ms&quot;,verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:gray;}#my-svg .error-text{fill:gray;stroke:gray;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:gray;stroke:gray;}#my-svg .marker.cross{stroke:gray;}#my-svg svg{font-family:&quot;trebuchet ms&quot;,verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg :root{--mermaid-font-family:&quot;trebuchet ms&quot;,verdana,arial,sans-serif;}</style>
+  <rect
+     fill="#808080"
+     width="10"
+     height="0.58411217"
+     id="rect6"
+     x="0"
+     y="-0.85546875" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="85.864487"
+     id="rect9"
+     x="138"
+     y="28.991949" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="1.1682243"
+     id="rect12"
+     x="0"
+     y="24.728643" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="4.6728973"
+     id="rect15"
+     x="0"
+     y="50.896866" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="79.439255"
+     id="rect18"
+     x="0"
+     y="80.569763" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="58.411217"
+     id="rect21"
+     x="414"
+     y="32.131992" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="0.58411217"
+     id="rect24"
+     x="552"
+     y="-0.85546875" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="7.009346"
+     id="rect27"
+     x="552"
+     y="24.728643" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="50.817757"
+     id="rect30"
+     x="552"
+     y="56.737988" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="115.65421"
+     id="rect33"
+     x="276"
+     y="44.04108" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="66.588783"
+     id="rect36"
+     x="414"
+     y="129.00117" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="54.906544"
+     id="rect39"
+     x="552"
+     y="132.55574" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="2.3364487"
+     id="rect42"
+     x="552"
+     y="212.4623" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="0.58411217"
+     id="rect45"
+     x="552"
+     y="239.79874" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="5.8411217"
+     id="rect48"
+     x="552"
+     y="265.38284" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="2.9205608"
+     id="rect51"
+     x="552"
+     y="296.22397" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="27.453272"
+     id="rect54"
+     x="690"
+     y="118.05251" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="27.453272"
+     id="rect57"
+     x="690"
+     y="170.5058" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="0.58411217"
+     id="rect60"
+     x="138"
+     y="139.85643" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="38.551403"
+     id="rect63"
+     x="0"
+     y="185.00902" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="29.205608"
+     id="rect66"
+     x="138"
+     y="172.19359" />
+  <rect
+     fill="#808080"
+     width="10"
+     height="9.3457947"
+     id="rect69"
+     x="138"
+     y="226.39919" />
+  <text
+     text-anchor="start"
+     dy="0"
+     y="-2.5634127"
+     x="0.4375"
+     id="text74"
+     style="font-size:14px;font-family:sans-serif">Condensation: 5</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="71.924194"
+     x="154"
+     id="text76"
+     style="font-size:14px;font-family:sans-serif">SMB input: 735</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="23.312756"
+     x="0"
+     id="text78"
+     style="font-size:14px;font-family:sans-serif">Deposition: 10</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="49.233315"
+     x="0"
+     id="text80"
+     style="font-size:14px;font-family:sans-serif">Rainfall: 40</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="108.28939"
+     x="12"
+     id="text82"
+     style="font-size:14px;font-family:sans-serif">Snowfall: 680</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="27.337601"
+     x="460"
+     id="text84"
+     style="font-size:14px;font-family:sans-serif">SMB output: 500</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="3.4365873"
+     x="614"
+     id="text86"
+     style="font-size:14px;font-family:sans-serif">Evap: 5</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="32.233315"
+     x="664"
+     id="text88"
+     style="font-size:14px;font-family:sans-serif">Sublimation: 60</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="82.146866"
+     x="636"
+     id="text90"
+     style="font-size:14px;font-family:sans-serif">Runoff: 435</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="124.29558"
+     x="456"
+     id="text94"
+     style="font-size:14px;font-family:sans-serif">Dynamics: 570</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="130.00902"
+     x="588"
+     id="text96"
+     style="font-size:14px;font-family:sans-serif">Discharge: 470</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="217.63051"
+     x="718"
+     id="text98"
+     style="font-size:14px;font-family:sans-serif">Grounded basal loss: 20</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="242.09079"
+     x="717.21387"
+     id="text100"
+     style="font-size:14px;font-family:sans-serif">Grounding line retreat: 5</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="272.30341"
+     x="677.06641"
+     id="text102"
+     style="font-size:14px;font-family:sans-serif">Frontal retreat: 50</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="301.68427"
+     x="696"
+     id="text104"
+     style="font-size:14px;font-family:sans-serif">Sub shelf melting: 25</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="115.77914"
+     x="700"
+     id="text106"
+     style="font-size:14px;font-family:sans-serif">Calving: 235</text>
+  <text
+     text-anchor="end"
+     dy="0"
+     y="168.23242"
+     x="700"
+     id="text108"
+     style="font-size:14px;font-family:sans-serif">Frontal Melt: 235</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="136.14848"
+     x="112"
+     id="text110"
+     style="font-size:14px;font-family:sans-serif"><tspan
+       sodipodi:role="line"
+       x="112"
+       y="136.14848"
+       id="tspan25194">Sub-shelf freeze-on: 5</tspan></text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="198.28471"
+     x="12"
+     id="text112"
+     style="font-size:14px;font-family:sans-serif">Net loss: 330</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="170.79639"
+     x="138"
+     id="text114"
+     style="font-size:14px;font-family:sans-serif">Grounded: 250</text>
+  <text
+     text-anchor="start"
+     dy="0"
+     y="223.07208"
+     x="138"
+     id="text116"
+     style="font-size:14px;font-family:sans-serif">Floating: 80</text>
+  <path
+     stroke-width="1"
+     stroke="#808080"
+     d="m 10,-0.56341268 c 64,0 64,29.84741768 128,29.84741768"
+     id="path120"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="1.16822"
+     stroke="#808080"
+     d="m 10,25.312755 c 64,0 64,4.847418 128,4.847418"
+     id="path124"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="4.6729"
+     stroke="#808080"
+     d="m 10,53.233316 c 64,0 64,-20.152582 128,-20.152582"
+     id="path128"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="79.4393"
+     stroke="#808080"
+     d="m 10,120.28939 c 64,0 64,-45.152582 128,-45.152582"
+     id="path132"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="1"
+     stroke="#808080"
+     d="m 424,32.424048 c 64,0 64,-32.98746068 128,-32.98746068"
+     id="path136"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="7.00935"
+     stroke="#808080"
+     d="m 424,36.220777 c 64,0 64,-7.987461 128,-7.987461"
+     id="path140"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="50.8178"
+     stroke="#808080"
+     d="m 424,65.134329 c 64,0 64,17.012538 128,17.012538"
+     id="path144"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="85.8645"
+     stroke="#808080"
+     d="m 148,71.924192 c 64,0 64,15.049133 128,15.049133"
+     id="path148"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="58.4112"
+     stroke="#808080"
+     d="m 286,73.24669 c 64,0 64,-11.90909 128,-11.90909"
+     id="path152"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="57.243"
+     stroke="#808080"
+     d="m 286,131.07379 c 64,0 64,26.54889 128,26.54889"
+     id="path156"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="54.9065"
+     stroke="#808080"
+     d="m 424,156.45446 c 64,0 64,3.55456 128,3.55456"
+     id="path160"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="2.33645"
+     stroke="#808080"
+     d="m 424,185.07595 c 64,0 64,28.55456 128,28.55456"
+     id="path164"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="1"
+     stroke="#808080"
+     d="m 424,186.53623 c 64,0 64,53.55456 128,53.55456"
+     id="path168"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="5.84112"
+     stroke="#808080"
+     d="m 424,189.74885 c 64,0 64,78.55456 128,78.55456"
+     id="path172"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="2.92056"
+     stroke="#808080"
+     d="m 424,194.12969 c 64,0 64,103.55456 128,103.55456"
+     id="path176"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="27.4533"
+     stroke="#808080"
+     d="m 562,146.28238 c 64,0 64,-14.50323 128,-14.50323"
+     id="path180"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="27.4533"
+     stroke="#808080"
+     d="m 562,173.73565 c 64,0 64,10.49677 128,10.49677"
+     id="path184"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="1"
+     stroke="#808080"
+     d="m 148,140.14849 c 64,0 64,-9.95087 128,-9.95087"
+     id="path188"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="29.2056"
+     stroke="#808080"
+     d="m 10,199.61182 c 64,0 64,-12.81544 128,-12.81544"
+     id="path192"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="9.34579"
+     stroke="#808080"
+     d="m 10,218.88752 c 64,0 64,12.18456 128,12.18456"
+     id="path196"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="29.2056"
+     stroke="#808080"
+     d="m 148,186.79638 c 64,0 64,-41.7039 128,-41.7039"
+     id="path200"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <path
+     stroke-width="9.34579"
+     stroke="#808080"
+     d="m 148,231.07208 c 133,0 133,-40.15501 266,-40.15501"
+     id="path204"
+     style="mix-blend-mode:multiply;fill:none;stroke-opacity:0.5" />
+  <text
+     xml:space="preserve"
+     transform="translate(0,-13.563413)"
+     id="text12468"
+     style="font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';white-space:pre;shape-inside:url(#rect12470)" />
+</svg>

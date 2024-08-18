@@ -1,0 +1,226 @@
+* Plotly
+
+** Data
+
+*** Data table
+
+#+NAME: data
+| term                   | id   | value | io |    period | ref                | comment                           |
+|------------------------+---------+-------+----+-----------+--------------------+-----------------------------------|
+| Rainfall               | rf      |    45 | i  | 2000-2019 | fettweis_2020      |                                   |
+| Condensation           | cd      |     5 | i  | 2000-2019 | fettweis_2020      |                                   |
+| Deposition             | dp      |    10 | i  | 2000-2019 | fettweis_2020      |                                   |
+| Snowfall               | sf      |   685 | i  | 2000-2019 | fettweis_2020      |                                   |
+| Evaporation            | ev      |    10 | o  | 2000-2019 | fettweis_2020      |                                   |
+| Runoff                 | ru      |   440 | o  | 2000-2019 | fettweis_2020      |                                   |
+| Basal melting          | bmb     |    20 | o  |    steady | karlsson_2021      |                                   |
+| Discharge              | dyn     |   500 | -  | 2000-2019 | mankoff_2021_solid | Submarine melting + calving - SMB |
+| Discharge              | dyn     |   -25 | -  | 2000-2019 | kochtitzky_2023    | Downstream SMB correction         |
+| Discharge              | dyn     |    10 | -  | 1998-2018 | bollen_2023        | CHECKME                           |
+| Discharge              | dyn     |    20 | -  | 2000-2015 | larocca_2023       | CHECKME                           |
+| Submarine melting      | submelt |   225 | o  |           | enderlin_2013      | 50 % of discharge                 |
+| Calving                | calv    |   225 | o  |           | enderlin_2013      | 50 % of discharge                 |
+| Grounding line retreat | gzret   |     5 | o  |           |                    | Estimate                          |
+| Frontal retreat        | frloss  |    50 | o  | 2000-2020 | kochtitzky_2023    |                                   |
+| Frontal advance        | frgain  |     0 | i  |           |                    | None in Greenland                 |
+| Sublimation            | su      |    60 | o  | 2000-2019 | fettweis_2020      |                                   |
+| Mass loss              | netloss |       | -  |           | Derived            | sum(O) - sum(I)                   |
+| Mass gain              | netgain |       | -  |           | Derived            | sum(I) - sum(O)                   |
+
+*** Show data in code
+
+#+NAME: load_data
+#+begin_src jupyter-python :exports both :var data=data flow=flow :colnames no
+import pandas as pd
+import numpy as np
+
+data = np.array(data)
+df = pd.DataFrame(data[1:,:], columns=data[0,:])
+df
+#+end_src
+
+#+RESULTS: load_data
+|    | term                   | id   | value   | io   | period    | ref                | comment                           |
+|----+------------------------+---------+---------+------+-----------+--------------------+-----------------------------------|
+|  0 | Rainfall               | rf      | 45      | i    | 2000-2019 | fettweis_2020      |                                   |
+|  1 | Condensation           | cd      | 5       | i    | 2000-2019 | fettweis_2020      |                                   |
+|  2 | Deposition             | dp      | 10      | i    | 2000-2019 | fettweis_2020      |                                   |
+|  3 | Snowfall               | sf      | 685     | i    | 2000-2019 | fettweis_2020      |                                   |
+|  4 | Evaporation            | ev      | 10      | o    | 2000-2019 | fettweis_2020      |                                   |
+|  5 | Runoff                 | ru      | 440     | o    | 2000-2019 | fettweis_2020      |                                   |
+|  6 | Basal melting          | bmb     | 20      | o    | steady    | karlsson_2021      |                                   |
+|  7 | Discharge              | dyn     | 500     | -    | 2000-2019 | mankoff_2021_solid | Submarine melting + calving - SMB |
+|  8 | Discharge              | dyn     | -25     | -    | 2000-2019 | kochtitzky_2023    | Downstream SMB correction         |
+|  9 | Discharge              | dyn     | 10      | -    | 1998-2018 | bollen_2023        | CHECKME                           |
+| 10 | Discharge              | dyn     | 20      | -    | 2000-2015 | larocca_2023       | CHECKME                           |
+| 11 | Submarine melting      | submelt | 225     | o    |           | enderlin_2013      | 50 % of discharge                 |
+| 12 | Calving                | calv    | 225     | o    |           | enderlin_2013      | 50 % of discharge                 |
+| 13 | Grounding line retreat | gzret   | 5       | o    |           |                    | Estimate                          |
+| 14 | Frontal retreat        | frloss  | 50      | o    | 2000-2020 | kochtitzky_2023    |                                   |
+| 15 | Frontal advance        | frgain  | 0       | i    |           |                    | None in Greenland                 |
+| 16 | Sublimation            | su      | 60      | o    | 2000-2019 | fettweis_2020      |                                   |
+| 17 | Mass loss              | netloss |         | -    |           | Derived            | sum(O) - sum(I)                   |
+| 18 | Mass gain              | netgain |         | -    |           | Derived            | sum(I) - sum(O)                   |
+
+** Flow  
+
+#+NAME: flow2
+| source | dest    | mag                      |
+|--------+---------+--------------------------|
+| rf     | smb     | rf                       |
+| sf     | smb     | sf                       |
+| cd     | smb     | cd                       |
+| dp     | smb     | dp                       |
+| smb    | su      | su                       |
+| smb    | ev      | ev                       |
+| smb    | ru      | ru                       |
+| smb    | dyn     | (rf+sf+cd+dp)-(su+ev+ru) |
+| frgain | dyn     | frgain                   |
+| dyn    | calv    | calv                     |
+| dyn    | submelt | submelt                  |
+| dyn    | gzret   | gzret                    |
+| dyn    | frloss  | frloss                   |
+| dyn    | bmb     | bmb                      |
+
+#+NAME: flow2graph
+#+BEGIN_SRC jupyter-python :exports both :var flow=flow2
+flow = np.array(flow)
+for row in flow:
+    g = ' -> '.join(row[0:2])
+    g = f"{g} [label=\"{row[2]}\"]"
+    print(g)
+#+END_SRC
+
+#+RESULTS: flow2graph
+#+begin_example
+rf -> smb [label="rf"]
+sf -> smb [label="sf"]
+cd -> smb [label="cd"]
+dp -> smb [label="dp"]
+smb -> su [label="su"]
+smb -> ev [label="ev"]
+smb -> ru [label="ru"]
+smb -> dyn [label="(rf+sf+cd+dp)-(su+ev+ru)"]
+frgain -> dyn [label="frgain"]
+dyn -> calv [label="calv"]
+dyn -> submelt [label="submelt"]
+dyn -> gzret [label="gzret"]
+dyn -> frloss [label="frloss"]
+dyn -> bmb [label="bmb"]
+#+end_example
+
+#+BEGIN_SRC dot :file smb.png :exports results
+digraph {
+<<flow2graph()>>
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:smb.png]]
+
+#+begin_src jupyter-python :exports both :var flow=flow2 :colnames no
+flow = np.array(flow)
+flow_df = pd.DataFrame(flow[1:,:], columns=flow[0,:])
+flow_df = flow_df.set_index('source')
+flow_df
+#+end_src
+
+#+results:
+| source   | dest    | mag                      |
+|----------+---------+--------------------------|
+| rf       | smb     | rf                       |
+| sf       | smb     | sf                       |
+| cd       | smb     | cd                       |
+| dp       | smb     | dp                       |
+| smb      | su      | su                       |
+| smb      | ev      | ev                       |
+| smb      | ru      | ru                       |
+| smb      | dyn     | (rf+sf+cd+dp)-(su+ev+ru) |
+| frgain   | dyn     | frgain                   |
+| dyn      | calv    | calv                     |
+| dyn      | submelt | submelt                  |
+| dyn      | gzret   | gzret                    |
+| dyn      | frloss  | frloss                   |
+| dyn      | bmb     | bmb                      |
+
+#+begin_src jupyter-python :exports both
+ff = flow_df.copy(deep=True)
+
+# Inputs are their value from the table
+inputs = df[df['io'] == 'i'][['id','value']].set_index('id')
+for key,ds in inputs.iterrows():
+    ff.loc[key,'value'] = ds.value
+
+# # Outputs are their value from the data table
+outputs = df[df['io'] == 'o'][['id','value']].set_index('id')
+ff['source'] = ff.index
+ff = ff.set_index('dest', drop=False)
+for key,ds in outputs.iterrows():
+    ff.loc[key,'value'] = ds.value
+ff = ff.set_index('source', drop=False)
+
+ff = ff.dropna(axis='rows')
+ff.loc['smb','value'].sum()
+
+ff.loc['smb_dyn'] = ['dyn', 'smb_in - smb_out',
+                     ff[ff['dest'] == 'smb']['value'].astype(int).sum()
+                      - ff.loc['smb','value'].astype(int).sum(),
+                      'smb']
+ff = ff.rename(index={'smb_dyn': 'smb'})
+ff
+#+end_src
+
+#+RESULTS:
+| source   | dest    | mag              |   value | source   |
+|----------+---------+------------------+---------+----------|
+| rf       | smb     | rf               |      40 | rf       |
+| sf       | smb     | sf               |     680 | sf       |
+| cd       | smb     | cd               |      10 | cd       |
+| dp       | smb     | dp               |      10 | dp       |
+| smb      | su      | su               |      60 | smb      |
+| smb      | ev      | ev               |      10 | smb      |
+| smb      | ru      | ru               |     440 | smb      |
+| frgain   | dyn     | frgain           |      10 | frgain   |
+| dyn      | calv    | calv             |     250 | dyn      |
+| dyn      | submelt | submelt          |     250 | dyn      |
+| dyn      | gzret   | gzret            |      10 | dyn      |
+| dyn      | frloss  | frloss           |      50 | dyn      |
+| dyn      | bmb     | bmb              |      20 | dyn      |
+| smb      | dyn     | smb_in - smb_out |     230 | smb      |
+
+
+Figure
+#+begin_src jupyter-python :exports both
+import plotly.graph_objects as go
+import plotly.express as px
+## Plotly
+# uniqify columns: Convert strings to numbers. Sequential. Across columns
+fff = ff.copy(deep=True)# .reset_index()
+keys = np.unique(fff[['source','dest']].values.flatten().astype(str))
+fff = fff.replace(to_replace=keys, value=np.arange(len(keys)))
+# print(fff)
+fig = go.Figure(go.Sankey(
+    # arrangement = "snap",
+    node = {
+        "label": keys,
+        'color': "#666666",
+        'pad':10},  # 10 Pixels
+    link = {
+        "source": fff['source'].values,
+        "target": fff['dest'].values,
+        # "color": "#DDDDDD",
+        "value": fff['value'].values}))
+
+# fig.show()
+# fig.update_layout(width=1920, height=1080)
+fig.write_image("plotly.png")
+fig.write_image("plotly.svg")
+# interactive HTML: drag to re-arrange and clean up, then screenshot.
+# fig.write_html("plotly.html")
+#+end_src
+
+#+RESULTS:
+: /tmp/ipykernel_1309851/1688497565.py:7: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+:   fff = fff.replace(to_replace=keys, value=np.arange(len(keys)))
+
+[[./plotly.png]]

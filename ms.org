@@ -1,4 +1,8 @@
 
+Communications are no longer than two IGS pages when published. Communications begin with a title and have no abstract, and the list of authors and affiliations appears at the end after the acknowledgements. 
+
+One IGS page of pure text, of A4 size, is about 1000 words. Paper length in pages can be estimated by counting the words in the manuscript and adding suitable space for each figure and table. The space occupied by each item will depend on its width in columns (1 or 2; 85 mm or 179 mm) and its height; columns are up to 254 mm high.
+
 :settings_drawer:
 #+Latex_Class: igs
 #+AUTHOR: 
@@ -343,7 +347,7 @@ We thank citep:sankey for the \LaTeX TikZ Sankey package, and citet:cogley_2011 
 \centering{\includegraphics[width=0.85\textwidth]{aq_east.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_west.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_peninsula.pdf}}
-\caption{Sankey mass flow diagrams for Antarctica regions. East (top), West (middle), and Peninsula (bottom). All widths are proportional within and between images. En East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.}
+\caption{Sankey mass flow diagrams for Antarctica regions. East (top), West (middle), and Peninsula (bottom). All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.}
 \label{fig:aq_regions}
 \end{figure*}
 

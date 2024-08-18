@@ -1,19 +1,19 @@
-Code,Term,Value,I/O,Period,Source,Comment
-RF,Rainfall,45,I,2000-2019,fettweis_2020,
-CD,Condensation,5,I,2000-2019,fettweis_2020,
-DP,Deposition,10,I,2000-2019,fettweis_2020,
-SF,Snowfall,685,I,2000-2019,fettweis_2020,
-RFZ,Refreezing,195,IO,2000-2019,fettweis_2020,Melt + rainfall - runoff
-EV,Evaporation,10,O,2000-2019,fettweis_2020,
-RU,Runoff,440,O,2000-2019,fettweis_2020,
-BM,Basal melting,20,O,steady,karlsson_2021,
-DYN,Discharge,475-25,-,2000-2019,"mankoff_2021_solid,kochtitzky_2023",Submarine melting + calving - SMB
-SUB,Submarine melting,225,O,,enderlin_2013,50 % of discharge
-SUBF,Freeze-on,0,I,,,None in Greenland
-ICE,Calving,225,O,,enderlin_2013,50 % of discharge
-GZRET,Grounding line retreat,5,O,,,Estimate
-FRLOSS,Frontal retreat,50,O,2000-2020,kochtitzky_2023,
-FRGAIN,Frontal advance,0,O,,,None in Greenland
-SU,Sublimation,60,O,2000-2019,fettweis_2020,
-DD,Mass loss,,-,,Derived,sum(O) - sum(I)
-MG,Mass gain,,-,,Derived,sum(I) - sum(O)
+ID,Term,Value,IO,Period,Source,Comment
+RF,Rainfall,40,Ig,2010-2019,fettweis_2020,
+CD,Condensation,5,Ig,2010-2019,fettweis_2020,
+DP,Deposition,10,Ig,2010-2019,fettweis_2020,
+SF,Snowfall,680,Ig,2010-2019,fettweis_2020,
+EV,Evaporation,5,Og,2010-2019,fettweis_2020,
+RU,Runoff,435,Og,2010-2019,fettweis_2020,
+SU,Sublimation,60,Og,2010-2019,fettweis_2020,
+RFZ,Refreezing,200,-,2010-2019,fettweis_2020,Melt + rainfall - runoff
+BMB,Grounded basal melting,20,Og,steady,karlsson_2021,
+DISCH,Discharge,485-20+5,Og,2010-2019,"mankoff_2020_solid,kochtitzky_2023,bollen_2023",Frontal melting + calving - SMB + peripheral
+CALV,Calving,235,Oo,,enderlin_2013,50 % of discharge
+FRONTMELT,Frontal melting,235,Oo,,enderlin_2013,50 % of discharge
+SHELFMELT,Sub-shelf melting,25,Oo,2013-2022,wang_2024,"30 Gt net, but 10 is steady state and included in SUBMELT"
+SUBMELT,Submarine melting,235+25,-,,,Fontal melt + sub-shelf melt
+SHELFFREEZE,Sub-shelf freeze-on,5,Io,2013-2022,wang_2024,
+GZRET,Grounding line retreat,5,Og,,,Estimate
+FRONTRET,Frontal retreat,50,Oo,2010-2020,kochtitzky_2023,
+FRONTADV,Frontal advance,0,Oo,2010-2020,kochtitzky_2023,None in Greenland

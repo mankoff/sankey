@@ -1,0 +1,574 @@
+* Mermaid Sankey diagram
+
+This is a nice tool because GitHub renders the graphic for you.
+
+** Greenland
+
+| ID          | Term                   |         Value |
+|-------------+------------------------+---------------|
+| RF          | Rainfall               |             5 |
+| CD          | Condensation           |             5 |
+| DP          | Deposition             |            80 |
+| SF          | Snowfall               |          2775 |
+| RFZ         | Refreezing             |           105 |
+| EV          | Evaporation            |             5 |
+| RU          | Runoff                 |            10 |
+| SU          | Sublimation            |           230 |
+| BMB         | Grounded basal melting |            70 |
+| DISCH       | Discharge              | 1935+331+77+2 |
+| CALV        | Calving                | 1411+331+77+1 |
+| FRONTMELT   | Frontal melting        |             0 |
+| SHELFMELT   | Sub-shelf melting      |          1380 |
+| SHELFFREEZE | Sub-shelf Freeze-on    |           405 |
+| GZRET       | Grounding line retreat |            45 |
+| FRONTRET    | Frontal retreat        |           400 |
+| FRONTADV    | Frontal advance        |           195 |
+
+#+begin_src mermaid :file mermaid_GL.svg
+---
+config:
+  sankey:
+    showValues: true
+    linkColor: "#cccccc"
+    nodeAlignment: center
+    width: 700
+    height: 300
+
+---
+sankey-beta
+
+%% SMB in: 680+40+10+5 = 735
+Condensation,SMB input,5
+Deposition,SMB input,10
+Rainfall,SMB input,40
+Snowfall,SMB input,680
+
+%% smb out: 435+60+5 = 500
+SMB output,Evap,5
+SMB output,Sublimation,60
+SMB output,Runoff,435
+
+SMB input,Gross,735
+Gross,SMB output,500
+
+%% dynamics = disch - (disch_SMB) + peripheral + bmb = 485-20+5+20 = 490
+%% ocean_loss = sub_shelf + frontret + gzret = 25 + 50 + 5 = 80
+Gross,Dynamics,490
+Dynamics,Discharge,470
+
+Dynamics,Grounded basal loss,20
+%% Dynamics,Marine shrinkage,80
+
+Dynamics,Grounding line retreat,5
+Dynamics,Frontal retreat,50
+Dynamics,Sub shelf melting,25
+
+Discharge,Calving,235
+Discharge,Frontal Melt,235
+
+%% SMB = SMB input - SMB output = 735-500 = 235
+%% ground_loss = SMB - D = 235 - 490 = -255
+
+Sub-shelf freeze-on,Gross,5
+
+Net loss,Grounded,250
+Net loss,Floating,80
+Grounded,Gross,250
+Floating,Dynamics,80
+#+end_src
+
+#+RESULTS:
+[[file:mermaid_GL.svg]]
+
+** Antarctica
+
+| ID          |                                                     Value |                |
+|-------------+-----------------------------------------------------------+----------------|
+| RFg         |                                                         5 |                |
+| CDg         |                                                         5 |                |
+| DPg         |                                                        65 |                |
+| SFg         |                                                      2360 |                |
+| SMBINg      |                                        5+5+65+2360 = 2435 |                |
+| RFs         |                                                         5 |                |
+| CDs         |                                                         5 |                |
+| DPs         |                                                        15 |                |
+| SFs         |                                                       415 |                |
+| SMBINs      |                                                       440 |                |
+| EVg         |                                                         5 |                |
+| RUg         |                                                         5 |                |
+| SUg         |                                                       195 |                |
+| SMBOUTg     |                                                       205 |                |
+| EVs         |                                                         5 |                |
+| RUs         |                                                         5 |                |
+| SUs         |                                                        35 |                |
+| SMBOUTs     |                                                        45 |                |
+| BMB         |                                                        70 |                |
+| DISCH       |                                      1935+331+77+2 = 2345 |                |
+| CALV        |                                      1411+331+77+1 = 1820 |                |
+| SHELFMELT   |                                                      1380 |                |
+| SHELFFREEZE |                                                       405 |                |
+| GZRET       |                                                        45 |                |
+| FRONTRET    |                                                       400 |                |
+| FRONTADV    |                                                       195 |                |
+| MASSLOSSg   |                                   2435-205-2345-70 = -185 | SMBg-DISCH-BMB |
+| MASSLOSSs   | 440 - 45 + 1935 -1410 -1380 + 405 - 45 - 400 + 195 = -305 |                |
+
+440: SMB in
+45: SMB out
+1935: Discharge to shelves (does not include island discharge to shelves)
+1410: Shelf calving
+
+#+begin_src mermaid :file mermaid_AQ.svg
+---
+config:
+  sankey:
+    showValues: true
+    linkColor: "#cccccc"
+    nodeAlignment: center
+    width: 700
+    height: 600
+
+---
+sankey-beta
+
+%%% GROUNDED
+
+SMB output G,Sublimation G,195
+SMB output G,Evap G,5
+SMB output G,Runoff G,5
+Gross G,SMB output G,205
+
+Condensation G,SMB input G,5
+Deposition G,SMB input G,65
+Rainfall G,SMB input G,5
+Snowfall G,SMB input G,2360
+
+Gross G,Grounded basal loss,70
+SMB input G,Gross G,2435
+Gross G,Discharge to shelf,2345
+
+Mass Loss (Grounded),Gross G,185
+
+%%% Shelf
+
+%% SMBINs: 440
+Condensation S,SMB input S,5
+Deposition S,SMB input S,15
+Rainfall S,SMB input S,5
+Snowfall S,SMB input S,415
+
+%% SMBOUTs: 45
+SMB output S,Evap S,5
+SMB output S,Runoff S,5
+SMB output S,Sublimation S,35
+
+
+SMB input S,Shelf,440
+Shelf,SMB output S,45
+
+
+Shelf,Calving,1820
+Freeze-on,Shelf,405
+Shelf,Sub-shelf melt,1380
+Shelf,Grounding line retreat,45
+Shelf,Frontal retreat,400
+Frontal advance,Shelf,195
+
+Discharge from ground,Shelf,2345
+
+Mass loss (Shelf),Shelf,305
+#+end_src
+
+#+RESULTS:
+[[file:mermaid_AQ.svg]]
+
+
+** All gray
+
+#+BEGIN_SRC bash :exports both :results verbatim
+sed -E 's/#([0-9a-fA-F]{6})/gray/g' mermaid_GL.svg > mermaid_GL_gray.svg
+sed -E 's/#([0-9a-fA-F]{6})/gray/g' mermaid_AQ.svg > mermaid_AQ_gray.svg
+
+# manually edit
+
+inkscape --export-dpi=150 --export-background-opacity=255 --export-type=png --export-filename=mermaid_GL_gray.png mermaid_GL_gray.svg
+inkscape --export-dpi=150 --export-background-opacity=255 --export-type=png --export-filename=mermaid_AQ_gray.png mermaid_AQ_gray.svg
+
+# --export-dpi --export-margin 
+#+END_SRC
+
+#+RESULTS:
+
+* NOTDONE Literate Org Mermaid
+
+** Data
+*** Data table
+
+#+NAME: data
+| id    | term                   | value | io |    period | ref                  | comment          |
+|-------+------------------------+-------+----+-----------+----------------------+------------------|
+| RF    | Rainfall               |     5 | I  | 2000-2019 | fettweis_2020        |                  |
+| CD    | Condensation           |     5 | I  | 2000-2019 | fettweis_2020        |                  |
+| DP    | Deposition             |    70 | I  | 2000-2019 | fettweis_2020        |                  |
+| SF    | Snowfall               |  2395 | I  | 2000-2019 | fettweis_2020        |                  |
+| RFZ   | Refreezing             |    40 | -  | 2000-2019 | fettweis_2020        |                  |
+| EV    | Evaporation            |     5 | O  | 2000-2019 | fettweis_2020        |                  |
+| RU    | Runoff                 |    10 | O  | 2000-2019 | fettweis_2020        |                  |
+| SU    | Sublimation            |   195 | O  | 2000-2019 | fettweis_2020        |                  |
+| BMB   | Grounded basal melting |    70 | O  |         - | van-liefferinge_2013 |                  |
+| DISCH | Discharge              |  2305 | -  | 2009-2017 | rignot_2019          |                  |
+
+*** Load data in code
+
+#+NAME: load_data
+#+begin_src jupyter-python :exports both :var data=data :colnames no
+import pandas as pd
+import numpy as np
+
+data = np.array(data)
+df = pd.DataFrame(data[1:,:], columns=data[0,:])
+#+end_src
+
+#+RESULTS: load_data
+
+** Fill in values
+
+#+NAME: fill_df
+#+begin_src jupyter-python :exports both
+<<load_data>>
+dyn = df[df['id'] == 'dyn']['value'].astype(int).sum()/2
+sel = df['value'] == 'dyn/2'
+df.loc[sel,'value'] = dyn
+
+# SMB input
+sub = df[(df['id'] == 'rf') | (df['id'] == 'cd') | (df['id'] == 'dp') | (df['id'] == 'sf')]
+smb_in = sub['value'].astype(int).sum()
+sel = df['id'] == 'smb_in'
+df.loc[sel,'value'] = smb_in
+
+# # SMB output
+sub = df[(df['id'] == 'ev') | (df['id'] == 'ru') | (df['id'] == 'su')]
+smb_out = sub['value'].astype(int).sum()
+sel = df['id'] == 'smb_out'
+df.loc[sel,'value'] = smb_out
+
+# # SMB
+df.loc[df['id'] == 'smb', 'value'] = smb_in - smb_out
+
+# Net loss
+df.loc[df['id'] == 'netloss','value'] = 0
+df.loc[df['id'] == 'netgain','value'] = 0
+df['value'] = df['value'].astype(float)
+df['value'] = ((df['value']/10).round()*10)
+df.loc[df['value'] == 0,'value'] = 10
+
+df.loc[df['id'] == 'netloss','value'] = df[df['io'] == 'i']['value'].astype(int).sum() - df[df['io'] == 'o']['value'].astype(int).sum()
+df.loc[df['id'] == 'netgain','value'] = df[df['io'] == 'o']['value'].astype(int).sum() - df[df['io'] == 'i']['value'].astype(int).sum()
+
+df
+#+end_src
+
+#+RESULTS: fill_df
+|    | term                   | id        |   value | io   | measured   | period    | ref                | comment                           |
+|----+------------------------+-----------+---------+------+------------+-----------+--------------------+-----------------------------------|
+|  0 | Rainfall               | rf        |      40 | i    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  1 | Condensation           | cd        |      10 | i    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  2 | Deposition             | dp        |      10 | i    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  3 | Snowfall               | sf        |     680 | i    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  4 | Evaporation            | ev        |      10 | o    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  5 | Runoff                 | ru        |     440 | o    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  6 | Sublimation            | su        |      60 | o    | 1          | 2000-2019 | fettweis_2020      |                                   |
+|  7 | Basal melting          | bmb       |      20 | o    | 1          | steady    | karlsson_2021      |                                   |
+|  8 | Discharge              | dyn       |     500 |      | 1          | 2000-2019 | mankoff_2021_solid | Submarine melting + calving - SMB |
+|  9 | Discharge              | dyn       |     -20 |      | 1          | 2000-2019 | kochtitzky_2023    | Downstream SMB correction         |
+| 10 | Discharge              | dyn       |      10 |      | 1          | 1998-2018 | bollen_2023        | CHECKME                           |
+| 11 | Discharge              | dyn       |      20 |      | 1          | 2000-2015 | larocca_2023       | CHECKME                           |
+| 12 | Sub-shelf melt         | shelfmelt |      20 | o    | 1          |           | wang_2024          |                                   |
+| 13 | Frontal retreat        | frloss    |      50 | o    | 1          | 2000-2020 | kochtitzky_2023    |                                   |
+| 14 | Frontal advance        | frgain    |      10 | i    | 1          |           |                    | None in Greenland                 |
+| 15 | Submarine melting      | submelt   |     250 | o    | 0          |           | enderlin_2013      | 50 % of discharge                 |
+| 16 | Calving                | calv      |     250 | o    | 0          |           | enderlin_2013      | 50 % of discharge                 |
+| 17 | Grounding line retreat | gzret     |      10 | o    | 0          |           |                    | Estimate                          |
+| 18 | SMB inputs             | smb_in    |     740 |      | 0          |           |                    |                                   |
+| 19 | SMB output             | smb_out   |     510 |      | 0          |           |                    |                                   |
+| 20 | SMB                    | smb       |     240 |      |            |           |                    |                                   |
+| 21 | Mass loss              | netloss   |    -360 |      | 0          |           | Derived            | sum(O) - sum(I)                   |
+| 22 | Mass gain              | netgain   |     360 |      | 0          |           | Derived            | sum(I) - sum(O)                   |
+
+
+** Flow  
+
+#+NAME: flow
+| source  | dest      | mag              |
+|---------+-----------+------------------|
+| cd      | smb_in    | cd               |
+| dp      | smb_in    | dp               |
+| rf      | smb_in    | rf               |
+| sf      | smb_in    | sf               |
+| smb_in  | smb       | smb_in - smb_out |
+| smb_in  | smb_out   | su + ev + ru     |
+| smb_out | su        | su               |
+| smb_out | ev        | ev               |
+| smb_out | ru        | ru               |
+| smb     | dyn       | smb_in - smb_out |
+| frgain  | dyn       | frgain           |
+| dyn     | calv      | dyn/2            |
+| dyn     | frloss    | frloss           |
+| frloss  | calv      | frloss/2         |
+| frloss  | submelt   | frloss/2         |
+| dyn     | submelt   | dyn/2            |
+| dyn     | shelfmelt | shelfmelt        |
+| dyn     | gzret     | gzret            |
+| dyn     | bmb       | bmb              |
+
+#+NAME: load_flow
+#+begin_src jupyter-python :exports both :var flow=flow
+flow = np.array(flow)
+#+end_src
+
+#+RESULTS: load_flow
+
+#+name: flow2graph
+#+begin_src jupyter-python :exports both
+<<load_flow>>
+for row in flow:
+    g = ' -> '.join(row[0:2])
+    if (row[2] not in row[0:2]): g = f"{g} [label=\"{row[2]}\"]"
+    print(g)
+#+end_src
+
+#+results: flow2graph
+#+begin_example
+cd -> smb_in
+dp -> smb_in
+rf -> smb_in
+sf -> smb_in
+smb_in -> smb [label="smb_in - smb_out"]
+smb_in -> smb_out [label="su + ev + ru"]
+smb_out -> su
+smb_out -> ev
+smb_out -> ru
+smb -> dyn [label="smb_in - smb_out"]
+frgain -> dyn
+dyn -> calv [label="dyn/2"]
+dyn -> frloss
+frloss -> calv [label="frloss/2"]
+frloss -> submelt [label="frloss/2"]
+dyn -> submelt [label="dyn/2"]
+dyn -> shelfmelt
+dyn -> gzret
+dyn -> bmb
+#+end_example
+
+#+BEGIN_SRC dot :file smb.png :exports results
+digraph {
+<<flow2graph()>>
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:smb.png]]
+
+#+NAME: load_flowdf
+#+begin_src jupyter-python :exports both :var flow=flow :colnames no
+flow = np.array(flow)
+flow_df = pd.DataFrame(flow[1:,:], columns=flow[0,:])
+flow_df = flow_df.set_index('source')
+#+end_src
+
+#+RESULTS: load_flowdf
+
+** Generate mermaid syntax CSV
+
+#+begin_src jupyter-python :exports both
+<<fill_df>> # df but filled out with derived values
+<<load_flowdf>> # flow_df
+
+order = df['id'].unique()
+df = df.groupby('id', as_index=False, sort=False).agg({'term':'first','id':'first','value':'sum','io':'first'})
+df
+#+end_src
+
+#+RESULTS:
+|    | term                   | id        |   value | io   |
+|----+------------------------+-----------+---------+------|
+|  0 | Rainfall               | rf        |      40 | i    |
+|  1 | Condensation           | cd        |      10 | i    |
+|  2 | Deposition             | dp        |      10 | i    |
+|  3 | Snowfall               | sf        |     680 | i    |
+|  4 | Evaporation            | ev        |      10 | o    |
+|  5 | Runoff                 | ru        |     440 | o    |
+|  6 | Sublimation            | su        |      60 | o    |
+|  7 | Basal melting          | bmb       |      20 | o    |
+|  8 | Discharge              | dyn       |     510 |      |
+|  9 | Sub-shelf melt         | shelfmelt |      20 | o    |
+| 10 | Frontal retreat        | frloss    |      50 | o    |
+| 11 | Frontal advance        | frgain    |      10 | i    |
+| 12 | Submarine melting      | submelt   |     250 | o    |
+| 13 | Calving                | calv      |     250 | o    |
+| 14 | Grounding line retreat | gzret     |      10 | o    |
+| 15 | SMB inputs             | smb_in    |     740 |      |
+| 16 | SMB output             | smb_out   |     510 |      |
+| 17 | SMB                    | smb       |     240 |      |
+| 18 | Mass loss              | netloss   |    -360 |      |
+| 19 | Mass gain              | netgain   |     360 |      |
+
+#+begin_src jupyter-python :exports both
+flow_df  
+#+end_src
+
+#+RESULTS:
+| source   | dest      | mag              |
+|----------+-----------+------------------|
+| cd       | smb_in    | cd               |
+| dp       | smb_in    | dp               |
+| rf       | smb_in    | rf               |
+| sf       | smb_in    | sf               |
+| smb_in   | smb       | smb_in - smb_out |
+| smb_in   | smb_out   | su + ev + ru     |
+| smb_out  | su        | su               |
+| smb_out  | ev        | ev               |
+| smb_out  | ru        | ru               |
+| smb      | dyn       | smb_in - smb_out |
+| frgain   | dyn       | frgain           |
+| dyn      | calv      | dyn/2            |
+| dyn      | frloss    | frloss           |
+| frloss   | calv      | frloss/2         |
+| frloss   | submelt   | frloss/2         |
+| dyn      | submelt   | dyn/2            |
+| dyn      | shelfmelt | shelfmelt        |
+| dyn      | gzret     | gzret            |
+| dyn      | bmb       | bmb              |
+
+#+name: data2mermaid
+#+begin_src jupyter-python :exports both
+<<load_flowdf>>
+
+# drop the SMB -> Dyn row
+sel = (flow_df.index != 'smb') | (flow_df['dest'] != 'dyn')
+flow_df = flow_df.loc[sel]
+
+for source,row in flow_df.iterrows():
+    if source == 'dyn': continue
+    if df[df['id'] == source]['io'].values[0] != 'i': continue
+    if source in df['id'].values:
+        flow_df.loc[source,'mag'] = df[df['id'] == source]['value'].values[0]
+
+flow_df['source'] = flow_df.index
+flow_df = flow_df.set_index('dest', drop=False)        
+for dest,row in flow_df.iterrows():
+    if dest == 'dyn': continue
+    if df[df['id'] == dest]['io'].values[0] != 'o': continue
+    if dest in df['id'].values:
+        flow_df.loc[dest,'mag'] = df[df['id'] == dest]['value'].values[0]
+flow_df = flow_df.set_index('source')
+
+sel = (flow_df.index == 'frloss') & (flow_df['dest'] == 'calv')
+flow_df.loc[sel, 'mag'] = df[df['id'] == 'frloss']['value'].values[0].astype(int)/2
+
+sel = (flow_df.index == 'frloss') & (flow_df['dest'] == 'submelt')
+flow_df.loc[sel, 'mag'] = df[df['id'] == 'frloss']['value'].values[0].astype(int)/2
+
+# fix smb -> dyn
+smb_in = flow_df[flow_df['dest'] == 'smb_in']['mag'].astype(int).sum()
+smb_out = flow_df[flow_df.index == 'smb_out']['mag'].astype(int).sum()
+flow_df.loc['smb_dyn'] = ['dyn', smb_in - smb_out]
+flow_df = flow_df.rename({'smb_dyn':'smb'}, axis='rows')
+
+flow_df.loc[flow_df['dest'] == 'smb','mag'] = smb_in - smb_out
+flow_df.loc[flow_df['dest'] == 'smb_out','mag'] = smb_out
+
+for idx,row in flow_df.iterrows():
+    if row['mag'] == '0': continue
+    print(f"{idx},{row['dest']},{row['mag']}")
+# flow_df
+
+sel = (flow_df['dest'] == 'smb') | (flow_df.index == 'frgain')
+inputs = df[df['io'] == 'i']['value'].astype(int).sum()
+outputs = df[df['io'] == 'o']['value'].astype(int).sum()
+if outputs > inputs:
+    print(f"mass_loss,dyn,{abs(inputs - outputs)}")   
+# print('frloss,calv,25')
+# print('frloss,submelt,25')
+    
+#+end_src
+
+#+RESULTS: data2mermaid
+#+begin_example
+cd,smb_in,10.0
+dp,smb_in,10.0
+rf,smb_in,40.0
+sf,smb_in,680.0
+smb_in,smb,230
+smb_in,smb_out,510
+smb_out,su,60.0
+smb_out,ev,10.0
+smb_out,ru,440.0
+frgain,dyn,10.0
+dyn,calv,250.0
+dyn,frloss,50.0
+frloss,calv,25.0
+frloss,submelt,25.0
+dyn,submelt,250.0
+dyn,shelfmelt,20.0
+dyn,gzret,10.0
+dyn,bmb,20.0
+smb,dyn,230
+mass_loss,dyn,360
+#+end_example
+
+** mermaid
+
+linkColor: gradient
+    linkColor: "#a1a1a1"
+
+#+begin_src mermaid :file mermaid.svg
+---
+config:
+  sankey:
+    showValues: true
+    nodeAlignment: justify
+
+---
+sankey-beta
+
+%% source,target,value
+<<data2mermaid()>>
+#+end_src
+
+#+RESULTS:
+[[file:mermaid.svg]]
+** Post-process SVG
+
+Should be able to control colors from within Mermaid. See https://github.com/mermaid-js/mermaid/issues/6129
+
+#+begin_src bash :exports both :results verbatim
+file=post.svg
+xmllint --format mermaid.svg > ${file}
+
+c0=6 # first six hex values in the SVG are not displayed
+nodes=17 # number of nodes
+sed -i -E 's/#([0-9a-fA-F]{6})/#666666/g' ${file}
+
+for idx in 1 2 3 4 5 6 7 8 9 10; do
+  node=$(( ${idx} + ${c0} ))
+  # sed -z -i -E "s/\"#666666\"/\"#ff0000\"/${node}" ${file}
+  # perl -p -i -e "s/#666666/#ff0000/${node}" ${file}
+  # perl -p -i -e "s{#666666}{++$n == ${node} ? #ff0000}" ${file}
+  cat ${file} | tr '\n' '\000' | sed "s/#666666/#ff0000/${node}" | tr '\000' '\n' > tmp.svg
+  mv tmp.svg ${file}
+done
+#   cat ${file} | tr '\n' '\000' | sed "s/\"#666666\"/\"#ff0000\"/${node}" | tr '\000' '\n' > tmp.svg
+#   mv tmp.svg ${file}
+#   # cat ${file} | tr '\n' ' ' | sed -E "s/#666666/#ff0000/${node}" > tmp.svg
+#   # mv tmp.svg ${file}
+#   # node=$(( ${idx} + ${c0} + 17 ))
+#   # sed -z -i -E "s/#666666/#ff0000/${node}" ${file}
+#   # node=$(( ${idx} + ${c0} + 18 ))
+#   # sed -z -i -E "s/#666666/#ff0000/${node}" ${file}
+# done
+#+end_src
+
+#+RESULTS:
+
+[[./post.svg]]
