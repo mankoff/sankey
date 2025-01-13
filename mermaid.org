@@ -82,41 +82,101 @@ Floating,Dynamics,80
 
 ** Antarctica
 
-| ID          |                                                     Value |                |
-|-------------+-----------------------------------------------------------+----------------|
-| RFg         |                                                         5 |                |
-| CDg         |                                                         5 |                |
-| DPg         |                                                        65 |                |
-| SFg         |                                                      2360 |                |
-| SMBINg      |                                        5+5+65+2360 = 2435 |                |
-| RFs         |                                                         5 |                |
-| CDs         |                                                         5 |                |
-| DPs         |                                                        15 |                |
-| SFs         |                                                       415 |                |
-| SMBINs      |                                                       440 |                |
-| EVg         |                                                         5 |                |
-| RUg         |                                                         5 |                |
-| SUg         |                                                       195 |                |
-| SMBOUTg     |                                                       205 |                |
-| EVs         |                                                         5 |                |
-| RUs         |                                                         5 |                |
-| SUs         |                                                        35 |                |
-| SMBOUTs     |                                                        45 |                |
-| BMB         |                                                        70 |                |
-| DISCH       |                                      1935+331+77+2 = 2345 |                |
-| CALV        |                                      1411+331+77+1 = 1820 |                |
-| SHELFMELT   |                                                      1380 |                |
-| SHELFFREEZE |                                                       405 |                |
-| GZRET       |                                                        45 |                |
-| FRONTRET    |                                                       400 |                |
-| FRONTADV    |                                                       195 |                |
-| MASSLOSSg   |                                   2435-205-2345-70 = -185 | SMBg-DISCH-BMB |
-| MASSLOSSs   | 440 - 45 + 1935 -1410 -1380 + 405 - 45 - 400 + 195 = -305 |                |
+#+NAME: mermaid_aq
+#+begin_src jupyter-python :exports both :var aq=README.org:aq :colnames no
+import numpy as np
+import pandas as pd
 
-440: SMB in
-45: SMB out
-1935: Discharge to shelves (does not include island discharge to shelves)
-1410: Shelf calving
+aq = np.array(aq)
+df = pd.DataFrame(aq[1:,1:], index=aq[1:,0], columns=aq[0,1:])
+df.index.name = 'ID'
+
+cols = ['East_g','East_s','West_g','West_s','Peninsula_g','Peninsula_s']
+df[cols] = df[cols].astype(int)
+
+df['All_g'] = df[['East_g','West_g','Peninsula_g']].sum(axis='columns')
+df['All_s'] = df[['East_s','West_s','Peninsula_s']].sum(axis='columns')
+
+df = df.drop(columns=['Source', 'Unc', 'IO', 'Peninsula_s', 'Period','East_g','West_g','Peninsula_g','East_s','West_s'])
+
+dm = pd.DataFrame(columns=['in','out','value'])
+i = 0
+
+###
+### GROUNDED
+###
+
+# SMB input
+i+=1; dm.loc[i] = ['Condensation_g','SMB input_g', df.loc['CD']['All_g']]
+i+=1; dm.loc[i] = ['Deposition_g','SMB input_g', df.loc['DP']['All_g']]
+i+=1; dm.loc[i] = ['Rainfall_g','SMB input_g', df.loc['RF']['All_g']]
+i+=1; dm.loc[i] = ['Snowfall_g','SMB input_g', df.loc['SF']['All_g']]
+i+=1; dm.loc[i] = ['SMB input_g','NET_g', dm[dm['out'] == 'SMB input_g']['value'].sum()]
+
+# SMB output
+i+=1; dm.loc[i] = ['SMB output_g','Runoff_g',df.loc['RU']['All_g']]
+i+=1; dm.loc[i] = ['SMB output_g','Evap_g',df.loc['EV']['All_g']]
+i+=1; dm.loc[i] = ['SMB output_g','Sublimation_g',df.loc['SU']['All_g']]
+
+# Net -> outputs
+i+=1; dm.loc[i] = ['NET_g','SMB output_g',dm[dm['in'] == 'SMB output_g']['value'].sum()]
+
+# Discharge and calving
+disch = df.loc['DISCH']['All_g'] - df.loc['CALV']['All_g']
+i+=1; dm.loc[i] = ['NET_g','Discharge to shelf_g',disch]
+i+=1; dm.loc[i] = ['NET_g','Calving (non-shelf)_g',df.loc['CALV']['All_g']]
+i+=1; dm.loc[i] = ['NET_g','Grounding line retreat',df.loc['GZRET']['All_g']]
+i+=1; dm.loc[i] = ['NET_g','Grounded basal loss_g',df.loc['BMB']['All_g']]
+
+
+# Net gain or loss: 1930+410+70+205-2475
+diff = dm[dm['out'] == 'NET_g']['value'].sum() - dm[dm['in'] == 'NET_g']['value'].sum()
+i+=1; dm.loc[i] = ['Mass loss (grounded)_g','NET_g',np.abs(diff)]
+
+###
+### SHELF
+###
+
+# SMB input
+i+=1; dm.loc[i] = ['Condensation','SMB input', df.loc['CD']['All_s']]
+i+=1; dm.loc[i] = ['Deposition','SMB input', df.loc['DP']['All_s']]
+i+=1; dm.loc[i] = ['Rainfall','SMB input', df.loc['RF']['All_s']]
+i+=1; dm.loc[i] = ['Snowfall','SMB input', df.loc['SF']['All_s']]
+i+=1; dm.loc[i] = ['SMB input','NET', dm[dm['out'] == 'SMB input']['value'].sum()]
+
+# Discharge input
+i+=1; dm.loc[i] = ['Discharge to shelf','NET',disch]
+i+=1; dm.loc[i] = ['Frontal advance','NET',df.loc['FRONTADV']['All_s']]
+i+=1; dm.loc[i] = ['Sub-shelf freeze-on','NET',df.loc['SHELFFREEZE']['All_s']]
+
+# SMB output
+i+=1; dm.loc[i] = ['SMB output','Runoff',df.loc['RU']['All_s']]
+i+=1; dm.loc[i] = ['SMB output','Evap',df.loc['EV']['All_s']]
+i+=1; dm.loc[i] = ['SMB output','Sublimation',df.loc['SU']['All_s']]
+
+# Net -> outputs
+i+=1; dm.loc[i] = ['NET','SMB output',dm[dm['in'] == 'SMB output']['value'].sum()]
+i+=1; dm.loc[i] = ['NET','Calving (shelf)',df.loc['CALV']['All_s']]
+i+=1; dm.loc[i] = ['NET','Sub-shelf melt',df.loc['SHELFMELT']['All_s']]
+i+=1; dm.loc[i] = ['NET','Frontal retreat',df.loc['FRONTRET']['All_s']]
+
+# Net gain or loss: 1930+410+70+205-2475
+diff = dm[dm['out'] == 'NET']['value'].sum() - dm[dm['in'] == 'NET']['value'].sum()
+i+=1; dm.loc[i] = ['Mass loss (shelf)','NET',np.abs(diff)]
+
+dm['in'] = [_+': ' for _ in dm['in']]
+dm['out'] = [_+': ' for _ in dm['out']]
+   
+dm = dm.set_index('in')
+
+def custom_round(x, base=5):
+    if (x > 0) and (x < base): x = base
+    return int(base * round(float(x)/base))
+
+dm['value'] = dm['value'].apply(custom_round)
+
+print(dm.to_csv(header=None))
+#+end_src
 
 #+begin_src mermaid :file mermaid_AQ.svg
 ---
@@ -131,63 +191,18 @@ config:
 ---
 sankey-beta
 
-%%% GROUNDED
-
-SMB output G,Sublimation G,195
-SMB output G,Evap G,5
-SMB output G,Runoff G,5
-Gross G,SMB output G,205
-
-Condensation G,SMB input G,5
-Deposition G,SMB input G,65
-Rainfall G,SMB input G,5
-Snowfall G,SMB input G,2360
-
-Gross G,Grounded basal loss,70
-SMB input G,Gross G,2435
-Gross G,Discharge to shelf,2345
-
-Mass Loss (Grounded),Gross G,185
-
-%%% Shelf
-
-%% SMBINs: 440
-Condensation S,SMB input S,5
-Deposition S,SMB input S,15
-Rainfall S,SMB input S,5
-Snowfall S,SMB input S,415
-
-%% SMBOUTs: 45
-SMB output S,Evap S,5
-SMB output S,Runoff S,5
-SMB output S,Sublimation S,35
-
-
-SMB input S,Shelf,440
-Shelf,SMB output S,45
-
-
-Shelf,Calving,1820
-Freeze-on,Shelf,405
-Shelf,Sub-shelf melt,1380
-Shelf,Grounding line retreat,45
-Shelf,Frontal retreat,400
-Frontal advance,Shelf,195
-
-Discharge from ground,Shelf,2345
-
-Mass loss (Shelf),Shelf,305
+<<mermaid_aq()>>
 #+end_src
 
 #+RESULTS:
 [[file:mermaid_AQ.svg]]
 
-
 ** All gray
 
 #+BEGIN_SRC bash :exports both :results verbatim
 sed -E 's/#([0-9a-fA-F]{6})/gray/g' mermaid_GL.svg > mermaid_GL_gray.svg
-sed -E 's/#([0-9a-fA-F]{6})/gray/g' mermaid_AQ.svg > mermaid_AQ_gray.svg
+
+sed -E 's/#([0-9a-fA-F]{6})/gray/g' mermaid_AQ.svg | sed -E 's/_g//g' > mermaid_AQ_gray.svg
 
 # manually edit
 

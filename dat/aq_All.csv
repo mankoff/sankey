@@ -1,0 +1,18 @@
+ID,Term,Value
+RF,Rainfall,10
+CD,Condensation,5
+DP,Deposition,80
+SF,Snowfall,2805
+RFZ,Refreezing,105
+EV,Evaporation,5
+RU,Runoff,10
+SU,Sublimation,235
+BMB,Grounded basal melting,70
+DISCH,Discharge,2340
+CALV,Calving,1775
+FRONTMELT,Frontal melting,0
+SHELFMELT,Sub-shelf melting,1375
+SHELFFREEZE,Sub-shelf freeze-on,365
+GZRET,Grounding line retreat,45
+FRONTRET,Frontal retreat,400
+FRONTADV,Frontal advance,195
