@@ -60,7 +60,7 @@ Ice mass loss in Greenland is 330 Gt yr^{-1} which is ~30 % larger than the 255 
 
 * Introduction and Background
 
-The flow of mass into, within, and out of ice sheets has global impacts including sea-level change, so Greenland and Antarctica's net mass balance have been the focus of a great deal of recent scientific research (citet:ipcc_AR6_ch9,otosaka_2023,mankoff_2021,rignot_2019, and many others). The mass loss from the grounded portion of the Greenlandic and Antarctic ice sheets contributes to sea level rise (SLR), and can be captured by a single value or time series per ice sheet. Reporting a single value is beneficial because it simplifies interpretation and comparison. However, ice sheets are complex systems and while their contribution to sea level rise is important, focusing on their SLR contribution alone neither provides a holistic view nor captures the general health and state of the ice sheet. As one example, an ice sheet that increases output via discharge or submarine melting by X % but has that offset by an equal increase in snowfall would report no net mass change or SLR contribution, but has entered a different state when viewing constituent terms. Few studies consider all mass transport pathways and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process. 
+The flow of mass into, within, and out of ice sheets has global impacts including sea-level change, so Greenland and Antarctica's net mass balance have been the focus of a great deal of recent scientific research (citet:ipcc_AR6_ch9,otosaka_2023,mankoff_2021,rignot_2019, and many others). The mass loss from the grounded portion of the Greenlandic and Antarctic ice sheets contributes to sea level rise (SLR), and can be captured by a single value or time series per ice sheet. Reporting a single value is beneficial because it simplifies interpretation and comparison. However, ice sheets are complex systems and while their contribution to sea level rise is important, focusing on their SLR contribution alone neither provides a holistic view nor captures the general health and state of the ice sheet. As one example, an ice sheet that increases output via discharge or submarine melting by X % but has that offset by an equal increase in snowfall would report no mass change or SLR contribution, but has entered a different state when viewing constituent terms. Few studies consider all mass transport pathways and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process. 
 
 Net mass flow or mass balance is typically analyzed using one or a combination of four methods.
 
@@ -252,11 +252,15 @@ The frontal retreat products for Greenland citep:kochtitzky_2023 and Antarctica 
 
 *** Grounding line retreat
 
-Grounding line retreat, by definition here only occurring under ice shelves, has no complete published estimates in the dimensions needed here, mass or length\textsuperscript{3} and time (e.g., (Gt or km^{3}) yr^{-1}), and are typically reported in dimensions of length and time (e.g., m yr^{-1}).
+Grounding line retreat by definition here only occurs under ice shelves.
 
-In Greenland, there is no known assessment of ice shelf grounding line retreat in the dimensions needed here. We use published values of Petermann glacier grounding line retreat (units m) from citet:millan_2022, ice velocity from citet:millan_2022, ice thickness from citet:ciraci_2023, and ice density of 917 kg m^{3} to calculate grounding line retreat in units of Gt yr^{-1}. We estimate ~1.5 Gt yr^{-1}.
+Numerous papers have documented grounding line migration around both Greenland Antarctica at different spatial and temporal scales (e.g., citet:rignot_2014,konrad_2018,millan_2022_petermann,millilo_2022,picton_2023,li_2023,gadi_2023). However, none provide estimates of grounding line migration in the dimensions needed here, mass or length\textsuperscript{3} and time (e.g., (Gt or km^{3}) yr^{-1}) -- they are typically reported in dimensions of length and time (e.g., m yr^{-1}).
 
-Grounding line retreat is reported in Antarctica for Pine Island, Thwaites, Crosson, and Dotson ice shelves at 45 Gt yr^{-1} citep:davison_2023. We use this value for Antarctica and West Antarctica, 1 Gt yr^{-1} for East Antarctica and the Peninsula. This value is wrong, but with no additional information we use it as placeholder until such time as there is a better estimate of this value.
+COMMENT FROM KOCHTITZKY: My numbers for Greenland include everywhere - even ice shelves, I am not exactly clear how you used the data, but we might want to remove ice shelves from my dataset or do something else - happy to discuss this. Yes we should remove this from frontal retreat and use this for grounding line retreat in Greenland rather than my estimate below.
+
+We estimate grounding line migration in Greenland for Petermann glacier using  published values of grounding line retreat (units m) from citet:millan_2022, ice velocity from citet:millan_2022, ice thickness from citet:ciraci_2023, and ice density of 917 kg m^{3} to calculate grounding line retreat in units of Gt yr^{-1}. We estimate ~1.5 Gt yr^{-1}. Given this order of magnitude result relative to the magnitude of other processes, we round this up to 5 (see Methods) to include other remaining Greenlandic ice shelves.
+
+In Antarctica, the fastest rates of ice shelf grounding line retreat are in Amundsen Sea Embayment, contributing 45 Gt yr^{-1} citep:davison_2023. Although grounding line retreat occurs elsewhere in West Antarctica (e.g. at Ferrigno and Venable ice shelves), we ignore these contributions. citep:konrad_2018 showed that 85 % of all Antarctic ice sheet grounding line retreat (in terms of area change per year, from 2010 to 2016) occurs in West Antarctica. We therefore use Gt yr^{-1} for Antarctica and West Antarctica, and a low estimate of 1 Gt yr^{-1} for East Antarctica and the Peninsula. This value is wrong, but with no additional information we use it as placeholder until such time as there is a better estimate of this value. Any true increase in grounding line retreat here would add an equal amount to the marine mass loss and net mass loss terms in the results.
 
 *** Grounded basal melting
 
@@ -312,7 +316,7 @@ All mass flow terms, values for each term, time span of each value, and referenc
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{gl_baseline.pdf}}
-\caption{Sankey mass flow diagram for Greenland. All widths are proportional within and between images. Gray is ice, blue is liquid, and yellow is gaseous phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head). Because Sankey diagrams balance all inputs and outputs, mass losses require a `mass loss' input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
+\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}] or volume flow rate [km\textsuperscript{3} yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is ice, blue is liquid, and yellow is gaseous phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head). Because Sankey diagrams balance all inputs and outputs, mass losses require a `mass loss' input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
 \label{fig:gl}
 \end{figure*}
 
@@ -389,7 +393,11 @@ Snow drift on and off is also excluded. There is likely little snow drift onto e
 
 # + There may be other as-yet unidentified missing terms. For example, the earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in citet:cogley_2011, but their respective values were highly uncertain, and still are, although recent work by citet:kochtitzky_2023,greene_2024 have constrained these values in Greenland. 
 
-There are a variety of simplifications. For example, rainfall input does not all turn to ice as depicted by the arrows in these diagrams. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still as reported in the input products.
+This work focuses on Greenlandic and Antarctic ice masses as a freshwater source. There are other sources and sinks of freshwater into the oceans around Greenland and Antarctica not covered here including but not limited to: rain and snow melt from non-ice covered ground in Greenland, rain and snow directly onto the fjord or ocean surface, evaporation over the surrounding oceans, and sea ice growth, movement, and melt.
+
+CHAD Greene requests hard numbers to avoid wishy-washy, vague, and abstract. I don't have any hard numbers for the following:
+
+There are a variety of simplifications. For example, rainfall input does not all turn to ice as depicted by the arrows in these diagrams. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still as reported in the input products. Furthermore, the simplifications we are aware of are all a very small component relative to the total freshwater or mass flow or even the mass imbalance.
 
 *** Temporal resolution of input observations
 
@@ -528,15 +536,15 @@ The main Sankey diagrams shown here are generated using a \LaTeX\enspace templat
 
 * Appendix B: Antarctic mass flow by region
 
-Figure \ref{fig:aq_regions} shows Figure \ref{fig:aq} split by East, West, and Peninsula regions
-
 \label{appendix:aq_regions}
+
+Figure \ref{fig:aq_regions} shows Figure \ref{fig:aq} split by East, West, and Peninsula regions
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{aq_E.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_W.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_P.pdf}}
-\caption{Sankey mass flow diagrams for Antarctica regions. East (top), West (middle), and Peninsula (bottom). All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
+\caption{Sankey mass flow diagrams for Antarctica regions. East (top), West (middle), and Peninsula (bottom). Numbers are mass flow rate [Gt yr\textsuperscript{-1}] or volume flow rate [km\textsuperscript{3} yr\textsuperscript{-1}]. All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
 \end{figure*}
 
 * Appendix C: Alternative display of Antarctic mass flow: grounded vs shelf
@@ -548,7 +556,7 @@ This display choice clearly separates grounded and floating ice, but makes it ch
 
 \begin{figure*}
 \centering{\includegraphics[width=0.95\textwidth]{mermaid_AQ_gray.png}}
-\caption{Sankey mass flow diagrams for Antarctica split by grounded vs. floating ice. Upper and lower figure should be merged at black line, where mass flow output from grounded ice is mass flow input to ice shelves.\label{fig:aq_complex}}
+\caption{Sankey mass flow diagrams for Antarctica split by grounded vs. floating ice. Upper and lower figure should be merged at black line, where mass flow output from grounded ice is mass flow input to ice shelves. Numbers are mass flow rate [Gt yr\textsuperscript{-1}] or volume flow rate [km\textsuperscript{3} yr\textsuperscript{-1}].\label{fig:aq_complex}}
 \end{figure*}
 
 
