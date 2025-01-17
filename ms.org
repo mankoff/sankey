@@ -3,11 +3,34 @@
 \title[Ice sheet mass flows]{Ice sheet mass flows}
 
 \author[Mankoff and others]
-{Kenneth D. MANKOFF,$^{1,2}$}
+{Kenneth D. MANKOFF$^{1,2}$,
+Chad A. GREENE$^{3}$,
+Benjamin DAVISON$^{4}$,
+Désirée TREICHLER$^{5}$,
+Will KOCHTITZKY$^{6}$,
+Brice VAN LIEFFERINGE$^{8}$,
+Genyu WANG$^{9}$
+Chang-Qing KE$^{9}$,
+Xavier FETTWEIS$^{11}$,
+William COLGAN$^{7}$,
+Damien RINGEISEN$^{10}$,
+Alex GARDNER$^{3}$,
+Robert FAUSTO$^{7}$,
+Nanna KARLSSON$^{7}$,
+Andreas AHLSTRØM$^{7}$}
 
 \affiliation{%
 $^1$NASA Goddard Institute for Space Studies, New York NY USA\\
 $^2$Autonomic Integra LLC, New York NY USA\\
+$^3$Jet Propulsion Laboratory California Institute of Technology Pasadena CA USA\\
+$^4$\\
+$^5$\\
+$^6$\\
+$^7$Geological Survey of Denmark and Greenland\\
+$^8$\\
+$^9$\\
+$^{10}$\\
+$^{11}$\\
 Correspondence: Ken Mankoff
 \email{ken.mankoff@nasa.gov}}
 #+END_EXPORT
@@ -37,13 +60,11 @@ Correspondence: Ken Mankoff
 #+PROPERTY: header-args:jupyter-python+ :dir (file-name-directory buffer-file-name) :session sankey
 :end:
 
-
 #+LATEX: \begin{frontmatter}
 #+LATEX: \maketitle
 
-Author list: https://drive.google.com/drive/folders/1g9vXuQofIL5MgtrtQ2zzlLiu69j1kTvJ?usp=sharing
-
-Please add ORCID and Affiliation to CRediT file there.
+# Author list: https://drive.google.com/drive/folders/1g9vXuQofIL5MgtrtQ2zzlLiu69j1kTvJ?usp=sharing
+# Please add ORCID and Affiliation to CRediT file there.
 
 #+LATEX: \begin{abstract}
 
@@ -495,18 +516,31 @@ df = df.set_index('Initials').T
 
 s = df.sum()
 df = df[s.sort_values(ascending=False).index]
+df = df.replace(0, '')
+df = df.replace(1, '\\checkmark')
 
 df.T
 #+END_SRC
 
 #+CAPTION: Author contributions following the CRediT system citep:allen_2019,brand_2015,allen_2014
 #+RESULTS: tab:credit
-| Initials | Data | Graphics | Wrote | Edited | Discussed |
-|----------+------+----------+-------+--------+-----------|
-| KDM      |    1 |        1 |     1 |      1 |         1 |
-
-See https://drive.google.com/drive/folders/1g9vXuQofIL5MgtrtQ2zzlLiu69j1kTvJ?usp=sharing
-
+| Initials   | Data       | Graphic    | Write      | Edit       | Discuss    |
+|------------+------------+------------+------------+------------+------------|
+| KDM        | \checkmark | \checkmark | \checkmark | \checkmark | \checkmark |
+| CAG        | \checkmark |            |            | \checkmark | \checkmark |
+| BD         | \checkmark |            |            | \checkmark | \checkmark |
+| DT         |            |            |            | \checkmark | \checkmark |
+| WK         |            |            |            | \checkmark | \checkmark |
+| WC         |            | \checkmark |            |            | \checkmark |
+| DR         |            | \checkmark |            |            | \checkmark |
+| BVL        | \checkmark |            |            |            |            |
+| GW         | \checkmark |            |            |            |            |
+| CK         | \checkmark |            |            |            |            |
+| XF         | \checkmark |            |            |            |            |
+| AG         |            |            |            |            | \checkmark |
+| RF         |            |            |            |            | \checkmark |
+| NK         |            |            |            |            | \checkmark |
+| AA         |            |            |            |            | \checkmark |
 
 * Conflict of Interest
 
@@ -514,14 +548,7 @@ No authors have any conflict of interest with the work presented here.
 
 * Acknowledgments
 
-We thank Damien Ringeisen for conversations in the development of this work.
-
-# Also had brief discussions with: Katie Leonard, Jan Lenaerts, Robert Fausto, Andreas Ahlstrøm, 
-
-We thank citep:sankey for the \LaTeX TikZ Sankey package, and citet:cogley_2011 for a reference graphic. Analysis was aided by the software packages Pandas (citet:pandas_team), Xarray (citet:xarray), and GRASS GIS (citet:GRASS), among other tools.
-
-# , Xavier Fettweis, Benjamin Davison, Anna Hogg, Chad Greene, Katie Leonard, Jan Lenaerts, Damien Ringeisen, Liam Colgan, Robert Fausto, Dominik Fahrner, Nanna Karlsson, Brice Van Liefferinge, and Andreas Ahlstrøm for conversations in the development of this work.
-
+We thank citep:sankey for the \LaTeX\enspace TikZ Sankey package, and citet:cogley_2011 for a reference graphic. Analysis was aided by the software packages Pandas (citet:pandas_team), Xarray (citet:xarray), and GRASS GIS (citet:GRASS), among other tools.
 
 * Appendix                                                :ignore:
 \appendix
