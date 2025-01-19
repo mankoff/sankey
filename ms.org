@@ -394,9 +394,10 @@ Antarctica lost 190 Gt yr^{-1} from grounded ice and an additional 260 Gt yr^{-1
 
 
 * Discussion
-
 ** Missing terms, limitations, and simplifications
 \label{sec:limits}
+
+IS THIS PART OF METHODS?
 
 These figures and tables neglect some mass flow processes (some of which are included in \citet[][Figure 2]{cogley_2011}, and simplify others.
 
@@ -452,6 +453,11 @@ print("Equal terms: ", eq.n, eq.s, eq.s/eq.n*100)
 #+RESULTS:
 : Net SMB:  235.0 121.58099152416878 51.73659213794416
 : Equal terms:  70.0 3.968626966596886 5.669467095138408
+
+# 0.15 * 2805 = 420.75
+Uncertainties here are as presented in each of the individual input products, and highlights one of the deficiencies of using the IO method in isolation. The mass imbalance component is the residual of all the other terms, and therefore its uncertainty should be defined from the other terms, perhaps by summing in quadrature (square root of the sum of the squares), assuming per-term uncertainties are uncorrelated. If we apply a 15 % uncertainty to Antarctic snowfall that is 420 Gt yr^{-1} from that term alone, which is of similar magnitude to the mass loss term. However, we know from independent estimates (e.g., GMB method) that uncertainty on the mass loss term is much less than that.
+
+Uncertainty values are themselves uncertain. As another example, citet:gardner_2018 report SMB uncertainty of 84 Gt yr^{-1} over the grounded ice sheet, a flux uncertainty of ~40 Gt yr^{-1}, a basal melt error of 4 Gt yr^{-1}.
 
 *** SMB Uncertainty
 
