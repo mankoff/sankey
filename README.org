@@ -384,6 +384,7 @@ r.univar -gt map=melt_on | cut -d"|" -f11
 
 *** MB
 **** GRACE ESA
+
 #+begin_src jupyter-python :exports both
 import xarray as xr
 ds = xr.open_dataset("~/data/Dohne_2023/GIS_GMB_grid.nc")
@@ -402,17 +403,19 @@ print(ds.mean())
 :RESULTS:
 : <xarray.DataArray 'dm' ()> Size: 8B
 : array(-250.12027707)
-[[file:./figs_tmp/51f7e7c93a2146c72173d08304aa80e49389d237.png]]
+[[file:./figs_tmp/911c045e76e18fc0fb23bf799dc621683309edb9.png]]
 :END:
 
 **** GRACE JPL
 
 #+BEGIN_SRC jupyter-python :exports both
+import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
+from uncertainties import unumpy
 
-df = pd.read_csv("~/data/GRACE/greenland_mass_200204_202409.txt",
-                 comment="H", parse_dates=True, sep="\s+", header=None,
+df = pd.read_csv("~/data/GRACE/greenland_mass_200204_202410.txt",
+                 comment="H", parse_dates=True, sep="\\s+", header=None,
                  names=['year','mass','err'])
 
 # Function to convert year.frac to ISO format (YYYY-MM-DD)
@@ -428,21 +431,24 @@ def year_frac_to_iso(year_frac):
 df['date'] = df['year'].apply(year_frac_to_iso)
 df = df.drop(columns=['year'])
 df = df.set_index('date')
-df = df['mass']
+df = df[['mass','err']]
 
 # df.resample('D').mean().interpolate()
 df = df['2010-01-01':'2019-12-31']
-df = df - df.max()
+df['mass'] = df['mass'] - df['mass'].max()
 
-# df.head()
-_ = df.plot()
-print(df.resample('YS').mean().diff().mean())
+# arr = unumpy.uarray(df['mass'].values, df['err'].values)
+
+_ = df['mass'].plot() # <-- traditional plot
+# df.resample('YS').mean().diff().plot()
+
+print(df['mass'].resample('YS').mean().diff().mean(), '+-', df['err'].resample('YS').mean().mean())
 #+END_SRC
 
 #+RESULTS:
 :RESULTS:
-: -264.96212962962966
-[[file:./figs_tmp/bfcfdbb8d4a3e42ea23a749f439bc8dddbd3e743.png]]
+: -265.0541666666667 +- 23.828999999999997
+[[file:./figs_tmp/64b7a155973c517d77c396f87b15a6a4f5d91932.png]]
 :END:
 
 
@@ -460,11 +466,12 @@ print(df['2010-01-01':'2019-12-31'].mean())
 #+END_SRC
 
 #+RESULTS:
-: Fri Dec 20 09:56:38 AM EST 2024
+: Wed Jan 22 02:16:48 PM PST 2025
 : 2010s
 : MB       -246.172157
 : MB_err     94.196209
 : dtype: float64
+
 
 ** Antarctica
 
@@ -1558,26 +1565,34 @@ Mass loss [-124.70409821345615]
 
 #+begin_src jupyter-python :exports both
 import xarray as xr
-ds = xr.open_dataset("~/data/Groh_2021/AIS_GMB_grid.nc")
-ds['dm'] = ds['dm'] * ds['area']
-ds = ds['dm'].sum(dim=['x','y'])/1E12
-df = ds.to_dataframe()
+ds = xr.open_dataset("~/data/Groh_2021/AIS_GMB_basin.nc")
+# ds['dm'] = ds['dm'] * ds['area']
+# ds['sigma_dm'] = ds['sigma_dm'] * ds['area']
+# print(ds)
 
-# df = df.loc['2002-01-01':'2024-12-31']
-df = df - df.max()
-_ = df.plot()
-# df = df.resample('D').mean().interpolate().resample('YS').mean()
+ds = ds[['dm','sigma_dm']].sum(dim='reg')
+df = ds.to_dataframe() / 1E12
+
+_ = df['dm'].plot()
+df = df.loc['2010-01-01':'2019-12-31']
+
+df['dm'] = df['dm'] - df['dm'].max()
 df = df.resample('YS').mean()
-df = df.diff()
-print(df.mean())
+
+# print(df.mean())
+# arr = unumpy.uarray(df['dm'].values, df['sigma_dm'].values)
+print(df['dm'].diff().mean(), '+-', df['sigma_dm'].mean())
+
+
 #+end_src
 
 #+RESULTS:
 :RESULTS:
-: dm   -79.146737
-: dtype: float64
-[[file:./figs_tmp/0f945242fb8fcfd039ef097240df737ac32412ca.png]]
+: -339.9240282777777 +- 453.25699999999995
+[[file:./figs_tmp/3764088beb65c4e1826b117472fdf8c72222342b.png]]
 :END:
+
+
 
 
 * Misc
