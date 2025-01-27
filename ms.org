@@ -275,7 +275,7 @@ The frontal retreat products for Greenland citep:kochtitzky_2023 and Antarctica 
 
 Grounding line retreat by definition here only occurs under ice shelves.
 
-Numerous papers have documented grounding line migration around both Greenland Antarctica at different spatial and temporal scales (e.g., citet:rignot_2014,konrad_2018,millan_2022_petermann,millilo_2022,picton_2023,li_2023,gadi_2023). However, none provide estimates of grounding line migration in the dimensions needed here, mass or length\textsuperscript{3} and time (e.g., (Gt or km^{3}) yr^{-1}) -- they are typically reported in dimensions of length and time (e.g., m yr^{-1}).
+Numerous papers have documented grounding line migration around both Greenland Antarctica at different spatial and temporal scales (e.g., citet:rignot_2014,konrad_2018,millan_2022_petermann,milillo_2022,picton_2023,li_2023,gadi_2023). However, none provide estimates of grounding line migration in the dimensions needed here, mass or length\textsuperscript{3} and time (e.g., (Gt or km^{3}) yr^{-1}) -- they are typically reported in dimensions of length and time (e.g., m yr^{-1}).
 
 COMMENT FROM KOCHTITZKY: My numbers for Greenland include everywhere - even ice shelves, I am not exactly clear how you used the data, but we might want to remove ice shelves from my dataset or do something else - happy to discuss this. Yes we should remove this from frontal retreat and use this for grounding line retreat in Greenland rather than my estimate below.
 
