@@ -385,6 +385,8 @@ r.univar -gt map=melt_on | cut -d"|" -f11
 *** MB
 **** GRACE ESA
 
++ https://data1.geo.tu-dresden.de/gis_gmb/
+
 #+begin_src jupyter-python :exports both
 import xarray as xr
 ds = xr.open_dataset("~/data/Dohne_2023/GIS_GMB_grid.nc")
@@ -405,6 +407,8 @@ print(ds.mean())
 : array(-250.12027707)
 [[file:./figs_tmp/911c045e76e18fc0fb23bf799dc621683309edb9.png]]
 :END:
+
+Results processed by Thorben Döhne are: -226 +- 14.5 Gt/yr
 
 **** GRACE JPL
 
@@ -1563,37 +1567,69 @@ Mass loss [-124.70409821345615]
 
 *** GRACE
 
-#+begin_src jupyter-python :exports both
-import xarray as xr
-ds = xr.open_dataset("~/data/Groh_2021/AIS_GMB_basin.nc")
-# ds['dm'] = ds['dm'] * ds['area']
-# ds['sigma_dm'] = ds['sigma_dm'] * ds['area']
-# print(ds)
+**** ESA CCI
 
-ds = ds[['dm','sigma_dm']].sum(dim='reg')
-df = ds.to_dataframe() / 1E12
++ https://data1.geo.tu-dresden.de/ais_gmb/
 
-_ = df['dm'].plot()
-df = df.loc['2010-01-01':'2019-12-31']
+Results processed by Thorben Döhne are:
 
-df['dm'] = df['dm'] - df['dm'].max()
-df = df.resample('YS').mean()
+| Region    |     MB |  Err |      Err % |
+|-----------+--------+------+------------|
+| Peninsula |  -21.4 |  7.2 | -33.644860 |
+| East      |   35.0 | 40.0 |  114.28571 |
+| West      | -164.9 | 15.1 | -9.1570649 |
+| All       | -151.3 | 44.3 | -29.279577 |
+#+TBLFM: $4=($3/$2)*100
 
-# print(df.mean())
-# arr = unumpy.uarray(df['dm'].values, df['sigma_dm'].values)
-print(df['dm'].diff().mean(), '+-', df['sigma_dm'].mean())
+**** JPL
 
+#+BEGIN_SRC jupyter-python :exports both
+import numpy as np
+import pandas as pd
+from datetime import datetime, timedelta
+from uncertainties import unumpy
 
-#+end_src
+df = pd.read_csv("~/data/GRACE/antarctica_mass_200204_202410.txt",
+                 comment="H", parse_dates=True, sep="\\s+", header=None,
+                 names=['year','mass','err'])
+
+# Function to convert year.frac to ISO format (YYYY-MM-DD)
+def year_frac_to_iso(year_frac):
+    year = int(year_frac)
+    frac = year_frac - year
+    start_of_year = datetime(year, 1, 1)
+    days_in_year = (datetime(year + 1, 1, 1) - start_of_year).days
+    date = start_of_year + timedelta(days=frac * days_in_year)
+    return pd.to_datetime(date.strftime('%Y-%m-%d'))
+
+# Apply the conversion to the 'Year' column
+df['date'] = df['year'].apply(year_frac_to_iso)
+df = df.drop(columns=['year'])
+df = df.set_index('date')
+df = df[['mass','err']]
+
+# df.resample('D').mean().interpolate()
+# df = df['2010-01-01':'2019-12-31']
+df = df['2003-01-01':'2023-12-31']
+# df['mass'] = df['mass'] - df['mass'].max()
+
+# arr = unumpy.uarray(df['mass'].values, df['err'].values)
+
+_ = df['mass'].plot() # <-- traditional plot
+# df.resample('YS').mean().diff().plot()
+
+# df = df.resample('1D').interpolate().resample('YS').mean().diff().mean()
+# df = df.resample('YS').mean().diff().mean()
+# print(df['mass'], '+-', df['err'])
+
+print(df['mass'].resample('YS').mean().diff().mean(), '+-', df['err'].resample('YS').mean().mean())
+#+END_SRC
 
 #+RESULTS:
 :RESULTS:
-: -339.9240282777777 +- 453.25699999999995
-[[file:./figs_tmp/3764088beb65c4e1826b117472fdf8c72222342b.png]]
+: -112.11872727272728 +- 38.18804256854257
+[[file:./figs_tmp/08a08b6d0213c72ff1030c88955c5d31f26601b4.png]]
 :END:
-
-
-
 
 * Misc
 ** Export tables to CSVs
