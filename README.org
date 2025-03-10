@@ -69,7 +69,7 @@ rf[label="Rainfall"]
 sf[label="Snowfall"]
 smbin[label="SMB\ninput"]
 frontadv[label="Frontal\nadvance"]
-shelffreeze[label="Sub-shelf\nfreeze-on"]
+shelffreeze[label="Ice shelf\nbasal freeze-on"]
 IO[label = ""]
 
 smbout[label="SMB\noutput"]
@@ -83,15 +83,15 @@ discharge[label="Discharge"]
 
 calvGL[label="Calving"]
 frontmeltGL[label="Frontal\nmelt"]
-shelfmeltGL[label="Sub-shelf\nmelt (GL)"]
+shelfmeltGL[label="Ice shelf\nbasal melt (GL)"]
 
 calvAQ[label="Calving"]
 # frontmeltAQ[label="Frontal\nmelt"]
-shelfmeltAQ[label="Sub-shelf\nmelt (AQ)"]
+shelfmeltAQ[label="Ice shelf\nbasal melt (AQ)"]
 
 frontret[label="Frontal\nretreat"]
 gzret[label="Grounding\nline retreat", style="dashed"]
-bmb[label="Grounded\nbasal mass\nbalance"]
+bmb[label="Grounded ice\nbasal melt"]
 
 subgraph cluster_GL{
   rank="same"
@@ -149,25 +149,26 @@ dyn -> bmb
 ** Greenland
 
 #+NAME: gl_baseline
-| ID          | Term                   |    Value | Unc | IO  |    Period | Source                                         |
-|-------------+------------------------+----------+-----+-----+-----------+------------------------------------------------|
-| RF          | Rainfall               |       40 |  15 | I_g | 2010-2019 | fettweis_2020                                  |
-| CD          | Condensation           |        5 |  15 | I_g | 2010-2019 | fettweis_2020                                  |
-| DP          | Deposition             |       10 |  15 | I_g | 2010-2019 | fettweis_2020                                  |
-| SF          | Snowfall               |      680 |  15 | I_g | 2010-2019 | fettweis_2020                                  |
-| EV          | Evaporation            |        5 |  15 | O_g | 2010-2019 | fettweis_2020                                  |
-| RU          | Runoff                 |      435 |  15 | O_g | 2010-2019 | fettweis_2020                                  |
-| SU          | Sublimation            |       60 |  15 | O_g | 2010-2019 | fettweis_2020                                  |
-| RFZ         | Refreezing             |      200 |  15 |     | 2010-2019 | fettweis_2020                                  |
-| BMB         | Grounded basal melting |       20 |  20 | O_g |    steady | karlsson_2021                                  |
-| DISCH       | Discharge              | 485-20+5 |  10 |     | 2010-2019 | mankoff_2020_solid,kochtitzky_2023,bollen_2023 |
-| CALV        | Calving                |      235 |  30 | O_o |           | rignot_2010                                    |
-| FRONTMELT   | Frontal melting        |      235 |  30 | O_o |           | rignot_2010                                    |
-| SHELFMELT   | Sub-shelf melting      |       25 |  40 | O_o | 2013-2022 | wang_2024                                      |
-| SHELFFREEZE | Sub-shelf freeze-on    |        5 |  40 | I_o | 2013-2022 | wang_2024                                      |
-| GZRET       | Grounding line retreat |        5 |   ? | O_g |           |                                                |
-| FRONTRET    | Frontal retreat        |       50 |   4 | O_o | 2010-2020 | kochtitzky_2023                                |
-| FRONTADV    | Frontal advance        |        0 |     | I_o | 2010-2020 | kochtitzky_2023                                |
+| ID          | Term                      |    Value | Unc. | IO  |    Period | Source                                         |
+|-------------+---------------------------+----------+------+-----+-----------+------------------------------------------------|
+| RF          | Rainfall                  |       40 |   15 | I_g | 2010-2019 | fettweis_2020                                  |
+| CD          | Condensation              |        5 |   15 | I_g | 2010-2019 | fettweis_2020                                  |
+| DP          | Deposition                |       10 |   15 | I_g | 2010-2019 | fettweis_2020                                  |
+| SF          | Snowfall                  |      680 |   15 | I_g | 2010-2019 | fettweis_2020                                  |
+| EV          | Evaporation               |        5 |   15 | O_g | 2010-2019 | fettweis_2020                                  |
+| RU          | Runoff                    |      435 |   15 | O_g | 2010-2019 | fettweis_2020                                  |
+| SU          | Sublimation               |       60 |   15 | O_g | 2010-2019 | fettweis_2020                                  |
+| RFZ         | Refreezing                |      200 |   15 |     | 2010-2019 | fettweis_2020                                  |
+| BMB         | Grounded ice basal melt   |       20 |   20 | O_g |    steady | karlsson_2021                                  |
+| DISCH       | Discharge                 | 485-20+5 |   10 |     | 2010-2019 | mankoff_2020_solid,kochtitzky_2023,bollen_2023 |
+| CALV        | Calving                   |      235 |   30 | O_o |           | rignot_2010                                    |
+| FRONTMELT   | Frontal melt              |      235 |   30 | O_o |           | rignot_2010                                    |
+| SHELFMELT   | Ice shelf basal melt      |       25 |   40 | O_o | 2013-2022 | wang_2024                                      |
+| SHELFFREEZE | Ice shelf basal freeze-on |        5 |   40 | I_o | 2013-2022 | wang_2024                                      |
+| GZRET       | Grounding line retreat    |        5 |    ? | O_g |           |                                                |
+| GZADV       | Grounding line advance    |        0 |    ? | I_g |           |                                                |
+| FRONTRET    | Frontal retreat           |       50 |    4 | O_o | 2010-2020 | kochtitzky_2023                                |
+| FRONTADV    | Frontal advance           |        0 |      | I_o | 2010-2020 | kochtitzky_2023                                |
 
 #+CALL: orgtbl2csv(tbl="gl_baseline")
 
@@ -239,7 +240,7 @@ df.mean()
 + 21 Gt/yr from Karlsson (2021) http://doi.org/10.1038/s41467-021-23739-z
 + Assume steady state
 
-*** TODO GZ retreat
+*** GZ retreat
 
 From Millan (2022) http://doi.org/10.5194/tc-16-3021-2022
 + Gz retreat is ~0.13 km/yr (Fig. 3a)
@@ -480,25 +481,26 @@ print(df['2010-01-01':'2019-12-31'].mean())
 ** Antarctica
 
 #+NAME: aq
-| ID          | Term                   | East_g | West_g | Peninsula_g | East_s | West_s | Peninsula_s |     Unc | IO |    Period | Source                                                         |
-|-------------+------------------------+--------+--------+-------------+--------+--------+-------------+---------+----+-----------+----------------------------------------------------------------|
-| RF          | Rainfall               |      1 |      1 |           2 |      1 |      1 |           2 |      15 | I  | 2010-2019 | fettweis_2020                                                  |
-| CD          | Condensation           |      1 |      1 |           1 |      1 |      1 |           1 |      15 | I  | 2010-2019 | fettweis_2020                                                  |
-| DP          | Deposition             |     37 |     24 |           6 |      6 |      6 |           2 |      15 | I  | 2010-2019 | fettweis_2020                                                  |
-| SF          | Snowfall               |   1392 |    724 |         282 |    172 |    180 |          57 |      15 | I  | 2010-2019 | fettweis_2020                                                  |
-| RFZ         | Refreezing             |     15 |      5 |          19 |     26 |     10 |          32 |      15 |    | 2010-2019 | fettweis_2020                                                  |
-| EV          | Evaporation            |      1 |      1 |           1 |      1 |      1 |           1 |      15 | O  | 2010-2019 | fettweis_2020                                                  |
-| RU          | Runoff                 |      1 |      1 |           2 |      2 |      1 |           4 |      15 | O  | 2010-2019 | fettweis_2020                                                  |
-| SU          | Sublimation            |    151 |     33 |          13 |     23 |      9 |           4 |      15 | O  | 2010-2019 | fettweis_2020                                                  |
-| BMB         | Grounded basal melting |     47 |     19 |           3 |      0 |      0 |           0 |      30 | O  |           | van-liefferinge_2013                                           |
-| DISCH       | Discharge              |   1147 |    902 |         292 |      0 |      0 |           0 | 5 -- 50 |    | 2008-2019 | davison_2023 (to shelves) + rignot_2019 (grounded + islands)   |
-| CALV        | Calving                |    223 |     46 |         139 |    694 |    567 |         104 |       5 | O  | 2010-2019 | greene_2022 + rignot_2019 discharge (grounded + islands)       |
-| FRONTMELT   | Frontal melting        |      0 |      0 |           0 |      0 |      0 |           0 |         | O  |           |                                                                |
-| SHELFMELT   | Sub-shelf melting      |      0 |      0 |           0 |    527 |    684 |         164 |     150 | O  | 2010-2017 | paolo_2023                                                     |
-| SHELFFREEZE | Sub-shelf freeze-on    |      0 |      0 |           0 |    208 |    147 |          11 |     300 | I  | 2010-2017 | paolo_2023                                                     |
-| GZRET       | Grounding line retreat |      1 |     45 |           1 |      0 |      0 |           0 |      15 | O  | 1997-2021 | davison_2023 (only Pine Island, Thwaites, Crosson, and Dotson) |
-| FRONTRET    | Frontal retreat        |      0 |      0 |           0 |     69 |    206 |         125 |       5 | O  | 2010-2021 | greene_2022                                                    |
-| FRONTADV    | Frontal advance        |      0 |      0 |           0 |    192 |      2 |           1 |       5 | I  | 2010-2021 | greene_2022                                                    |
+| ID          | Term                      | East_g | West_g | Peninsula_g | East_s | West_s | Peninsula_s |    Unc. | IO |    Period | Source                                                         |
+|-------------+---------------------------+--------+--------+-------------+--------+--------+-------------+---------+----+-----------+----------------------------------------------------------------|
+| RF          | Rainfall                  |      1 |      1 |           2 |      1 |      1 |           2 |      15 | I  | 2010-2019 | kittel_2021                                                    |
+| CD          | Condensation              |      1 |      1 |           1 |      1 |      1 |           1 |      15 | I  | 2010-2019 | kittel_2021                                                    |
+| DP          | Deposition                |     37 |     24 |           6 |      6 |      6 |           2 |      15 | I  | 2010-2019 | kittel_2021                                                    |
+| SF          | Snowfall                  |   1392 |    724 |         282 |    172 |    180 |          57 |      15 | I  | 2010-2019 | kittel_2021                                                    |
+| RFZ         | Refreezing                |     15 |      5 |          19 |     26 |     10 |          32 |      15 |    | 2010-2019 | kittel_2021                                                    |
+| EV          | Evaporation               |      1 |      1 |           1 |      1 |      1 |           1 |      15 | O  | 2010-2019 | kittel_2021                                                    |
+| RU          | Runoff                    |      1 |      1 |           2 |      2 |      1 |           4 |      15 | O  | 2010-2019 | kittel_2021                                                    |
+| SU          | Sublimation               |    151 |     33 |          13 |     23 |      9 |           4 |      15 | O  | 2010-2019 | kittel_2021                                                    |
+| BMB         | Grounded ice basal melt   |     47 |     19 |           3 |      0 |      0 |           0 |      30 | O  |           | van-liefferinge_2013                                           |
+| DISCH       | Discharge                 |   1147 |    902 |         292 |      0 |      0 |           0 | 5 -- 50 |    | 2008-2019 | davison_2023 (to shelves) + rignot_2019 (grounded + islands)   |
+| CALV        | Calving                   |    223 |     46 |         139 |    694 |    567 |         104 |       5 | O  | 2010-2019 | greene_2022 + rignot_2019 discharge (grounded + islands)       |
+| FRONTMELT   | Frontal melt              |      0 |      0 |           0 |      0 |      0 |           0 |         | O  |           |                                                                |
+| SHELFMELT   | Ice shelf basal melt      |      0 |      0 |           0 |    527 |    684 |         164 |     150 | O  | 2010-2017 | paolo_2023                                                     |
+| SHELFFREEZE | Ice shelf basal freeze-on |      0 |      0 |           0 |    208 |    147 |          11 |     300 | I  | 2010-2017 | paolo_2023                                                     |
+| GZRET       | Grounding line retreat    |      1 |     45 |           1 |      0 |      0 |           0 |      15 | O  | 1997-2021 | davison_2023 (only Pine Island, Thwaites, Crosson, and Dotson) |
+| GZADV       | Grounding line advance    |      0 |      0 |           0 |      0 |      0 |           0 |       ? | I  | 1997-2021 | davison_2023 (only Pine Island, Thwaites, Crosson, and Dotson) |
+| FRONTRET    | Frontal retreat           |      0 |      0 |           0 |     69 |    206 |         125 |       5 | O  | 2010-2021 | greene_2022                                                    |
+| FRONTADV    | Frontal advance           |      0 |      0 |           0 |    192 |      2 |           1 |       5 | I  | 2010-2021 | greene_2022                                                    |
 
 
 *** Export to CSVs
@@ -536,25 +538,26 @@ df
 #+END_SRC
  
 #+RESULTS:
-| ID          | Term                   | Unc     |   All |    E |   W |   P |
-|-------------+------------------------+---------+-------+------+-----+-----|
-| RF          | Rainfall               | 15      |    10 |    5 |   5 |   5 |
-| CD          | Condensation           | 15      |     5 |    5 |   5 |   5 |
-| DP          | Deposition             | 15      |    80 |   45 |  30 |  10 |
-| SF          | Snowfall               | 15      |  2805 | 1565 | 905 | 340 |
-| RFZ         | Refreezing             | 15      |   105 |   40 |  15 |  50 |
-| EV          | Evaporation            | 15      |     5 |    5 |   5 |   5 |
-| RU          | Runoff                 | 15      |    10 |    5 |   5 |   5 |
-| SU          | Sublimation            | 15      |   235 |  175 |  40 |  15 |
-| BMB         | Grounded basal melting | 30      |    70 |   45 |  20 |   5 |
-| DISCH       | Discharge              | 5 -- 50 |  2340 | 1145 | 900 | 290 |
-| CALV        | Calving                | 5       |  1775 |  915 | 615 | 245 |
-| FRONTMELT   | Frontal melting        |         |     0 |    0 |   0 |   0 |
-| SHELFMELT   | Sub-shelf melting      | 150     |  1375 |  525 | 685 | 165 |
-| SHELFFREEZE | Sub-shelf freeze-on    | 300     |   365 |  210 | 145 |  10 |
-| GZRET       | Grounding line retreat | 15      |    45 |    5 |  45 |   5 |
-| FRONTRET    | Frontal retreat        | 5       |   400 |   70 | 205 | 125 |
-| FRONTADV    | Frontal advance        | 5       |   195 |  190 |   5 |   5 |
+| ID          | Term                      | Unc.    |   All |    E |   W |   P |
+|-------------+---------------------------+---------+-------+------+-----+-----|
+| RF          | Rainfall                  | 15      |    10 |    5 |   5 |   5 |
+| CD          | Condensation              | 15      |     5 |    5 |   5 |   5 |
+| DP          | Deposition                | 15      |    80 |   45 |  30 |  10 |
+| SF          | Snowfall                  | 15      |  2805 | 1565 | 905 | 340 |
+| RFZ         | Refreezing                | 15      |   105 |   40 |  15 |  50 |
+| EV          | Evaporation               | 15      |     5 |    5 |   5 |   5 |
+| RU          | Runoff                    | 15      |    10 |    5 |   5 |   5 |
+| SU          | Sublimation               | 15      |   235 |  175 |  40 |  15 |
+| BMB         | Grounded ice basal melt   | 30      |    70 |   45 |  20 |   5 |
+| DISCH       | Discharge                 | 5 -- 50 |  2340 | 1145 | 900 | 290 |
+| CALV        | Calving                   | 5       |  1775 |  915 | 615 | 245 |
+| FRONTMELT   | Frontal melt              |         |     0 |    0 |   0 |   0 |
+| SHELFMELT   | Ice shelf basal melt      | 150     |  1375 |  525 | 685 | 165 |
+| SHELFFREEZE | Ice shelf basal freeze-on | 300     |   365 |  210 | 145 |  10 |
+| GZRET       | Grounding line retreat    | 15      |    45 |    5 |  45 |   5 |
+| GZADV       | Grounding line advance    | ?       |     0 |    0 |   0 |   0 |
+| FRONTRET    | Frontal retreat           | 5       |   400 |   70 | 205 | 125 |
+| FRONTADV    | Frontal advance           | 5       |   195 |  190 |   5 |   5 |
 
 *** Grounded vs Marine mass loss
 
@@ -566,7 +569,7 @@ aq = np.array(aq)
 df = pd.DataFrame(aq[1:,1:], index=aq[1:,0], columns=aq[0,1:])
 df.index.name = 'ID'
 
-df = df.drop(columns=['Source', 'Period', 'Unc'])
+df = df.drop(columns=['Source', 'Period', 'Unc.'])
 df = df.drop(['RFZ'])
 
 cols = ['East_g','East_s','West_g','West_s','Peninsula_g','Peninsula_s']

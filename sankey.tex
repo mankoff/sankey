@@ -113,8 +113,8 @@
         {vDYN/Dynamics/\Q{vCALV}+\Q{vFRONTMELT}+\Q{vSHELFMELT}+\Q{vFRONTRET}+\Q{vGZRET}+\Q{vBMB}},
         {vOUTPUT/Outputs/\Q{vSMBout}+\Q{vDYN}},
         {vSMB/SMB/\Q{vSMBin}-\Q{vSMBout}},
-        {vML/Mass loss/\Q{vOUTPUT}-\Q{vINPUT}},
-        {vMG/Mass gain/\Q{vINPUT}-\Q{vOUTPUT}}
+        {vML/Drawdown; Retreat/\Q{vOUTPUT}-\Q{vINPUT}},
+        {vMG/Build-up; Expansion/\Q{vINPUT}-\Q{vOUTPUT}}
       },
     }
 
@@ -256,7 +256,7 @@
       \sankeynode{name=ML, quantity=\Q{vML},
         at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
       \node[font=\tiny, anchor=east]
-      at ([xshift=-3mm,yshift=2mm]ML.west) {\textbf{Mass Loss: \qq{ML}}};
+      at ([xshift=-3mm,yshift=2mm]ML.west) {\textbf{Drawdown or retreat: \qq{ML}}};
 
       % frontal advance next to drawdown (mass loss)
       \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
@@ -269,7 +269,7 @@
       \sankeynode{name=MGa, quantity=\qq{MG}, angle=-35,
         at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
       \node[font=\tiny, anchor=east]
-        at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
+        at ([yshift=0mm,xshift=0mm]MGa.right) {Build-up or expansion: \qq{MGa}};
       \sankeyoutin[ice-to-black]{MG}{MGa}; \sankeyadvance[black]{MGa}{3mm}
       \sankeyend[black]{MGa}
       \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},

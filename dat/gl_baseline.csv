@@ -1,19 +1,19 @@
-ID,Term,Value,IO,Period,Source,Comment
-RF,Rainfall,40,Ig,2010-2019,fettweis_2020,
-CD,Condensation,5,Ig,2010-2019,fettweis_2020,
-DP,Deposition,10,Ig,2010-2019,fettweis_2020,
-SF,Snowfall,680,Ig,2010-2019,fettweis_2020,
-EV,Evaporation,5,Og,2010-2019,fettweis_2020,
-RU,Runoff,435,Og,2010-2019,fettweis_2020,
-SU,Sublimation,60,Og,2010-2019,fettweis_2020,
-RFZ,Refreezing,200,-,2010-2019,fettweis_2020,Melt + rainfall - runoff
-BMB,Grounded basal melting,20,Og,steady,karlsson_2021,
-DISCH,Discharge,485-20+5,Og,2010-2019,"mankoff_2020_solid,kochtitzky_2023,bollen_2023",Frontal melting + calving - SMB + peripheral
-CALV,Calving,235,Oo,,enderlin_2013,50 % of discharge
-FRONTMELT,Frontal melting,235,Oo,,enderlin_2013,50 % of discharge
-SHELFMELT,Sub-shelf melting,25,Oo,2013-2022,wang_2024,"30 Gt net, but 10 is steady state and included in SUBMELT"
-SUBMELT,Submarine melting,235+25,-,,,Fontal melt + sub-shelf melt
-SHELFFREEZE,Sub-shelf freeze-on,5,Io,2013-2022,wang_2024,
-GZRET,Grounding line retreat,5,Og,,,Estimate
-FRONTRET,Frontal retreat,50,Oo,2010-2020,kochtitzky_2023,
-FRONTADV,Frontal advance,0,Oo,2010-2020,kochtitzky_2023,None in Greenland
+ID,Term,Value,Unc.,IO,Period,Source
+RF,Rainfall,40,15,I_g,2010-2019,fettweis_2020
+CD,Condensation,5,15,I_g,2010-2019,fettweis_2020
+DP,Deposition,10,15,I_g,2010-2019,fettweis_2020
+SF,Snowfall,680,15,I_g,2010-2019,fettweis_2020
+EV,Evaporation,5,15,O_g,2010-2019,fettweis_2020
+RU,Runoff,435,15,O_g,2010-2019,fettweis_2020
+SU,Sublimation,60,15,O_g,2010-2019,fettweis_2020
+RFZ,Refreezing,200,15,,2010-2019,fettweis_2020
+BMB,Grounded ice basal melt,20,20,O_g,steady,karlsson_2021
+DISCH,Discharge,485-20+5,10,,2010-2019,"mankoff_2020_solid,kochtitzky_2023,bollen_2023"
+CALV,Calving,235,30,O_o,,rignot_2010
+FRONTMELT,Frontal melt,235,30,O_o,,rignot_2010
+SHELFMELT,Ice shelf basal melt,25,40,O_o,2013-2022,wang_2024
+SHELFFREEZE,Ice shelf basal freeze-on,5,40,I_o,2013-2022,wang_2024
+GZRET,Grounding line retreat,5,?,O_g,,
+GZADV,Grounding line advance,0,?,I_g,,
+FRONTRET,Frontal retreat,50,4,O_o,2010-2020,kochtitzky_2023
+FRONTADV,Frontal advance,0,,I_o,2010-2020,kochtitzky_2023

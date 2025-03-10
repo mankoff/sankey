@@ -7,12 +7,13 @@ RFZ,Refreezing,40
 EV,Evaporation,5
 RU,Runoff,5
 SU,Sublimation,175
-BMB,Grounded basal melting,45
+BMB,Grounded ice basal melt,45
 DISCH,Discharge,1145
 CALV,Calving,915
-FRONTMELT,Frontal melting,0
-SHELFMELT,Sub-shelf melting,525
-SHELFFREEZE,Sub-shelf freeze-on,210
+FRONTMELT,Frontal melt,0
+SHELFMELT,Ice shelf basal melt,525
+SHELFFREEZE,Ice shelf basal freeze-on,210
 GZRET,Grounding line retreat,5
+GZADV,Grounding line advance,0
 FRONTRET,Frontal retreat,70
 FRONTADV,Frontal advance,190
