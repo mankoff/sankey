@@ -40,7 +40,7 @@ Correspondence: Ken Mankoff
 #+AUTHOR: 
 #+DATE: 
 # #+LaTeX_CLASS_OPTIONS: [jog,oneside,review]
-#+LaTeX_CLASS_OPTIONS: [jog,oneside]
+#+LaTeX_CLASS_OPTIONS: [jog,oneside,review]
 #+Options: toc:nil ^:t {}:t title:nil
 
 #+EXPORT_FILE_NAME: ms.tex
@@ -68,13 +68,11 @@ Correspondence: Ken Mankoff
 
 #+LATEX: \begin{abstract}
 
-Ice sheet mass loss is typically provided only for grounded ice, because changes in floating ice are more difficult to measure and contribute minimally to sea level rise. However, total ice sheet mass change (net freshwater volume flow rate across ice sheet boundaries) including floating ice is a better metric of ice sheet health and is a necessary input to research domains beyond sea level rise such as physical, chemical, biological, or ecological oceanography.
+Ice sheet mass loss is typically provided for grounded ice, because changes in floating ice are more difficult to measure and contribute minimally to sea level rise. However, net freshwater volume flow rate across ice sheet boundaries, including floating, ice is a better metric of ice sheet health.
 
-Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets from 2010 through 2019. In addition to total mass flow, we provide all constituent terms rather than net values, including components that combine to provide surface mass balance (SMB) and gross values of frontal retreat and frontal advance. We present results both in tabular form and using Sankey diagrams that show relationships between processes and increased information density over traditional tables.
+Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets from 2010 through 2019. In addition to total mass flow, we provide constituent terms and gross rather than net values, including components that combine to provide surface mass balance (SMB) and gross values of frontal retreat and frontal advance. 
 
-In addition to the floating component, constituent terms provide a better metric of ice sheet health. For example, SMB can remain the same between two years, but have different inputs and outputs. Gross values lead to significantly larger estimates of some properties. For example, net frontal retreat of ice shelves in Antarctica is ~200 Gt yr^{-1}, but we report double that amount or 400 Gt yr^{-1} of frontal retreat offset by 195 Gt yr^{-1} of frontal advance.
-
-Ice mass loss in Greenland is 330 \pm35 Gt yr^{-1} which is ~30 % larger than the 255 \pm25 Gt yr^{-1} grounded ice mass loss estimates that neglect grounding line retreat, frontal retreat, and ice shelf basal melt. Ice mass loss in Antarctica is 450 \pm140 Gt yr^{-1} which is ~240 % larger than the 190 \pm60 Gt yr^{-1} grounded ice mass loss estimates that neglect ice shelves. Total freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~17x grounded mass loss).
+Ice mass loss in Greenland is 330 \pm35 Gt yr^{-1} which is ~30 % larger than the 255 \pm25 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm140 Gt yr^{-1} which is ~240 % larger than the 190 \pm60 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~17x grounded mass loss).
 
 #+LATEX: \end{abstract}
 #+LATEX: \end{frontmatter}
