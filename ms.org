@@ -345,7 +345,7 @@ Most values come from time series that we limit to 2010 through 2019, or are pro
 
 *** Rounding
 
-Values in most tables and all figures are rounded to the nearest 5, with the exception of values less than 2.5 and greater than 0 which are rounded up to 5. In Table \ref{tab:aq} we round to 1, with the exception of values less than 0.5 and greater than 0 which are rounded to 1.
+Values in most tables and all figures are rounded to the nearest 5 Gt yr^{-1}, with the exception of values less than 2.5 and greater than 0 which are rounded up to 5. In Table \ref{tab:aq} we round to 1, with the exception of values less than 0.5 and greater than 0 which are rounded to 1.
 
 * Results
 
@@ -367,7 +367,7 @@ All mass flow terms, values for each term, time span of each value, and referenc
 
 ** Freshwater mass flow rate
 
-Net freshwater export to the ocean (mass loss terms excluding sublimation and evaporation) is 1065 \pm120 Gt yr^{-1} for Greenland and 3110 \pm1515 Gt yr^{-1} for Antarctica (Table \ref{tab:results_fw}, also reporting values in Sverdrup or 1E6 m^3 s^{-1}).
+Net freshwater export to the ocean (mass loss terms excluding sublimation and evaporation) is 1065 \pm120 Gt yr^{-1} for Greenland and 3110 \pm1515 Gt yr^{-1} for Antarctica (Table \ref{tab:results_fw}, also reporting values in Sverdrup or 10^6 m^3 s^{-1}).
 
 # Greenland table net freshwater flow
 #+begin_src jupyter-python :var tbl=README.org:gl_baseline :colnames no :exports none
@@ -482,13 +482,13 @@ tblout
 
 #+CAPTION: Net freshwater export mass flow rate for Greenland, Antarctica, and Antarctic regions in Gt yr^{-1} and Sverdrup (1E6 m^3 s^{-1}).\label{tab:results_fw}
 #+RESULTS: tab:results_fw
-|                     | Gt yr^{-1}   | Sv             |
-|---------------------+--------------+----------------|
-| Greenland           | 1065 \pm120  | 0.034 \pm0.004 |
-| Antarctica          | 3110 \pm1515 | 0.099 \pm0.048 |
-| Antarctica East     | 1160 \pm480  | 0.037 \pm0.015 |
-| Antarctica West     | 1420 \pm805  | 0.045 \pm0.026 |
-| Antarctic Peninsula | 530 \pm225   | 0.017 \pm0.007 |
+|                         | Gt yr^{-1}   | Sv             |
+|-------------------------+--------------+----------------|
+| Greenland               | 1065 \pm120  | 0.034 \pm0.004 |
+| Antarctica              | 3110 \pm1515 | 0.099 \pm0.048 |
+| \phantom{Ant} East      | 1160 \pm480  | 0.037 \pm0.015 |
+| \phantom{Ant} West      | 1420 \pm805  | 0.045 \pm0.026 |
+| \phantom{Ant} Peninsula | 530 \pm225   | 0.017 \pm0.007 |
 
 ** Mass change
 
@@ -496,7 +496,7 @@ Mass change for the 2010 through 2019 period is net mass loss for Greenland, Wes
 
 Greenland lost 255 \pm25 Gt yr^{-1} from grounded ice and an additional 75 \pm10 Gt yr^{-1} (30 %) from floating ice.
 
-Antarctica lost 190 \pm60 Gt yr^{-1} from grounded ice and an additional 260 \pm80 Gt yr^{-1} (~2.4x) from floating ice. The grounded ice mass loss is partitioned with 250 \pm25 Gt yr^{-1} lost from West Antarctica and 20 \pm5 Gt yr^{-1} lost from the Peninsula offset by 80 \pm90 Gt yr^{-1} gained in East Antarctica. Floating ice mass losses are partitioned with 275 \pm30 Gt yr^{-1} lost from West Antarctica and 175 \pm60 Gt yr^{-1} lost from the Peninsula offset by 190 \pm220 Gt yr^{-1} gained in East Antarctica.
+Antarctica lost 190 \pm60 Gt yr^{-1} from grounded ice and an additional 260 \pm80 Gt yr^{-1} (~140 %) from floating ice. The grounded ice mass loss is partitioned with 250 \pm25 Gt yr^{-1} lost from West Antarctica and 20 \pm5 Gt yr^{-1} lost from the Peninsula offset by 80 \pm90 Gt yr^{-1} gained in East Antarctica. Floating ice mass losses are partitioned with 275 \pm30 Gt yr^{-1} lost from West Antarctica and 175 \pm60 Gt yr^{-1} lost from the Peninsula offset by 190 \pm220 Gt yr^{-1} gained in East Antarctica.
 
 in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm 15 Gt yr^{-1} (we round this up to ~10 %) in Greenland citep:dohne_2023 and 151 \pm 44 Gt yr^{-1} (~30 %) in Antarctica citep:groh_2021. The Antarctic regions have uncertainty of 115 %, 10 %, and 35 % for the East, West, and Peninsula respectively.
 
@@ -521,7 +521,7 @@ in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm
 
 ** Constituent terms and net versus gross
 
-We recommend the community report constituent terms and gross not net values. If needed, it is relatively straightforward to include a net combined term. There are numerous advantages to this approach. More information is better. The potential benefits for future researchers to address currently-unknown research questions or undefined needs is likely to outweigh the costs of increased complexity, time, storage, and access.
+We recommend to the community to report all the constituent terms of mass change as well as the gross values, and not only the net values. If needed, it is relatively straightforward to include a net combined term. There are numerous advantages to this approach. More information is better. The potential benefits for future researchers to address currently-unknown research questions or undefined needs is likely to outweigh the costs of increased complexity, time, storage, and access.
 
 Sea level rise research often focuses on how and why, not only how much. Process level detail is needed to provide model inputs or validation for the how and why. However even the IO method that provides process level detail is usually estimated with a single SMB value rather than  constituent terms as shown here, and may miss important information. For example, if net SMB remains constant over time, but snowfall and runoff both increase, this indicates a different ice sheet state, and this information should not be removed through reporting of net values.
 
@@ -691,7 +691,7 @@ Figure \ref{fig:aq_regions} shows Figure \ref{fig:aq} split by East, West, and P
 \centering{\includegraphics[width=0.85\textwidth]{aq_E.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_W.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_P.pdf}}
-\caption{Sankey mass flow diagrams for Antarctica regions. East (top), West (middle), and Peninsula (bottom). Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
+\caption{Sankey mass flow diagrams for three Antarctica regions: East (top), West (middle), and Peninsula (bottom). Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
 \end{figure*}
 
 * Appendix C: Alternative display of Antarctic mass flow: grounded vs shelf
@@ -703,7 +703,7 @@ This display choice clearly separates grounded and floating ice, but makes it ch
 
 \begin{figure*}
 \centering{\includegraphics[width=0.95\textwidth]{mermaid_AQ_gray.png}}
-\caption{Sankey mass flow diagrams for Antarctica split by grounded vs. floating ice. Upper and lower figure should be merged at black line, where mass flow output from grounded ice is mass flow input to ice shelves. Numbers are mass flow rate [Gt yr\textsuperscript{-1}].\label{fig:aq_complex}}
+\caption{Sankey mass flow diagrams for Antarctica split by grounded (top) vs. floating ice (bottom). Upper and lower figure should be merged at black line, where mass flow output from grounded ice is mass flow input to ice shelves. Numbers are mass flow rate [Gt yr\textsuperscript{-1}].\label{fig:aq_complex}}
 \end{figure*}
 
 
