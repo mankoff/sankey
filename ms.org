@@ -707,43 +707,6 @@ This display choice clearly separates grounded and floating ice, but makes it ch
 \end{figure*}
 
 
-* COMMENT Figures
-
-Figure 1: The parts of engine that remained attached to the plane after the accident. Photo taken in-flight by passenger Enrique Guillen.
-
-Figure 2: Overview of field site. Fan hub fragment found to left of T1 label. T2A and T2B dots were secondary targets. Orange dots near T1 are locations of snow-covered crevasses from ground-penetrating radar (GPR) survey to T1. Airplane icon shows accident location on solid black line flight path. Dots in upper right show initial debris field. White and black dashed lines are primary and secondary search areas, respectively. Pale colored lines show GPR tracks from C4 wide-area search (right-most circles indicate C4 basecamp). C5 basecamp marked with tent icon. Bottom left shows white Greenland with circle representing the approximate location. Basemap is a contrast-enhanced Landsat image (15 m per pixel) and curved features in lower right corner are the surface depression over snow-covered crevasses.
-
-Figure 3: Overview of field site search area and crevasse fields. Similar to Fig. 2 except zoomed in and here basemap is an ultra-high frequency (UHF) synthetic aperture radar image from the SETHI instrument acquired during the third campaign. Approximate crevass locations are shown by light-colored streaks. Fan hub fragment location marked with X near T1. MEaSUREs 2015 - 2017 average velocity shown by arrows, with minimum 20 m yr^{-1} and maximum 75 m yr^{-1} marked at top left and bottom right, respectively.
-
-Figure 4: Density profile from April 2018 (C4). Snow pit down to 1.5 m and then nearby core from 1.5 to 12 m. Blue lines denote visible ice layers.
-
-Figure 5: A SnowTEM photograph (top) and down-looking schematic (bottom). Snowmobile with instrumentation (left), transmitter coil (center) and receiver coil (right). Dual receiver in photo is experimental setup not used during search. Photo by Thue Bording.
-
-Figure 6: Local view of Target 1 site. Basemap is 0.18 m/pixel resolution X-band composite, acquired during 2018 C3 but shifted so that target T1 lines up with location where fan hub fragment was found during 2019 C5. Dark spot near T1 arrow marks the fan hub fragment. Dark and light streaks mark crevasses, also detected during C5 FrostyBoy GPR survey and marked with orange. Black dashed line is approximate transect shown in Fig. 7. White lines and camera show approximate view and region of Fig. 9. Helicopter (credit: Rune Kraghede) added graphically at scale to show work environment (camera not to scale).
-
-Figure 7: Anomalous feature (in white circle and zoomed in circle) and crevasses (white boxes) from 400 MHz SIR-30 GPR towed by FrostyBoy. Near top axis, dashed box shows planned pit and work island, and tent (not to scale) marks camp island (Figs. 6 and 9). On bottom axis, A and A’ refer to labels in Fig. 9. N and S refer to North and South ends of transect (see Fig. 6).
-
-Figure 8: Plot of SnowTEM signal response showing signal strength (y-axis; \(d\)B is change in magnetic B-field, not decibel dB) v. time (x-axis). The open symbols have opposite polarity from the closed symbols. Squares show the maximum signal from the T1 target, Triangles show responses with no engine pieces, and circles show the signal from test piece. The first half (until 100 \(\mu\)s) of the no-engine piece signal is dominated by an internal instrument signal, and thereafter noise or couplings with opposite polarity. The three consecutive gates at 75, 100 and 132 \(\mu\)s were used for localisation of the test piece.
-
-Figure 9: Photograph from helicopter of excavation work-site. A & A': Dark red graphic overlays between flags mark known crevasse locations as detected by GPR and DGNSS (also in Figs. 6 and 7). Dashed lines enclose safe areas and pink marks unsafe areas defined with GPR data, the UHF basemap (Fig. 3), extensive snow probing, and crevasse location uncertainty with distance from known crevasse locations. B: Ramp out of pit. C: Plywood used to cover pit overnight to prevent drifting snow filling. D: Safety rope bridging crevasse between the northern (far) camp island and the southern (near) work island. E: Sled. F: Winch and winch platform. G: Generator used to power winch. H: Bamboo poles marking polar bear alarm trip-wire surrounding sleep tent. I: Herman Nelson heater, hose, and fuel barrel. J: Helicopter landing zone. Photo by Austin Lines.
-
-\clearpage
-
-\begin{table*} % table2, two column
-\caption{Overview of field campaigns. Campaign duration is days in Greenland. Camp duration refers to nights camping on-ice. Equipment weight is the weight of equipment moved to the ice sheet for the campaign. C4 combines helicopter and Twin Otter flights.}
-\centering
-\begin{tabular}{lllllll}
- &      & Time since   & Campaign  & Camp [days]      & Flights [days]      & Equipment \\
- & Date & event [days] & [days]    & planned/actual   & with/without delays & weight [kg] \\\hline
-C1  & Oct '17      & 4-11     & 8   & 0/0    & 5/3   & \\
-C2  & Mar '18      & 174-181  & 7   & 0/0    & 0/1   & \\
-C3  & Apr '18      & 184-201  & 17  & 0/0    & 5/5   & \\
-C4  & Apr/May '18  & 199-228  & 29  & 23/23  & 3/5   & 3000-4000\\
-C5  & May '19      & 572-605  & 33  & 24/15  & 10/9  & 6,500\\
-C6  & Jun/Jul '19  & 630-644  & 14  & 0/2    & 3/6   & 3000-4000\\
-\end{tabular}
-\end{table*}
-
 * LaTeX Setup                                           :noexport:
 #+NAME: jog-latex-setup
 #+BEGIN_SRC elisp
