@@ -40,7 +40,7 @@ Correspondence: Ken Mankoff
 #+AUTHOR: 
 #+DATE: 
 # #+LaTeX_CLASS_OPTIONS: [jog,oneside,review]
-#+LaTeX_CLASS_OPTIONS: [jog,oneside,review]
+#+LaTeX_CLASS_OPTIONS: [jog,oneside]
 #+Options: toc:nil ^:t {}:t title:nil
 
 #+EXPORT_FILE_NAME: ms.tex
@@ -72,7 +72,7 @@ Ice sheet mass loss is typically provided for grounded ice, because changes in f
 
 Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets from 2010 through 2019. In addition to total mass flow, we provide constituent terms and gross rather than net values, including components that combine to provide surface mass balance (SMB) and gross values of frontal retreat and frontal advance. 
 
-Ice mass loss in Greenland is 330 \pm35 Gt yr^{-1} which is ~30 % larger than the 255 \pm25 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm140 Gt yr^{-1} which is ~240 % larger than the 190 \pm60 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~17x grounded mass loss).
+Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than the 255 \pm40 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is ~240 % larger than the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~17x grounded mass loss).
 
 #+LATEX: \end{abstract}
 #+LATEX: \end{frontmatter}
@@ -163,7 +163,7 @@ print(df.to_latex())
 
 #+BEGIN_latex
 \begin{table*}[htbp]
-\caption{Greenland mass flow terms, values [Gt yr\textsuperscript{-1}], Uncertainty [\%], and metadata. IO encodes input (I) or output (O) to or from grounded ice (subscript g) or ocean (subscript o). The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components.}
+\caption{Greenland mass flow terms, values [Gt yr\textsuperscript{-1}], uncertainty (Unc.) [\%], and metadata. IO encodes input (I) or output (O) to or from grounded ice (subscript g) or ocean (subscript o). The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components.}
 \label{tab:gl}
 \centering
 \begin{tabular}{lrrccl}
@@ -257,7 +257,7 @@ Frontal advance &   &   &   & 192 & 2 & 1 & 5 & I & 2010-2021 & \citet{greene_20
 
 * Methods
 
-Below we detail the source of each mass flow term. We begin with the outputs as these are generally of broader interest, followed by the inputs. We then describe how net mass loss or gain are computed, and where uncertainty estimates come from. Finally, we address other methods such as regional separation, temporal alignment, and rounding.
+Below we detail the source of each mass flow term. We begin with the outputs as these are generally of broader interest, followed by the inputs. We then describe how net mass loss or gain are computed, and how uncertainty is estimated. Finally, we address other methods such as regional separation, temporal alignment, and rounding.
 
 ** Outputs
 
@@ -325,13 +325,74 @@ We calculate mass loss and gain from the sum of all outputs minus inputs. In the
 
 ** Uncertainty
 
+#+begin_src jupyter-python :var tbl=README.org:gl_baseline :colnames no :exports none
+import numpy as np
+import pandas as pd
+
+tbl = np.array(tbl)
+df = pd.DataFrame(tbl[1:,1:], index=tbl[1:,0], columns=tbl[0,1:])
+
+df = df.drop(columns=['Period','Source','IO'])
+
+df = df.set_index('Term')
+df = df[df['Value'] != '0']
+df['Unc.'] = df['Unc.'].replace({'?':'100'})
+
+for i,v in zip(df.index,df['Value']):
+    df.loc[i,'Value'] = eval(v)
+df['Value'] = df['Value'].astype(int)
+df['Unc.'] = df['Unc.'].astype(int)
+
+weight = (df['Value'] * df['Unc.']).sum() / df['Value'].sum()
+print('GL:', weight)
+#+END_SRC
+
+#+RESULTS:
+: GL: 17.1875
+
+#+begin_src jupyter-python :var tbl=README.org:aq :colnames no :exports none
+import numpy as np
+import pandas as pd
+
+tbl = np.array(tbl)
+df = pd.DataFrame(tbl[1:,1:], index=tbl[1:,0], columns=tbl[0,1:])
+
+df = df.drop(columns=['Period','Source','IO'])
+df = df.set_index('Term')
+df['Unc.'] = df['Unc.'].replace({'?':'100','5 -- 50':'100', '':'0'})
+
+cols = ['East_g','West_g','Peninsula_g','East_s','West_s','Peninsula_s','Unc.']
+for c in cols:
+    df[c] = df[c].astype(int)
+
+df['E'] = df['East_g'] + df['East_s']; df = df.drop(columns=['East_g', 'East_s'])
+df['W'] = df['West_g'] + df['West_s']; df = df.drop(columns=['West_g', 'West_s'])
+df['P'] = df['Peninsula_g'] + df['Peninsula_s']; df = df.drop(columns=['Peninsula_g', 'Peninsula_s'])
+df['A'] = df['E'] + df['W'] + df['P']
+
+cols = ['E','W','P','A']
+for c in cols:
+    weight = (df[c] * df['Unc.']).sum() / df[c].sum()
+    print('AQ:', c, weight)
+#+end_src
+
+#+RESULTS:
+: AQ: E 58.9046365661065
+: AQ: W 71.11833010782416
+: AQ: P 51.60362490149724
+: AQ: A 62.458015267175576
+
 Uncertainty on most individual terms is provided by the upstream data products and presented in the uncertainty ("Unc." column) in Tables \ref{tab:gl} and \ref{tab:aq}. The exceptions are calving and frontal melt in Greenland, and the derived mass loss and gain terms.
 
-For derived mass loss and mass gain an uncertainty characterisation based on a basic uncertainty propagation is difficult and leads to unreasonably large numbers. A comparison of mass change results with results of the independent GMB method shows an agreement between the two methods which is more reasonably described by the independently assessed uncertainty from the GMB method citep:groh_2019. Based on this comparison we apply the uncertainty from the GMB method (for Greenland, Antarctica, and Antarctic regions) as a rough approximation of the derived mass loss and mass gain uncertainty. See also the Results and Discussion section. Recall that the GMB method only measures grounded ice. We therefore calculate the uncertainty as a percentage of GMB-estimated grounded mass loss, and then apply that uncertainty percentage to all of our components per region.
+For net freshwater mass flow rate we use gross values for ice shelf basal melt and frontal retreat, treat each term as independent, and report the square root of the sum of the squared uncertainties.
 
-For example, if GMB uncertainty for grounded ice mass change in Antarctica is 30 %, we apply a 30 % uncertainty to both the grounded and floating mass change reported here for Antarctica.
+For derived mass loss and mass gain an uncertainty, traditional uncertainty propagation leads to unreasonably large numbers, because the values are large and the residual is small. We therefore estimate the residual uncertainty using the weighted uncertainty for each term in Tables \ref{tab:gl} and \ref{tab:aq}. Using this method, Greenland uncertainty is 15 %, and Antarctic uncertainty is 60 % in the East, 70 % in the west, 50 % in the Peninsula, and 60 % overall.
 
-For net freshwater mass flow rate, we use the reported uncertainty for each term, treating each term as independent, and reporting the square root of the sum of the squared uncertainties.
+A comparison of our mass change results with results from the independent GMB method citep:groh_2019 shows an agreement between the two within the GMB uncertainty. GMB uncertainty is 10 % in Greenland, and 115 %, 10 %, 35 %, and 30 % for Antarctic regions East, West, Peninsula, and overall - well within the uncertainty values we derive above.
+
+# which is more reasonably described by the independently assessed uncertainty from the GMB method. Based on this comparison we apply the uncertainty from the GMB method (for Greenland, Antarctica, and Antarctic regions) as a rough approximation of the derived mass loss and mass gain uncertainty. See also the Results and Discussion section. Recall that the GMB method only measures grounded ice. We therefore calculate the uncertainty as a percentage of GMB-estimated grounded mass loss, and then apply that uncertainty percentage to all of our components per region.
+
+# For example, if GMB uncertainty for grounded ice mass change in Antarctica is 30 %, we apply a 30 % uncertainty to both the grounded and floating mass change reported here for Antarctica.
 
 ** Other
 
@@ -367,7 +428,7 @@ All mass flow terms, values for each term, time span of each value, and referenc
 
 ** Freshwater mass flow rate
 
-Net freshwater export to the ocean (mass loss terms excluding sublimation and evaporation) is 1065 \pm120 Gt yr^{-1} for Greenland and 3110 \pm1515 Gt yr^{-1} for Antarctica (Table \ref{tab:results_fw}, also reporting values in Sverdrup or 10^6 m^3 s^{-1}).
+Net freshwater export to the ocean (mass loss terms excluding sublimation and evaporation) is 1065 \pm120 Gt yr^{-1} for Greenland and 3110 \pm1515 Gt yr^{-1} for Antarctica. Antarctic sub-region values are also provided in Table \ref{tab:results_fw}, along with values in Sverdrup or 10^6 m^3 s^{-1}.
 
 # Greenland table net freshwater flow
 #+begin_src jupyter-python :var tbl=README.org:gl_baseline :colnames no :exports none
@@ -480,7 +541,8 @@ tblout = tblout.rename(columns={'FW':'Gt yr^{-1}'})
 tblout
 #+end_src
 
-#+CAPTION: Net freshwater export mass flow rate for Greenland, Antarctica, and Antarctic regions in Gt yr^{-1} and Sverdrup (1E6 m^3 s^{-1}).\label{tab:results_fw}
+#+ATTR_LATEX: :column{1}={gray9}
+#+CAPTION: Net freshwater export mass flow rate for Greenland, Antarctica, and Antarctic regions in Gt yr^{-1} and Sverdrup (10^6 m^3 s^{-1}).\label{tab:results_fw}
 #+RESULTS: tab:results_fw
 |                         | Gt yr^{-1}   | Sv             |
 |-------------------------+--------------+----------------|
@@ -494,11 +556,11 @@ tblout
 
 Mass change for the 2010 through 2019 period is net mass loss for Greenland, West Antarctica, the Antarctic Peninsula, and Antarctica as a whole, but net mass gain in East Antarctica (Table \ref{tab:results_mc}).
 
-Greenland lost 255 \pm25 Gt yr^{-1} from grounded ice and an additional 75 \pm10 Gt yr^{-1} (30 %) from floating ice.
+Greenland lost 255 \pm40 Gt yr^{-1} from grounded ice and an additional 75 \pm10 Gt yr^{-1} (30 %) from floating ice.
 
-Antarctica lost 190 \pm60 Gt yr^{-1} from grounded ice and an additional 260 \pm80 Gt yr^{-1} (~140 %) from floating ice. The grounded ice mass loss is partitioned with 250 \pm25 Gt yr^{-1} lost from West Antarctica and 20 \pm5 Gt yr^{-1} lost from the Peninsula offset by 80 \pm90 Gt yr^{-1} gained in East Antarctica. Floating ice mass losses are partitioned with 275 \pm30 Gt yr^{-1} lost from West Antarctica and 175 \pm60 Gt yr^{-1} lost from the Peninsula offset by 190 \pm220 Gt yr^{-1} gained in East Antarctica.
+Antarctica lost 190 \pm115 Gt yr^{-1} from grounded ice and an additional 260 \pm155 Gt yr^{-1} (~140 %) from floating ice. The grounded ice mass loss is partitioned with 250 \pm190 Gt yr^{-1} lost from West Antarctica and 20 \pm10 Gt yr^{-1} lost from the Peninsula offset by 80 \pm50 Gt yr^{-1} gained in East Antarctica. Floating ice mass losses are partitioned with 275 \pm190 Gt yr^{-1} lost from West Antarctica and 175 \pm85 Gt yr^{-1} lost from the Peninsula offset by 190 \pm115 Gt yr^{-1} gained in East Antarctica.
 
-in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm 15 Gt yr^{-1} (we round this up to ~10 %) in Greenland citep:dohne_2023 and 151 \pm 44 Gt yr^{-1} (~30 %) in Antarctica citep:groh_2021. The Antarctic regions have uncertainty of 115 %, 10 %, and 35 % for the East, West, and Peninsula respectively.
+in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm15 Gt yr^{-1} (we round this up to ~10 %) in Greenland citep:dohne_2023 and 151 \pm44 Gt yr^{-1} (~30 %) in Antarctica citep:groh_2021. The Antarctic regions have uncertainty of 115 %, 10 %, and 35 % for the East, West, and Peninsula respectively.
 
 # GL net: 330
 # GL ground (subtract marine loss, add marine gain): 330-50-5-25+5 = 255
@@ -506,16 +568,16 @@ in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm
 
 #+NAME:tab:results_mc
 #+CAPTION: Net mass change flow rate and uncertainty. Grounded, floating, and total columns are estimates from this paper. Uncertainty estimates come from a GMB uncertainty assessment described by citet:groh_2019. \label{tab:results_mc}
-| Region     |            Grounded |              Floating |                 Total |          GMB | Unc. |
-|            |        [Gt yr^{-1}] |          [Gt yr^{-1}] |          [Gt yr^{-1}] | [Gt yr^{-1}] |  [%] |
-|------------+---------------------+-----------------------+-----------------------+--------------+------|
-| /          |                 <r> |                   <r> |                   <r> |          <r> |      |
-| /          |                     |                       |                       |            < |      |
-| Greenland  |          -255 \pm25 |  -75 \pm10\phantom{0} | -330 \pm35\phantom{0} |   -226 \pm15 |   10 |
-| Antarctica |          -190 \pm60 | -260 \pm80\phantom{0} |           -450 \pm140 |   -151 \pm45 |   30 |
-| East       |            80 \pm90 |           190  \pm220 |            270 \pm310 |     35 \pm40 |  115 |
-| West       |          -250 \pm25 | -275 \pm30\phantom{0} | -525 \pm55\phantom{0} |   -165 \pm15 |   10 |
-| Peninsula  | -20 \pm5\phantom{0} | -175 \pm60\phantom{0} | -15  \pm65\phantom{0} |    -21 \pm10 |   35 |
+| Region     |            Grounded |              Floating |                   GMB | Unc |        Total | Unc. |
+|            |        [Gt yr^{-1}] |          [Gt yr^{-1}] |          [Gt yr^{-1}] | [%] | [Gt yr^{-1}] |  [%] |
+|------------+---------------------+-----------------------+-----------------------+-----+--------------+------|
+| /          |                 <r> |                   <r> |                   <r> | <r> |          <r> |      |
+| /          |                     |                       |                       |     |            < |      |
+| Greenland  |          -255 \pm25 |  -75 \pm10\phantom{0} | -330 \pm35\phantom{0} |  15 |   -226 \pm15 |   10 |
+| Antarctica |          -190 \pm60 | -260 \pm80\phantom{0} |           -450 \pm140 |  60 |   -151 \pm45 |   30 |
+| East       |            80 \pm90 |           190  \pm220 |            270 \pm310 |  60 |     35 \pm40 |  115 |
+| West       |          -250 \pm25 | -275 \pm30\phantom{0} | -525 \pm55\phantom{0} |  70 |   -165 \pm15 |   10 |
+| Peninsula  | -20 \pm5\phantom{0} | -175 \pm60\phantom{0} | -15  \pm65\phantom{0} |  50 |    -21 \pm10 |   35 |
 
 * Discussion
 
@@ -525,7 +587,7 @@ We recommend to the community to report all the constituent terms of mass change
 
 Sea level rise research often focuses on how and why, not only how much. Process level detail is needed to provide model inputs or validation for the how and why. However even the IO method that provides process level detail is usually estimated with a single SMB value rather than  constituent terms as shown here, and may miss important information. For example, if net SMB remains constant over time, but snowfall and runoff both increase, this indicates a different ice sheet state, and this information should not be removed through reporting of net values.
 
-The largest input, by far, in Antarctica is snowfall. Unfortunately, this process involves integrating small values over a large area, which introduces uncertainty. The second largest term in Antarctica is calving, but unlike snowfall this occurs in large quantities from just a few ice shelves. Continued production and maintenance of these datasets to generate robust time series is essential for monitoring ice sheet health and improving our understanding of processes contributing to sea level rise.
+The largest input, by far, is snowfall in Antarctica. Unfortunately, this process involves integrating small values over a large area, which introduces high uncertainty. The second largest term in Antarctica is calving, but unlike snowfall this occurs in large quantities from just a few ice shelves. Continued production, maintenance, and improvement of these datasets to generate robust time series is essential for monitoring ice sheet health and improving our understanding of processes contributing to sea level rise.
 
 Finally, although we argue for gross, not net, and inclusion of constituent terms in general when sharing outputs, we caution that any users should consider if this is the correct treatment for inputs. As discussed in the Methods, use cases should carefully consider assumptions of tracer treatment, for example, if a tracer is not conserved during a freeze-then-melt cycle. By providing constituent and gross terms, we hope this data set is still useful for these scenarios.
 
@@ -549,15 +611,20 @@ The smaller terms shown here are commonly excluded because they are small, but o
 
 # Sankey diagrams do not typically include a display of uncertainty, although it is possible to add a visual indicator to the graphic citep:vosough_2019. We do not include a display of uncertainty in the graphics, but do in the tabular display (Tables \ref{tab:gl} and \ref{tab:aq}). Uncertainty values come from the upstream published products that are inputs to this work.
 
-Uncertainty on the derived mass loss and mass gain terms is difficult to quantify because these terms are residuals - the small difference of several large numbers, some with large uncertainty. This is one of the major weaknesses of the IO method which is primarily used here. A basic uncertainty propagation could assume each term is independent (they are not) and report the residual values of mass loss and gain as the square root of the sum of the square of the individual uncertainty estimates. This calculation is trivial and this method produces a number, but it is unreasonably large. As seen in Table \ref{tab:results_fw} uncertainty calculated using this method is ~50 % of the net freshwater exported from Antarctica. Net freshwater export excludes inputs that do not impact freshwater export (e.g., it includes ice shelf freeze-on, but excludes snowfall) so the uncertainty would be considerably larger if adding 15 % uncertainty from the ~2800 Gt yr^{-1} snowfall inputs.
+Uncertainty on the derived mass loss and mass gain terms is difficult to quantify because these terms are residuals - the small difference of several large numbers, some with large uncertainty. This is one of the major weaknesses of the IO method which is primarily used here. A basic uncertainty propagation could assume each term is independent (they are not) and report the residual values of mass loss and gain as the square root of the sum of the square of the individual uncertainty estimates. This calculation is trivial and this method produces a number, but it is unreasonably large.
 
-A comparison of the estimated net grounded ice mass loss with results of the independent GMB method (Table \ref{tab:results_mc}) indicates a much better agreement between the two methods than suggested by a basic uncertainty propagation of all IO terms. The independently assessed uncertainty for the GMB method better fits to the differences in estimates for all regions under investigation (e.g., for Antarctica the difference between the two methods is 39 Gt yr^{-1} and the uncertainty of the GMB estimate is 45 Gt yr^{-1}). We therefore use the uncertainties of the GMB method as a rough approximation of the derived mass loss and mass gain uncertainty. We calculate the uncertainty as a percentage of the GMB estimate and apply that uncertainty to both, our grounded and floating mass change.
+# As seen in Table \ref{tab:results_fw} uncertainty calculated using this method is ~50 % of the net freshwater exported from Antarctica. Net freshwater export excludes inputs that do not impact freshwater export (e.g., it includes ice shelf freeze-on, but excludes snowfall) so the uncertainty would be considerably larger if adding 15 % uncertainty from the ~2800 Gt yr^{-1} snowfall inputs.
 
-There is no physical basis and mathematical connection between the mass change estimates (residual from the IO method) and the mass change uncertainty (from the GMB method). These percentages, and the decision to apply them to floating ice, are derived using the judgment of the authorship team and knowledge of other independent products that directly measure mass change and can therefore better constrain uncertainty than the IO method used here.
+A comparison of the estimated net grounded ice mass loss with results of the independent GMB method (Table \ref{tab:results_mc}) indicates a much better agreement between the two methods than suggested by a basic uncertainty propagation of all IO terms. The independently assessed uncertainty for the GMB method better fits to the differences in estimates for all regions under investigation (e.g., for Antarctica the difference between the two methods is 39 Gt yr^{-1} and the uncertainty of the GMB estimate is 45 Gt yr^{-1}). Using the GMB uncertainty as our derived residual uncertainty may be appropriate, and would provide a much smaller uncertainty than the values we report here. However, as there is no physical basis and mathematical connection between the mass change estimates (residual from the IO method) and the mass change uncertainty (from the GMB method), we do only use the GMB uncertainty to provide context.
 
-*** SMB Uncertainty
+# . These percentages, and the decision to apply them to floating ice, are derived using the judgment of the authorship team and knowledge of other independent products that directly measure mass change and can therefore better constrain uncertainty than the IO method used here.
 
-The most common uncertainty value of 15 % comes from the MAR RCM, but the RCM uncertainty is derived from net SMB, not the individual constituent terms \cite[c.f.,][]{colgan_2015}. If the 15 % SMB uncertainty is applied to each term as done here and then summed to SMB using traditional mathematical uncertainty propagation of independent variables (a physically incorrect assumption), SMB is 235 Gt yr^{-1} and uncertainty is 122 Gt yr^{-1} or ~50 %. This is due to the large snowfall and runoff relative to other terms.
+# We therefore use the uncertainties of the GMB method as a rough approximation of the derived mass loss and mass gain uncertainty. We calculate the uncertainty as a percentage of the GMB estimate and apply that uncertainty to both, our grounded and floating mass change.
+
+
+# *** SMB Uncertainty
+
+# The most common uncertainty value of 15 % comes from the MAR RCM, but the RCM uncertainty is derived from net SMB, not the individual constituent terms \cite[c.f.,][]{colgan_2015}. If the 15 % SMB uncertainty is applied to each term as done here and then summed to SMB using traditional mathematical uncertainty propagation of independent variables (a physically incorrect assumption), SMB is 235 Gt yr^{-1} and uncertainty is 122 Gt yr^{-1} or ~50 %. This is due to the large snowfall and runoff relative to other terms.
 
 # The sum of seven equal terms with 15 % uncertainty treated independently, is 5.6 %.
 
