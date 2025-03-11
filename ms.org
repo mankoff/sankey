@@ -6,6 +6,7 @@
 {Kenneth D. MANKOFF$^{1,2}$,
 Chad A. GREENE$^{3}$,
 Benjamin DAVISON$^{4}$,
+Alex GARDNER$^{3}$,
 Désirée TREICHLER$^{5}$,
 Will KOCHTITZKY$^{6}$,
 Brice VAN LIEFFERINGE$^{7}$,
@@ -13,9 +14,8 @@ Genyu WANG$^{8}$
 Chang-Qing KE$^{8}$,
 Xavier FETTWEIS$^{9}$,
 Thorben DÖHNE$^{10}$,
-Alex GARDNER$^{3}$,
-Damien RINGEISEN$^{1,12,13}$,
-Robert FAUSTO$^{11}$}
+Robert FAUSTO$^{11}$,
+Damien RINGEISEN$^{1,12,13}$}
 
 \affiliation{%
 $^1$NASA Goddard Institute for Space Studies, New York, NY, USA\\
@@ -70,9 +70,9 @@ Correspondence: Ken Mankoff
 
 Ice sheet mass loss is typically provided for grounded ice, because changes in floating ice are more difficult to measure and contribute minimally to sea level rise. However, net freshwater volume flow rate across ice sheet boundaries, including floating, ice is a better metric of ice sheet health.
 
-Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets from 2010 through 2019. In addition to total mass flow, we provide constituent terms and gross rather than net values, including components that combine to provide surface mass balance (SMB) and gross values of frontal retreat and frontal advance. 
+Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets from 2010 through 2019. In addition to total mass flow, we provide constituent terms and gross rather than net values, including components that combine to provide surface mass balance (SMB).
 
-Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than the 255 \pm40 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is ~240 % larger than the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~17x grounded mass loss).
+Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than the 255 \pm40 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is ~240 % larger than the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~16x grounded mass loss).
 
 #+LATEX: \end{abstract}
 #+LATEX: \end{frontmatter}
@@ -80,7 +80,7 @@ Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than th
 
 * Introduction and Background
 
-Changes in ice sheet storage/mass directly impacts sea-level change, so Greenland and Antarctica's net mass balance have been the focus of a great deal of recent scientific research (citet:ipcc_AR6_ch9,otosaka_2023,mankoff_2021,rignot_2019, and many others). The mass loss from the grounded portion of the Greenlandic and Antarctic ice sheets contributes to sea level rise (SLR), and can be captured by a single value or time series per ice sheet. Reporting a single value derived from multiple years of data is beneficial because it simplifies interpretation and comparison. However, ice sheets are complex systems, and while their contribution to sea level rise is important, focusing on their SLR contribution alone provides minimal understanding of the processes at play, and how they change . As one example, an ice sheet that increases output via discharge or submarine melt by some amount but has that offset by an equal increase in inputs (e.g., snowfall) would report a neutral mass balance and no contribution to SLR, but has entered a different state when viewing constituent terms. Few studies consider all mass transport pathways and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process.
+Changes in ice sheet mass directly impacts sea-level change, so Greenland and Antarctica's net mass balance have been the focus of a great deal of recent scientific research (citet:ipcc_AR6_ch9,otosaka_2023,mankoff_2021,rignot_2019, and many others). The mass loss from the grounded portion of the Greenlandic and Antarctic ice sheets contributes to sea level rise (SLR), and can be captured by a single value or time series per ice sheet. Reporting a single value or time series derived from multiple years of data is beneficial because it simplifies interpretation and comparison. However, ice sheets are complex systems, and while their contribution to sea level rise is important, focusing on their SLR contribution alone provides minimal understanding of the processes at play, and how they change. As one example, an ice sheet that increases output via discharge but has that offset by an equal increase in inputs (e.g., snowfall) would report a neutral mass balance and no change in contribution to SLR, but has entered a different state when viewing constituent terms. Few studies consider all mass transport pathways and their relative magnitudes and uncertainties - this is typically limited to review papers, which may not focus on quantitative assessment of each process.
 
 Studies that assess mass balance typically use one or a combination of three methods.
 
@@ -88,7 +88,7 @@ The gravimetric mass balance (GMB) method directly measures changes in the gravi
 
 The volumetric method estimates the total volume and change in volume of the ice sheets from altimetry. This method is also observation-based, has spatial resolution of O(10) km and temporal resolution is monthly (c.f citet:khan_2022_alt,simonsen_2021). It can be used over floating ice, and this is the primary method for observing ice shelf thinning from which ice shelf basal melt is inferred (e.g., citet:greene_2022,davison_2023). However, the volumetric method cannot be used to distinguish between surface and grounded basal processes and only reports total thinning \citep[c.f.,][]{karlsson_2021}.
 
-Finally, the input-output (IO) method is a hybrid of regional climate models (RCM) and observations (flow velocity, ice thickness; e.g., citet:rignot_2019,gardner_2018,mouginot_2019,mankoff_2021). This method estimates inputs (e.g., snowfall) and outputs (e.g., surface melt and iceberg calving), and is typically reported at the low spatial resolution of individual glacier basins. Temporal resolution is ~10 days or whenever a new velocity map is generated, but given the relative stability of the ice flow (10 day resolution) relative to the variability of the SMB (daily), the IO method can provide some estimate of daily mass balance citet:mankoff_2021. The IO method is the only one that captures all of the processes contributing to changes of grounded ice and provides gross values and constituent terms.
+Finally, the input-output (IO) method is a hybrid of regional climate models (RCM) and observations (flow velocity, ice thickness; e.g., citet:rignot_2019,gardner_2018,mouginot_2019,mankoff_2021). This method estimates inputs (e.g., snowfall) and outputs (e.g., surface melt and iceberg calving), and is typically reported at the low spatial resolution of individual glacier basins. Temporal resolution is ~10 days or whenever a new velocity map is generated, but given the  stability of the ice flow compared to the daily variability the SMB, the IO method can provide some estimate of daily mass balance citep:mankoff_2021. The IO method is the only one that captures all of the processes contributing to changes of grounded ice and provides gross values and constituent terms.
 
 Here we use a combination of the IO method over grounded ice, the altimetry method over ice shelves, and other individual remote sensing estimates of ice shelf and glacier front advance and retreat. We provide results both in tabular form, and using Sankey diagrams that provide a visual method to compare magnitude of all processes within and between ice sheets, and flows representing relationships between processes. 
 
@@ -96,7 +96,7 @@ Here we use a combination of the IO method over grounded ice, the altimetry meth
 
 Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., citet:kraak_2021) that combines the magnitude of active soldiers overlaid on a geographical map. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
 
-A similar display to the diagrams presented here by \citet[][Figure 2]{cogley_2011} shows glacier processes overlaid on a glacier schematic and here we build on that work by adding magnitude of processes and making the graphics proportional to magnitudes.
+A similar display to the diagrams presented here by \citet[][Figure 2]{cogley_2011} shows glacier processes overlaid on a glacier schematic and we build on that work by adding magnitude of processes and making the graphics proportional to magnitudes.
 
 Appendix A has details on the software used to generate these Sankey diagrams.
 
@@ -118,7 +118,7 @@ We use the common terms from citet:cogley_2011 with a few clarifying points.
 
 Our estimates of mass flow include all ice in Greenland and Antarctica, including peripheral glaciers.
 
-We use `grounding line' to refer to ice/ocean/bed interface underneath ice shelves and floating ice tongues. When there is no ice shelf, we use the term `front' as in `calving front' or `frontal advance'.
+We use `grounding line' to refer to the ice/ocean/bed interface underneath ice shelves and floating ice tongues. When there is no ice shelf, we use the term `front' as in `calving front' or `frontal advance'.
 
 Sublimation from surface mass balance is often a net term that includes condensation (gas -> liquid) , deposition (gas -> solid), evaporation (liquid -> gas), and  sublimation (solid -> gas). Here, we distinguish between all unique four types of phase transitions. Runoff is meltwater or rain that does not refreeze and instead leaves the RCM. 
 
@@ -126,7 +126,7 @@ This work does not explicitly report submarine melt, the sum of all melt that oc
 
 We do not use the term `basal melt' because it does not distinguish between grounded or floating ice. Instead we use `ice shelf basal melt' and `grounded ice basal melt'.
 
-We generally avoid the term `flux' which is by definition mass or volume flow rate per unit area. Because we do not report results per unit area, we use `mass flow rate' [Gt yr^{-1}]. This happens to be equal to `volume flow rate' [km^3 yr^{-1}] assuming freshwater density of 1000 kg m^{-3}.
+We generally avoid the term `flux' which is by definition mass or volume flow rate per unit area. Because we do not report results per unit area, we use `mass flow rate' [Gt yr^{-1}]. This is equal to `volume flow rate' [km^3 yr^{-1}] assuming freshwater density of 1000 kg m^{-3}.
 
 Not all processes are directly observable due to limitations in measurements, nor are they all modeled. We are limited by the data provided in the products that we ingest to this work. We therefore sometimes report process and sometimes product. In many cases products and process are the same (e.g., `snowfall' process and the `snowfall' data product from the RCM). An example where product rather than process is presented is the `frontal retreat' data product which is a combination of the calving and frontal melting processes. An example where processes rather than product is presented is the Greenland ice discharge product which is not shown because discharge is measured a few km upstream of the grounding line. Instead, we show the downstream calving and frontal melt processes.
 
@@ -224,7 +224,7 @@ print(df.to_latex())
 
 #+BEGIN_latex
 \begin{table*}[htbp]
-\caption{Antarctic mass flow terms. E, W, and P represent East, West, and Peninsula regions respectively. Subscripts g and s represent grounded and shelf components respectively. IO encodes if the Term is an input (I) or an output (O). Values are in units Gt yr\textsuperscript{-1} except Unc. (uncertainty) which is \%. Values are rounded to nearest integer except values < 0.5 are rounded up to 1, and rounded to nearest 5 (with a minimum of 5) when displayed in Sankey diagrams. (a) Discharge is grounded ice discharge to ice shelves from \citet{davison_2023} plus grounded ice discharge from non-shelf coastal regions and from islands from \citet{rignot_2019}. (b) Calving is ice shelf terminus calving from \citet{greene_2022} plus grounded ice calving from non-shelf coastal regions and from islands from \citet{rignot_2019}. The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components.}
+\caption{Antarctic mass flow terms. E, W, and P represent East, West, and Peninsula regions respectively. Subscripts g and s represent grounded and shelf components respectively. IO encodes if the Term is an input (I) or an output (O). Values are in units Gt yr\textsuperscript{-1} except Unc. (uncertainty) which is \%. Values are rounded to nearest integer except values < 0.5 are rounded up to 1. (a) Discharge is grounded ice discharge to ice shelves from \citet{davison_2023} plus grounded ice discharge from non-shelf coastal regions and from islands from \citet{rignot_2019}. (b) Calving is ice shelf terminus calving from \citet{greene_2022} plus grounded ice calving from non-shelf coastal regions and from islands from \citet{rignot_2019}. The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components.}
 \label{tab:aq}
 \centering
 \begin{tabular}{lrrrrrrrccl}
@@ -279,17 +279,17 @@ Ice shelf basal melt in Greenland comes from citet:wang_2024, and in Antarctica 
 
 *** Frontal retreat
 
-There are no reports of frontal advance. The frontal retreat products for Greenland citep:kochtitzky_2023 and Antarctica citep:greene_2022 are one part of the non steady state component of calving and frontal melt processes (the other part being frontal advance). Here we report the product (frontal retreat) not the processes (calving, frontal melt). Frontal retreat is presumably split between frontal melt and calving processes ~50/50 in Greenland citep:rignot_2010 with high uncertainty, and is likely to be primarily calving in Antarctica. Frontal advance is discussed in the Inputs section.
+The frontal retreat products for Greenland citep:kochtitzky_2023 and Antarctica citep:greene_2022 are one part of the non steady state component of calving and frontal melt processes (the other part being frontal advance). Here we report the product (frontal retreat) not the processes (calving, frontal melt). Frontal retreat is presumably split between frontal melt and calving processes ~50/50 in Greenland citep:rignot_2010 with high uncertainty, and is likely to be primarily calving in Antarctica. Frontal advance is discussed in the Inputs section.
 
 *** Grounding line retreat
 
-Grounding line retreat by definition here only occurs under ice shelves.
+Grounding line retreat by definition here only occurs under ice shelves. If there is no ice shelf, it is frontal retreat.
 
 Numerous papers have documented grounding line migration around both Greenland and Antarctica at different spatial and temporal scales (e.g., citet:rignot_2014,konrad_2018,millan_2022_petermann,milillo_2022,picton_2023,li_2023,gadi_2023). However, only one study citep:davison_2023 provides estimates of grounding line migration in the dimensions needed here, mass or length\textsuperscript{3} and time (e.g., (Gt or km^{3}) yr^{-1}) -- they are typically reported in dimensions of length and time (e.g., m yr^{-1}).
 
 We estimate grounding line migration in Greenland for Petermann glacier using  published values of grounding line retreat (units m) from citet:millan_2022, ice thickness from citet:ciraci_2023, and ice density of 917 kg m^{3} to calculate grounding line retreat in units of Gt yr^{-1}. We estimate ~1.5 Gt yr^{-1}. Given the order of magnitude of this result relative to the magnitude of other processes, we round this up to 5 (see Methods > Other > Rounding) to include other remaining Greenlandic ice shelves.
 
-In Antarctica, the fastest rates of ice shelf grounding line retreat are in Amundsen Sea Embayment, contributing 45 Gt yr^{-1} citep:davison_2023. Although grounding line retreat occurs elsewhere in West Antarctica (e.g., at Ferrigno and Venable ice shelves), we ignore these contributions. They are likely small relative to other terms, but any missing flow directly impacts the residual term calculated via the IO method. citet:konrad_2018 showed that 85 % of all Antarctic ice sheet grounding line retreat (in terms of area change per year, from 2010 to 2016) occurs in West Antarctica. We therefore use 45 Gt yr^{-1} for Antarctica and West Antarctica, and a low estimate of 1 Gt yr^{-1} for East Antarctica and the Peninsula. This value is likely an underestimate, but with no additional information we use it as a placeholder until such time as there is a better estimate of this value.
+In Antarctica, the fastest rates of ice shelf grounding line retreat are in Amundsen Sea Embayment, contributing 45 Gt yr^{-1} citep:davison_2023. Although grounding line retreat occurs elsewhere in West Antarctica (e.g., at Ferrigno and Venable ice shelves), we ignore these unquantified contributions. They are likely small relative to other terms, but any missing flow directly impacts the residual term calculated via the IO method. citet:konrad_2018 showed that 85 % of all Antarctic ice sheet grounding line retreat (in terms of area change per year, from 2010 to 2016) occurs in West Antarctica. We therefore use 45 Gt yr^{-1} for Antarctica and West Antarctica, and a low estimate of 1 Gt yr^{-1} for East Antarctica and the Peninsula. This value is likely an underestimate, but with no additional information we use it as a placeholder until such time as there is a better estimate of this value.
 
 *** Grounded ice basal melt
 
@@ -311,7 +311,7 @@ Ice shelf basal freeze-on from citet:wang_2024 in Greenland and citet:paolo_2023
 
 ** Freshwater mass flow rate
 
-We calculate net freshwater mass flow not simply as the sum of all outputs, but using net, not gross, for some terms due to the physical processes involved. For example, in Antarctica gross ice shelf basal melt is 1375 Gt yr^{-1}, but ice shelf basal freeze-on of 366 Gt yr^{-1} should be subtracted from this value (Table \ref{tab:aq}). Freshwater for freeze-on must be supplied from either grounded ice basal melt (meaning that freshwater term water does not reach the open ocean) or extracted from ocean water that flows under the shelf, temporarily increasing the salinity of sub-shelf water.
+We calculate net freshwater mass flow not simply as the sum of all outputs, but using net, not gross, for some terms due to the physical processes involved. For example, in Antarctica gross ice shelf basal melt is 1375 Gt yr^{-1}, but ice shelf basal freeze-on of 366 Gt yr^{-1} should be subtracted from this value (Table \ref{tab:aq}). Freshwater for freeze-on must be supplied from either grounded ice basal melt (meaning that freshwater mass does not reach the open ocean) or extracted from ocean water that flows under the shelf, temporarily increasing the salinity of sub-shelf water.
 
 This treatment of freshwater mass flow rate is because we are focusing on freshwater or salinity, and salt as a tracer is assumed to be rejected during freezing of ocean water, or if fresh grounded basal meltwater is frozen, then that water does not leave the system. In these cases, a unit freeze-then-melt has no impact on the net tracer value. The process is assumed to be conservative (i.e., no external change).
 
@@ -321,7 +321,7 @@ We warn that other use cases should carefully consider assumptions of tracer tre
 
 ** Mass loss and gain
 
-We calculate mass loss and gain from the sum of all outputs minus inputs. In the diagrams we label mass loss as `drawdown or retreat', and mass gain as `build-up or expansion'.
+We calculate mass loss and gain from the sum of all outputs minus inputs. In the Sankey diagrams we label mass loss as `drawdown or retreat', and mass gain as `build-up or expansion'.
 
 ** Uncertainty
 
@@ -382,13 +382,15 @@ for c in cols:
 : AQ: P 51.60362490149724
 : AQ: A 62.458015267175576
 
-Uncertainty on most individual terms is provided by the upstream data products and presented in the uncertainty ("Unc." column) in Tables \ref{tab:gl} and \ref{tab:aq}. The exceptions are calving and frontal melt in Greenland, and the derived mass loss and gain terms.
+Uncertainty on most individual terms is provided by the upstream data products and presented in the uncertainty ("Unc." column) in Tables \ref{tab:gl} and \ref{tab:aq}. The exceptions are calving and frontal melt in Greenland, net freshwater mass flow rate, and the derived mass loss and gain terms.
+
+Calving and frontal melt uncertainty is 30 % between those two, but combine is 10 % constrained by the upstream discharge term (see Discussion > Uncertainty).
 
 For net freshwater mass flow rate we use gross values for ice shelf basal melt and frontal retreat, treat each term as independent, and report the square root of the sum of the squared uncertainties.
 
 For derived mass loss and mass gain an uncertainty, traditional uncertainty propagation leads to unreasonably large numbers, because the values are large and the residual is small. We therefore estimate the residual uncertainty using the weighted uncertainty for each term in Tables \ref{tab:gl} and \ref{tab:aq}. Using this method, Greenland uncertainty is 15 %, and Antarctic uncertainty is 60 % in the East, 70 % in the west, 50 % in the Peninsula, and 60 % overall.
 
-A comparison of our mass change results with results from the independent GMB method citep:groh_2019 shows an agreement between the two within the GMB uncertainty. GMB uncertainty is 10 % in Greenland, and 115 %, 10 %, 35 %, and 30 % for Antarctic regions East, West, Peninsula, and overall - well within the uncertainty values we derive above.
+A comparison of our mass change and uncertainty results with mass change and uncertainty from the independent GMB method citep:groh_2019 shows an agreement between the two within the GMB uncertainty. GMB uncertainty is 10 % in Greenland, and 115 %, 10 %, 35 %, and 30 % for Antarctic regions East, West, Peninsula, and overall - well within the uncertainty values we derive above (Table \ref{tab:results_mc}).
 
 # which is more reasonably described by the independently assessed uncertainty from the GMB method. Based on this comparison we apply the uncertainty from the GMB method (for Greenland, Antarctica, and Antarctic regions) as a rough approximation of the derived mass loss and mass gain uncertainty. See also the Results and Discussion section. Recall that the GMB method only measures grounded ice. We therefore calculate the uncertainty as a percentage of GMB-estimated grounded mass loss, and then apply that uncertainty percentage to all of our components per region.
 
@@ -406,17 +408,17 @@ Most values come from time series that we limit to 2010 through 2019, or are pro
 
 *** Rounding
 
-Values in most tables and all figures are rounded to the nearest 5 Gt yr^{-1}, with the exception of values less than 2.5 and greater than 0 which are rounded up to 5. In Table \ref{tab:aq} we round to 1, with the exception of values less than 0.5 and greater than 0 which are rounded to 1.
+In Table \ref{tab:aq} we round to 1, with the exception of values less than 0.5 and greater than 0 which are rounded to 1. Everywhere else value are rounded to the nearest 5 Gt yr^{-1}, with the exception of values less than 2.5 and greater than 0 which are rounded up to 5.
 
 * Results
 
-All mass flow terms, values for each term, time span of each value, and reference publication are shown in Tables \ref{tab:gl} and \ref{tab:aq} and Sankey diagrams. Net freshwater mass flow rates are shown in Table \ref{tab:results_fw} and net mass loss by region and grounded vs floating ice are shown in Table \ref{tab:results_mc}.
+All mass flow terms and values for each term are shown in Tables \ref{tab:gl} and \ref{tab:aq} and the Sankey diagrams. In addition, the tables contain the time span of each value and reference publication . Net freshwater mass flow rates are shown in Table \ref{tab:results_fw} and net mass loss by region and grounded vs floating ice are shown in Table \ref{tab:results_mc}.
 
 ** Sankey diagrams                                        :ignore:
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{gl_baseline.pdf}}
-\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is ice, blue is liquid, and yellow is gaseous phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head). Because Sankey diagrams balance all inputs and outputs, mass losses require a `mass loss' input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
+\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is ice, blue is liquid, and yellow is gaseous phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head). Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
 \label{fig:gl}
 \end{figure*}
 
@@ -560,7 +562,7 @@ Greenland lost 255 \pm40 Gt yr^{-1} from grounded ice and an additional 75 \pm10
 
 Antarctica lost 190 \pm115 Gt yr^{-1} from grounded ice and an additional 260 \pm155 Gt yr^{-1} (~140 %) from floating ice. The grounded ice mass loss is partitioned with 250 \pm190 Gt yr^{-1} lost from West Antarctica and 20 \pm10 Gt yr^{-1} lost from the Peninsula offset by 80 \pm50 Gt yr^{-1} gained in East Antarctica. Floating ice mass losses are partitioned with 275 \pm190 Gt yr^{-1} lost from West Antarctica and 175 \pm85 Gt yr^{-1} lost from the Peninsula offset by 190 \pm115 Gt yr^{-1} gained in East Antarctica.
 
-in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm15 Gt yr^{-1} (we round this up to ~10 %) in Greenland citep:dohne_2023 and 151 \pm44 Gt yr^{-1} (~30 %) in Antarctica citep:groh_2021. The Antarctic regions have uncertainty of 115 %, 10 %, and 35 % for the East, West, and Peninsula respectively.
+In comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm15 Gt yr^{-1} (we round this up to ~10 %) in Greenland citep:dohne_2023 and 151 \pm44 Gt yr^{-1} (~30 %) in Antarctica citep:groh_2021. The Antarctic regions have uncertainty of 115 %, 10 %, and 35 % for the East, West, and Peninsula respectively.
 
 # GL net: 330
 # GL ground (subtract marine loss, add marine gain): 330-50-5-25+5 = 255
@@ -568,7 +570,7 @@ in comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm
 
 #+NAME:tab:results_mc
 #+CAPTION: Net mass change flow rate and uncertainty. Grounded, floating, and total columns are estimates from this paper. Uncertainty estimates come from a GMB uncertainty assessment described by citet:groh_2019. \label{tab:results_mc}
-| Region     |            Grounded |              Floating |                   GMB | Unc |        Total | Unc. |
+| Region     |            Grounded |              Floating |                 Total | Unc |          GMB | Unc. |
 |            |        [Gt yr^{-1}] |          [Gt yr^{-1}] |          [Gt yr^{-1}] | [%] | [Gt yr^{-1}] |  [%] |
 |------------+---------------------+-----------------------+-----------------------+-----+--------------+------|
 | /          |                 <r> |                   <r> |                   <r> | <r> |          <r> |      |
@@ -589,15 +591,15 @@ Sea level rise research often focuses on how and why, not only how much. Process
 
 The largest input, by far, is snowfall in Antarctica. Unfortunately, this process involves integrating small values over a large area, which introduces high uncertainty. The second largest term in Antarctica is calving, but unlike snowfall this occurs in large quantities from just a few ice shelves. Continued production, maintenance, and improvement of these datasets to generate robust time series is essential for monitoring ice sheet health and improving our understanding of processes contributing to sea level rise.
 
-Finally, although we argue for gross, not net, and inclusion of constituent terms in general when sharing outputs, we caution that any users should consider if this is the correct treatment for inputs. As discussed in the Methods, use cases should carefully consider assumptions of tracer treatment, for example, if a tracer is not conserved during a freeze-then-melt cycle. By providing constituent and gross terms, we hope this data set is still useful for these scenarios.
+Finally, although we argue for gross, not net, and inclusion of constituent terms in general when sharing outputs, we caution that any users should consider if this is the correct treatment for their application. As discussed in the Methods, use cases should carefully consider assumptions of tracer treatment, for example, if a tracer is not conserved during a freeze-then-melt cycle. By providing constituent and gross terms, we hope this data set is still useful for these scenarios.
 
 # For any given term - basal melt and freeze-on being a likely candidate for freshwater studies - it may be more correct to use net not gross.
 
 ** Net mass loss and gain
 
-We have been using the terms 'mass loss' vs 'mass gain' or 'drawdown or retreat' vs 'build-up or expansion'. The specific cause of these processes can be thought of as a recursive application of the methods, tables, and graphics here. That is, the imbalance is due to changes from some balanced baseline and the changes are likely all of the terms here - decreased or increased inputs offset by smaller decreases or larger increases in outputs.
+We have been using the terms `mass loss' vs `mass gain' or `drawdown or retreat' vs `build-up or expansion'. The specific cause of these processes can be thought of as a recursive application of the methods, tables, and graphics here. That is, the imbalance is due to changes from some balanced baseline and the changes are likely all of the terms here - decreases or increases of inputs offset by decreases or increases of outputs.
 
-For example, the red 'drawdown or retreat' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a 'mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
+For example, the red `drawdown or retreat' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
 
 ** Freshwater export, mass loss, and anomalies
 
@@ -605,7 +607,7 @@ Oceanographic models often use ice sheet freshwater export as a forcing, but it 
 
 # Freshwater export and mass loss (not mass flow) are, occasionally, treated as a similar process. That is not the case. Sectors of ice sheets can gain mass and yet still have large freshwater export, as long as the winter snowfall (or other mass inputs) offsets the mass loss terms. When working in anomaly space, the difference between mass anomaly (mass change) and freshwater anomaly can be more complicated. An ice sheet or sector can gain mass over time, while increasing freshwater discharge over time too. There is a correlation between the two processes, but they are not necessarily tightly coupled.
 
-The smaller terms shown here are commonly excluded because they are small, but ocean modelers who work with anomalies should be careful of excluding these small terms. These smaller terms are also often less likely to be included in the ice component driving or coupled to the ocean model. They should be included in the ocean model, however, because they can match the magnitude of the anomaly, especially if several of the smaller terms are combined. 
+The smaller terms shown here are commonly excluded because they are small, but ocean modelers who work with anomalies should be careful of excluding these small terms. These smaller terms are also often less likely to be included in the ice component driving or coupled to the ocean model. Their inclusion should be considered, if appropriate, in the ocean model because these small processes can match the magnitude of the anomaly, especially if several of the smaller terms are combined.
 
 ** Uncertainty
 
@@ -636,7 +638,7 @@ The division of discharge when it is divided into submarine melt and calving is 
 
 *** Antarctic Discharge
 
-Discharge and discharge uncertainty in Antarctica is challenging to quantify. At the low end, citet:rignot_2019 reports uncertainty of ~5 % on the discharge term. This seems unlikely for several reasons, including that discharge uncertainty in Greenland is more than 5 % and bed topography is better constrained there, or that citet:rignot_2019 calculates discharge using a corrective scaling factor ranging from 0.62 to 4.57 and relies on 5 separate methods (that are applied in isolation, not constraining each other).
+Discharge and discharge uncertainty in Antarctica is challenging to quantify. At the low end, citet:rignot_2019 reports uncertainty of ~5 % on the discharge term. This seems unlikely for several reasons, including that discharge uncertainty in Greenland is more than 5 % and bed topography -- the main source of discharge uncertainty -- is better constrained there, or that citet:rignot_2019 calculates discharge using a corrective scaling factor ranging from 0.62 to 4.57 and relies on 5 separate methods (that are applied in isolation, not constraining each other).
 
 # 429/1839 % = 23.3278955954
 
@@ -662,7 +664,7 @@ Snow drift on and off is also excluded. There is likely little snow drift onto e
 
 # + There may be other as-yet unidentified missing terms. For example, the earlier version of this graphic by \citet[Fig. 2]{cogley_2011} did not contain frontal nor grounding line retreat. These are two distinct processes when ice shelves exist, but can be treated as synonyms for one process at tidewater glacier margins. These terms were not only not included in citet:cogley_2011, but their respective values were highly uncertain, and still are, although recent work by citet:kochtitzky_2023,greene_2024 have constrained these values in Greenland. 
 
-This work focuses on Greenlandic and Antarctic ice masses as a freshwater source. There are other sources and sinks of freshwater into the oceans around Greenland and Antarctica not covered here, including but not limited to: rain and snow melt from non-ice covered ground in Greenland, rain and snow directly onto the fjord or ocean surface, evaporation over the surrounding oceans, and sea ice growth, movement, and melt.
+This work focuses on Greenlandic and Antarctic ice masses as a freshwater source. There are other sources and sinks of freshwater into the oceans around Greenland and Antarctica not covered here, including but not limited to: rain and snow melt from non-ice covered ground in Greenland citep:mankoff_2020_liquid, rain and snow directly onto the fjord or ocean surface, evaporation over the surrounding oceans, and sea ice growth, movement, and melt.
 
 There are a variety of simplifications. For example, not all rainfall input turns to ice as depicted by the arrows in these diagrams. Some enters as part of the refreezing loop, and some remains liquid and leaves as runoff or evaporation. Similarly, the evaporation output could pull from the refreezing loop (in the liquid phase, depicted by the blue color) and also directly from rainfall as stated above. Although some path details are simplified, the magnitudes are still as reported in the input products. Furthermore, the simplifications we are aware of are all a very small component relative to the total freshwater or mass flow or even the mass imbalance.
 
@@ -694,15 +696,15 @@ We have also displayed these constituent terms and net values using Sankey diagr
 #+BEGIN_SRC jupyter-python :exports results
 import pandas as pd
 df = pd.read_csv('credit.csv', skiprows=1)
-df['Initials'] = [_[0] for _ in df['First']]
+df['Initials'] = [''.join([c for c in _ if c.isupper()]) for _ in df['First']]
 df['Initials'] += [_[0] if _ != 'foo' else '' for _ in df['Middle'].fillna('foo')]
 df['Initials'] += [_[0] for _ in df['Last']]
-df = df.drop(columns=['First','Middle','Last','Affiliation1','Affiliation2','ORCID'])
+df = df.drop(columns=['First','Middle','Last','Affiliation1','Affiliation2','Affiliation3','ORCID'])
 df = df.set_index('Initials').T
 
 s = df.sum()
 df = df[s.sort_values(ascending=False).index]
-df = df.replace(0, '')
+df = df.replace(np.nan, '')
 df = df.replace(1, '\\checkmark')
 
 df.T
@@ -715,19 +717,16 @@ df.T
 | KDM        | \checkmark | \checkmark | \checkmark | \checkmark | \checkmark |
 | CAG        | \checkmark |            |            | \checkmark | \checkmark |
 | BD         | \checkmark |            |            | \checkmark | \checkmark |
+| TD         | \checkmark |            |            | \checkmark | \checkmark |
 | DT         |            |            |            | \checkmark | \checkmark |
 | WK         |            |            |            | \checkmark | \checkmark |
-| WC         |            | \checkmark |            |            | \checkmark |
+| XF         | \checkmark |            |            |            | \checkmark |
 | DR         |            | \checkmark |            |            | \checkmark |
-| BVL        | \checkmark |            |            |            |            |
+| ASG        |            |            |            | \checkmark | \checkmark |
+| CQK        | \checkmark |            |            |            |            |
 | GW         | \checkmark |            |            |            |            |
-| CK         | \checkmark |            |            |            |            |
-| XF         | \checkmark |            |            |            |            |
-| TD         | \checkmark |            |            |            |            |
-| AG         |            |            |            |            | \checkmark |
+| BVL        | \checkmark |            |            |            |            |
 | RF         |            |            |            |            | \checkmark |
-| NK         |            |            |            |            | \checkmark |
-| AA         |            |            |            |            | \checkmark |
 
 * Conflict of Interest
 
