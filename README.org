@@ -39,7 +39,7 @@ Sankey diagrams for mass flow in Greenland and Antarctica.
 
 * Abstract & Methods
 
-See [[./ms.tex]]
+See [[./ms.org]]
 
 * Results
 
