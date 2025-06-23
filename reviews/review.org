@@ -1,0 +1,551 @@
+#+TITLE: Reply to Reviewers: Ice sheet mass flows
+#+AUTHOR: Ken Mankoff /et al./
+#+EMAIL:
+#+DATE:
+#+DESCRIPTION:
+#+KEYWORDS:
+#+OPTIONS:   H:4 num:4 toc:nil \n:nil ::t |:t ^:{} -:t f:t *:t <:t
+#+EXCLUDE_TAGS: noexport
+#+ARCHIVE: ::* Archive
+
+#+MACRO: BEGIN_REPLY @@latex:{\bfseries\color{brown}@@ @@odt:<text:span text:style-name="Bold">@@
+#+MACRO: END_REPLY @@latex:}@@ @@odt:</text:span>@@
+
+We're happy to see all three reviewers suggest only minor comments. We have addressed each comment in the revised manuscript, or explained here why we are not making the recommended changes. We also reply in-line below to each comment. Comments from reviewers are in normal font. Replies are in {{{BEGIN_REPLY}}}colored bold font{{{END_REPLY}}}.
+
+\tableofcontents
+
+* Reviewer 1 (Aman KC)
+
+The manuscript presents a comprehensive approach to quantifying total mass flows across the boundaries of the Greenland and Antarctic ice sheets from 2010–2019. Rather than focusing solely on grounded ice mass loss, which contributes directly to sea level rise, the authors argue for the importance of evaluating gross mass flow terms—including floating ice processes —as a more complete indicator of ice sheet health.
+
+The inclusion of all major mass exchange pathways (including floating ice, basal melt, and calving) is a good addition over traditional SLR-focused studies. I found the use of proportional Sankey diagrams to illustrate system-level flows to be very intuitive, helping in cross-comparison between regions and processes.
+
+Overall, this is a high-quality, well-structured manuscript that presents valuable data and insights. With a few additional clarifications in certain areas, it will be of broad interest to both the glaciological and oceanographic communities.
+
+{{{BEGIN_REPLY}}}
+We thank Aman for his review, helpful comments, and support of publication of this manuscript.
+{{{END_REPLY}}}
+
+In the abstract, the sentence “Ice mass loss in Antarctica is 450 ± 270 Gt yr⁻¹ which is ~240% larger than the 190 ± 115 Gt yr⁻¹ grounded ice mass loss estimates” appears to be confusing. By calculation, 450 is ~136% larger than 190, but it is ~240% of 190. I recommend rephrasing this sentence for clarity.
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+I appreciated the background on Sankey diagrams. And the examples to explain the concepts.
+
+It would be helpful if the figure caption mentions the meaning of the bolded component labels in the Sankey diagrams.
+
+{{{BEGIN_REPLY}}}
+Bolded items removed. In the original submission, bolded RHS items (frontal retreat, grounding line retreat) are highlighted because they are part of frontal melt or calving, but separate due to the process vs. product issues, and/or steady state vs. transient data sets that we ingest. This is all discussed in the text, and we have decided to not add any unnecessary complexity to the figures.
+{{{END_REPLY}}}
+
+For consistency, would it be possible to distinguish the terms in the Input–Output (IO) method using the same subscripts applied to the Greenland Ice Sheet in Table 1?
+
+{{{BEGIN_REPLY}}}
+We're not clear what is being asked here. The terms in Table 1 are the same terms in Figure 1. The inputs are all on the LHS and the outputs are all on the RHS. This whole manuscript focuses on the IO method. The methods section is clearly separated into "outputs" and then "inputs".
+{{{END_REPLY}}}
+
+The manuscript uses terms like “mass loss,” “drawdown,” “frontal melt,” and “net freshwater export”. Although the distinctions are defined in the text, a graphical glossary or schematic (perhaps in the supplement) showing mass pathways, phases (ice, liquid, vapor), and boundaries (grounded, floating, ocean) would help readers navigate the terminology more easily.
+
+{{{BEGIN_REPLY}}}
+The phases are captured in the current diagrams, and more clearly stated in the figure caption thanks to comments from another reviewer. We opt to not add another figure to the ms showing this, but have added an additional sentence that the processes described here are better shown in their physical setting in Fig. 2 of citet:cogley_2011.
+{{{END_REPLY}}}
+
+While the authors acknowledge that traditional uncertainty propagation leads to overestimates in residual terms, the alternative method—using weighted uncertainties—still leaves ambiguity. Would the authors consider adding a brief text to reinforce the validity of their reported 15–70% uncertainty range?
+
+{{{BEGIN_REPLY}}}
+We have added additional text when comparing to GMB results pointing out the agreement between these two methods.
+{{{END_REPLY}}}
+
+The merging of datasets with varying resolutions and time periods (e.g., 1997–2021 vs. 2010–2019) raises concerns about temporal alignment. The authors mention briefly how they choose the values, but discussion on how these are reconciled or weighted would be valuable?
+
+{{{BEGIN_REPLY}}}
+Added paragraphs discussing non-overlap and what that might mean.
+{{{END_REPLY}}}
+
+While powerful, the diagrams may oversimplify spatial variability and the division between grounded and floating components. The alternate display in Appendix C is good, but a brief comparison in the main text could be of great addition.
+
+{{{BEGIN_REPLY}}}
+We agree these diagrams simplify the spatial dimension - they remove it entirely. They also make no distinction between grounded and floating, although the tables do. We are not sure what changes to make here, and given the clear separation between grounded and floating in Fig. 4, we make no change.
+{{{END_REPLY}}}
+
+* Reviewer 2
+
+I think this is a very useful, and novel, visualization of the mass flows of the ice sheets. It is a useful exercise, and perhaps also a helpful reminder for which are the most critical mass flows for the community to focus on.
+
+{{{BEGIN_REPLY}}}
+Thank you for your support.
+{{{END_REPLY}}}
+
+Grounded Ice Basal Melt (L197) - I understand that many of the mass flows come from modelled RCM values, but this term is perhaps the most poorly "observed" of all of them. This should be acknowledged here that this is effectively a derivative of assumed geothermal heat flow, and there is a wide range of option of the geothermal heat flows that should be adopted (i.e. https://doi.org/10.5194/tc-18-387-2024).
+
+{{{BEGIN_REPLY}}}
+Added text providing a bit more background and detail on the grounded basal mass balance and geothermal uncertainty.
+{{{END_REPLY}}}
+
+Mass Change Labeling (L230) - Rather than "drawdown or retreat" and "build-up or expansion", it would seem more straightfoward to simply label these outcomes as "decreasing ice-sheet mass" and "increasing ice-sheet mass". I would suggest this throughout.
+
+{{{BEGIN_REPLY}}}
+Our original version labeled these "mass loss" and "mass gain", which is, we think, the simplest label that the reviewer is moving towards with their suggestions of "decreasing ice-sheet mass" and "increasing ice-sheet mass". We changed to the current wording after many discussions, but agree with the reviewer and have changed back to "mass loss" and "mass gain" in the Sankey diagrams. The text still describes in more detail that "loss" is one of "drawdown" or "retreat".
+{{{END_REPLY}}}
+
+A tangential thought, is that there can be longer term ice dynamic processes at play, for example transient millennial-scale thickening in Greenland (i.e. https://doi.org/10.1126/science.aab1702), which are implicity included within this "increasing ice-sheet mass".
+
+{{{BEGIN_REPLY}}}
+This discussion - which I think is "what is the definition of steady state or baseline" - is an important one for the community to have but way outside the scope of this work.
+{{{END_REPLY}}}
+
+Constituent versus Gross (L288) - Beyond the Sankey diagrems, this is perhaps the most important point of the article. You should note that details at the levels of consituent terms are needed to highlight and understand compensating errors in SMB model inter-comparison (i.e. https://doi.org/10.5194/tc-15-3751-2021).
+
+{{{BEGIN_REPLY}}}
+Text added.
+{{{END_REPLY}}}
+
+Developing community consesus on the absolute magnitude of flows is also important. For example, Rignot2008 (https://doi.org/10.1029/2008GL035417) reports a balance flux of 350 Gt/yr for Greenland, while vandenBroeke2009 (https://doi.org/10.1126/science.1178176) report a balance flux of 480 Gt/yr. These balance fluxes are used to partition contemporary mass loss into runoff and iceberg calving, which highlight why community consensus on the flows is important.
+
+{{{BEGIN_REPLY}}}
+We're not sure about this. There is value in community consensus, but only if it is correct! Anyway, community consensus is out of scope of this manuscript.
+{{{END_REPLY}}}
+
+Anomalies in Flows (L318) - It would be desirable to consider showing the Sankeys for high and low mass balance years for Greenland, for example, to perhaps demonstrate how the Sankeys can plainly visualize anomalies in different mass flows in different years.
+
+{{{BEGIN_REPLY}}}
+We hope that others will use these diagrams for this in future works. We are already working on a Greenland time series to highlight this. We will not include it in this manuscript. If the reviewer is curious to see some early exploration in this area (decadal, seasonal, etc.), our public discussion occurred at https://github.com/mankoff/sankey/issues/16
+{{{END_REPLY}}}
+
+** Minor comments
+
+Authors - I presume that Alex Gardner has contirbuted substantially to this article, as he appears twice in the author list!
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+L25 - ...including floating ice, is a...
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+L58 - Many ice sheet folks would disagree with altimetry being characterized as "O(10) km" resolution. There are clearly many products now available at 1000 m resolution (or better!) at ice-sheet scale.
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+L75 - Here and throughout, "relationships" between animate objects, but "relations" between inanimate objects (incl. mass flows).
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+L114/128 - "RCM" has not just been introduced, and probably should not until the methods section.
+
+{{{BEGIN_REPLY}}}
+RCM is defined at line 64
+{{{END_REPLY}}}
+
+In the first L114 instance, for example, it should be "...leaving the ice sheet." if you are introducing processes.
+
+{{{BEGIN_REPLY}}}
+We changed the use at L114 from "leaves the RCM" to "leaves the ice sheet" as suggested.
+{{{END_REPLY}}}
+
+L124 - You should, for consistency, also state the ice sheet density you are assuming for converting volume changes to water mass flow.
+
+{{{BEGIN_REPLY}}}
+The data we ingest report values in mass dimensions and units, and likely use complicated methods and multiple values for converting volume to mass - for example, firn models with varying density. We feel that addressing this is out of scope, given that we do not do any of these calculations or conversions here.
+{{{END_REPLY}}}
+
+L246 - It is odd to see GMB uncertainties expressed in %. There should perhaps be a sentence introducing GMB uncertainties in their native Gt/yr and then converting this into percentages of the mass flow.
+
+{{{BEGIN_REPLY}}}
+Given the hand-wavyness involved in many uncertainty treatments, we find it odd to express it in absolute units (often with multiple decimal places of precision!). We have added a sentence here that other units are available in Table 4.
+{{{END_REPLY}}}
+
+L266 - Extra space before the period.
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+L299 - Perhaps "ignored" is better than "removed"
+
+{{{BEGIN_REPLY}}}
+Perhaps. I'll leave it and let an editor weigh in if they have an opinion. I think this is a frame-of-reference issue. The information is both ignored and removed by the people combining the terms and not reporting constituent terms. The information has been removed for downstream users. I think I'm usually thinking of the latter: Known or unknown future users of a product who no longer have access to relevant information because it was removed.
+{{{END_REPLY}}}
+
+Figure 1 - Caption should specify "grey is solid phase, blue is liquid phase, and yellow is gas phase" (i.e. "solid phase" instead of "ice" -- or make the other phases "water" and "water vapor" for consistency across phases). 
+
+{{{BEGIN_REPLY}}}
+Done.
+{{{END_REPLY}}}
+
+I wonder if the "drawdown or retreat" arrow should be black, rather than colored?
+
+{{{BEGIN_REPLY}}}
+This is of primary interest to a lot of people, so we choose to keep it highlighted red if loss, black if gain.
+{{{END_REPLY}}}
+
+Figure 2 - Blue, not black, outline on the Frontal retreat flux (also in Figure 1).
+
+{{{BEGIN_REPLY}}}
+Fixed. The Frontal Retreat was both bolded and blue outline because it is different. It is the transient term portion of discharge (split into calving frontal melt) and it is both a solid process (calving) and a melt process (frontal melt), hence the gray interior and blue outline. Making it gray interior / black outline removes the liquid component. Ideally this would be a gray/blue hatched interior, but this level of detail is beyond my \latex TikZ skills, so we will make it gray/black and add a note in the text.
+{{{END_REPLY}}}
+
+Figure 4 - It would seem preferrable to use the same figure format (i.e. colors and arrows) for this figure as the preceeding figures, even if you must note that the arrow scales are different between figures.
+
+{{{BEGIN_REPLY}}}
+We agree, but this is an entirely different software tool to generate this figure, and a non-trivial effort to make them visually identical. We will defer to the editorial team, and make the changes if the editor requests it, and/or support the Journal of Glaciology graphics team if this falls under their purview.
+{{{END_REPLY}}}
+
+* Reviewer 3
+
+** Summary
+
+The authors present Greenland and Antarctic mass changes as freshwater mass flow rates, quantifying mass changes of both grounded and floating ice, as well as the constituent inputs and outputs, for the time period 2010-2019. Mass flow is represented visually using Sankey diagrams for both Greenland and Antarctica. This approach is a valuable addition to estimates of ice sheet mass balance, which is typically reported only as a single value or a time series, as it allows for a more comprehensive understanding of ice sheet health and freshwater discharge to the ocean. A limitation of the approach, however, is that it relies on data products and model outputs with various degrees of uncertainty and different temporal resolutions. Though this method requires estimates and simplifications, the reasoning behind these is generally explained in the manuscript, and weaknesses are acknowledged. The manuscript is well-written and is worthy of publication with only minor edits.
+
+{{{BEGIN_REPLY}}}
+We thank the reviewer for their support.
+{{{END_REPLY}}}
+
+** General Comments
+
+How could this approach be used to show changes in mass flow through time? As it is, we just see an average of all the changes over roughly a decade. I imagine it could be difficult to improve the temporal resolution using data from so many different sources and models, but is there a way to present these data as some sort of time series? This is not required for the current manuscript, just something to think about if advocating for other researchers to consider this approach when reporting mass balance.
+
+{{{BEGIN_REPLY}}}
+Changes through time will be shown in a future ms, but if the reviewer would like to see some thoughts on this the discussion happened in public here: https://github.com/mankoff/sankey/issues/16. The current best method we have come up with to show a times series is using a multi-panel plot.
+
+If all inputs were times series, it would be easy to make figures for any time span. This is generally the case in Greenland with a more mature and operational data product ecosystem. In Antarctica, there are fewer products and of those, more have been reported as decadal average rather than time series.
+{{{END_REPLY}}}
+
+The Sankey diagrams are an interesting way to show the components of mass change/flow, though it is a bit counterintuitive that mass loss is a balancing input and mass gain is a balancing output. It just took a minute of thinking to understand why this is.
+
+{{{BEGIN_REPLY}}}
+We agree. We hope the text explanation of why mass loss is an input and mass gain is an output helped reduce the thinking time. This is one reason we ended up using "drawdown or retreat" instead of "mass loss". But that word choice may not have helped and due to comments from another reviewer we have returned to "mass loss" as an input.
+{{{END_REPLY}}}
+
+** Specific Comments
+
+Line 108: I was surprised to see that the estimates of mass flow include peripheral glaciers – so it is not just the ice sheets as I assumed from the title. Why did you decide to include peripheral glaciers?
+
+{{{BEGIN_REPLY}}}
+In Antarctica it is not easy to remove peripheral glaciers. And once we started including floating ice, the focus moves away from the traditional 'grounded ice sheet' to a more holistic view of 'regional ice sheet health' in which case including all of the ice made sense to us. There was some minor internal disagreement on this choice. We leave the title, but add mention of peripheral glaciers in the abstract.
+{{{END_REPLY}}}
+
+Lines 147-151: Some of these values seem somewhat arbitrary. How did you decide to increase the estimate of losses from 17 Gt per year to 20 Gt per year? (After reading about rounding later in the manuscript, I’m guessing this was just part of rounding?)
+
+{{{BEGIN_REPLY}}}
+We agree some values are somewhat arbitrary. We believe that many values are somewhat arbitrary in other works too, both those ingested here and those not ingested but treated elsewhere as a reference value. We believe the community would do better to more clearly acknowledge arbitrary decisions in all works.
+
+To your specific question about rounding from 17 to 20: This was done prior to the tabular rounding to take into account the specific text from citet:kochtitzky_2023 who write, "Because our fluxgates were typically located tens to hundreds of meters lower than those in the similar studies (King et al., 2018; Mankoff et al., 2020), the melt correction for these studies would be higher than values presented herein, although it is beyond the scope of the current study to determine what those values would be". which is why we believe using the citet:kochtitzky_2023 value of 17 Gt yr^{-1} is too low.
+
+We have added text highlighting arbitrariness.
+{{{END_REPLY}}}
+
+Line 154: Not all glaciers in Greenland calve at the grounding line – some have floating fronts (seasonally or year-round), even if not typically considered to have an ice shelf (e.g., Jakobshavn, Helheim).
+
+{{{BEGIN_REPLY}}}
+Fixed. Text adjusted.
+{{{END_REPLY}}}
+
+Lines 260-263 – Rounding: What is the reasoning for this rounding? Just because there is so much uncertainty inherent in the data and methods?
+
+{{{BEGIN_REPLY}}}
+Correct. Added a clarification.
+{{{END_REPLY}}}
+
+Line 412: But is it really “total ice sheet mass change,” or does it also include the peripheral glaciers?
+
+{{{BEGIN_REPLY}}}
+Plus peripheral. Text adjusted.
+{{{END_REPLY}}}
+
+** Technical Corrections/Questions
+
+Line 25: I think the comma should be after ice instead of after floating, to read “net freshwater volume flow rate across ice sheet boundaries, including floating ice, is a better metric of ice sheet health”
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+Lines 55 and 58: What do O(100) and O(10) mean?
+
+{{{BEGIN_REPLY}}}
+We apologize for the somewhat esoteric notation. In computer science Big-O notation represents the approximate runtime of a function. We used it here as a short-hand for order-of-magnitude. We have replaced it with \sim.
+{{{END_REPLY}}}
+
+Lines 220-222: I got lost in this very long sentence. Consider splitting into two sentences.
+
+{{{BEGIN_REPLY}}}
+Rewritten.
+{{{END_REPLY}}}
+
+Line 235: Should “combine” be “combined” here?
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+Line 239: I believe this should read: “For derived mass loss and mass gain, traditional uncertainty propagation…”
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+Lines 261-262: This doesn’t make sense – “In Table 2 we round to 1, with the exception of values less than 0.5 and greater than 0 which are rounded to 1.” I think you mean “In Table 2 we round to the nearest whole number…”?
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+Line 262: “value” should be “values”
+
+{{{BEGIN_REPLY}}}
+Fixed.
+{{{END_REPLY}}}
+
+* References
+:PROPERTIES:
+:clearpage: t
+:END:
+
+\printbibliography[heading=none]
+
+* LaTeX Header 						      :ignore:
+#+LaTeX_CLASS_OPTIONS: [article,a4paper,times,12pt]
+
+#+BEGIN_SRC elisp :exports none
+(org-add-link-type
+ "citet"  (lambda (key) (kdm/org-pdf-open key))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'latex) (format "\\cite{%s}" path))
+    ((eq format 'ascii) (format "%s" desc))
+    )))
+(org-add-link-type
+ "citep"  (lambda (key) (kdm/org-pdf-open key))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'latex) (format "\\citep{%s}" path))
+    ((eq format 'ascii) (format "%s" desc))
+    )))
+
+(setq-local org-latex-title-command "")
+#+END_SRC
+
+#+RESULTS:
+
+** References                                             :ignore:
+
+#+LATEX_HEADER_EXTRA:%\usepackage[bibstyle=authoryear,firstinits=true,maxbibnames=99]{biblatex}
+#+LATEX_HEADER_EXTRA: \usepackage[hyperref=true,
+#+LATEX_HEADER_EXTRA:             %sorting=none, 
+#+LATEX_HEADER_EXTRA:             sorting=nyt,
+#+LATEX_HEADER_EXTRA:             %style=numeric, 
+#+LATEX_HEADER_EXTRA:             style=authoryear,
+#+LATEX_HEADER_EXTRA:             %defernumbers=true, 
+#+LATEX_HEADER_EXTRA:             firstinits=true, 
+#+LATEX_HEADER_EXTRA:             uniquename=false,
+#+LATEX_HEADER_EXTRA:             uniquelist=false,
+#+LATEX_HEADER_EXTRA:             %uniquelist=minyear,
+#+LATEX_HEADER_EXTRA:             maxnames=99, 
+#+LATEX_HEADER_EXTRA:             maxcitenames=1]{biblatex}
+# # #+LATEX_HEADER_EXTRA:\addbibresource{Library.bib,/Users/mankoff/Dropbox/Backup/Library.bib}
+# #+LATEX_HEADER_EXTRA:\addbibresource{/home/kdm/Documents/Papers/library.bib}
+#+LATEX_HEADER_EXTRA:\addbibresource{../library.bib}
+#+LATEX_HEADER_EXTRA: \renewbibmacro{in:}{}
+
+# biber <texfile><.NOEXT> --output_format bibtex
+
+# http://tex.stackexchange.com/a/5779/360
+#+LATEX_HEADER_EXTRA: % Don't print URL if DOI field exists
+#+LATEX_HEADER_EXTRA: \DeclareFieldFormat{url}{%
+#+LATEX_HEADER_EXTRA:   \iffieldundef{doi}{%
+#+LATEX_HEADER_EXTRA:     \mkbibacro{URL}\addcolon\space\url{#1}%
+#+LATEX_HEADER_EXTRA:   }{%
+#+LATEX_HEADER_EXTRA:   }%
+#+LATEX_HEADER_EXTRA: }
+#+LATEX_HEADER_EXTRA: % Don't print URL if DOI field exists
+#+LATEX_HEADER_EXTRA: \DeclareFieldFormat{urldate}{%
+#+LATEX_HEADER_EXTRA:   \iffieldundef{doi}{%
+#+LATEX_HEADER_EXTRA:     \mkbibparens{\bibstring{urlseen}\space#1}%
+#+LATEX_HEADER_EXTRA:   }{%
+#+LATEX_HEADER_EXTRA:   }%
+#+LATEX_HEADER_EXTRA: }
+
+#+LATEX_HEADER_EXTRA: \renewbibmacro*{journal+issuetitle}{%
+#+LATEX_HEADER_EXTRA: \usebibmacro{journal}%
+#+LATEX_HEADER_EXTRA: \setunit*{\addspace}%
+#+LATEX_HEADER_EXTRA: \iffieldundef{series}
+#+LATEX_HEADER_EXTRA: {}
+#+LATEX_HEADER_EXTRA: {\newunit
+#+LATEX_HEADER_EXTRA: \printfield{series}%
+#+LATEX_HEADER_EXTRA: \setunit{\addspace}}%
+#+LATEX_HEADER_EXTRA: \usebibmacro{issue+date}%
+#+LATEX_HEADER_EXTRA: \setunit{\addcomma\space}%
+#+LATEX_HEADER_EXTRA: \usebibmacro{volume+number+eid}%
+#+LATEX_HEADER_EXTRA: \setunit{\addcolon\space}%
+#+LATEX_HEADER_EXTRA: \usebibmacro{issue}%
+#+LATEX_HEADER_EXTRA: \newunit}
+
+#+LATEX_HEADER_EXTRA: \newbibmacro*{issue+date}{%
+#+LATEX_HEADER_EXTRA: \iffieldundef{issue}
+#+LATEX_HEADER_EXTRA: {. \usebibmacro{date}}
+#+LATEX_HEADER_EXTRA: {\printfield{issue}%
+#+LATEX_HEADER_EXTRA: \setunit*{\addspace}%
+#+LATEX_HEADER_EXTRA: \usebibmacro{date}}%
+#+LATEX_HEADER_EXTRA: \newunit}
+
+#+LATEX_HEADER_EXTRA: \renewbibmacro*{volume+number+eid}{%
+#+LATEX_HEADER_EXTRA: \printfield{volume}%
+#+LATEX_HEADER_EXTRA: \setunit*{\addnbspace}% NEW (optional); there's also #+LATEX_HEADER_EXTRA: \addnbthinspace
+#+LATEX_HEADER_EXTRA: \printfield{number}%
+#+LATEX_HEADER_EXTRA: \setunit{\addcomma\space}%
+#+LATEX_HEADER_EXTRA: \printfield{eid}}
+#+LATEX_HEADER_EXTRA: \DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+#+LATEX_HEADER_EXTRA: \DeclareFieldFormat{pages}{#1}
+
+** Page and Fonts                                         :ignore:
+
+#+LATEX_HEADER_EXTRA: \pdfpagewidth 8.5in
+#+LATEX_HEADER_EXTRA: \pdfpageheight 11in
+#+LATEX_HEADER_EXTRA:  \usepackage{setspace}
+#+LATEX_HEADER_EXTRA:  \usepackage{hyperref} % links (citations, references, URLs, etc.)
+#+LATEX_HEADER_EXTRA:  \usepackage{fixltx2e} % fix some bugs. Require proper coding of equations...
+#+LATEX_HEADER_EXTRA:  \usepackage{enumitem}\setlist{nosep} % shrink space between bullets
+#+LATEX_HEADER_EXTRA:  \usepackage{lmodern}  % better i18n Postscript version of Knuth's cm fonts
+#+LATEX_HEADER_EXTRA:  \usepackage[final,protrusion=true,expansion=true]{microtype} % nice font tweaks
+#+LATEX_HEADER_EXTRA:  \usepackage[small,compact, sf]{titlesec} % reduce space
+#+LATEX_HEADER_EXTRA:  \usepackage[margin=1in]{geometry} % set page margins automatically 
+#+LATEX_HEADER_EXTRA:  \usepackage[parfill]{parskip}  % paragraphs have vert space not indent
+#+LATEX_HEADER_EXTRA:  %\usepackage{paralist} %\begin{compactitem} http://www.howtotex.com/packages/compact-lists-with-paralist
+#+LATEX_HEADER_EXTRA:  \usepackage[T1]{fontenc}
+#+LATEX_HEADER_EXTRA:  \usepackage[sc]{mathpazo} % Palatino font
+#+LATEX_HEADER_EXTRA:  \usepackage{fancyref} % \fref{fig:foo} makes everything pretty...
+#+LATEX_HEADER_EXTRA:  \usepackage{flafter} % make sure figures do not appear before their text:    
+#+LATEX_HEADER_EXTRA:  \usepackage[all]{hypcap} % links from go to top of table/image, not bottom.
+#+LATEX_HEADER_EXTRA:  \usepackage[section]{placeins} % floats get placed in the section
+#+LATEX_HEADER_EXTRA:  \usepackage{siunitx}
+#+LATEX_HEADER_EXTRA:  \usepackage{commath} % \dif, \od, \pd, \md, etc.
+#+LATEX_HEADER_EXTRA:  \usepackage{amsmath} % provides \eqref which adds []'s. 
+#+LATEX_HEADER_EXTRA:  %\numberwithin{equation}{section} % reference equations as [3.42] rather than 42.
+#+LATEX_HEADER_EXTRA:  \usepackage{amsfonts} % I hear these are also good to load
+#+LATEX_HEADER_EXTRA:  \usepackage{amssymb} % I hear these are also good to load
+#+LATEX_HEADER_EXTRA:  \usepackage[all]{onlyamsmath} % don't allow $$, eqnarray, etc.
+#+LATEX_HEADER_EXTRA:  %\usepackage{tocbibind} % add bib to toc
+
+** Code                                                   :ignore:
+# #+LATEX_HEADER_EXTRA:  \usepackage[gobble=auto]{pythontex}
+# #+LATEX_HEADER_EXTRA:  \setpythontexworkingdir{./}
+# #+LATEX_HEADER_EXTRA:  \usepackage{minted}
+# #+LATEX_HEADER_EXTRA:  \usemintedstyle{emacs}
+# #+LATEX_HEADER_EXTRA:  \newminted{common-lisp}{fontsize=\footnotesize}
+#+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
+#+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
+** Hyperref                                               :ignore:
+#+LATEX_HEADER_EXTRA:  %\usepackage{datetime}\renewcommand{\dateseparator}{-}
+#+LATEX_HEADER_EXTRA:  \usepackage{xspace} % smart spaces
+#+LATEX_HEADER_EXTRA:  \hypersetup{
+#+LATEX_HEADER_EXTRA:    colorlinks=false,       % links are colored
+#+LATEX_HEADER_EXTRA:    urlcolor=blue,    % color of external links
+#+LATEX_HEADER_EXTRA:    linkcolor=blue,   % color of internal links
+#+LATEX_HEADER_EXTRA:    citecolor=blue,   % color of links to bibliography
+#+LATEX_HEADER_EXTRA:    draft=false, % link even in draft mode
+#+LATEX_HEADER_EXTRA:    bookmarksopen=true, % ?
+#+LATEX_HEADER_EXTRA:    pdfdisplaydoctitle=true}
+#+LATEX_HEADER_EXTRA:  \renewcommand{\textfraction}{0.05}
+#+LATEX_HEADER_EXTRA:  \renewcommand{\topfraction}{0.8}
+#+LATEX_HEADER_EXTRA:  \renewcommand{\bottomfraction}{0.8}
+#+LATEX_HEADER_EXTRA:  \renewcommand{\floatpagefraction}{0.75}
+
+** Figures                                                :ignore:
+#+LATEX_HEADER_EXTRA:  \usepackage{pdfpages}
+#+LATEX_HEADER_EXTRA:  \usepackage[final]{graphicx} % [final] means show figs in draft mode
+#+LATEX_HEADER_EXTRA:  \setkeys{Gin}{draft=false}
+#+LATEX_HEADER_EXTRA:  %\usepackage{wrapfig}
+#+LATEX_HEADER_EXTRA:  %\usepackage[Export]{adjustbox} % http://latex-alive.tumblr.com/post/81481408449
+#+LATEX_HEADER_EXTRA:  %\adjustboxset{max size={\textwidth}{0.7\textheight}}
+#+LATEX_HEADER_EXTRA:  \usepackage{mdframed}
+
+** Draft Mode                                             :ignore:
+# DRAFT
+#+LATEX_HEADER_EXTRA:  \usepackage{ifdraft} % used for conditional stuff
+#+LATEX_HEADER_EXTRA:  % \ifdraft{
+#+LATEX_HEADER_EXTRA:  %   \usepackage{draftwatermark}
+#+LATEX_HEADER_EXTRA:  %   \SetWatermarkText{DRAFT}
+#+LATEX_HEADER_EXTRA:  %   \SetWatermarkLightness{0.95}
+#+LATEX_HEADER_EXTRA:  %   \SetWatermarkScale{2}}{}
+#+LATEX_HEADER_EXTRA:  \ifdraft{\usepackage{lineno}\linenumbers\modulolinenumbers[5]}{}
+#+LATEX_HEADER_EXTRA:  \ifdraft{\doublespacing}{}
+#+LATEX_HEADER_EXTRA:  %\ifdraft{\usepackage{showlabels}}{}
+
+** Header/Footer                                          :ignore:
+# Header/footer
+#+LATEX_HEADER_EXTRA:  \usepackage{lastpage} % used in the footer of fancyheader
+#+LATEX_HEADER_EXTRA:  \usepackage{fancyhdr}
+#+LATEX_HEADER_EXTRA:  \pagestyle{fancyplain}
+#+LATEX_HEADER_EXTRA:  \lhead{}\chead{}\rhead{}
+#+LATEX_HEADER_EXTRA:  \lfoot{}\cfoot{}\rfoot{}
+#+LATEX_HEADER_EXTRA:  \lfoot{K. D. Mankoff} 
+#+LATEX_HEADER_EXTRA:  \rfoot{p. \thepage\ of \pageref*{LastPage}} % * means no link
+#+LATEX_HEADER_EXTRA:  \ifdraft{\chead{DRAFT -- DO NOT DISTRIBUTE}}{}
+#+LATEX_HEADER_EXTRA:  \renewcommand{\headrulewidth}{0.0pt} % no bars but thanks anyway.
+#+LATEX_HEADER_EXTRA:  \renewcommand{\footrulewidth}{0.0pt} 
+** COMMENT GitInfo                                                :ignore:
+# GitInfo
+#+LATEX_HEADER_EXTRA: \usepackage[mark,missing={master}]{gitinfo2}
+#+LATEX_HEADER_EXTRA: \renewcommand{\gitMark}{\gitBranch\,@\,\gitAbbrevHash{}\gitDirty\,[\gitAuthorDate]}
+
+** Embedded file                                          :ignore:
+#+LATEX_HEADER_EXTRA: \usepackage{embedfile}
+#+LATEX_HEADER_EXTRA: \embedfile{\jobname.org}
+
+* TODO QC 							   :noexport:
+
+(langtool-check)
+(langtool-correct-buffer)
+(langtool-check-done)
+
+Export as ASCII, then,
+
+#+BEGIN_SRC emacs-lisp :results none :eval no-export
+(setq org-ascii-text-width 80)
+(org-ascii-export-to-ascii)
+#+END_SRC
+
+#+BEGIN_SRC sh :cmdline "-i" :results output :eval no-export
+this='org.txt'
+aspell list < $this | sort | uniq
+echo "\n"
+
+declare -a cmds=("word_weasel" "word_dupe" "word_passive" "style" "diction -s")
+for cmd in "${cmds[@]}"; do
+    echo "###\n### $cmd\n###"
+    #echo $cmd $this
+    ${cmd} ${this}
+    echo "\n"
+done
+#+END_SRC
+#+RESULTS:
+
+* LaTeXdiff							   :noexport:
+
+#+BEGIN_SRC sh :results verbatim :results none :eval no-export
+cd ..
+OLD=ms.10a3fca.tex
+NEW=ms.tex
+latexdiff $OLD $NEW > diff.tex
+
+# latexdiff --exclude-textcmd=href --exclude-textcmd=hyperref $OLD $NEW > diff.tex
+
+sed s/colorlinks=true/colorlinks=false/ diff.tex > tmp.tex
+mv tmp.tex diff.tex
+# latexmk diff.tex
+#+END_SRC
+#+RESULTS:
+
+
