@@ -321,7 +321,7 @@ We warn that other use cases should carefully consider assumptions of tracer tre
 
 ** Mass loss and gain
 
-We calculate mass loss and gain from the sum of all outputs minus inputs. In the Sankey diagrams we label mass loss as `drawdown or retreat', and mass gain as `build-up or expansion'.
+We calculate mass loss and gain from the sum of all outputs minus inputs.
 
 ** Uncertainty
 
@@ -603,7 +603,7 @@ Finally, although we argue for gross, not net, and inclusion of constituent term
 
 We have been using the terms `mass loss' vs `mass gain' or `drawdown or retreat' vs `build-up or expansion'. The specific cause of these processes can be thought of as a recursive application of the methods, tables, and graphics here. That is, the imbalance is due to changes from some balanced baseline and the changes are likely all of the terms here - decreases or increases of inputs offset by decreases or increases of outputs.
 
-For example, the red `drawdown or retreat' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
+For example, the red `mass loss' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
 
 ** Freshwater export, mass loss, and anomalies
 
