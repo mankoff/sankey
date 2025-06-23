@@ -404,7 +404,11 @@ In Antarctica, we use the MEaSUREs Antarctic Boundaries for IPY 2007-2009 from S
 
 *** Temporal alignment
 
-Most values come from time series that we limit to 2010 through 2019, or are provided for that time span. Some values cover different periods, and in these cases we use the closest available time span to 2010 through 2019 (Tables \ref{tab:gl} and \ref{tab:aq}.).
+Most values come from time series that we limit to 2010 through 2019, or are provided for that time span. Some values cover different periods, and in these cases we use the closest available time span to 2010 through 2019 (Tables \ref{tab:gl} and \ref{tab:aq}.). The impact of non-overlap is a function of the scale and variability of the term.
+
+The largest shift in Greenland is 2013 -- 2022 vs the baseline 2010 -- 2019, or approximately a 30 \% non-overlap. The term is the ice shelf melt and freeze product which is small, and we estimate the variability as medium due to the oceanic forcing. It is less variable than atmospherically controlled SMB terms (which also happen to be large) and more variable than terms controlled by glacier large-scale dynamics.
+
+The largest shift in Antarctica is 1997 - 2021 vs the baseline 2010 -- 2019. As discussed this term is not defined outside of the Amundsen sea sector, and remains an important area for future studies to help reduced uncertainties and close the budget of the ice sheet mass balance work presented here.
 
 *** Rounding
 
