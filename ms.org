@@ -185,7 +185,7 @@ Ice shelf basal melt & 25 & 40 & O_o & 2013-2022 & \citet{wang_2024} \\
 Ice shelf basal freeze-on & 5 & 40 & I_o & 2013-2022 & \citet{wang_2024} \\
 Grounding line retreat & 5 & ? & O_g &  & See methods \\
 Grounding line advance & 0 & ? & I_g &  & See methods \\
-Frontal retreat & 50 & 4 & O_o & 2010-2020 & \citet{kochtitzky_2023} \\
+Frontal retreat & 50 & 5 & O_o & 2010-2020 & \citet{kochtitzky_2023} \\
 Frontal advance & 0 &  & I_o & 2010-2020 & \citet{kochtitzky_2023} \\
 \end{tabular}
 \end{table*}
