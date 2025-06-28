@@ -68,11 +68,11 @@ Correspondence: Ken Mankoff
 
 #+LATEX: \begin{abstract}
 
-Ice sheet mass loss is typically provided for grounded ice, because changes in floating ice are more difficult to measure and contribute minimally to sea level rise. However, net freshwater volume flow rate across ice sheet boundaries, including floating ice, is a better metric of ice sheet health.
+Ice sheet mass loss is typically provided for grounded ice, because changes in floating ice are more difficult to measure and contribute minimally to sea level rise. However, net freshwater mass flow rate across ice sheet boundaries, including floating ice, is a better metric of ice sheet health.
 
 Here we present total mass flows across ice sheet boundaries for both the Greenlandic and Antarctic ice sheets and their peripheral glaciers from 2010 through 2019. In addition to total mass flow, we provide constituent terms and gross rather than net values, including components that combine to provide surface mass balance (SMB).
 
-Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than the 255 \pm40 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is ~2.4x larger than the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~16x grounded mass loss).
+Ice mass loss in Greenland is 330 \pm50 Gt yr^{-1} which is ~30 % larger than the 255 \pm40 Gt yr^{-1} grounded ice mass loss estimates that neglect floating ice changes. Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is ~2.4x the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates. Freshwater mass flow rate from Greenland is ~1065 \pm120 Gt yr^{-1} or ~3x mass loss (~4x grounded mass loss), and from Antarctica is ~3110 \pm1515 Gt yr^{-1}, or ~7x mass loss (~16x grounded mass loss).
 
 #+LATEX: \end{abstract}
 #+LATEX: \end{frontmatter}
@@ -126,7 +126,7 @@ This work does not explicitly report submarine melt, the sum of all melt that oc
 
 We do not use the term `basal melt' because it does not distinguish between grounded or floating ice. Instead we use `ice shelf basal melt' and `grounded ice basal melt'.
 
-We generally avoid the term `flux' which is by definition mass or volume flow rate per unit area. Because we do not report results per unit area, we use `mass flow rate' [Gt yr^{-1}]. This is equal to `volume flow rate' [km^3 yr^{-1}] assuming freshwater density of 1000 kg m^{-3}.
+We generally avoid the term `flux' which by definition is per unit area. Because we do not report results per unit area, we use `mass flow rate' [Gt yr^{-1}].
 
 Not all processes are directly observable due to limitations in measurements, nor are they all modeled. We are limited by the data provided in the products that we ingest to this work. We therefore sometimes report process and sometimes product. In many cases products and process are the same (e.g., `snowfall' process and the `snowfall' data product from the RCM). An example where product rather than process is presented is the `frontal retreat' data product which is a combination of the calving and frontal melting processes. An example where processes rather than product is presented is the Greenland ice discharge product which is not shown because discharge is measured a few km upstream of the grounding line. Instead, we show the downstream calving and frontal melt processes.
 
@@ -267,7 +267,7 @@ We use constituent terms (i.e., gross, not net) of surface mass balance from the
 
 *** Calving, frontal melt, and ice shelf basal melt
 
-In Greenland, we use ice discharge across flux gates ~5 km upstream from the grounding lines citep:mankoff_2021. That discharge term at the flux gates is known to overestimate discharge across the downstream grounding line because it neglects SMB losses between the flux gate and grounding line. These losses are estimated at ~17 Gt yr^{-1} by citet:kochtitzky_2023 who uses flux gates closer to the grounding line than the citet:mankoff_2020_solid flux gates. To account for this increased melt due to more distant flux gates we increase the citet:kochtitzky_2023 estimate to 20 Gt yr^{-1} and then reduce the citet:mankoff_2020_solid discharge by 20 Gt yr^{-1}, meaning frontal melt and calving are each reduced by 10 Gt yr^{-1} (see below for discharge split to frontal melt and calving). Peripheral glaciers are not included in the citet:mankoff_2020_solid product, but are added through estimates from citet:bollen_2023. This adjustment of below-flux-gate SMB losses from 17 to 20 Gt yr^{-1} is somewhat arbitrary and based on author estimation.
+In Greenland, we use ice discharge across flux gates ~5 km upstream from the grounding lines citep:mankoff_2021. That discharge term at the flux gates is known to overestimate discharge across the downstream grounding line because it neglects SMB losses between the flux gate and grounding line. These losses are estimated at ~17 Gt yr^{-1} by citet:kochtitzky_2023 who uses flux gates closer to the grounding line than the citet:mankoff_2020_solid flux gates. The elevation of flux gates used by Mankoff citet:mankoff_2020_solid were typically located tens to hundreds of meters higher (and therefore further from the calving front) than the flux gates used by citet:kochtitzky_2023. We estimate an average of ~3 Gt yr^{-1} are lost to surface melt while the ice transits this region. When estimating discharge from the perimeter of the ice sheet, we therefore subtract 20 Gt/yr from the more inland observations by citet:mankoff_2020_solid meaning frontal melt and calving are each reduced by 10 Gt yr^{-1} (see below for discharge split to frontal melt and calving). Peripheral glaciers are not included in the citet:mankoff_2020_solid product, but are added through estimates from citet:bollen_2023. 
 
 Greenlandic discharge from the flux gates is split into either calving or frontal melt at the calving front, which is the grounding line if no ice shelf is present, or shelf front if an ice shelf is present. This split is highly uncertain and minimally studied, but citet:rignot_2010 estimate that 20 - 80 % of the summer ice-front is directly melted by the ocean for the three glaciers they studied. From this, we split the discharge 50 \pm30 % between calving and frontal melt.
 
@@ -390,7 +390,7 @@ For net freshwater mass flow rate we use gross values for ice shelf basal melt a
 
 For derived mass loss, mass gain, and uncertainty, traditional uncertainty propagation leads to unreasonably large numbers, because the values are large and the residual is small. We therefore estimate the residual uncertainty using the weighted uncertainty for each term in Tables \ref{tab:gl} and \ref{tab:aq}. Using this method, Greenland uncertainty is 15 %, and Antarctic uncertainty is 60 % in the East, 70 % in the west, 50 % in the Peninsula, and 60 % overall.
 
-A comparison of our mass change and uncertainty results with mass change and uncertainty from the independent GMB method citep:groh_2019 shows an agreement between the two. Our uncertainty is consistently larger for the same domain, and our estimates are within the GMB uncertainty. GMB uncertainty is 10 % in Greenland, and 115 %, 10 %, 35 %, and 30 % for Antarctic regions East, West, Peninsula, and overall - well within the uncertainty values we derive above (Table \ref{tab:results_mc}, which also includes uncertainty in units of Gt yr^{-1}).
+A comparison of our mass change and uncertainty results with mass change and uncertainty from the independent GMB method citep:groh_2019 shows an agreement between the two. Our uncertainty is consistently larger for the same domain, and our estimates well are within the GMB uncertainty (Table \ref{tab:results_mc}).
 
 ** Other
 
@@ -418,7 +418,7 @@ All mass flow terms and values for each term are shown in Tables \ref{tab:gl} an
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{gl_baseline.pdf}}
-\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head). Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
+\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head) and come from IO column of Table \ref{tab:gl}. Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
 \label{fig:gl}
 \end{figure*}
 
@@ -673,14 +673,11 @@ There are a variety of simplifications. For example, not all rainfall input turn
 
 The value of some terms presented here are biased by the temporal resolution of the upstream product that is an input to this work. This is the case for all terms until the observations are instantaneous, but impacts bi-directional processes like advance and retreat or step change processes like calving more than slowly varying processes like discharge. For example, in Greenland we report 50 Gt yr^{-1} frontal retreat and 0 Gt yr^{-1} frontal advance using decade-scale reporting from citet:kochtitzky_2023. However, that is a decadal net term despite the majority of this work reporting gross terms, and sub-decadal advances are not captured there.
 
-Given a theoretical reference front location for calving and frontal melt, \(X\) Gt of frontal retreat may actually be \(X + Y\) Gt frontal retreat offset by \(Y\) Gt frontal advance that occurred at a temporal resolution below the observations. This does not matter for total freshwater mass or volume flow rate, which should be calculated using net frontal change, not gross frontal retreat. Ice shelf basal freeze-on and melt share some similar temporal resolution dependent issues, and a decision to use net or gross is dependent on the use case.
-
-# For example, if a glacier monitored each hour moves forward one meter and retreats two meters every day, after a year frontal advance should be 365 m and frontal retreat 720 m. That same glacier monitored once a year would show only a frontal retreat of 365 m. From this simple example it appears the values presented here are all highly dependent on the temporal resolution, but this is not the case because upstream processes set limits and constraints on the boundary processes and products reported here. That is, Greenlandic discharge (sum of calving and frontal melt) is well constrained and sets an upper bound on frontal advance. Ice shelf basal freeze-on and melt share some similar temporal resolution dependent issues.
-
-# The lack of frontal advance and magnitude of frontal retreat in Greenland may be due to the internal temporal resolution of citet:kochtitzky_2023. That is, given a theoretical steady front location for the discharge-generated calving and frontal melt, \(X\) Gt of frontal retreat may actually be \(X + Y\) Gt frontal retreat offset by \(Y\) Gt frontal advance that occurred at a temporal resolution below the observations. This does not matter for total freshwater volume flow rate, which should be calculate using net frontal change, not gross frontal retreat.
-
+Given a theoretical reference front location for calving and frontal melt, \(X\) Gt of frontal retreat may actually be \(X + Y\) Gt frontal retreat offset by \(Y\) Gt frontal advance that occurred at a temporal resolution below the observations. This does not matter for total freshwater mass which should be calculated using net frontal change, not gross frontal retreat. Ice shelf basal freeze-on and melt share some similar temporal resolution dependent issues, and a decision to use net or gross is dependent on the use case.
 
 * Summary
+
+Previous estimates of mass loss for Greenland and Antarctica show a range of values citep:otosaka_2023, highlighting the need for improved estimates and a common framework for accounting of ice sheet mass balance. The work presented here offers one such framework that could be adopted by the community for future balance estimates.
 
 In this work we report total ice sheet and peripheral glacier mass change for both Greenland and Antarctica for the 2010 through 2019 period, reporting not just grounded ice mass loss, but also changes in floating ice. We have provided all available constituent terms and gross not net values. This detailed information provides a better picture of ice sheet health than focusing only on mass loss or only on grounded ice.
 

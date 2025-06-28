@@ -44,7 +44,7 @@ Bolded items removed. In the original submission, bolded RHS items (frontal retr
 For consistency, would it be possible to distinguish the terms in the Input–Output (IO) method using the same subscripts applied to the Greenland Ice Sheet in Table 1?
 
 {{{BEGIN_REPLY}}}
-We're not clear what is being asked here. The terms in Table 1 are the same terms in Figure 1. The inputs are all on the LHS and the outputs are all on the RHS. This whole manuscript focuses on the IO method. The methods section is clearly separated into "outputs" and then "inputs".
+We have added a note in Figure 1 caption that inputs on left and outputs on right correspond to the IO column of Table 1.
 {{{END_REPLY}}}
 
 The manuscript uses terms like “mass loss,” “drawdown,” “frontal melt,” and “net freshwater export”. Although the distinctions are defined in the text, a graphical glossary or schematic (perhaps in the supplement) showing mass pathways, phases (ice, liquid, vapor), and boundaries (grounded, floating, ocean) would help readers navigate the terminology more easily.
@@ -106,7 +106,20 @@ Text added.
 Developing community consesus on the absolute magnitude of flows is also important. For example, Rignot2008 (https://doi.org/10.1029/2008GL035417) reports a balance flux of 350 Gt/yr for Greenland, while vandenBroeke2009 (https://doi.org/10.1126/science.1178176) report a balance flux of 480 Gt/yr. These balance fluxes are used to partition contemporary mass loss into runoff and iceberg calving, which highlight why community consensus on the flows is important.
 
 {{{BEGIN_REPLY}}}
-We're not sure about this. There is value in community consensus, but only if it is correct! Anyway, community consensus is out of scope of this manuscript.
+We're not sure about this. There is value in community consensus, but only if it is correct! I'm also unable to find those numbers in those papers,
+
+citet:rignot_2008_mass reports
++ Max of -230 Gt/yr in Fig. 3
+
+And citet:van-den-broeke_2009 reports
++ 2003–2008 GrIS mass loss rate of –237 +- 20 Gt year−1
++ In total, the GrIS lost 1492 Gt between 2000 and 2008, or 166 Gt year−1
++ Mass loss rate increased to 273 Gt year−1 in the period 2006–2008
++ Even their supplemental which shows a graph has max -300 Gt/yr.
+
+and it's not clear that the different numbers are problematic - they could both be correct and from different years.
+
+But we've added a sentence to the summary citing citet:otosaka_2023 that estimates disagree, and a common framework may be helpful.
 {{{END_REPLY}}}
 
 Anomalies in Flows (L318) - It would be desirable to consider showing the Sankeys for high and low mass balance years for Greenland, for example, to perhaps demonstrate how the Sankeys can plainly visualize anomalies in different mass flows in different years.
@@ -117,7 +130,7 @@ We hope that others will use these diagrams for this in future works. We are alr
 
 ** Minor comments
 
-Authors - I presume that Alex Gardner has contirbuted substantially to this article, as he appears twice in the author list!
+Authors - I presume that Alex Gardner has contributed substantially to this article, as he appears twice in the author list!
 
 {{{BEGIN_REPLY}}}
 Fixed.
@@ -156,13 +169,13 @@ We changed the use at L114 from "leaves the RCM" to "leaves the ice sheet" as su
 L124 - You should, for consistency, also state the ice sheet density you are assuming for converting volume changes to water mass flow.
 
 {{{BEGIN_REPLY}}}
-The data we ingest report values in mass dimensions and units, and likely use complicated methods and multiple values for converting volume to mass - for example, firn models with varying density. We feel that addressing this is out of scope, given that we do not do any of these calculations or conversions here.
+For consistency we have removed mention of volume flow rates, because we only report mass flow rates here (even though the two are the same value). The data we ingest report values in mass dimensions and units (even if using the 'volume method'), and the upstream products likely use complicated and multiple values for converting volume to mass - for example, firn models with varying density. We feel that addressing this is out of scope, given that we do not do any of these calculations or conversions here.
 {{{END_REPLY}}}
 
 L246 - It is odd to see GMB uncertainties expressed in %. There should perhaps be a sentence introducing GMB uncertainties in their native Gt/yr and then converting this into percentages of the mass flow.
 
 {{{BEGIN_REPLY}}}
-Given the hand-wavyness involved in many uncertainty treatments, we find it odd to express it in absolute units (often with multiple decimal places of precision!). We have added a sentence here that other units are available in Table 4.
+We have removed this sentence and here just refer readers to Table 4 which has uncertainty in both Gt yr^{-1} and %.
 {{{END_REPLY}}}
 
 L266 - Extra space before the period.
