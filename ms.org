@@ -398,6 +398,10 @@ A comparison of our mass change and uncertainty results with mass change and unc
 
 In Antarctica, we use the MEaSUREs Antarctic Boundaries for IPY 2007-2009 from Satellite Radar, Version 2 (NSIDC product 0709; citet:mouginot_2017,rignot_2013) to separate Antarctica into East, West, and Peninsula. Discharge from Antarctic islands is reported once for all islands by citet:rignot_2019. In order to separate island discharge by region, we find the area of all islands per region, and divide the discharge proportional to area. This implicitly assumes that discharge from each island scales linearly with the area of each island.
 
+*** Peripheral glaciers
+
+In Antarctica it is not easy to define or remove peripheral glaciers. We are also including floating ice, which is moves the focus away from the traditional assessments of `grounded ice sheet' to a more holistic view of `regional ice sheet health'. It naturally followed to include peripheral glaciers in Greenland too.
+
 *** Temporal alignment
 
 Most values come from time series that we limit to 2010 through 2019, or are provided for that time span. Some values cover different periods, and in these cases we use the closest available time span to 2010 through 2019 (Tables \ref{tab:gl} and \ref{tab:aq}.). The impact of non-overlap is a function of the scale and variability of the term.

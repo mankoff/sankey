@@ -11,6 +11,8 @@
 #+MACRO: BEGIN_REPLY @@latex:{\bfseries\color{brown}@@ @@odt:<text:span text:style-name="Bold">@@
 #+MACRO: END_REPLY @@latex:}@@ @@odt:</text:span>@@
 
+\maketitle
+
 We're happy to see all three reviewers suggest only minor comments. We have addressed each comment in the revised manuscript, or explained here why we are not making the recommended changes. We also reply in-line below to each comment. Comments from reviewers are in normal font. Replies are in {{{BEGIN_REPLY}}}colored bold font{{{END_REPLY}}}.
 
 \tableofcontents
@@ -56,7 +58,7 @@ The phases are captured in the current diagrams, and more clearly stated in the 
 While the authors acknowledge that traditional uncertainty propagation leads to overestimates in residual terms, the alternative method—using weighted uncertainties—still leaves ambiguity. Would the authors consider adding a brief text to reinforce the validity of their reported 15–70% uncertainty range?
 
 {{{BEGIN_REPLY}}}
-We have added additional text when comparing to GMB results pointing out the agreement between these two methods.
+This sentence was removed based on suggestions from another reviewer.
 {{{END_REPLY}}}
 
 The merging of datasets with varying resolutions and time periods (e.g., 1997–2021 vs. 2010–2019) raises concerns about temporal alignment. The authors mention briefly how they choose the values, but discussion on how these are reconciled or weighted would be valuable?
@@ -88,13 +90,15 @@ Added text providing a bit more background and detail on the grounded basal mass
 Mass Change Labeling (L230) - Rather than "drawdown or retreat" and "build-up or expansion", it would seem more straightfoward to simply label these outcomes as "decreasing ice-sheet mass" and "increasing ice-sheet mass". I would suggest this throughout.
 
 {{{BEGIN_REPLY}}}
-Our original version labeled these "mass loss" and "mass gain", which is, we think, the simplest label that the reviewer is moving towards with their suggestions of "decreasing ice-sheet mass" and "increasing ice-sheet mass". We changed to the current wording after many discussions, but agree with the reviewer and have changed back to "mass loss" and "mass gain" in the Sankey diagrams. The text still describes in more detail that "loss" is one of "drawdown" or "retreat".
+Our original version labeled these "mass loss" and "mass gain", which is, we think, the simplest label that the reviewer is moving towards with their suggestions of "decreasing ice-sheet mass" and "increasing ice-sheet mass". We changed to the current wording after many discussions, but agree with the reviewer and have changed back to "mass loss" and "mass gain" in the Sankey diagrams. The text still describes in more detail that "loss" is one of "drawdown" or "retreat", and "gain" is one of "build-up" or "expansion".
 {{{END_REPLY}}}
 
 A tangential thought, is that there can be longer term ice dynamic processes at play, for example transient millennial-scale thickening in Greenland (i.e. https://doi.org/10.1126/science.aab1702), which are implicity included within this "increasing ice-sheet mass".
 
 {{{BEGIN_REPLY}}}
-This discussion - which I think is "what is the definition of steady state or baseline" - is an important one for the community to have but way outside the scope of this work.
+This discussion - which I think is "what is the definition of steady state or baseline" - is an important one for the community to have but outside the scope of this work.
+
+I do believe though that this display may help people recognize that there may be no true "steady state" to this system, even if it sometimes is balanced. Even when inputs balance outputs without the "mass loss" or "mass gain" additional term, a balanced system one year or decade is likely to be different, even if still balanced, on a different year or decade.
 {{{END_REPLY}}}
 
 Constituent versus Gross (L288) - Beyond the Sankey diagrems, this is perhaps the most important point of the article. You should note that details at the levels of consituent terms are needed to highlight and understand compensating errors in SMB model inter-comparison (i.e. https://doi.org/10.5194/tc-15-3751-2021).
@@ -112,9 +116,9 @@ citet:rignot_2008_mass reports
 + Max of -230 Gt/yr in Fig. 3
 
 And citet:van-den-broeke_2009 reports
-+ 2003–2008 GrIS mass loss rate of –237 +- 20 Gt year−1
-+ In total, the GrIS lost 1492 Gt between 2000 and 2008, or 166 Gt year−1
-+ Mass loss rate increased to 273 Gt year−1 in the period 2006–2008
++ 2003–2008 GrIS mass loss rate of –237 +- 20 Gt year^{-1}
++ In total, the GrIS lost 1492 Gt between 2000 and 2008, or 166 Gt year^{-1}
++ Mass loss rate increased to 273 Gt year^{-1} in the period 2006–2008
 + Even their supplemental which shows a graph has max -300 Gt/yr.
 
 and it's not clear that the different numbers are problematic - they could both be correct and from different years.
@@ -245,7 +249,7 @@ We agree. We hope the text explanation of why mass loss is an input and mass gai
 Line 108: I was surprised to see that the estimates of mass flow include peripheral glaciers – so it is not just the ice sheets as I assumed from the title. Why did you decide to include peripheral glaciers?
 
 {{{BEGIN_REPLY}}}
-In Antarctica it is not easy to remove peripheral glaciers. And once we started including floating ice, the focus moves away from the traditional 'grounded ice sheet' to a more holistic view of 'regional ice sheet health' in which case including all of the ice made sense to us. There was some minor internal disagreement on this choice. We leave the title, but add mention of peripheral glaciers in the abstract.
+In Antarctica it is not easy to remove peripheral glaciers. And once we started including floating ice, the focus moves away from the traditional 'grounded ice sheet' to a more holistic view of 'regional ice sheet health' in which case including all of the ice made sense to us. There was some minor internal disagreement on this choice. We leave the title, but add mention of peripheral glaciers in the abstract and elsewhere, and have added a section to Methods describing this decision.
 {{{END_REPLY}}}
 
 Lines 147-151: Some of these values seem somewhat arbitrary. How did you decide to increase the estimate of losses from 17 Gt per year to 20 Gt per year? (After reading about rounding later in the manuscript, I’m guessing this was just part of rounding?)
@@ -255,7 +259,7 @@ We agree some values are somewhat arbitrary. We believe that many values are som
 
 To your specific question about rounding from 17 to 20: This was done prior to the tabular rounding to take into account the specific text from citet:kochtitzky_2023 who write, "Because our fluxgates were typically located tens to hundreds of meters lower than those in the similar studies (King et al., 2018; Mankoff et al., 2020), the melt correction for these studies would be higher than values presented herein, although it is beyond the scope of the current study to determine what those values would be". which is why we believe using the citet:kochtitzky_2023 value of 17 Gt yr^{-1} is too low.
 
-We have added text highlighting arbitrariness.
+We have added text describing this in more detail.
 {{{END_REPLY}}}
 
 Line 154: Not all glaciers in Greenland calve at the grounding line – some have floating fronts (seasonally or year-round), even if not typically considered to have an ice shelf (e.g., Jakobshavn, Helheim).
@@ -367,7 +371,7 @@ Fixed.
 #+LATEX_HEADER_EXTRA:             maxnames=99, 
 #+LATEX_HEADER_EXTRA:             maxcitenames=1]{biblatex}
 # # #+LATEX_HEADER_EXTRA:\addbibresource{Library.bib,/Users/mankoff/Dropbox/Backup/Library.bib}
-# #+LATEX_HEADER_EXTRA:\addbibresource{/home/kdm/Documents/Papers/library.bib}
+#+LATEX_HEADER_EXTRA:\addbibresource{/home/kdm/Documents/Papers/library.bib}
 #+LATEX_HEADER_EXTRA:\addbibresource{../library.bib}
 #+LATEX_HEADER_EXTRA: \renewbibmacro{in:}{}
 
