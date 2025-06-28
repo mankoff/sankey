@@ -837,23 +837,3 @@ for cmd in "${cmds[@]}"; do
     echo "\n"
 done
 #+END_SRC
-
-* LaTeXdiff                                             :noexport:
-#+BEGIN_SRC sh :results verbatim :results none :eval no-export
-OLD=A380_ce66c80.tex
-NEW=A380.tex
-latexdiff --disable-citation-markup --append-safecmd="textcite,autocite" --config="PICTUREENV=(?:picture|DIFnomarkup|tabular)[\w\d*@]*" $OLD $NEW > diff.tex
-
-# NOTE: Stil requires some manual editing of diff.tex, particularly
-# when \DIFDEL and \DIFADD are inside CITE commands.
-
-# latexmk diff.tex
-#+END_SRC
-#+RESULTS:
-
-* Release                                               :noexport:
-
-#+BEGIN_SRC bash :exports none :results none
-pandoc ms.org --bibliography library.bib --citeproc --csl ~/Documents/templates/copernicus-publications.csl -o ms.docx
-# xdg-open ms.docx
-#+END_SRC
