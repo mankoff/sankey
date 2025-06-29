@@ -738,7 +738,7 @@ No authors have any conflict of interest with the work presented here.
 
 Funding: KDM was supported by the NASA Modeling, Analysis and Prediction program.
 
-People: We thank Andreas Ahlstrøm and Nanna Karlsson for additional comments on this paper.
+People: We thank Andreas Ahlstrøm and Nanna Karlsson for additional comments on this paper. We thank the three reviewers for their comments that helped improved the manuscript.
 
 Software: We thank citep:sankey for the \LaTeX\enspace TikZ Sankey package, and citet:cogley_2011 for a reference graphic. Analysis was aided by the software packages Pandas (citet:pandas_team), Xarray (citet:xarray), and GRASS GIS (citet:GRASS), among other tools.
 
