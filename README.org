@@ -167,7 +167,7 @@ dyn -> bmb
 | SHELFFREEZE | Ice shelf basal freeze-on |        5 |   40 | I_o | 2013-2022 | wang_2024                                      |
 | GZRET       | Grounding line retreat    |        5 |    ? | O_g |           |                                                |
 | GZADV       | Grounding line advance    |        0 |    ? | I_g |           |                                                |
-| FRONTRET    | Frontal retreat           |       50 |    4 | O_o | 2010-2020 | kochtitzky_2023                                |
+| FRONTRET    | Frontal retreat           |       50 |    5 | O_o | 2010-2020 | kochtitzky_2023                                |
 | FRONTADV    | Frontal advance           |        0 |      | I_o | 2010-2020 | kochtitzky_2023                                |
 
 #+CALL: orgtbl2csv(tbl="gl_baseline")

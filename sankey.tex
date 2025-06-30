@@ -93,10 +93,6 @@
       \node[font=\tiny, anchor=west]
       at ([yshift=0mm,xshift=3mm]#1.center) {\qq{#1}: \Lab{#2}};
     }
-    \newcommand\labelbold[2]{ % valname
-      \node[font=\tiny, anchor=west]
-      at ([yshift=0mm,xshift=3mm]#1.center) {\textbf{\qq{#1}: \Lab{#2}}};
-    }
 
     \sankeyset{
       def data/.code args={#1/#2/#3}{% node name/label/values
@@ -227,9 +223,9 @@
     \sankeyend[water]{BMBa}; \labelright{BMBa}{vBMB}
 
     \sankeyoutin[ice-to-water]{GZ}{GZa}; \sankeyadvance[water]{GZa}{10mm};
-    \sankeyend[water]{GZa}; \labelbold{GZa}{vGZRET}
+    \sankeyend[water]{GZa}; \labelright{GZa}{vGZRET}
     \sankeyadvance[out-blue]{FRONTRETa}{10mm}; 
-    \sankeyend[out-blue]{FRONTRETa}; \labelbold{FRONTRETa}{vFRONTRET}
+    \sankeyend[out-blue]{FRONTRETa}; \labelright{FRONTRETa}{vFRONTRET}
     
     \sankeyadvance{CALV}{5mm};
     \sankeyoutin{CALV}{CALVa};
@@ -256,7 +252,7 @@
       \sankeynode{name=ML, quantity=\Q{vML},
         at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
       \node[font=\tiny, anchor=east]
-      at ([xshift=-3mm,yshift=2mm]ML.west) {\textbf{Drawdown or retreat: \qq{ML}}};
+      at ([xshift=-3mm,yshift=2mm]ML.west) {Mass loss: \qq{ML}};
 
       % frontal advance next to drawdown (mass loss)
       \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
@@ -269,7 +265,7 @@
       \sankeynode{name=MGa, quantity=\qq{MG}, angle=-35,
         at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
       \node[font=\tiny, anchor=east]
-        at ([yshift=0mm,xshift=0mm]MGa.right) {Build-up or expansion: \qq{MGa}};
+        at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
       \sankeyoutin[ice-to-black]{MG}{MGa}; \sankeyadvance[black]{MGa}{3mm}
       \sankeyend[black]{MGa}
       \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
