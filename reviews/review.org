@@ -11,9 +11,12 @@
 #+MACRO: BEGIN_REPLY @@latex:{\bfseries\color{brown}@@ @@odt:<text:span text:style-name="Bold">@@
 #+MACRO: END_REPLY @@latex:}@@ @@odt:</text:span>@@
 
+#+MACRO: BEGIN_NEWTXT @@latex:{\it\color{brown}@@
+#+MACRO: END_NEWTXT @@latex:}@@
+
 \maketitle
 
-We're happy to see all three reviewers suggest only minor comments. We have addressed each comment in the revised manuscript, or explained here why we are not making the recommended changes. We also reply in-line below to each comment. Comments from reviewers are in normal font. Replies are in {{{BEGIN_REPLY}}}colored bold font{{{END_REPLY}}}.
+We're happy to see all three reviewers suggest only minor comments. We have addressed each comment in the revised manuscript, or explained here why we are not making the recommended changes. We also reply in-line below to each comment. Comments from reviewers are in normal font. Replies are in {{{BEGIN_REPLY}}}colored bold font{{{END_REPLY}}}. Changed text is {{{BEGIN_NEWTXT}}}shown in colored italic font{{{END_NEWTXT}}}.
 
 \tableofcontents
 
@@ -33,6 +36,11 @@ In the abstract, the sentence “Ice mass loss in Antarctica is 450 ± 270 Gt yr
 
 {{{BEGIN_REPLY}}}
 Fixed.
+
+{{{BEGIN_NEWTXT}}}
+Ice mass loss in Antarctica is 450 \pm270 Gt yr^{-1} which is *~2.4x* the 190 \pm115 Gt yr^{-1} grounded ice mass loss estimates.
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
 I appreciated the background on Sankey diagrams. And the examples to explain the concepts.
@@ -53,6 +61,10 @@ The manuscript uses terms like “mass loss,” “drawdown,” “frontal melt,
 
 {{{BEGIN_REPLY}}}
 The phases are captured in the current diagrams, and more clearly stated in the figure caption thanks to comments from another reviewer. We opt to not add another figure to the ms showing this, but have added an additional sentence that the processes described here are better shown in their physical setting in Fig. 2 of citet:cogley_2011.
+
+{{{BEGIN_NEWTXT}}}
+We refer readers to Fig. 2 of citet:cogley_2011 for a graphical schematic showing mass flow pathways overlaid on a glacier including phases (solid, liquid, gas), and boundaries (grounded, floating, ocean).
+{{{END_NEWTXT}}}
 {{{END_REPLY}}}
 
 While the authors acknowledge that traditional uncertainty propagation leads to overestimates in residual terms, the alternative method—using weighted uncertainties—still leaves ambiguity. Would the authors consider adding a brief text to reinforce the validity of their reported 15–70% uncertainty range?
@@ -65,6 +77,14 @@ The merging of datasets with varying resolutions and time periods (e.g., 1997–
 
 {{{BEGIN_REPLY}}}
 Added paragraphs discussing non-overlap and what that might mean.
+
+{{{BEGIN_NEWTXT}}}
+The impact of non-overlap is a function of the scale and variability of the term.
+
+The largest shift in Greenland is 2013 -- 2022 vs the baseline 2010 -- 2019, or approximately a 30 % non-overlap. The term is the ice shelf melt and freeze product which is small, and we estimate the variability as medium due to the oceanic forcing. It is less variable than atmospherically controlled SMB terms (which also happen to be large) and more variable than terms controlled by glacier large-scale dynamics.
+
+The largest shift in Antarctica is 1997 - 2021 vs the baseline 2010 -- 2019. As discussed this term is not defined outside of the Amundsen sea sector, and remains an important area for future studies to help reduced uncertainties and close the budget of the ice sheet mass balance work presented here.
+{{{END_NEWTXT}}}
 {{{END_REPLY}}}
 
 While powerful, the diagrams may oversimplify spatial variability and the division between grounded and floating components. The alternate display in Appendix C is good, but a brief comparison in the main text could be of great addition.
@@ -85,9 +105,14 @@ Grounded Ice Basal Melt (L197) - I understand that many of the mass flows come f
 
 {{{BEGIN_REPLY}}}
 Added text providing a bit more background and detail on the grounded basal mass balance and geothermal uncertainty.
+
+{{{BEGIN_NEWTXT}}}
+Ice-sheet wide, the term is split approximately evenly among the two (Antarctica) or three (Greenland) terms. The geothermal flux term is steady state but poorly observed under the ice sheets - only a few ground-truth measurements exist (c.f. citet:colgan_2022), and models of the spatial distribution of geothermal flow show substantial disagreement citep:zhang_2024.
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
-Mass Change Labeling (L230) - Rather than "drawdown or retreat" and "build-up or expansion", it would seem more straightfoward to simply label these outcomes as "decreasing ice-sheet mass" and "increasing ice-sheet mass". I would suggest this throughout.
+Mass Change Labeling (L230) - Rather than "drawdown or retreat" and "build-up or expansion", it would seem more straightfo[r]ward to simply label these outcomes as "decreasing ice-sheet mass" and "increasing ice-sheet mass". I would suggest this throughout.
 
 {{{BEGIN_REPLY}}}
 Our original version labeled these "mass loss" and "mass gain", which is, we think, the simplest label that the reviewer is moving towards with their suggestions of "decreasing ice-sheet mass" and "increasing ice-sheet mass". We changed to the current wording after many discussions, but agree with the reviewer and have changed back to "mass loss" and "mass gain" in the Sankey diagrams. The text still describes in more detail that "loss" is one of "drawdown" or "retreat", and "gain" is one of "build-up" or "expansion".
@@ -124,6 +149,11 @@ And citet:van-den-broeke_2009 reports
 and it's not clear that the different numbers are problematic - they could both be correct and from different years.
 
 But we've added a sentence to the summary citing citet:otosaka_2023 that estimates disagree, and a common framework may be helpful.
+
+{{{BEGIN_NEWTXT}}}
+Previous estimates of mass loss for Greenland and Antarctica show a range of values citep:otosaka_2023, highlighting the need for improved estimates and a common framework for accounting of ice sheet mass balance. The work presented here offers one such framework that could be adopted by the community for future balance estimates.
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
 Anomalies in Flows (L318) - It would be desirable to consider showing the Sankeys for high and low mass balance years for Greenland, for example, to perhaps demonstrate how the Sankeys can plainly visualize anomalies in different mass flows in different years.
@@ -250,6 +280,11 @@ Line 108: I was surprised to see that the estimates of mass flow include periphe
 
 {{{BEGIN_REPLY}}}
 In Antarctica it is not easy to remove peripheral glaciers. And once we started including floating ice, the focus moves away from the traditional 'grounded ice sheet' to a more holistic view of 'regional ice sheet health' in which case including all of the ice made sense to us. There was some minor internal disagreement on this choice. We leave the title, but add mention of peripheral glaciers in the abstract and elsewhere, and have added a section to Methods describing this decision.
+
+{{{BEGIN_NEWTXT}}}
+In Antarctica it is not easy to define or remove peripheral glaciers. We are also including floating ice, which is moves the focus away from the traditional assessments of `grounded ice sheet' to a more holistic view of `regional ice sheet health'. It naturally followed to include peripheral glaciers in Greenland too.
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
 Lines 147-151: Some of these values seem somewhat arbitrary. How did you decide to increase the estimate of losses from 17 Gt per year to 20 Gt per year? (After reading about rounding later in the manuscript, I’m guessing this was just part of rounding?)
@@ -260,6 +295,11 @@ We agree some values are somewhat arbitrary. We believe that many values are som
 To your specific question about rounding from 17 to 20: This was done prior to the tabular rounding to take into account the specific text from citet:kochtitzky_2023 who write, "Because our fluxgates were typically located tens to hundreds of meters lower than those in the similar studies (King et al., 2018; Mankoff et al., 2020), the melt correction for these studies would be higher than values presented herein, although it is beyond the scope of the current study to determine what those values would be". which is why we believe using the citet:kochtitzky_2023 value of 17 Gt yr^{-1} is too low.
 
 We have added text describing this in more detail.
+
+{{{BEGIN_NEWTXT}}}
+The elevation of flux gates used by Mankoff citet:mankoff_2020_solid were typically located tens to hundreds of meters higher (and therefore further from the calving front) than the flux gates used by citet:kochtitzky_2023. We estimate an average of ~3 Gt yr^{-1} are lost to surface melt while the ice transits this region. When estimating discharge from the perimeter of the ice sheet, we therefore subtract 20 Gt/yr from the more inland observations by citet:mankoff_2020_solid [...]
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
 Line 154: Not all glaciers in Greenland calve at the grounding line – some have floating fronts (seasonally or year-round), even if not typically considered to have an ice shelf (e.g., Jakobshavn, Helheim).
@@ -272,6 +312,11 @@ Lines 260-263 – Rounding: What is the reasoning for this rounding? Just becaus
 
 {{{BEGIN_REPLY}}}
 Correct. Added a clarification.
+
+{{{BEGIN_NEWTXT}}}
+In Table 2 we round to the nearest whole number, except values between 0 and 0.5 which are rounded up to 1. Everywhere else values are rounded to the nearest 5, except values between 0 and 2.5 which are rounded up to 5. We choose to round because because sub-decimal precision of terms presented here seems unlikely to be correct, even if it is correct it is not relevant to results, and for aesthetic reasons.
+{{{END_NEWTXT}}}
+
 {{{END_REPLY}}}
 
 Line 412: But is it really “total ice sheet mass change,” or does it also include the peripheral glaciers?
