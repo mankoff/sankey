@@ -44,8 +44,13 @@ See [[./ms.org]]
 * Results
 
 #+BEGIN_QUOTE
-[!NOTE]  
-All figures are width-proportional within and between each other.
+[!NOTE]
+
+Sankey diagrams are generally intuitive, but the following may still be helpful in interpreting the diagrams shown here.
+
+The widths of all lines are all proportional to each other both within and among Figures.
+
+Sankey diagrams balance all inputs and outputs, which introduces a complication for the use case here due to the mass imbalance. Traditionally, when a Sankey diagram has a loss term it is an output. In Greenland, outputs are greater than inputs, so mass loss must then be a balancing input representing drawdown of the historical ice mass or retreat of the ice sheet boundary.
 #+END_QUOTE
 
 #+CALL: pdfs2png()
