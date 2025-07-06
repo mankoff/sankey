@@ -257,6 +257,9 @@ Frontal advance &   &   &   & 192 & 2 & 1 & 5 & I & 2010-2021 & \citet{greene_20
 
 * Methods
 
+The full methods (source code) for this manuscript can be found at
+https://doi.org/10.5281/zenodo.15819650 which archives and assigns a DOI to releases made from the source code repository at https://github.com/mankoff/sankey.
+
 Below we detail the source of each mass flow term. We begin with the outputs as these are generally of broader interest, followed by the inputs. We then describe how net mass loss or gain are computed, and how uncertainty is estimated. Finally, we address other methods such as regional separation, temporal alignment, and rounding.
 
 ** Outputs
@@ -749,7 +752,7 @@ Software: We thank citep:sankey for the \LaTeX\enspace TikZ Sankey package, and 
 
 There are several software packages that support creating Sankey diagrams with various levels of complexity and control. The four applications we found, in order from easiest and most limited to most complex and feature-full are the Mermaid diagram tool, Plotly (which can be used from Python, R, or other popular languages), Matplotlib, and finally \LaTeX.
 
-The simplest Mermaid option is produced with only a CSV file of the format 'in,out,value'. Neither order nor closure (balance) is important, and a user has limited control over layout and color, although a user can edit things later manually if generating SVG format. We used Mermaid to generate the Sankey diagram in Appendix C, and the source for this diagram can be found in the supplemental source at http://doi.org/10.5281/zenodo.14624614 file =mermaid.org=. Mermaid diagrams in Markdown files on GitHub render directly in the browser from the data (no saved image file).
+The simplest Mermaid option is produced with only a CSV file of the format 'in,out,value'. Neither order nor closure (balance) is important, and a user has limited control over layout and color, although a user can edit things later manually if generating SVG format. We used Mermaid to generate the Sankey diagram in Appendix C, and the source for this diagram can be found in the supplemental source at https://doi.org/10.5281/zenodo.15819650 file =mermaid.org=. Mermaid diagrams in Markdown files on GitHub render directly in the browser from the data (no saved image file).
 
 The main Sankey diagrams shown here are generated using a \LaTeX\enspace template that uses the TikZ Sankey package citep:sankey. We use a script that inserts CSV tables into the template. This architecture makes it trivial to generate similar diagrams for other time periods (e.g., a Sankey diagram per year), differences between time periods, other regions (for example, on diagram per glacier basin), etc.
 
