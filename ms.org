@@ -760,7 +760,7 @@ The main Sankey diagrams shown here are generated using a \LaTeX\enspace templat
 
 \label{appendix:aq_regions}
 
-Figure \ref{fig:aq_regions} shows Figure \ref{fig:aq} split by East, West, and Peninsula regions
+Figure \ref{fig:aq_regions} shows Antarctica (Fig. \ref{fig:aq}) split by East, West, and Peninsula regions
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{aq_E.pdf}}
