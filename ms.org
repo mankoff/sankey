@@ -425,7 +425,7 @@ All mass flow terms and values for each term are shown in Tables \ref{tab:gl} an
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{gl_baseline.pdf}}
-\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head) and come from IO column of Table \ref{tab:gl}. Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs. Mass loss inputs are additional flow through the system, the source being historical ice not represented by the other inputs.}
+\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head) and come from IO column of Table \ref{tab:gl}. Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs.}
 \label{fig:gl}
 \end{figure*}
 
