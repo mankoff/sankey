@@ -11,7 +11,7 @@
 
 \selectcolormodel{cmyk} % Can be rbg or cmyk, cmyk is better for printing
 
-\begin{tikzpicture}[remember picture, overlay, shift={(5,-5)}]
+\begin{tikzpicture}[remember picture, overlay, shift={(1,-5)}]
 
   \begin{sankeydiagram}
     %% \sankeyset{debug=true}
@@ -66,8 +66,8 @@
         inner sep=.1em,
         fill=white,fill opacity=0.5,
         rounded corners=.1em,
-        %% node contents={\name: \qty},
-        node contents={\qty},
+        node contents={\name: \qty},
+        %node contents={\qty},
         %% node contents={\name},
       },
     }
@@ -141,14 +141,14 @@
       at={[yshift=-\yoff]SF.south}, anchor=left}
 
     \ifthenelse{\Q{vML} > \Q{vMG}} { % mass loss
-      \sankeynode{name=f1, at={[xshift=30mm, yshift=\yoff]SHELFFREEZE.south}, anchor=right,
+      \sankeynode{name=f1, at={[xshift=30mm, yshift=0mm]RFi.north}, anchor=left,
         quantity=\qq{SMBIN}+\Q{vFRONTADV}+\Q{vSHELFFREEZE}+\Q{vML}+\Q{vRFZ},
-        forked={\Q{vRFZ}/RFZi, \Q{vFRONTADV}/FG, \Q{vML}/MLi,
-          \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi}}
+        forked={\Q{vRFZ}/RFZi, \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi,
+          \Q{vML}/MLi, \Q{vFRONTADV}/FG}}
     } { % mass gain edge case
-      \sankeynode{name=f1, at={[xshift=30mm, yshift=\yoff]SHELFFREEZE.south}, anchor=right,
+      \sankeynode{name=f1, at={[xshift=30mm, yshift=0mm]RFi.north}, anchor=left,
         quantity=\qq{SMBIN}+\Q{vFRONTADV}+\Q{vSHELFFREEZE}+\Q{vRFZ},
-        forked={\Q{vRFZ}/RFZi, \Q{vFRONTADV}/FG, \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi}}
+        forked={\Q{vRFZ}/RFZi, \qq{SMBIN}/SMBINi, \Q{vSHELFFREEZE}/SHELFFREEZEi, \Q{vFRONTADV}/FG}}
     }
     
     \sankeyoutin{SMBIN}{SMBINi}
@@ -173,7 +173,7 @@
     \sankeydubins[minimum radius=5mm,ice-to-water-vert]{RFZo}{RFZi}
     \node[font=\tiny, anchor=east]
            at ([yshift=+1.5mm,xshift=1mm]RFZo.north) {\Lab{vRFZ}: \qq{RFZi}};
-
+ 
     \ifthenelse{\Q{vFRONTMELT} > \Q{vSHELFMELT}} { % Greenland
       %% Discharge splits to FRONTMELT (straight) & CALV (above).
       %% SHELFMELT below FRONTMELT. FRONTRET below SHELFMELT.
@@ -249,34 +249,23 @@
     \sankeyadvance{CALVa}{10mm}; \sankeyend{CALVa}; \labelright{CALVa}{vCALV}
     
     \ifthenelse{\Q{vMG} < \Q{vML}} { % mass loss
-      \sankeynode{name=ML, quantity=\Q{vML},
-        at={[yshift=6mm]RF.north}, anchor=right, angle=-45}
-      \node[font=\tiny, anchor=east]
-      at ([xshift=-3mm,yshift=2mm]ML.west) {Mass loss: \qq{ML}};
-
-      % frontal advance next to drawdown (mass loss)
-      \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
-        at={[yshift=0mm,xshift=6mm]ML.left}, anchor=right, angle=-45}
-
-      \sankeystart[red]{ML}
-      \sankeyadvance[red]{ML}{5mm}
-      \sankeyoutin[red-to-ice]{ML}{MLi}
+      \sankeynode{name=ML, quantity=\Q{vML}, at={[xshift=-15mm,yshift=-\yoff]MLi.south}, anchor=right}
+      \sankeyadvance{ML}{1mm} \sankeydubins{ML}{MLi}
+      \draw[<-,gray] ([xshift=-2mm]ML.west) -- ++(-10mm,0)
+      node[left,font=\tiny,anchor=east,text=black] {Mass loss: \Q{vML}};
     }{ % mass gain
-      \sankeynode{name=MGa, quantity=\qq{MG}, angle=-35,
-        at={[xshift=5mm,yshift=-3mm]MG.right}, anchor=right}
-      \node[font=\tiny, anchor=east]
-        at ([yshift=0mm,xshift=0mm]MGa.right) {Mass gain: \qq{MGa}};
-      \sankeyoutin[ice-to-black]{MG}{MGa}; \sankeyadvance[black]{MGa}{3mm}
-      \sankeyend[black]{MGa}
-      \sankeynode{name=FRONTADVi, quantity=\Q{vFRONTADV},
-        at={[xshift=-15mm,yshift=8mm]RFZi.right}, anchor=left, angle=-45}
+      \sankeyturnleft{MG}{-15} \sankeyadvance{MG}{10mm} % \sankeyturnleft{MG}{15}
+      \draw[<-,gray] ([xshift=1mm]MG.east)
+      .. controls +(5mm,0) and +(0,0mm) .. ++(5mm,-5mm)
+      node[below,font=\tiny,text=black] {Mass gain: \qq{MG}};
     }
 
-    \ifnum \numexpr\qq{FRONTADVi} > 0
-      \sankeystart[in-black]{FRONTADVi}
-      \sankeyoutin[in-black]{FRONTADVi}{FG}
-      \node[font=\tiny, anchor=east]
-          at ([xshift=-3mm,yshift=3mm]FRONTADVi.west) {Frontal advance: \qq{FRONTADVi}};
+    \ifnum \numexpr\Q{vFRONTADV} > 0
+      \sankeynode{name=FG0, quantity=\qq{FG}, at={[xshift=-15mm,yshift=-6mm]FG.south}, anchor=right}
+      \sankeyadvance{FG0}{1mm} \sankeydubins{FG0}{FG}
+    
+      \draw[<-,gray] ([xshift=-2mm]FG0.west) -- ++(-10mm,0)
+      node[left,font=\tiny,anchor=east,text=black] {Frontal advance: \qq{FG}};
     \fi
 
     %% % fancy labels

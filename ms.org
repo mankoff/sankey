@@ -108,7 +108,7 @@ The widths of all lines are all proportional to each other both within and among
 
 Sankey diagrams balance all inputs and outputs, which introduces a complication for the use case here due to the mass imbalance. Traditionally, when a Sankey diagram has a loss term, it is an output. For example, all engines have energy inputs greater than outputs, the ratio between the two is a measure of efficiency, and the energy lost between input and output is displayed as an additional output.
 
-In the Sankey diagrams here with net mass loss (drawdown or retreat), outputs are greater than inputs, so mass loss must then be a balancing input representing drawdown of the historical ice mass or retreat of the ice sheet boundary (orange arrows in Figs. \ref{fig:gl}, \ref{fig:aq}). In the Sankey diagrams with net mass gain (build-up or expansion), inputs are larger than outputs, so mass gain is a balancing output representing ice build-up or boundary expansion.
+In the Sankey diagrams here with net mass loss (drawdown or retreat), outputs are greater than inputs, so mass loss must then be a balancing input representing drawdown of the historical ice mass or retreat of the ice sheet boundary. In the Sankey diagrams with net mass gain (build-up or expansion), inputs are larger than outputs, so mass gain is a balancing output representing ice build-up or boundary expansion. We show these terms by truncating the input (mass loss) or output (mass gain) arrows in Figs. \ref{fig:gl} and \ref{fig:aq}.
 
 Finally, the Sankey diagrams shown here are simplistic representations of mass flow across the three ice sheet boundaries (atmospheric, subglacial, and oceanic). We combine all inputs and outputs, not distinguishing between inputs over grounded ice vs. inputs over ice shelves, or other display options. However, alternate displays are possible, and a more complex display is shown in Appendix C which separates inputs and outputs by region (grounded, floating) in Antarctica.
 
@@ -427,7 +427,7 @@ All mass flow terms and values for each term are shown in Tables \ref{tab:gl} an
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{gl_baseline.pdf}}
-\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head) and come from IO column of Table \ref{tab:gl}. Because Sankey diagrams balance all inputs and outputs, mass losses require an input (red) to balance the larger outputs.}
+\caption{Sankey mass flow diagram for Greenland. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. Gray is solid phase, blue is liquid phase, and yellow is gas phase. Inputs (left, arrow tail) are balanced by outputs (right, arrow head) and come from IO column of Table \ref{tab:gl}. Because Sankey diagrams balance all inputs and outputs, mass losses require an input to balance the larger outputs.}
 \label{fig:gl}
 \end{figure*}
 
@@ -609,7 +609,7 @@ Finally, although we argue for gross, not net, and inclusion of constituent term
 
 We have been using the terms `mass loss' vs `mass gain' or `drawdown or retreat' vs `build-up or expansion'. The specific cause of these processes can be thought of as a recursive application of the methods, tables, and graphics here. That is, the imbalance is due to changes from some balanced baseline and the changes are likely all of the terms here - decreases or increases of inputs offset by decreases or increases of outputs.
 
-For example, the red `mass loss' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
+For example, the `mass loss' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady-state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
 
 ** Freshwater export, mass loss, and anomalies
 
