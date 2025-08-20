@@ -33,10 +33,7 @@ $(TMPDIR):
 
 %.pdf: $(CSVDIR)/%.csv %.tex sankey.tex Makefile ## Make a PDF
 	$(LATEXCMD) $(LATEXOPTS) ./tmp/$*.tex
-	# mv ./tmp/$*.pdf $*.pdf
-	# pdfcrop -bbox "100 325 480 660" tmp/$*.pdf # L B W H
-	# mv ./tmp/$*-crop.pdf $*.pdf
-	pdfcrop tmp/$*.pdf # L B W H
+	pdfcrop --margins 3 tmp/$*.pdf # L B W H
 	mv ./tmp/$*-crop.pdf $*.pdf
 
 %.tex: ${CSVDIR}/%.csv
