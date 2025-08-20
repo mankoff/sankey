@@ -304,6 +304,8 @@ Grounded ice basal melt citep:karlsson_2021,van-liefferinge_2013 comes from geot
 
 Frontal advance is provided with the frontal retreat from citet:greene_2022 in Antarctica. There is no frontal advance in Greenland provided by the decadal estimates from citet:kochtitzky_2023. Advance (plus retreat) provides the non steady state component of calving in Antarctica, and calving plus frontal melt in Greenland.
 
+Frontal advance is not technically a mass input, but a lack of mass output via reduced calving, which is why it is shown as a truncated input, similar to the mass loss input. The products that provide frontal advance do take into account thinning, so it is mass gain (via reduced mass loss), not just a re-arrangement of the existing mass through expansion where the frontal advance is directly balanced by a reduction in thickness elsewhere.
+
 *** Rainfall, condensation, deposition, and snowfall
 
 These SMB inputs come from the MAR model. In reality, some rainfall leaves directly as runoff or evaporation, as not all precipitation freezes to ice. We neglect this level of detail here for simplicity.
