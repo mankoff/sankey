@@ -741,7 +741,7 @@ No authors have any conflict of interest with the work presented here.
 
 Funding: KDM was supported by the NASA Modeling, Analysis and Prediction program. ASG and CAG contributions were carried out at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration (80NM0018D0004).
 
-People: We thank Andreas Ahlstrøm and Nanna Karlsson for additional comments on this paper. We thank the three reviewers for their comments that helped improved the manuscript.
+People: We thank Andreas Ahlstrøm and Nanna Karlsson for additional comments on this paper, and Kristin Poinar for suggesting improvements to the Sankey figure. We thank Aman KC and two additional reviewers for their comments that helped improved the manuscript.
 
 Software: We thank citep:sankey for the \LaTeX\enspace TikZ Sankey package, and citet:cogley_2011 for a reference graphic. Analysis was aided by the software packages Pandas citep:pandas_team, GeoPandas citep:geopandas, Xarray citep:xarray, and GRASS GIS citep:GRASS, among other tools.
 
