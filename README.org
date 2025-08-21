@@ -153,6 +153,10 @@ dyn -> bmb
 
 ** Greenland
 
+#+CALL: orgtbl2csv(tbl=gl_baseline, csv="gl_baseline")
+
+#+RESULTS:
+
 #+NAME: gl_baseline
 | ID          | Term                      |    Value | Unc. | IO  |    Period | Source                                         |
 |-------------+---------------------------+----------+------+-----+-----------+------------------------------------------------|
@@ -174,11 +178,6 @@ dyn -> bmb
 | GZADV       | Grounding line advance    |        0 |    ? | I_g |           |                                                |
 | FRONTRET    | Frontal retreat           |       50 |    5 | O_o | 2010-2020 | kochtitzky_2023                                |
 | FRONTADV    | Frontal advance           |        0 |      | I_o | 2010-2020 | kochtitzky_2023                                |
-
-#+CALL: orgtbl2csv(tbl="gl_baseline")
-
-#+RESULTS:
-: Exported gl_baseline to ./dat/gl_baseline.csv
 
 *** Reset
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -484,6 +483,14 @@ print(df['2010-01-01':'2019-12-31'].mean())
 
 
 ** Antarctica
+
+#+CALL: orgtbl2csv(tbl=aq, csv="aq")
+
+#+RESULTS:
+: Exported aq to ./dat/aq_All.csv
+: Exported aq to ./dat/aq_E.csv
+: Exported aq to ./dat/aq_W.csv
+: Exported aq to ./dat/aq_P.csv
 
 #+NAME: aq
 | ID          | Term                      | East_g | West_g | Peninsula_g | East_s | West_s | Peninsula_s |    Unc. | IO |    Period | Source                                                         |
@@ -1643,16 +1650,54 @@ print(df['mass'].resample('YS').mean().diff().mean(), '+-', df['err'].resample('
 ** Export tables to CSVs
 
 #+NAME: orgtbl2csv
-#+BEGIN_SRC emacs-lisp :var tbl="" :colnames no
-(save-excursion
-  (goto-char (point-min))
-  (re-search-forward (concat "^#\\+name: " tbl) nil t)
-  (next-line)
-  (org-table-export (concat "./dat/" tbl ".csv") "orgtbl-to-csv")
-  ;;(shell-command-to-string (concat "head " tbl ".csv"))
-  (message (concat "Exported " tbl " to " (concat "./dat/" tbl ".csv")))
-  )
+#+BEGIN_SRC jupyter-python :exports both :var tbl=aq :var csv="aq" :colnames no
+import numpy as np
+import pandas as pd
+
+tbl = np.array(tbl)
+df = pd.DataFrame(tbl[1:,1:], index=tbl[1:,0], columns=tbl[0,1:])
+df.index.name='ID'
+
+if not('East_g' in df.columns): # GL!
+    # GL has values like "x+y". Collapse them.
+    for i,v in zip(df.index,df['Value']):
+        df.loc[i,'Value'] = eval(v)
+    df.to_csv('dat/' + csv + '.csv')
+    print(f"Exported {csv} to ./dat/{csv}.csv")
+    exit
+
+### AQ     
+df = df.drop(columns=['Period','Source','IO','Unc.'])
+
+def round_to_nearest_5(s):
+    s = s / 5
+    if ((s < 1) & (s > 0)): s = 1
+    s = (5 * np.round(s)).astype(int)
+    return s
+
+# All
+c = ['East_g','West_g','Peninsula_g','East_s','West_s','Peninsula_s']
+for cc in c: df[cc] = df[cc].astype(int)
+df['Value'] = df[c].sum(axis='columns')
+df['Value'] = df['Value'].apply(round_to_nearest_5)
+df[['Term','Value']].to_csv(f"dat/aq_All.csv")
+print(f"Exported {csv} to ./dat/aq_All.csv")
+
+for r in ['East','West','Peninsula']:
+    c = [r+'_g',r+'_s']
+    for cc in c: df[cc] = df[cc].astype(int)
+    df['Value'] = df[c].sum(axis='columns')
+    df['Value'] = df['Value'].apply(round_to_nearest_5)
+    r0 = r[0]
+    df[['Term','Value']].to_csv(f"dat/{csv}_{r0}.csv")
+    print(f"Exported {csv} to ./dat/{csv}_{r0}.csv")
 #+END_SRC
+
+#+RESULTS: orgtbl2csv
+: Exported aq to ./dat/aq_All.csv
+: Exported aq to ./dat/aq_E.csv
+: Exported aq to ./dat/aq_W.csv
+: Exported aq to ./dat/aq_P.csv
 
 ** Convert PDFs to PNG
 

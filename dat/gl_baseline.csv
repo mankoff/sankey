@@ -8,7 +8,7 @@ RU,Runoff,435,15,O_g,2010-2019,fettweis_2020
 SU,Sublimation,60,15,O_g,2010-2019,fettweis_2020
 RFZ,Refreezing,200,15,,2010-2019,fettweis_2020
 BMB,Grounded ice basal melt,20,20,O_g,steady,karlsson_2021
-DISCH,Discharge,485-20+5,10,,2010-2019,"mankoff_2020_solid,kochtitzky_2023,bollen_2023"
+DISCH,Discharge,470,10,,2010-2019,"mankoff_2020_solid,kochtitzky_2023,bollen_2023"
 CALV,Calving,235,30,O_o,,rignot_2010
 FRONTMELT,Frontal melt,235,30,O_o,,rignot_2010
 SHELFMELT,Ice shelf basal melt,25,40,O_o,2013-2022,wang_2024
