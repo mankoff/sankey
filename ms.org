@@ -662,6 +662,8 @@ These figures and tables neglect some mass flow processes (some of which are inc
 
 Neglected processes include grounded ice basal freeze-on (c.f., citet:bell_2014). Grounded ice basal melt estimates currently assume all melt leaves the ice sheet and is therefore mass loss. That seems unlikely, given both observations of freeze-on citep:bell_2014 and that some melt, especially from the geothermal term (c.f., citet:karlsson_2021) occurs under thick ice far inland and far from active subglacial conduits. That is, there should be a separate term and second `refreezing' loop at the bottom of the Sankey diagrams to represent basal refreezing.
 
+Similarly, englacial storage may modify the runoff term. Steady state englacial storage does not modify the magnitude, but does impact the timing of runoff, which does not change these decade-scale Sankey diagrams, but would change seasonal scale diagrams. If englacial storage changes magnitude in either direction, this has a direct impact on runoff magnitude.
+
 Sub-aqueous frontal melt is excluded in Antarctica, because it is usually excluded in the literature that focuses on ice shelf basal melt or calving. This term is implicitly included in the calving estimates. This process remains unquantified on ice-sheet wide scales.
 
 Subaerial frontal melt and sublimation of the vertical face above the water line \cite[][Figure 2]{cogley_2011} is not explicitly treated but is included in other terms.
