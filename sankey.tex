@@ -199,12 +199,14 @@
       \sankeynode{name=SHELFMELTa, quantity=\qq{SHELFMELT},
         at={[yshift=0, xshift=20mm]SHELFMELT.right}, anchor=right}
 
-      \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
-        at={[yshift=-\yoff]SHELFMELT.right}}
+      \ifnum \numexpr\Q{vFRONTRET} > 0
+        \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
+          at={[yshift=-\yoff]SHELFMELT.right}}
+        \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
+          at={[yshift=-\yoff]SHELFMELTa.right}, anchor=left}
+      \fi
       \sankeynode{name=CALVa, quantity=\qq{CALV},
         at={[yshift=\yoff,xshift=0mm]SHELFMELTa.left}, anchor=right}
-      \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET},
-        at={[yshift=-\yoff]SHELFMELTa.right}, anchor=left}
     }
 
     \sankeyset{ice}
@@ -214,18 +216,21 @@
     \labelright{SHELFMELTa}{vSHELFMELT}
         
     %% \sankeynode{name=FRONTRETa, quantity=\qq{FRONTRET}, at={[yshift=-\yoff]SHELFMELTa.right}}
-    \sankeyoutin[out-blue]{FRONTRET}{FRONTRETa};
-
-    \sankeynode{name=GZa, quantity=\qq{GZ}, at={[yshift=-\yoff]FRONTRETa.right}, anchor=left}
-    
+    \ifthenelse{\Q{vFRONTRET} > 0} {
+      \sankeyoutin[out-blue]{FRONTRET}{FRONTRETa};
+      \sankeynode{name=GZa, quantity=\qq{GZ}, at={[yshift=-\yoff]FRONTRETa.right}, anchor=left}
+      \sankeyadvance[out-blue]{FRONTRETa}{10mm}; 
+      \sankeyend[out-blue]{FRONTRETa}; \labelright{FRONTRETa}{vFRONTRET}
+    } {
+      \sankeynode{name=GZa, quantity=\qq{GZ}, at={[xshift=-10mm,yshift=-\yoff]SHELFMELTa.right}, anchor=left}
+    }
+     
     \sankeynode{name=BMBa, quantity=\qq{BMB}, at={[yshift=-\yoff]GZa.right}, anchor=left}
     \sankeyoutin[ice-to-water]{BMB}{BMBa}; \sankeyadvance[water]{BMBa}{10mm};
     \sankeyend[water]{BMBa}; \labelright{BMBa}{vBMB}
 
     \sankeyoutin[ice-to-water]{GZ}{GZa}; \sankeyadvance[water]{GZa}{10mm};
     \sankeyend[water]{GZa}; \labelright{GZa}{vGZRET}
-    \sankeyadvance[out-blue]{FRONTRETa}{10mm}; 
-    \sankeyend[out-blue]{FRONTRETa}; \labelright{FRONTRETa}{vFRONTRET}
     
     \sankeyadvance{CALV}{5mm};
     \sankeyoutin{CALV}{CALVa};

@@ -9,11 +9,11 @@ RU,Runoff,10
 SU,Sublimation,235
 BMB,Grounded ice basal melt,70
 DISCH,Discharge,2340
-CALV,Calving,1775
+CALV,Calving,1980
 FRONTMELT,Frontal melt,0
 SHELFMELT,Ice shelf basal melt,1375
 SHELFFREEZE,Ice shelf basal freeze-on,365
 GZRET,Grounding line retreat,45
 GZADV,Grounding line advance,0
-FRONTRET,Frontal retreat,400
-FRONTADV,Frontal advance,195
+FRONTRET,Frontal retreat,0
+FRONTADV,Frontal advance,0

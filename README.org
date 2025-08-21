@@ -1650,7 +1650,9 @@ print(df['mass'].resample('YS').mean().diff().mean(), '+-', df['err'].resample('
 ** Export tables to CSVs
 
 #+NAME: orgtbl2csv
-#+BEGIN_SRC jupyter-python :exports both :var tbl=aq :var csv="aq" :colnames no
+#+HEADER: :var tbl=gl_baseline :var csv="gl_baseline" 
+#+HEADER: :var tbl=aq :var csv="aq" 
+#+BEGIN_SRC jupyter-python :exports both :colnames no
 import numpy as np
 import pandas as pd
 
@@ -1662,6 +1664,13 @@ if not('East_g' in df.columns): # GL!
     # GL has values like "x+y". Collapse them.
     for i,v in zip(df.index,df['Value']):
         df.loc[i,'Value'] = eval(v)
+
+    df.loc['CALV','Value'] += (df.loc['FRONTRET','Value'] - df.loc['FRONTADV','Value'])/2
+    df.loc['FRONTMELT','Value'] += (df.loc['FRONTRET','Value'] - df.loc['FRONTADV','Value'])/2
+    df.loc['FRONTADV','Value'] = 0
+    df.loc['FRONTRET','Value'] = 0
+    df['Value'] = df['Value'].apply(round_to_nearest_5)
+
     df.to_csv('dat/' + csv + '.csv')
     print(f"Exported {csv} to ./dat/{csv}.csv")
     exit
@@ -1675,10 +1684,24 @@ def round_to_nearest_5(s):
     s = (5 * np.round(s)).astype(int)
     return s
 
+def adj_front_adv_ret(df):
+    if df.loc['FRONTADV','Value'] > df.loc['FRONTRET','Value']:
+        df.loc['FRONTADV','Value'] -= df.loc['FRONTRET','Value']
+        df.loc['FRONTRET','Value'] = 0
+    else:
+        df.loc['FRONTRET','Value'] -= df.loc['FRONTADV','Value']
+        df.loc['FRONTADV','Value'] = 0
+
+    df.loc['CALV','Value'] += (df.loc['FRONTRET','Value'] - df.loc['FRONTADV','Value'])
+    df.loc['FRONTADV','Value'] = 0
+    df.loc['FRONTRET','Value'] = 0
+    return df
+
 # All
 c = ['East_g','West_g','Peninsula_g','East_s','West_s','Peninsula_s']
 for cc in c: df[cc] = df[cc].astype(int)
 df['Value'] = df[c].sum(axis='columns')
+df = adj_front_adv_ret(df)
 df['Value'] = df['Value'].apply(round_to_nearest_5)
 df[['Term','Value']].to_csv(f"dat/aq_All.csv")
 print(f"Exported {csv} to ./dat/aq_All.csv")
@@ -1688,6 +1711,7 @@ for r in ['East','West','Peninsula']:
     for cc in c: df[cc] = df[cc].astype(int)
     df['Value'] = df[c].sum(axis='columns')
     df['Value'] = df['Value'].apply(round_to_nearest_5)
+    df = adj_front_adv_ret(df)
     r0 = r[0]
     df[['Term','Value']].to_csv(f"dat/{csv}_{r0}.csv")
     print(f"Exported {csv} to ./dat/{csv}_{r0}.csv")
