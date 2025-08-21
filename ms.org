@@ -5,8 +5,8 @@
 \author[Mankoff and others]
 {Kenneth D. MANKOFF$^{1,2}$,
 Chad A. GREENE$^{3}$,
-Benjamin DAVISON$^{4}$,
 Alex S. GARDNER$^{3}$,
+Benjamin DAVISON$^{4}$,
 Désirée TREICHLER$^{5}$,
 Will KOCHTITZKY$^{6}$,
 Brice VAN LIEFFERINGE$^{7}$,
