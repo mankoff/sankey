@@ -86,11 +86,11 @@
     \newcommand\qq[1]{\sankeygetnodeqty{#1}}
 
     \newcommand\labelleft[1]{ % valname
-      \node[font=\tiny, anchor=east]
+      \node[font=\small, anchor=east]
       at ([yshift=0mm,xshift=-3mm]#1.center) {\Lab{v#1}: \qq{#1}};
     }
     \newcommand\labelright[2]{ % valname
-      \node[font=\tiny, anchor=west]
+      \node[font=\small, anchor=west]
       at ([yshift=0mm,xshift=3mm]#1.center) {\qq{#1}: \Lab{#2}};
     }
 
@@ -170,8 +170,8 @@
     }
     \sankeyturnleft{RFZo}{1}
     \sankeydubins[minimum radius=5mm,ice-to-water-vert]{RFZo}{RFZi}
-    \node[font=\tiny, anchor=east]
-           at ([yshift=+1.5mm,xshift=1mm]RFZo.north) {\Lab{vRFZ}: \qq{RFZi}};
+    \node[font=\small, anchor=east]
+           at ([yshift=+4.5mm,xshift=5mm]RFZo.north) {\Lab{vRFZ}: \qq{RFZi}};
  
     \ifthenelse{\Q{vFRONTMELT} > \Q{vSHELFMELT}} { % Greenland
       %% Discharge splits to FRONTMELT (straight) & CALV (above).
@@ -225,13 +225,13 @@
       at={[yshift=\yoff,xshift=5mm]RUEVa.left}, anchor=left, angle=45}
     \sankeyoutin[water-to-air]{EV}{EVa}; \sankeyadvance[air]{EVa}{1mm}
     \sankeyend[air]{EVa};
-    \node[font=\tiny, anchor=west] at ([yshift=0mm,xshift=\yoff]EVa.west) {\qq{EVa}: \Lab{vEV}};
+    \node[font=\small, anchor=west] at ([yshift=0mm,xshift=\yoff]EVa.west) {\qq{EVa}: \Lab{vEV}};
 
     \sankeyadvance[water]{RU}{10mm}; \sankeyend[water]{RU}; \labelright{RU}{vRU}
 
     \sankeynode{name=SUa, quantity=\qq{SU}, at={[xshift=-6mm]EVa.left}, anchor=right, angle=45}
     \sankeydubins[minimum radius=6mm,ice-to-air]{SU}{SUa}; \sankeyend[air]{SUa}
-    \node[font=\tiny, anchor=west] at ([yshift=4mm,xshift=\yoff]SUa.west) {\qq{SUa}: \Lab{vSU}};
+    \node[font=\small, anchor=west] at ([yshift=4mm,xshift=\yoff]SUa.west) {\qq{SUa}: \Lab{vSU}};
 
     \sankeyadvance{CALVa}{10mm}; \sankeyend{CALVa}; \labelright{CALVa}{vCALV}
     
@@ -239,12 +239,12 @@
       \sankeynode{name=ML, quantity=\Q{vML}, at={[xshift=-15mm,yshift=-\yoff]MLi.south}, anchor=right}
       \sankeyadvance{ML}{1mm} \sankeydubins{ML}{MLi}
       \draw[<-,gray] ([xshift=-2mm]ML.west) -- ++(-10mm,0)
-      node[left,font=\tiny,anchor=east,text=black] {Mass loss: \Q{vML}};
+      node[left,font=\small,anchor=east,text=black] {Mass loss: \Q{vML}};
     }{ % mass gain
       \sankeyturnleft{MG}{-15} \sankeyadvance{MG}{10mm} % \sankeyturnleft{MG}{15}
       \draw[<-,gray] ([xshift=1mm]MG.east)
       .. controls +(5mm,0) and +(0,0mm) .. ++(5mm,-5mm)
-      node[below,font=\tiny,text=black] {Mass gain: \qq{MG}};
+      node[below,font=\small,text=black] {Mass gain: \qq{MG}};
     }
 
     %% % fancy labels
