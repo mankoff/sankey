@@ -162,7 +162,7 @@ print(df.to_latex())
 #+END_SRC
 
 #+BEGIN_latex
-\begin{table*}[htbp]
+\begin{table*}
 \caption{Greenland mass flow terms, values [Gt yr\textsuperscript{-1}], uncertainty (Unc.) [\%], and metadata. IO encodes input (I) or output (O) to or from grounded ice (subscript g) or ocean (subscript o). The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components. Some terms in the table are combined in the graphics -- see Methods}
 \label{tab:gl}
 \centering
@@ -223,7 +223,7 @@ print(df.to_latex())
 #+END_SRC
 
 #+BEGIN_latex
-\begin{table*}[htbp]
+\begin{table*}
 \caption{Antarctic mass flow terms. E, W, and P represent East, West, and Peninsula regions respectively. Subscripts g and s represent grounded and shelf components respectively. IO encodes if the Term is an input (I) or an output (O). Values are in units Gt yr\textsuperscript{-1} except Unc. (uncertainty) which is \%. Values are rounded to nearest integer except values < 0.5 are rounded up to 1. (a) Discharge is grounded ice discharge to ice shelves from \citet{davison_2023} plus grounded ice discharge from non-shelf coastal regions and from islands from \citet{rignot_2019}. (b) Calving is ice shelf terminus calving from \citet{greene_2022} plus grounded ice calving from non-shelf coastal regions and from islands from \citet{rignot_2019}. The 15 \% uncertainty reported for the SMB components (top eight rows) is from net SMB, not the individual components. Some terms in the table are combined in the graphics -- see Methods}
 \label{tab:aq}
 \centering
