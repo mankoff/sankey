@@ -96,7 +96,7 @@ Here we use a combination of the IO method over grounded ice, the altimetry meth
 
 Sankey diagrams are graphical representations of flow or movement of any property (e.g., mass, energy, money, etc.). An early and famous use was Charles Minard's Map of Napoleon's Russian Campaign of 1812 (c.f., citet:kraak_2021) that combines the magnitude of active soldiers overlaid on a geographical map. The method was later refined, popularized, and eventually named after Captain Matthew Henry Phineas Riall Sankey who used it to show, among other things, the energy efficiency of a steam engine.
 
-A similar display to the diagrams presented here, by \citet[][Figure 2]{cogley_2011}, shows glacial processes overlaid on a glacier schematic. We build on that work by adding magnitude of processes and making the graphics proportional to magnitudes.
+A similar display to the diagrams presented here, by \citet[][Fig. 2]{cogley_2011}, shows glacial processes overlaid on a glacier schematic. We build on that work by adding magnitude of processes and making the graphics proportional to magnitudes.
 
 Appendix A has details on the software used to generate these Sankey diagrams.
 
@@ -104,17 +104,17 @@ Appendix A has details on the software used to generate these Sankey diagrams.
 
 Sankey diagrams are generally intuitive, but the following section may still be helpful in interpreting the diagrams shown here.
 
-The widths of all lines are all proportional to each other both within and among Figures \ref{fig:gl}, \ref{fig:aq}, and \ref{fig:aq_regions} (Appendix B) but not Fig. \ref{fig:aq_complex} (Appendix C).
+The widths of all lines are all proportional to each other both within and among Figures \ref{fig:gl}, \ref{fig:aq}, and \ref{fig:aq_regions} (Appendix B) but not Figure \ref{fig:aq_complex} (Appendix C).
 
 Sankey diagrams balance all inputs and outputs, which introduces a complication for the use case here due to the mass imbalance. Traditionally, when a Sankey diagram has a loss term, it is an output. For example, all engines have energy inputs greater than outputs, the ratio between the two is a measure of efficiency, and the energy lost between input and output is displayed as an additional output (typically waste heat).
 
-In the Sankey diagrams here with net mass loss (i.e., ice sheet drawdown or retreat), outputs are greater than inputs, so mass loss must then be a balancing input representing drawdown of the historical ice mass or retreat of the ice sheet boundary. In the Sankey diagrams with net mass gain (i.e., build-up or expansion), inputs are larger than outputs, so mass gain is a balancing output representing ice build-up or boundary expansion. These two special terms -- mass loss or gain -- are shown with truncated arrows in Figs. \ref{fig:gl} and \ref{fig:aq}.
+In the Sankey diagrams here with net mass loss (i.e., ice sheet drawdown or retreat), outputs are greater than inputs, so mass loss must then be a balancing input representing drawdown of the historical ice mass or retreat of the ice sheet boundary. In the Sankey diagrams with net mass gain (i.e., build-up or expansion), inputs are larger than outputs, so mass gain is a balancing output representing ice build-up or boundary expansion. These two special terms -- mass loss or gain -- are shown with truncated arrows in Figures \ref{fig:gl} and \ref{fig:aq}.
 
 Finally, the Sankey diagrams shown here are simplistic representations of mass flow across the three ice sheet boundaries (atmospheric, subglacial, and oceanic). We combine all inputs and outputs, not distinguishing between inputs over grounded ice vs. inputs over ice shelves, or other display options. However, alternate displays are possible, and a more complex display is shown in Appendix C which separates inputs and outputs by region (grounded, floating) in Antarctica.
 
 * Terminology
 
-We use the common terms from citet:cogley_2011 with a few clarifying points. We refer readers to Fig. 2 of citet:cogley_2011 for a graphical schematic showing mass flow pathways overlaid on a glacier including phases (solid, liquid, gas), and boundaries (grounded, floating, ocean).
+We use the common terms from citet:cogley_2011 with a few clarifying points. We refer readers to Figure 2 of citet:cogley_2011 for a graphical schematic showing mass flow pathways overlaid on a glacier including phases (solid, liquid, gas), and boundaries (grounded, floating, ocean).
  
 Our estimates of mass flow include all ice in Greenland and Antarctica, including peripheral glaciers.
 
@@ -433,7 +433,7 @@ All mass flow terms and values for each term are shown in Tables \ref{tab:gl} an
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{aq_All.pdf}}
-\caption{Sankey mass flow diagrams for Antarctica. See Fig. \ref{fig:gl} for legend and details.}
+\caption{Sankey mass flow diagrams for Antarctica. See Figure \ref{fig:gl} for legend and details.}
 \label{fig:aq}
 \end{figure*}
 
@@ -611,7 +611,7 @@ Finally, although we argue for gross, not net, and inclusion of constituent term
 
 We have been using the terms `mass loss' vs `mass gain' or `drawdown or retreat' vs `build-up or expansion'. The specific cause of these processes can be thought of as a recursive application of the methods, tables, and graphics here. That is, the imbalance is due to changes from some balanced baseline and the changes are likely all of the terms here - decreases or increases of inputs offset by decreases or increases of outputs.
 
-For example, the `mass loss' input in Fig. \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
+For example, the `mass loss' input in Figure \ref{fig:gl} could be an inset Sankey diagram showing changes in all of the terms relative to some steady state baseline. Similarly, the value in a table for a `mass loss' key could be a single value, or a nested table showing all the terms that contribute to that value. 
 
 ** Freshwater export, mass loss, and anomalies
 
@@ -660,7 +660,7 @@ At the high end, citet:davison_2023 report a cumulative discharge (from grounded
 ** Missing terms, limitations, and simplifications
 \label{sec:limits}
 
-These figures and tables neglect some mass flow processes (some of which are included in \citet[][Figure 2]{cogley_2011}, and simplify others.
+These figures and tables neglect some mass flow processes (some of which are included in \citet[][Fig. 2]{cogley_2011}, and simplify others.
 
 Neglected processes include grounded ice basal freeze-on (c.f., citet:bell_2014). Grounded ice basal melt estimates currently assume all melt leaves the ice sheet and is therefore mass loss. That seems unlikely, given both observations of freeze-on citep:bell_2014 and that some melt, especially from the geothermal term (c.f., citet:karlsson_2021) occurs under thick ice far inland and far from active subglacial conduits. That is, there should be a separate term and second `refreezing' loop at the bottom of the Sankey diagrams to represent basal refreezing.
 
@@ -766,7 +766,7 @@ The main Sankey diagrams shown here are generated using a \LaTeX\enspace templat
 
 \label{appendix:aq_regions}
 
-Figure \ref{fig:aq_regions} shows Antarctica (Fig. \ref{fig:aq}) split by East, West, and Peninsula regions
+Figure \ref{fig:aq_regions} shows Antarctica (Figure \ref{fig:aq}) split by East, West, and Peninsula regions
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{aq_E.pdf}}
@@ -778,9 +778,9 @@ Figure \ref{fig:aq_regions} shows Antarctica (Fig. \ref{fig:aq}) split by East, 
 * Appendix C: Alternative display of Antarctic mass flow: grounded vs shelf
 \label{appendix:sankey_alternate}
 
-The main Sankey diagrams shown here (Figs. \ref{fig:gl} and \ref{fig:aq}) are simplistic representations of mass flow across the three ice sheet boundaries (atmospheric, subglacial, and oceanic). We combine all inputs and outputs, not distinguishing between inputs over grounded ice vs. inputs over ice shelves, or other display options. However, alternate displays are possible. Fig. \ref{fig:aq_complex} is an example of a more complex display, and separates inputs and outputs by region (grounded, floating) in Antarctica.
+The main Sankey diagrams shown here (Figures \ref{fig:gl} and \ref{fig:aq}) are simplistic representations of mass flow across the three ice sheet boundaries (atmospheric, subglacial, and oceanic). We combine all inputs and outputs, not distinguishing between inputs over grounded ice vs. inputs over ice shelves, or other display options. However, alternate displays are possible. Figure \ref{fig:aq_complex} is an example of a more complex display, and separates inputs and outputs by region (grounded, floating) in Antarctica.
 
-This display choice clearly separates grounded and floating ice, but makes it challenging to see, for example, net SMB terms which are readily available in Figs. \ref{fig:gl}, \ref{fig:aq}, and \ref{fig:aq_regions}. Even more involved displays with more branches (and possibly crossed paths) could show all relevant terms both in isolation (e.g., by region and process) and in combination.
+This display choice clearly separates grounded and floating ice, but makes it challenging to see, for example, net SMB terms which are readily available in Figures \ref{fig:gl}, \ref{fig:aq}, and \ref{fig:aq_regions}. Even more involved displays with more branches (and possibly crossed paths) could show all relevant terms both in isolation (e.g., by region and process) and in combination.
 
 \begin{figure*}
 \centering{\includegraphics[width=0.95\textwidth]{mermaid_AQ_gray.png}}
