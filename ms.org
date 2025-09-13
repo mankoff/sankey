@@ -824,6 +824,8 @@ This display choice clearly separates grounded and floating ice, but makes it ch
 
 #+RESULTS: jog-latex-setup
 
+#+LATEX_HEADER_EXTRA: \usepackage{url}
+
 * TODO QC                                               :noexport:
 
 (langtool-check)
