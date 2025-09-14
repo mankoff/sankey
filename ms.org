@@ -784,11 +784,12 @@ This display choice clearly separates grounded and floating ice, but makes it ch
 
 \begin{figure*}
 \centering{\includegraphics[width=0.95\textwidth]{mermaid_AQ_gray.png}}
-\caption{Sankey mass flow diagrams for Antarctica split by grounded (top) vs. floating ice (bottom). Upper and lower figure should be merged at black line, where mass flow output from grounded ice is mass flow input to ice shelves. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. Unlike other figures, here frontal retreat, frontal advance, and calving are shown net not gross as delivered in the upstream products.\label{fig:aq_complex}}
+\caption{Sankey mass flow diagrams for Antarctica split by grounded vs. floating ice. Upper and lower figure should be merged at vertical black bar, where mass flow output from grounded ice is mass flow input to ice shelves. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. Unlike other figures, here frontal retreat, frontal advance, and calving are shown net not gross as delivered in the upstream products.\label{fig:aq_complex}}
 \end{figure*}
 
 
 * LaTeX Setup                                           :noexport:
+
 #+NAME: jog-latex-setup
 #+BEGIN_SRC elisp
 (add-to-list 'org-latex-classes
