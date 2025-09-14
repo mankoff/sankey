@@ -772,7 +772,7 @@ Figure \ref{fig:aq_regions} shows Antarctica (Figure \ref{fig:aq}) split by East
 \centering{\includegraphics[width=0.85\textwidth]{aq_E.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_W.pdf}}
 \centering{\includegraphics[width=0.85\textwidth]{aq_P.pdf}}
-\caption{Sankey mass flow diagrams for three Antarctica regions: East (top), West (middle), and Peninsula (bottom). Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images. In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
+\caption{Sankey mass flow diagrams for three Antarctica regions: East, West, and Peninsula. Numbers are mass flow rate [Gt yr\textsuperscript{-1}]. All widths are proportional within and between images (and Figures \ref{fig:gl} and \ref{fig:aq}). In East Antarctica mass gain is an output at the bottom that balances the diagram, because without it, there are more flows into the system than out of it.\label{fig:aq_regions}}
 \end{figure*}
 
 * Appendix C: Alternative display of Antarctic mass flow: grounded vs shelf

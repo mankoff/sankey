@@ -7,6 +7,8 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 
+\edef\jobnameclean{\detokenize\expandafter{\jobname}}
+
 \begin{document}
 
 \selectcolormodel{cmyk} % Can be rbg or cmyk, cmyk is better for printing
@@ -247,7 +249,15 @@
       node[below,font=\small,text=black] {Mass gain: \qq{MG}};
     }
 
-    %% % fancy labels
+    \ifnum\pdfmatch{E}{\jobname}>0
+    \node at (5.25,0) {East};
+    \else\ifnum\pdfmatch{W}{\jobname}>0
+    \node at (5.25,0) {West};
+    \else\ifnum\pdfmatch{P}{\jobname}>0
+    \node at (5.25,-0.15) {Peninsula};
+    \fi\fi\fi
+
+  %% % fancy labels
     %% \sankeynode[debug]{name=Discharge, at={[xshift=-10mm]DISCH.north}, anchor=left,
     %%   quantity=\Q{vDISCH}}
     %% \sankeynode[debug]{name=SMB Inputs, at={[xshift=3mm]SMBIN.north}, anchor=left,
