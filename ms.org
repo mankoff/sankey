@@ -270,7 +270,7 @@ We use constituent terms (i.e., gross, not net) of surface mass balance from the
 
 *** Calving, frontal melt, and ice shelf basal melt
 
-In Greenland, we use ice discharge across flux gates ~5 km upstream from the grounding lines citep:mankoff_2021. That discharge term at the flux gates is known to overestimate discharge across the downstream grounding line because it neglects SMB losses between the flux gate and grounding line. These losses are estimated at ~17 Gt yr^{-1} by citet:kochtitzky_2023 who uses flux gates closer to the grounding line than the citet:mankoff_2020_solid flux gates. The elevation of flux gates used by citet:mankoff_2020_solid were typically located tens to hundreds of meters higher (and therefore further from the calving front) than the flux gates used by citet:kochtitzky_2023. We estimate an average of ~3 Gt yr^{-1} are lost to surface melt while the ice transits this region. When estimating discharge from the perimeter of the ice sheet, we therefore subtract 20 Gt/yr from the more inland observations by citet:mankoff_2020_solid meaning frontal melt and calving are each reduced by 10 Gt yr^{-1} (see below for discharge split to frontal melt and calving). Peripheral glaciers are not included in the citet:mankoff_2020_solid product, but are added through estimates from citet:bollen_2023.
+In Greenland, we use ice discharge across flux gates ~5 km upstream from the grounding lines citep:mankoff_2021. That discharge term at the flux gates is known to overestimate discharge across the downstream grounding line because it neglects SMB losses between the flux gate and grounding line. These losses are estimated at ~17 Gt yr^{-1} by citet:kochtitzky_2023 who uses flux gates closer to the grounding line than the citet:mankoff_2020_solid flux gates. The elevation of flux gates used by citet:mankoff_2020_solid were typically located tens to hundreds of meters higher (and therefore further from the calving front) than the flux gates used by citet:kochtitzky_2023. We estimate an average of ~3 Gt yr^{-1} are lost to surface melt while the ice transits this region. When estimating discharge from the perimeter of the ice sheet, we therefore subtract 20 Gt yr^{-1} from the more inland observations by citet:mankoff_2020_solid meaning frontal melt and calving are each reduced by 10 Gt yr^{-1} (see below for discharge split to frontal melt and calving). Peripheral glaciers are not included in the citet:mankoff_2020_solid product, but are added through estimates from citet:bollen_2023.
 
 Greenlandic discharge from the flux gates is split into either calving or frontal melt at the calving front, which is the grounding line if no ice shelf is present, or shelf front if an ice shelf is present. This split is highly uncertain and minimally studied, but citet:rignot_2010 estimate that 20 - 80 % of the summer ice-front is directly melted by the ocean for the three glaciers they studied. From this, we split the discharge 50 \pm30 % between calving and frontal melt.
 
@@ -433,7 +433,7 @@ All mass flow terms and values for each term are shown in Tables \ref{tab:gl} an
 
 \begin{figure*}
 \centering{\includegraphics[width=0.85\textwidth]{aq_All.pdf}}
-\caption{Sankey mass flow diagrams for Antarctica. See Figure \ref{fig:gl} for legend and details.}
+\caption{Sankey mass flow diagram for Antarctica. See Figure \ref{fig:gl} for legend and details.}
 \label{fig:aq}
 \end{figure*}
 
@@ -553,7 +553,7 @@ tblout
 #+end_src
 
 #+ATTR_LATEX: :column{1}={gray9}
-#+CAPTION: Net freshwater export mass flow rate for Greenland, Antarctica, and Antarctic regions in Gt yr^{-1} and Sverdrup (10^6 m^3 s^{-1}).\label{tab:results_fw}
+#+CAPTION: Net freshwater export mass flow rate for Greenland, Antarctica, and Antarctic regions in Gt yr^{-1} and Sverdrup (10^6 m^3 s^{-1}).
 #+RESULTS: tab:results_fw
 |                         | Gt yr^{-1}   | Sv             |
 |-------------------------+--------------+----------------|
@@ -578,7 +578,7 @@ In comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm
 # GL marine: 330 - 255 = 75
 
 #+NAME:tab:results_mc
-#+CAPTION: Net mass change flow rate and uncertainty. Grounded, floating, and total columns are estimates from this paper. Uncertainty estimates come from a GMB uncertainty assessment described by citet:groh_2019. \label{tab:results_mc}
+#+CAPTION: Net mass change flow rate and uncertainty. Grounded, floating, and total columns are estimates from this paper. Uncertainty estimates come from a GMB uncertainty assessment described by citet:groh_2019.
 | Region     |            Grounded |              Floating |                 Total | Unc |          GMB | Unc. |
 |            |        [Gt yr^{-1}] |          [Gt yr^{-1}] |          [Gt yr^{-1}] | [%] | [Gt yr^{-1}] |  [%] |
 |------------+---------------------+-----------------------+-----------------------+-----+--------------+------|
@@ -703,6 +703,8 @@ We have also displayed these constituent terms and net values using Sankey diagr
 
 * Author contributions
 
+(TABLE \ref{tab:credit} HERE)
+
 #+NAME: tab:credit
 #+BEGIN_SRC jupyter-python :exports results
 import pandas as pd
@@ -745,7 +747,7 @@ No authors have any conflict of interest with the work presented here.
 
 * Acknowledgments
 
-Funding: KDM was supported by the NASA Modeling, Analysis and Prediction program. ASG and CAG contributions were carried out at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration (80NM0018D0004).
+Funding: Ken Mankoff was supported by the NASA Modeling, Analysis and Prediction program. Alex Gardner and Chad Greene contributions were carried out at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration (80NM0018D0004).
 
 People: We thank Andreas Ahlstrøm and Nanna Karlsson for additional comments on this paper, and Kristin Poinar for suggesting improvements to the Sankey figure. We thank Aman KC and two additional reviewers for their comments that helped improved the manuscript.
 
