@@ -1,6 +1,6 @@
 
 #+BEGIN_EXPORT LaTeX
-\title[Ice sheet mass flows]{Ice sheet mass flows}
+\title[Ice sheet mass flow]{Ice sheet mass flow and balance with constituent terms 2010-2019}
 
 \author[Mankoff and others]
 {Kenneth D. MANKOFF$^{1,2}$,
