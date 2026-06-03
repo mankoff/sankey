@@ -588,7 +588,7 @@ In comparison, estimated net grounded ice mass loss by the GMB method is 226 \pm
 | Antarctica |          -190 \pm60 | -260 \pm80\phantom{0} |           -450 \pm140 |  60 |   -151 \pm45 |   30 |
 | East       |            80 \pm90 |           190  \pm220 |            270 \pm310 |  60 |     35 \pm40 |  115 |
 | West       |          -250 \pm25 | -275 \pm30\phantom{0} | -525 \pm55\phantom{0} |  70 |   -165 \pm15 |   10 |
-| Peninsula  | -20 \pm5\phantom{0} | -175 \pm60\phantom{0} | -15  \pm65\phantom{0} |  50 |    -21 \pm10 |   35 |
+| Peninsula  | -20 \pm5\phantom{0} | -175 \pm60\phantom{0} | -195 \pm65\phantom{0} |  50 |    -21 \pm10 |   35 |
 
 * Discussion
 
